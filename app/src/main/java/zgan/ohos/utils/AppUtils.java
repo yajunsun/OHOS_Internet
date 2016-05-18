@@ -47,6 +47,18 @@ public class AppUtils {
         }
         return null;
     }
+    public static int getVersionCode(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(
+                    context.getPackageName(), 0);
+            return packageInfo.versionCode;
+
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 1;
+    }
 
     public static Point getWindowSize(Context context) {
         DisplayMetrics metric = new DisplayMetrics();
