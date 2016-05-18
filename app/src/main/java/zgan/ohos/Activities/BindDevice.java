@@ -30,33 +30,40 @@ public class BindDevice extends myBaseActivity {
     ViewStub unbindshow;
     boolean showcancel = false;
     TextView txtsid;
+    String Phone = "", Pwd = "";
 
     @Override
     protected void initView() {
         Intent intent = getIntent();
         showcancel = intent.getBooleanExtra("showcancel", false);
-        setContentView(R.layout.activity_bind_device);
-        if (PreferenceUtil.getSID().equals("0")) {
+        //获取从登陆或注册页面传过来的用户名和密码
+        if (intent.hasExtra("username")) {
+            Phone = intent.getStringExtra("username");
+            Pwd = intent.getStringExtra("pwd");
+
+            setContentView(R.layout.activity_bind_device);
+            //if (PreferenceUtil.getSID().equals("0")) {
             unbindshow = (ViewStub) findViewById(R.id.unbindshow);
             unbindshow.inflate();
             til_input = (TextInputLayout) findViewById(R.id.til_input);
             et_input = (EditText) findViewById(R.id.et_input);
             btn_cancel = (Button) findViewById(R.id.btn_cancel);
             //btn_cancel.setVisibility(showcancel ? View.VISIBLE : View.GONE);
-        } else {
-            bindedshow = (ViewStub) findViewById(R.id.bindedshow);
-            bindedshow.inflate();
-            txtsid = (TextView) findViewById(R.id.txt_deviceSid);
-            txtsid.setText(PreferenceUtil.getSID());
-        }
+//            } else {
+//                bindedshow = (ViewStub) findViewById(R.id.bindedshow);
+//                bindedshow.inflate();
+//                txtsid = (TextView) findViewById(R.id.txt_deviceSid);
+//                txtsid.setText(PreferenceUtil.getSID());
+//            }
 
-        View back = findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+            View back = findViewById(R.id.back);
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
     }
 
     @Override
@@ -74,7 +81,7 @@ public class BindDevice extends myBaseActivity {
                     til_input.setErrorEnabled(false);
                     toSetProgressText("请稍等，正在绑定中");
                     toShowProgress();
-                    ZganLoginService.toGetServerData(4, 0, String.format("%s\t%s", PreferenceUtil.getUserName(), SID), handler);
+                    ZganLoginService.toGetServerData(4, 0, String.format("%s\t%s", Phone, SID), handler);
                 }
                 break;
             case R.id.btn_cancel:
@@ -99,6 +106,8 @@ public class BindDevice extends myBaseActivity {
                     if (results[0].equals("0")) {
                         SystemUtils.setIsLogin(true);
                         SystemUtils.setIsCommunityLogin(true);
+                        PreferenceUtil.setUserName(Phone);
+                        PreferenceUtil.setPassWord(Pwd);
                         generalhelper.ToastShow(BindDevice.this, "绑定室内机成功");
                         startActivityWithAnim(new Intent(BindDevice.this, MainActivity.class));
                         finish();
@@ -106,7 +115,7 @@ public class BindDevice extends myBaseActivity {
                 }
                 if (f.subCmd == 4) {
                     if (result.equals("0")) {
-                        ZganLoginService.toGetServerData(3, 0, String.format("%s", PreferenceUtil.getUserName()), handler);
+                        ZganLoginService.toGetServerData(3, 0, String.format("%s", Phone), handler);
                         PreferenceUtil.setSID(SID);
                     } else {
                         generalhelper.ToastShow(BindDevice.this, "绑定室内机失败");
@@ -119,7 +128,7 @@ public class BindDevice extends myBaseActivity {
                         PreferenceUtil.setCommunityPORT(Integer.parseInt(results[2]));
                         ZganCommunityService.CommunityIp = NetUtils.getIp(results[1]);
                         ZganCommunityService.CommunityPort = Integer.parseInt(results[2]);
-                        ZganCommunityService.toAutoUserLogin(handler);//.toGetServerData(1,"",handler);
+                        ZganCommunityService.toUserLogin(Phone, Pwd, handler);//.toGetServerData(1,"",handler);
                         //ZganCommunityService.startCommunityService(BindDevice.this);
                         //}
                     }

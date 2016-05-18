@@ -265,12 +265,15 @@ public class MainActivity extends myBaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent=new Intent(MainActivity.this, ZganLoginService.class);
+            Intent intent = new Intent(MainActivity.this, ZganLoginService.class);
             stopService(intent);
             Log.v(TAG, "service stoped,activity destroied");
+            AppUtils.exits();
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);
+            return true;
         }
-        return false;
+        return super.onKeyDown(keyCode, event);
     }
+
 }

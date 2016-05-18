@@ -136,13 +136,15 @@ public class Register extends myBaseActivity {
                 Frame frame = (Frame) msg.obj;
                 String result = generalhelper.getSocketeStringResult(frame.strData);
                 if (frame.subCmd == 2 && result.equals("0")) {
-                    setResult(resultCodes.LOGIN);
-                    SystemUtils.setIsLogin(true);
-                    PreferenceUtil.setUserName(Phone);
-                    PreferenceUtil.setPassWord(Pwd);
+//                    setResult(resultCodes.LOGIN);
+//                    SystemUtils.setIsLogin(true);
+//                    PreferenceUtil.setUserName(Phone);
+//                    PreferenceUtil.setPassWord(Pwd);
                     //PreferenceUtil.setCommunityId(String.valueOf(communityId));
                     Log.v(TAG, "注册成功");
                     Intent intent = new Intent(Register.this, BindDevice.class);
+                    intent.putExtra("username",Phone);
+                    intent.putExtra("pwd",Pwd);
                     intent.putExtra("showcancel", true);
                     startActivityWithAnim(intent);
                     toCloseProgress();

@@ -174,7 +174,8 @@ public class ZganCommunityService extends Service {
     /**
      * 用户登录
      */
-    public static void toUserLogin(String strUName, String strPwd, String strImei, Handler _handler) {
+    public static void toUserLogin(String strUName, String strPwd, Handler _handler) {
+        String strImei = LocationUtil.getDrivenToken(MyApplication.context, strUName);
         Log.v(TAG, "ZganCommunityService log in");
         Frame f = createFrame();
         f.subCmd = 1;
@@ -195,8 +196,7 @@ public class ZganCommunityService extends Service {
         Log.v(TAG, "toAutoUserLogin");
         if (!TextUtils.isEmpty(strUserName) && !TextUtils.isEmpty(strPwd)) {
             try {
-                String strImei = LocationUtil.getDrivenToken(MyApplication.context, strUserName);
-                toUserLogin(strUserName, strPwd, strImei, _handler);
+                toUserLogin(strUserName, strPwd, _handler);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();

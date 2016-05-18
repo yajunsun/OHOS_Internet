@@ -13,6 +13,7 @@ import zgan.ohos.MyApplication;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.services.login.ZganLoginService;
+import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.LocationUtil;
 import zgan.ohos.utils.NetUtils;
@@ -32,6 +33,7 @@ public class Login extends myBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtils.iniLoginActivity(this);
     }
 
 
@@ -91,7 +93,7 @@ public class Login extends myBaseActivity {
                 //Intent intent = new Intent(Login.this, UserCommSelect.class);
                 Intent intent = new Intent(Login.this, Register.class);
                 startActivityWithAnim(intent);
-                finish();
+                //finish();
                 break;
         }
     }
@@ -106,9 +108,6 @@ public class Login extends myBaseActivity {
                 String[] results = result.split(",");
                 if (frame.subCmd == 1) {
                     if (result.equals("0")) {
-                        PreferenceUtil.setUserName(PhoneNum);
-                        PreferenceUtil.setPassWord(et_pwd.getText().toString().trim());
-                        SystemUtils.setIsLogin(true);
                         ZganLoginService.toGetServerData(3, 0, PhoneNum, handler);
                         til_Phone.setErrorEnabled(false);
                         til_pwd.setErrorEnabled(false);
@@ -133,11 +132,15 @@ public class Login extends myBaseActivity {
                         }
                         ZganCommunityService.CommunityIp = communityIP;
                         ZganCommunityService.CommunityPort = communityPort;
-                        ZganCommunityService.toAutoUserLogin(communityHandler);
-                    } else {
-                        Intent returnintent = new Intent(Login.this, MainActivity.class);
-                        startActivityWithAnim(returnintent);
-                        finish();
+                        ZganCommunityService.toUserLogin(PhoneNum,et_pwd.getText().toString().trim(), communityHandler);
+                    }
+                    else {
+                        Intent intent = new Intent(Login.this, BindDevice.class);
+                        intent.putExtra("username",PhoneNum);
+                        intent.putExtra("pwd",et_pwd.getText().toString().trim());
+                        intent.putExtra("showcancel", true);
+                        startActivityWithAnim(intent);
+                        //finish();
                     }
                 }
                 toCloseProgress();
@@ -155,14 +158,15 @@ public class Login extends myBaseActivity {
                 String[] results = result.split(",");
                 if (frame.subCmd == 1) {
                     if (result.equals("0")) {
+                        SystemUtils.setIsLogin(true);
                         SystemUtils.setIsCommunityLogin(true);
-                        ZganCommunityService.toGetServerData(28, 0, PreferenceUtil.getUserName(), communityHandler);
-                        logined();
-
+                        ZganLoginService.toGetServerData(28, 0, PhoneNum, communityHandler);
                     }
                 } else if (frame.subCmd == 28 && results[0].equals("0")) {
-                    if (results.length == 2)
+                    if (results.length == 2) {
                         PreferenceUtil.setSID(results[1]);
+                        logined();
+                    }
                     finish();
                 }
             }

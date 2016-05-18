@@ -1,5 +1,6 @@
 package zgan.ohos.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -61,21 +62,26 @@ public class AppUtils {
         return context.getResources().getDisplayMetrics().density;
     }
 
-    public static <T extends BaseModel> List<T> parseXMLtoList(List<String> field,String xmlString)
-    {
+    public static <T extends BaseModel> List<T> parseXMLtoList(List<String> field, String xmlString) {
 
         return null;
     }
 
-    private static MainActivity mainActivity;
+    private static Activity mainActivity;
+    private static Activity loginActivity;
 
-    public static void iniMainActivity(MainActivity _main)
-    {
-        mainActivity=_main;
+    public static void iniLoginActivity(Activity _login) {
+        loginActivity = _login;
     }
-    public static void exits()
-    {
-        if (mainActivity!=null)
+
+    public static void iniMainActivity(Activity _main) {
+        mainActivity = _main;
+        if (loginActivity != null)
+            loginActivity.finish();
+    }
+
+    public static void exits() {
+        if (mainActivity != null)
             mainActivity.finish();
     }
 }

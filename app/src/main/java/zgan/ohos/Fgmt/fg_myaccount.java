@@ -182,6 +182,9 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
             case R.id.rl_logout:
                 PreferenceUtil.setUserName("");
                 PreferenceUtil.setPassWord("");
+                PreferenceUtil.setCommunityIP("");
+                PreferenceUtil.setCommunityPORT(0);
+                PreferenceUtil.setSID("0");
                 SystemUtils.setIsLogin(false);
                 SystemUtils.setIsCommunityLogin(false);
                 intent = new Intent(getActivity(), Login.class);
