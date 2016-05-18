@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_sample"
+        android:layout_width="@dimen/item_grd_sample_size"
+        android:layout_height="@dimen/item_grd_sample_size"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/txt_event_rule"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textSize="@dimen/item_content_text_size" />
+
+    <TextView
+        android:id="@+id/txt_event_time"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/item_evaluation_text_size" />
+
+</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_event_grd_item.xml -->

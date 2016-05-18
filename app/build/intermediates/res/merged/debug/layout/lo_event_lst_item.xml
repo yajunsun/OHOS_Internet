@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/iv_sample"
+        android:layout_width="@dimen/item_lst_sample_size"
+        android:layout_height="@dimen/item_lst_sample_size"
+        android:layout_marginLeft="10dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/txt_event_time"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_sample"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/iv_sample"
+        android:textSize="@dimen/item_evaluation_text_size" />
+
+    <TextView
+        android:id="@+id/txt_event_rule"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/txt_event_time"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/iv_sample"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textSize="@dimen/item_content_text_size" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/iv_sample"
+        android:background="@color/icon_base_color"></LinearLayout>
+</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_event_lst_item.xml -->

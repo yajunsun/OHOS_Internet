@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="rebound-0.3.6">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.rebound/rebound/0.3.6/d6e00af70407742e97f3f378f9b0382be8130ab7/rebound-0.3.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.rebound/rebound/0.3.6/623e37412d0b5ca1a024ae57e67aad197d6717a8/rebound-0.3.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

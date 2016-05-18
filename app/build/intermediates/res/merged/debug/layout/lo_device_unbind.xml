@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/ll_input"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp">
+
+            <EditText
+                android:id="@+id/et_input"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/edittext_height"
+                android:gravity="top"
+                android:hint="请输入设备号" />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:layout_below="@id/til_input"
+            android:id="@+id/l1"
+            android:background="@color/icon_base_color" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/l1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="设备号获取：室内机>设置>设备信息>设备号" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_bind"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_below="@id/ll_input"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_done"
+        android:onClick="ViewClick"
+        android:text="绑定"
+        android:textColor="@color/color_txt_toobar"
+        android:textSize="@dimen/toolbar_title_size" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_below="@id/btn_bind"
+        android:visibility="gone"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_done"
+        android:onClick="ViewClick"
+        android:text="下次再说"
+        android:textColor="@color/color_txt_toobar"
+        android:textSize="@dimen/toolbar_title_size" />
+</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_device_unbind.xml -->

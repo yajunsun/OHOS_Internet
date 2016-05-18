@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="zgan.ohos.Activities.CommitOrder">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@color/color_bg_toolbar"
+        android:elevation="4dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="left">
+
+            <LinearLayout
+                android:id="@+id/back"
+                style="?android:actionButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/back_icon_left_margin"
+                android:clickable="true">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:layout_width="@dimen/back_icon_size"
+                    android:layout_height="@dimen/back_icon_size"
+                    app:iiv_color="@color/color_txt_toobar"
+                    app:iiv_icon="gmd-chevron-left" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text=" 提交订单"
+                android:textColor="@color/color_txt_toobar"
+                android:textSize="@dimen/toolbar_title_size" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <include
+        android:id="@+id/check"
+        layout="@layout/lo_goods_check"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/check"
+        android:layout_below="@id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/lordernum"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/txt_ordernum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/CommitOrder_txt_ordernum"
+                    android:textColor="@color/solid_black"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:id="@+id/txt_shipingstatus"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:textSize="@dimen/CommitOrder_txt_ordernum"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/primary"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical|right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l1"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/lordernum"
+                android:background="@color/myaccount_icon"
+                android:orientation="horizontal" />
+
+            <LinearLayout
+                android:id="@+id/laddress"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@id/l1"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <!--<TextView-->
+                <!--android:id="@+id/txt_householder"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+                <TextView
+                    android:id="@+id/txt_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/front_text_size"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/txt_addr"
+                    android:layout_width="match_parent"
+                    android:textSize="@dimen/front_text_size"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_goods"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/laddress">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+            <RelativeLayout
+                android:id="@+id/lpaytype"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/CommitOrder_paytype_height"
+                android:layout_below="@id/rv_goods"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/txt1"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/solid_black"
+                    android:textSize="14sp"
+                    android:layout_height="wrap_content"
+                    android:text="支付方式" />
+
+                <LinearLayout
+                    android:id="@+id/lpaytypes"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/txt1"
+                    android:orientation="horizontal">
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/l2"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/lpaytype"
+                android:background="@color/myaccount_icon"
+                android:orientation="horizontal" />
+
+
+            <RelativeLayout
+                android:id="@+id/lshippingtime"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/CommitOrder_shipping_height"
+                android:layout_below="@id/l2"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/btnshippingimediatly"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_rect_border"
+                    android:clickable="true"
+                    android:textSize="@dimen/front_text_size"
+                    android:gravity="center"
+                    android:textColor="@color/primary"
+                    android:text="立即上门"
+                    android:textIsSelectable="true" />
+
+                <TextView
+                    android:id="@+id/btnshippingdelay"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="@dimen/front_text_size"
+                    android:layout_toRightOf="@id/btnshippingimediatly"
+                    android:background="@drawable/bg_rect_border"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="选择时间"
+                    android:textIsSelectable="false" />
+
+                <TextView
+                    android:id="@+id/txtshippingtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textSize="@dimen/front_text_size"
+                    android:textColor="@color/solid_black"
+                    android:layout_below="@id/btnshippingimediatly"
+                    android:text="上门时间" />
+
+                <TextView
+                    android:id="@+id/txt_besttime"
+                    android:textColor="@color/solid_black"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textSize="@dimen/front_text_size"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtshippingtime"
+                     />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:id="@+id/ivshippingdelay"
+                    android:clickable="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/calender"
+                    android:layout_height="30dp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/l3"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/lshippingtime"
+                android:background="@color/myaccount_icon"
+                android:orientation="horizontal" />
+
+            <LinearLayout
+                android:id="@+id/lpaymount"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/l3"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="待付款"
+                    android:textSize="@dimen/CommitOrder_txt_ordernum" />
+
+                <TextView
+                    android:id="@+id/txt_payfee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="￥300"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/CommitOrder_txt_ordernum" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
+<!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/activity_commit_order.xml -->

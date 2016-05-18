@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_option"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/navigation_bg_color"
+        android:elevation="4dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_main_option_padding">
+
+        <LinearLayout
+            android:id="@+id/ll_front"
+            style="?android:attr/actionButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="ViewClick"
+            android:orientation="vertical">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/iv_front"
+                android:layout_width="@dimen/navigation_icon_size"
+                android:layout_height="@dimen/navigation_icon_size"
+                android:src="@drawable/shouye" />
+
+            <TextView
+                android:id="@+id/txt_front"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_front"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/navigation_txt_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_order"
+            style="?android:attr/actionButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="ViewClick"
+            android:orientation="vertical">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/iv_order"
+                android:layout_width="@dimen/navigation_icon_size"
+                android:layout_height="@dimen/navigation_icon_size"
+                android:src="@drawable/guajia1" />
+
+            <TextView
+                android:id="@+id/txt_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单"
+                android:textColor="@color/navigation_txt_color"
+                android:textSize="@dimen/navigation_txt_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_account"
+            style="?android:attr/actionButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="ViewClick"
+            android:orientation="vertical">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/iv_account"
+                android:layout_width="@dimen/navigation_icon_size"
+                android:layout_height="@dimen/navigation_icon_size"
+               android:src="@drawable/wo1" />
+
+            <TextView
+                android:id="@+id/txt_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_mine"
+                android:textColor="@color/navigation_txt_color"
+                android:textSize="@dimen/navigation_txt_size" />
+        </LinearLayout>
+    </LinearLayout>
+    <include
+        layout="@layout/net_status_error"
+        android:layout_width="fill_parent"
+        android:id="@+id/lo_net_error"
+        android:layout_height="20dp"
+        android:layout_above="@+id/ll_option" />
+    <FrameLayout
+        android:id="@+id/content"
+        android:background="@drawable/background"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/lo_net_error" />
+
+</RelativeLayout>
+<!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/activity_main2.xml -->

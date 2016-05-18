@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/md_orange_200"
+    android:visibility="gone"
+    android:layout_height="20dp">
+<TextView
+    android:layout_gravity="center"
+    android:layout_width="wrap_content"
+    android:id="@+id/txt_net_error"
+    android:textSize="12sp"
+    android:textColor="@color/md_white_1000"
+    android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,0 +1,96 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">8dp</dimen>
+    <dimen name="activity_main_option_padding">3dp</dimen>
+    <dimen name="activity_main_option_margin">10dp</dimen>
+    <dimen name="toolbar_height">55dp</dimen>
+    <dimen name="mine_bg_height">50dp</dimen>
+    <dimen name="content_toolbar_margin">5dp</dimen>
+    <dimen name="toolbar_title_size">20sp</dimen>
+    <dimen name="toolbar_option_size">10sp</dimen>
+    <dimen name="order_sheet_height">80dp</dimen>
+    <dimen name="order_text_size">9sp</dimen>
+    <dimen name="item_content_text_size">14sp</dimen>
+    <dimen name="item_evaluation_text_size">8sp</dimen>
+    <dimen name="item_lst_sample_size">80dp</dimen>
+    <dimen name="item_grd_sample_size">100dp</dimen>
+    <dimen name="navigation_height">60dp</dimen>
+    <dimen name="navigation_icon_size">25dp</dimen>
+    <dimen name="navigation_txt_size">12sp</dimen>
+    <dimen name="back_icon_size">20dp</dimen>
+    <dimen name="back_icon_left_margin">-20dp</dimen>
+    <dimen name="edittext_height">60dp</dimen>
+    <dimen name="front_ads_height">180dp</dimen>
+    <!-- 個人中心-->
+    <dimen name="myaccount_txt_size">15sp</dimen>
+    <!--我的订单-->
+    <dimen name="myorder_statusbar_height">30dp</dimen>
+    <dimen name="myorder_statustxt_size">14sp</dimen>
+    <!-- 個人中心頭像背景區域高度-->
+    <dimen name="myaccount_header_Height">160dp</dimen>
+    <dimen name="header_size">80dp</dimen>
+    <dimen name="out_lo_header_size">88dp</dimen>
+    <!--一家一店内容首页-->
+    <dimen name="iv_ads_height">250dp</dimen>
+    <!--商品列表-->
+    <dimen name="products_item_name_size">16sp</dimen>
+    <dimen name="products_item_price_size">20sp</dimen>
+    <!--物业服务-->
+    <dimen name="househ_root_layout_padding">20dp</dimen>
+    <dimen name="househ_option_back_layout_size">80dp</dimen>
+    <dimen name="househ_option_back_layout_margin">5dp</dimen>
+    <dimen name="househ_option_icon_size">35dp</dimen>
+    <dimen name="househ_option_text_margin_top">2dp</dimen>
+    <dimen name="househ_option_text_size">12sp</dimen>
+
+
+    <!--首页-->
+    <dimen name="txt_xiaoqu_size">14sp</dimen>
+    <dimen name="txt_xiaoqu_margin_left">5dp</dimen>
+    <dimen name="iv_message_margin_right">15dp</dimen>
+    <dimen name="shishiwuye_ll_height">50dp</dimen>
+    <dimen name="shishiwuye_txt_margin_left">3dp</dimen>
+    <dimen name="shishiwuye_big_txt_size">15sp</dimen>
+    <dimen name="shishiwuye_sm_txt_size">10sp</dimen>
+    <dimen name="bjgn_remoteopen_ll_height">50dp</dimen>
+    <dimen name="bjgn_remoteopen_iv_size">30dp</dimen>
+    <dimen name="bjgn_txt_yckm1_margin_left">50dp</dimen>
+    <dimen name="bjgn_call_ll_height">60dp</dimen>
+    <dimen name="bjgn_yjhu0_height">60dp</dimen>
+    <dimen name="bjgn_call_iv_size">30dp</dimen>
+    <dimen name="bjgn_call_iv_margin_left">15dp</dimen>
+    <dimen name="tsgn_ll_height">62dp</dimen>
+    <dimen name="tsgn_txt_margin_top">-20dp</dimen>
+    <dimen name="tsgn_txt_size">12sp</dimen>
+
+    <dimen name="front_base_func_layout_height">100dp</dimen>
+    <dimen name="front_base_func_text_size">12sp</dimen>
+    <dimen name="front_base_func_text_margin_top">0dp</dimen>
+    <dimen name="front_msg_func_textsize">20sp</dimen>
+    <dimen name="front_base_func_icon_size">40dp</dimen>
+    <dimen name="front_eventaction_layout_margin_top">-15dp</dimen>
+    <dimen name="item_margin_top">-15dp</dimen>
+    <dimen name="front_msg_layout_height">220dp</dimen>
+    <dimen name="front_msg_xqgg_img_size">120dp</dimen>
+    <dimen name="front_msg_text_margin">5dp</dimen>
+    <dimen name="adv_pager_height">123dp</dimen>
+    <dimen name="front_text_size">13sp</dimen>
+
+    <dimen name="login_logo_margintop">60dp</dimen>
+    <dimen name="login_logo_size">150dp</dimen>
+
+    <dimen name="img_hot_width">20dp</dimen>
+    <dimen name="img_hot_height">10dp</dimen>
+
+    <dimen name="CommitOrder_txt_ordernum">14sp</dimen>
+    <dimen name="CommitOrder_paytype_height">80sp</dimen>
+    <dimen name="CommitOrder_shipping_height">120dp</dimen>
+    <dimen name="CommitOrder_dialog_txt1">18sp</dimen>
+    <dimen name="CommitOrder_dialog_txt2">14sp</dimen>
+    <dimen name="CommitOrder_dialog_txt3">15sp</dimen>
+    <dimen name="CommitOrder_dialog_img_size">60dp</dimen>
+    <!--高端特供、土特产-->
+    <dimen name="HightQualityDetail_preview_height">300dp</dimen>
+    <dimen name="HightQualityDetail_imgdesc_height">300dp</dimen>
+</resources>

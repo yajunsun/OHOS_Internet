@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.mikepenz.iconics.view.IconicsImageView
+        android:id="@+id/iv_remove"
+        android:background="@drawable/bg_black_rectangle_border"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:clickable="true"
+        app:iiv_color="@color/solid_black"
+        app:iiv_icon="gmd-remove" />
+    <EditText
+        android:layout_width="30dp"
+        android:background="@drawable/bg_black_rectangle_border"
+        android:id="@+id/ed_input"
+        android:gravity="center"
+        android:layout_marginLeft="-1px"
+        android:inputType="number"
+        android:layout_height="20dp" />
+
+    <com.mikepenz.iconics.view.IconicsImageView
+        android:id="@+id/iv_add"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/bg_black_rectangle_border"
+        android:clickable="true"
+        android:layout_marginLeft="-1px"
+        app:iiv_color="@color/solid_black"
+        app:iiv_icon="gmd-add" />
+</LinearLayout>

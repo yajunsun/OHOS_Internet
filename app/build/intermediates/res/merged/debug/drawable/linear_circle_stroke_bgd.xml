@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <stroke android:width="5dp" android:color="@color/primary" />
+        </shape>
+    </item>
+</selector><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/drawable/linear_circle_stroke_bgd.xml -->

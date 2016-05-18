@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="zgan.ohos.Activities.SMSValidationStep1">
+    <android.support.v7.widget.Toolbar
+
+        android:id="@+id/toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/color_bg_toolbar"
+        android:elevation="4dp"
+        android:fitsSystemWindows="true"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:id="@+id/back"
+                style="?android:actionButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/back_icon_left_margin"
+                android:clickable="true">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:layout_width="@dimen/back_icon_size"
+                    android:layout_height="@dimen/back_icon_size"
+                    app:iiv_color="@color/color_txt_toobar"
+                    app:iiv_icon="gmd-chevron-left" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="短信验证"
+                android:textColor="@color/color_txt_toobar"
+                android:textSize="@dimen/toolbar_title_size" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/linput"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            >
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="200dp"
+                android:layout_height="@dimen/edittext_height"
+                android:hint="请输入您的手机号码" />
+        </android.support.design.widget.TextInputLayout>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_ensure"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/linput"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:textColor="@color/solid_white"
+        android:background="@drawable/login_done"
+        android:onClick="ViewClick"
+        android:text="下一步" />
+</RelativeLayout>
+<!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/activity_smsvalidation_step1.xml -->

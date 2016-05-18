@@ -1,0 +1,7 @@
+<resources>
+    <!--首页-->
+    <string name="xiaoquming">金易•伯爵世家</string>
+    <string name="adv_pager_height_num">60</string>
+    <!--个人中心-->
+    <string name="myaccount_header_Height">105</string>
+</resources>

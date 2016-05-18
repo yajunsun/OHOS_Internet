@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/mikepenz/Drive/Development/AndroidLibraries/Android-Iconics/fontawesome-typeface-library/src/main/res/values/font_fontawesome.xml -->
+    <eat-comment/>
+    <string name="define_font_fontawesome">com.mikepenz.fontawesome_typeface_library.FontAwesome</string>
+</resources>

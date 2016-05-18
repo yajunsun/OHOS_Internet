@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_height="match_parent">
+<TextView
+    android:id="@+id/txt_title"
+    android:layout_width="match_parent"
+    android:text="请输入留言"
+    android:textSize="18sp"
+    android:layout_height="wrap_content" />
+
+    <EditText
+        android:gravity="top|left"
+        android:id="@+id/et_input"
+        android:layout_below="@id/txt_title"
+        android:background="@null"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    <LinearLayout
+        android:padding="5dp"
+        android:layout_below="@id/et_input"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="match_parent" android:layout_weight="1"
+            android:text="提交"
+            android:background="@drawable/login_done"
+            android:layout_marginRight="5dp"
+            android:id="@+id/btn_commit"
+            android:layout_height="40dp" />
+        <Button
+            android:layout_width="match_parent" android:layout_weight="1"
+            android:background="@drawable/login_done"
+            android:text="取消"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/btn_cancel"
+            android:layout_height="40dp" />
+    </LinearLayout>
+</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_commit_message.xml -->

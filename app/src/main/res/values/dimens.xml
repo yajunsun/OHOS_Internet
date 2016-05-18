@@ -1,0 +1,44 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_main_option_padding">5dp</dimen>
+    <dimen name="activity_main_option_margin">20dp</dimen>
+    <dimen name="toolbar_height">80dp</dimen>
+    <dimen name="mine_bg_height">100dp</dimen>
+    <dimen name="content_toolbar_margin">10dp</dimen>
+    <dimen name="toolbar_title_size">20sp</dimen>
+    <dimen name="toolbar_option_size">20sp</dimen>
+    <dimen name="order_sheet_height">160dp</dimen>
+    <dimen name="order_text_size">18sp</dimen>
+    <dimen name="item_content_text_size">16sp</dimen>
+    <dimen name="item_evaluation_text_size">12sp</dimen>
+    <dimen name="item_lst_sample_size">100dp</dimen>
+    <dimen name="item_grd_sample_size">140dp</dimen>
+    <dimen name="navigation_height">60dp</dimen>
+    <dimen name="navigation_icon_size">30dp</dimen>
+    <dimen name="navigation_txt_size">15sp</dimen>
+    <dimen name="edittext_height">40dp</dimen>
+    <!-- 個人中心-->
+    <dimen name="myaccount_txt_size">20sp</dimen>
+    <!--我的订单-->
+    <dimen name="myorder_statusbar_height">50dp</dimen>
+    <dimen name="myorder_statustxt_size">17sp</dimen>
+    <!-- 個人中心頭像背景區域高度-->
+    <dimen name="myaccount_header_Height">200dp</dimen>
+    <dimen name="header_size">100dp</dimen>
+    <!--物业服务-->
+    <dimen name="househ_root_layout_padding">50dp</dimen>
+    <dimen name="househ_option_back_layout_size">100dp</dimen>
+    <dimen name="househ_option_back_layout_margin">20dp</dimen>
+    <dimen name="househ_option_icon_size">80dp</dimen>
+    <dimen name="househ_option_text_margin_top">3dp</dimen>
+    <dimen name="househ_option_text_size">18sp</dimen>
+
+    <dimen name="img_hot_width">20dp</dimen>
+    <dimen name="img_hot_height">10dp</dimen>
+
+    <dimen name="CommitOrder_txt_ordernum">16sp</dimen>
+    <dimen name="front_ads_height">200dp</dimen>
+
+</resources>

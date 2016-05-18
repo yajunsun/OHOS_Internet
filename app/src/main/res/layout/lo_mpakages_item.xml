@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:padding="10dp"
+    android:layout_below="@id/toolbar">
+
+    <ImageView
+        android:id="@+id/iv_preview"
+        android:layout_width="120dp"
+        android:layout_height="120dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_pname"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txt_porder"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="订单号：2016040800008" />
+
+        <TextView
+            android:id="@+id/txt_pordertime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="下单时间：2016-04-08 12:15:23" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/txt_ptotal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="总计：20件" />
+            <TextView
+                android:id="@+id/txt_pused"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="已使用：11件" />
+            <TextView
+                android:id="@+id/txt_pleft"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="剩余：9件" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

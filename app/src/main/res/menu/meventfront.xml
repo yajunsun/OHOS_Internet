@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
+        <item
+            android:id="@+id/m_more"
+            android:title="进行中的活动"
+            app:showAsAction="never" />
+        <item android:id="@+id/m_pre"
+            app:showAsAction="never"
+            android:title="活动预告"
+            />
+    </group>
+</menu>

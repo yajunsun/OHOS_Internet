@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--手工蛋糕的数量框大小-->
+    <integer name="cake_select_count_size">50</integer>
+    <!--蔬菜的数量框大小-->
+    <integer name="vegetable_select_count_size">50</integer>
+    <!--超市购每张图片的高度-->
+    <integer name="supermarket_img_height">300</integer>
+</resources>

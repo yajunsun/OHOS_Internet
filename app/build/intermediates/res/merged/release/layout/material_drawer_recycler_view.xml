@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical" /><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/res/layout/material_drawer_recycler_view.xml -->

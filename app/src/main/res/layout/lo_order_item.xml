@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/solid_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/txt_ordernum"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/solid_black"
+            android:gravity="center_vertical"
+            android:text="订单号："
+            android:textSize="@dimen/CommitOrder_txt_ordernum" />
+
+        <TextView
+            android:id="@+id/txt_shippingstatus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="right|center_vertical"
+            android:text="未收货"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/CommitOrder_txt_ordernum" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/rv_goods"
+        android:layout_height="130dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="right"
+        android:paddingRight="15dp"
+        android:layout_height="60dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/CommitOrder_txt_ordernum"
+            android:id="@+id/txt_count"
+            android:text="共1件商品"
+            android:textColor="@color/solid_black"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/CommitOrder_txt_ordernum"
+            android:textColor="@color/solid_black"
+            android:id="@+id/txt_payfee"
+            android:text="合计：￥300"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical|right"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:background="@drawable/bg_rect_border"
+        android:paddingBottom="5dp"
+        android:layout_height="60dp">
+        <Button
+            android:layout_width="100dp"
+            android:id="@+id/btn_deleteorder"
+            android:visibility="gone"
+            android:text="删除订单"
+            android:textSize="@dimen/CommitOrder_txt_ordernum"
+            android:background="@drawable/bg_rect_border"
+            android:layout_height="40dp" />
+        <Button
+            android:layout_width="100dp"
+            android:id="@+id/btn_checkshipping"
+            android:text="查看详情"
+            android:layout_marginLeft="15dp"
+            android:textSize="@dimen/CommitOrder_txt_ordernum"
+            android:background="@drawable/bg_rect_border"
+            android:layout_height="40dp" />
+        <Button
+            android:layout_width="100dp"
+            android:visibility="gone"
+            android:id="@+id/btn_payimmediatly"
+            android:text="立即付款"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/CommitOrder_txt_ordernum"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/bg_rect_border"
+            android:layout_height="40dp" />
+    </LinearLayout>
+</LinearLayout>

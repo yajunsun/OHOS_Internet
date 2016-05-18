@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/solid_white"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:id="@+id/iv1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/prebook_top" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:orientation="vertical"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/txt_servicetype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="服务类型"
+                android:layout_marginBottom="10dp"
+                android:textSize="@dimen/front_text_size" />
+
+            <TextView
+                android:id="@+id/txt_servicetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="上门时间"
+                android:textSize="@dimen/front_text_size" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivprebook_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/prebook_ok" />
+
+    <ImageView
+        android:id="@+id/ivprebook_no"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/prebook_no" />
+</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/dialog_prebook_layout.xml -->

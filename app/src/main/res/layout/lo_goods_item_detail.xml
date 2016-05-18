@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/color_bg_toolbar"
+        android:elevation="4dp">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/goods_item_detail_title_text"
+                android:textSize="@dimen/toolbar_title_size" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/goods_item_option"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_bg_toolbar"
+        android:elevation="4dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_custom_service"
+            style="?android:attr/actionButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="4"
+            android:clickable="true"
+            android:gravity="center_horizontal"
+            android:onClick="viewClick"
+            android:orientation="vertical">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/iv_custom_service"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:iiv_color="@color/md_white_1000"
+                app:iiv_icon="oct-bell" />
+
+            <TextView
+                android:id="@+id/txt_custom_service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_custom_service"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_attention"
+            style="?android:attr/actionButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="4"
+            android:clickable="true"
+            android:gravity="center_horizontal"
+            android:onClick="viewClick"
+            android:orientation="vertical">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/iv_attention"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:iiv_color="@color/md_white_1000"
+                app:iiv_icon="gmd-favorite" />
+
+            <TextView
+                android:id="@+id/txt_attention"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_attention"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_shopping_car"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="4"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="viewClick">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:id="@+id/iv_shopping_car"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:iiv_color="@android:color/white"
+                    app:iiv_icon="gmd-shopping-cart" />
+
+                <TextView
+                    android:id="@+id/txt_shopping_car"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_shopping_car"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+            <FrameLayout
+                android:id="@+id/badge_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:elevation="4dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false">
+
+                <!--<include layout="@layout/menu_badge" />-->
+            </FrameLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_add_2shopping_car"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="0dp"
+            android:layout_weight="3"
+            android:background="@color/md_red_900"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="viewClick"
+            android:orientation="vertical">
+
+            <TextView
+                style="?android:attr/actionButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加入购物车"
+                android:textSize="@dimen/order_text_size" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/goods_item_option"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="5dp"
+        android:clipToPadding="false"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:orientation="vertical">
+
+            <!-- ViewPager是一个控件 -->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/adv_pager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="240dp" />
+
+                <LinearLayout
+                    android:id="@+id/viewGroup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/adv_pager"
+                    android:layout_marginTop="-25px"
+                    android:gravity="right"
+                    android:orientation="horizontal" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/viewGroup"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <RelativeLayout
+                    android:id="@+id/goods_item_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/draw_clickable_text_bg"
+                    android:clickable="true"
+                    android:onClick="viewClick">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/item_content_text"
+                        android:textSize="@dimen/order_text_size" />
+
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:id="@+id/icon_clickable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        app:iiv_color="@color/color_sc_bg"
+                        app:iiv_icon="gmd_chevron_right"
+                        app:iiv_size="12dp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/item_description_addition"
+                    android:textColor="@color/md_red_900"
+                    android:textSize="@dimen/item_evaluation_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="￥359.00"
+                    android:textColor="@color/md_red_900"
+                    android:textSize="@dimen/item_content_text_size" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

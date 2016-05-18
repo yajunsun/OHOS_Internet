@@ -1,0 +1,5 @@
+<resources>
+    <string name="adv_pager_height_num">100</string>
+    <!--个人中心-->
+    <string name="myaccount_header_Height">190</string>
+</resources>

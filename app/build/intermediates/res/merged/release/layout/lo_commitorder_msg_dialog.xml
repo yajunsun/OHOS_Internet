@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_rect_border"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/txt_payresult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="订单支付成功"
+        android:textColor="@color/solid_black"
+        android:textSize="@dimen/CommitOrder_dialog_txt1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/txt_payresult"
+        android:layout_alignParentRight="true"
+        android:text="完成"
+        android:id="@+id/btn_complete"
+        android:textSize="@dimen/CommitOrder_dialog_txt2" />
+
+    <LinearLayout
+        android:id="@+id/l1"
+        android:layout_width="wrap_content"
+        android:layout_height="1px"
+        android:layout_below="@id/txt_payresult"
+        android:layout_marginTop="10dp"
+        android:background="@color/transparent80"
+        android:orientation="horizontal" />
+
+    <RelativeLayout
+        android:id="@+id/l2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/l1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="@dimen/CommitOrder_dialog_img_size"
+            android:layout_height="@dimen/CommitOrder_dialog_img_size"
+            android:src="@drawable/shequgonggao" />
+
+        <ImageView
+            android:id="@+id/iv_result"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignBottom="@id/iv"
+            android:layout_marginLeft="-30dp"
+            android:layout_toRightOf="@id/iv" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv"
+            android:layout_alignTop="@id/iv"
+            android:id="@+id/txt_payid"
+            android:textSize="@dimen/CommitOrder_dialog_txt2"
+            android:textColor="@color/primary"
+            android:layout_marginTop="15dp"
+            android:text="支付方式:：" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/txt_payfee"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv"
+            android:layout_alignBottom="@id/iv"
+            android:textSize="@dimen/CommitOrder_dialog_txt2"
+            android:textColor="@color/primary"
+            android:layout_marginBottom="15dp"
+            android:text="订单金额：" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/l3"
+        android:layout_width="wrap_content"
+        android:layout_height="2px"
+        android:layout_below="@id/l2"
+        android:layout_marginTop="10dp"
+        android:background="@color/solid_black"
+        android:orientation="horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="查看订单"
+        android:textSize="@dimen/CommitOrder_dialog_txt3"
+        android:layout_below="@id/l3"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/solid_black"
+        android:id="@+id/txt_toorder"
+        android:layout_height="wrap_content" />
+</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_commitorder_msg_dialog.xml -->

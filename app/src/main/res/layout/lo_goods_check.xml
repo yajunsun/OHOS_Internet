@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/solid_white">
+
+    <TextView
+        android:id="@+id/gdcount"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:textSize="@dimen/front_text_size"
+        android:text="商品：1" />
+
+    <TextView
+        android:id="@+id/totalpay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:textSize="@dimen/front_text_size"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/gdcount"
+        android:text="合计：125.00"
+        android:textColor="@color/primary_light" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/btncheck"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/login_done"
+        android:text="预定"
+        android:textSize="@dimen/front_text_size"
+        android:textColor="@color/color_txt_toobar" />
+</RelativeLayout>

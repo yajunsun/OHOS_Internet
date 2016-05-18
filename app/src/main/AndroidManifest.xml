@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="zgan.ohos">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!--<uses-permission android:name="android.permission.RESTART_PACKAGES" />-->
+    <!--<uses-permission android:name="android.permission.READ_LOGS" />-->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <!--<uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <!--<uses-permission android:name="android.permission.READ_CONTACTS" />-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--<uses-permission android:name="android.permission.CALL_PHONE" />-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@drawable/launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/myAppTheme">
+
+        <!-- <service android:name="com.bairuitech.bgservice.BackService"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.bairuitech.callcenter.backservice" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+        <receiver android:name=".Receivers.AppRegister">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".services.login.ZganLoginService" />
+        <service android:name=".services.community.ZganCommunityService" />
+
+        <receiver android:name=".Receivers.AuotOpenDoor">
+            <intent-filter>
+                <action android:name="android.net.wifi.RSSI_CHANGED" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".Activities.UserCommSelect" />
+        <activity android:name=".Activities.Login" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.Register" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activities.MessageActivity"
+            android:label="@string/news_option_name"  android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activities.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activities.RegisterStep1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.UpdatePassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GuideIndexActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.MessageDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.EventFrontPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.EventList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.EventPreCheck"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.GoodsItemDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.HouseHolderService"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="Page.1010" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.BindDevice" />
+        <activity android:name=".Activities.LeaveMessages" />
+        <activity
+            android:name=".Activities.ReplyMessages" android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".Activities.CakeList" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="Page.1003" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activities.CakeDetail"
+            android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait" />
+        <activity android:name=".Activities.HightQualityService" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="Page.1007" />
+                <action android:name="Page.1006" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.HightQualityDetail" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.VegetableMart" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="Page.1005" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activities.ProLaundry"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="Page.1008" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.SuperMarket" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="Page.1009" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.ElectricalMaintenance" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="Page.1011" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.CommitOrder" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.SMSValidationStep1" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.SMSValidationStep2" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.UpdatePassword2" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.MyPakages" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.OrderList" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.CallOut" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.bitmaptshow" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.AdvertiseDetail" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.OrderDetail" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".wxapi.WXPayEntryActivity" android:screenOrientation="portrait"
+            android:exported="true"
+            android:launchMode="singleTop" />
+        <activity android:name=".Activities.IcecreamList" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="Page.1021" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
