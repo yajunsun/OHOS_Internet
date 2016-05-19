@@ -13,22 +13,22 @@ import zgan.ohos.R;
  */
 public class myBaseFragment extends Fragment {
 
-    protected final static String TAG="suntest";
-    public void startActivityWithAnim(Activity activity, Intent intent)
-    {
-        if (Build.VERSION.SDK_INT > 20)
-            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
-        else {
-            startActivity(intent);
-            activity.overridePendingTransition(R.animator.enter, R.animator.exit);
-        }
+    protected final static String TAG = "suntest";
+
+    public void startActivityWithAnim(Activity activity, Intent intent) {
+//        if (Build.VERSION.SDK_INT > 20)
+//            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+//        else {
+        startActivity(intent);
+        activity.overridePendingTransition(R.animator.enter, R.animator.exit);
+        // }
     }
-    public void startActivityWithAnimForResult(Activity activity, Intent intent,int requestCode)
-    {
+
+    public void startActivityWithAnimForResult(Activity activity, Intent intent, int requestCode) {
         if (Build.VERSION.SDK_INT > 20)
             startActivityForResult(intent, requestCode, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
         else {
-            startActivityForResult(intent,requestCode);
+            startActivityForResult(intent, requestCode);
             activity.overridePendingTransition(R.animator.enter, R.animator.exit);
         }
     }

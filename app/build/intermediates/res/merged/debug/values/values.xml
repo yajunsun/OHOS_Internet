@@ -905,6 +905,9 @@
     <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/values/values.xml -->
     <eat-comment/>
     <integer name="design_snackbar_text_max_lines">2</integer>
+    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/integers.xml -->
+    <eat-comment/>
+    <integer name="front_item_marginTop">10</integer>
     <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
     <eat-comment/>
     <integer name="status_bar_notification_info_maxnum">999</integer>

@@ -24,7 +24,7 @@ public class SMSValidationStep2 extends myBaseActivity {
         tilcode = (TextInputLayout) findViewById(R.id.til_code);
         etcode = (EditText) findViewById(R.id.et_code);
         phone = getIntent().getStringExtra("phone");
-        txtphone.setText("我们已经发送验证短信至号码：+86 " + phone);
+        txtphone.setText("短信至号码：+86 " + phone);
         txtjishu.setText("60秒后可以重新获取");
     }
 

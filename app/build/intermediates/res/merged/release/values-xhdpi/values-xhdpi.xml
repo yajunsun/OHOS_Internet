@@ -32,7 +32,9 @@
     <dimen name="front_base_func_layout_height">100dp</dimen>
     <dimen name="front_base_func_text_margin_top">0dp</dimen>
     <dimen name="front_base_func_text_size">12sp</dimen>
+    <dimen name="front_bottom_item_height">120dp</dimen>
     <dimen name="front_eventaction_layout_margin_top">-15dp</dimen>
+    <dimen name="front_item_margin_top">10dp</dimen>
     <dimen name="front_msg_func_textsize">20sp</dimen>
     <dimen name="front_msg_layout_height">220dp</dimen>
     <dimen name="front_msg_text_margin">5dp</dimen>
@@ -58,7 +60,9 @@
     <dimen name="login_logo_size">150dp</dimen>
     <dimen name="mine_bg_height">50dp</dimen>
     <dimen name="myaccount_header_Height">160dp</dimen>
-    <dimen name="myaccount_txt_size">15sp</dimen>
+    <dimen name="myaccount_img_cr_height">20dp</dimen>
+    <dimen name="myaccount_img_cr_width">70dp</dimen>
+    <dimen name="myaccount_txt_size">14sp</dimen>
     <dimen name="myorder_statusbar_height">30dp</dimen>
     <dimen name="myorder_statustxt_size">14sp</dimen>
     <dimen name="navigation_height">60dp</dimen>
@@ -75,7 +79,7 @@
     <dimen name="shishiwuye_txt_margin_left">3dp</dimen>
     <dimen name="toolbar_height">55dp</dimen>
     <dimen name="toolbar_option_size">10sp</dimen>
-    <dimen name="toolbar_title_size">20sp</dimen>
+    <dimen name="toolbar_title_size">16sp</dimen>
     <dimen name="tsgn_ll_height">62dp</dimen>
     <dimen name="tsgn_txt_margin_top">-20dp</dimen>
     <dimen name="tsgn_txt_size">12sp</dimen>
@@ -84,6 +88,7 @@
     <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values-xhdpi/integers.xml -->
     <eat-comment/>
     <integer name="cake_select_count_size">30</integer>
+    <integer name="front_item_marginTop">10</integer>
     <integer name="supermarket_img_height">200</integer>
     <integer name="vegetable_select_count_size">30</integer>
     <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values-xhdpi/strings.xml -->

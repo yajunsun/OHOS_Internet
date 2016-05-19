@@ -100,8 +100,15 @@ public class fg_myorder extends Fragment implements View.OnClickListener {
         tunpay.setOnClickListener(this);
         tunget.setOnClickListener(this);
         tall.setTextColor(getResources().getColor(R.color.primary));
-        loadData();
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        pageindex = 1;
+        isLoadingMore = false;
+        loadData();
     }
 
     void initialOptions() {

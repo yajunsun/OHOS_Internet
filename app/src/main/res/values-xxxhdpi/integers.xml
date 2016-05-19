@@ -6,4 +6,6 @@
     <integer name="vegetable_select_count_size">80</integer>
     <!--超市购每张图片的高度-->
     <integer name="supermarket_img_height">500</integer>
+    <!--首页图片间距-->
+    <integer name="front_item_marginTop">10</integer>
 </resources>

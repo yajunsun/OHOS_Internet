@@ -21,7 +21,9 @@
     <dimen name="back_icon_left_margin">-18dp</dimen>
     <dimen name="edittext_height">40dp</dimen>
     <!-- 個人中心-->
-    <dimen name="myaccount_txt_size">20sp</dimen>
+    <dimen name="myaccount_txt_size">18sp</dimen>
+    <dimen name="myaccount_img_cr_width">90dp</dimen>
+    <dimen name="myaccount_img_cr_height">25dp</dimen>
     <!--我的订单-->
     <dimen name="myorder_statusbar_height">55dp</dimen>
     <dimen name="myorder_statustxt_size">18sp</dimen>
@@ -56,6 +58,8 @@
     <dimen name="front_shequicon_marginbotton">-35dp</dimen>
     <dimen name="front_ads_height">200dp</dimen>
     <dimen name="front_text_size">14sp</dimen>
+    <dimen name="front_item_margin_top">10dp</dimen>
+    <dimen name="front_bottom_item_height">140dp</dimen>
     <!--个人中心-->
     <dimen name="myaccount_txt_account_margin_top">5dp</dimen>
     <dimen name="myaccount_item_height">60dp</dimen>

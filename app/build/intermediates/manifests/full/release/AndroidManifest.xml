@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="zgan.ohos"
-    android:versionCode="1"
+    android:versionCode="2"
     android:versionName="1.3" >
 
     <uses-sdk
@@ -228,6 +228,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name="zgan.ohos.Activities.CreditsRule" />
+        <activity android:name="zgan.ohos.Activities.CreditsDetail" />
         <activity android:name="com.mikepenz.aboutlibraries.ui.LibsActivity" />
     </application>
 

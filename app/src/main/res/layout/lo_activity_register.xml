@@ -87,7 +87,7 @@
                     android:layout_height="@dimen/edittext_height"
                     android:gravity="top"
                     android:inputType="number"
-                    android:hint="请输入您的手机号码" />
+                    />
             </android.support.design.widget.TextInputLayout>
         </RelativeLayout>
 
@@ -125,7 +125,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/edittext_height"
                     android:gravity="top"
-                    android:hint="请输入6-10位的数字或字母"
+
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
         </RelativeLayout>
@@ -164,7 +164,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/edittext_height"
                     android:gravity="top"
-                    android:hint="重复输入您的密码"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
         </RelativeLayout>

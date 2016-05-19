@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/front_msg_layout_height"
             android:layout_below="@id/ll_guanggao"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/front_item_margin_top"
             android:background="@color/solid_white"
             android:orientation="vertical">
 
@@ -103,9 +103,9 @@
                     <TextView
                         android:id="@+id/title_yangguangyubei"
                         android:layout_width="wrap_content"
-                        android:textSize="@dimen/front_text_size"
                         android:layout_height="wrap_content"
-                        android:text="阳光渝北" />
+                        android:text="阳光渝北"
+                        android:textSize="@dimen/front_text_size" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -128,8 +128,8 @@
                         android:id="@+id/title_wuyeliuyan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/front_text_size"
-                        android:text="物业留言" />
+                        android:text="物业留言"
+                        android:textSize="@dimen/front_text_size" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -151,9 +151,9 @@
                     <TextView
                         android:id="@+id/title_shequgonggao"
                         android:layout_width="wrap_content"
-                        android:textSize="@dimen/front_text_size"
                         android:layout_height="wrap_content"
-                        android:text="社区公告" />
+                        android:text="社区公告"
+                        android:textSize="@dimen/front_text_size" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -176,9 +176,9 @@
                         android:id="@+id/title_yuanchengkaimen"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/front_text_size"
                         android:gravity="center"
-                        android:text="手机钥匙" />
+                        android:text="手机钥匙"
+                        android:textSize="@dimen/front_text_size" />
 
                 </LinearLayout>
 
@@ -210,8 +210,8 @@
                         android:id="@+id/title_yunyan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/front_text_size"
-                        android:text="云眼" />
+                        android:text="云眼"
+                        android:textSize="@dimen/front_text_size" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -234,8 +234,8 @@
                         android:id="@+id/title_yunkong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/front_text_size"
-                        android:text="云控" />
+                        android:text="云控"
+                        android:textSize="@dimen/front_text_size" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -258,8 +258,8 @@
                         android:id="@+id/title_hujiaowuye"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/front_text_size"
-                        android:text="呼叫物业" />
+                        android:text="呼叫物业"
+                        android:textSize="@dimen/front_text_size" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -282,9 +282,9 @@
                         android:id="@+id/title_yijianhujiao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/front_text_size"
                         android:gravity="center"
-                        android:text="20分钟速达" />
+                        android:text="20分钟速达"
+                        android:textSize="@dimen/front_text_size" />
                 </LinearLayout>
 
 
@@ -297,7 +297,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/ll_messages"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/front_item_margin_top"
             android:orientation="vertical"></LinearLayout>
 
         <ImageView
@@ -313,7 +313,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/front_bottom_item_height"
             android:layout_below="@id/ll_shequhuodong"
             android:background="@color/transparent80"
             android:orientation="horizontal">
@@ -322,8 +322,9 @@
                 android:id="@+id/iv_bottom1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="2px"
+                android:layout_marginBottom="2px"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:clickable="true"
                 android:scaleType="fitXY" />
 
@@ -338,8 +339,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="2px"
-                    android:layout_marginRight="2px"
+                    android:layout_marginLeft="2px"
                     android:layout_weight="1"
+                    android:adjustViewBounds="true"
                     android:clickable="true"
                     android:scaleType="fitXY" />
 
@@ -348,9 +350,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="2px"
-                    android:layout_marginRight="2px"
-                    android:layout_marginTop="2px"
+                    android:layout_marginLeft="2px"
                     android:layout_weight="1"
+                    android:adjustViewBounds="true"
                     android:clickable="true"
                     android:scaleType="fitXY" />
             </LinearLayout>

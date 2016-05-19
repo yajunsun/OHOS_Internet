@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.AutoTransition;
 import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
@@ -53,8 +54,8 @@ public abstract class myBaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT > 20) {
-            getWindow().setEnterTransition(new Fade());
-            getWindow().setExitTransition(new Fade());
+            getWindow().setEnterTransition(new AutoTransition());
+            getWindow().setExitTransition(new AutoTransition());
         }
         if (Integer.parseInt(Build.VERSION.SDK) > 14
                 || Integer.parseInt(Build.VERSION.SDK) == 14) {

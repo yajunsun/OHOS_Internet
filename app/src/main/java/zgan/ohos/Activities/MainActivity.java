@@ -15,7 +15,9 @@ import com.mikepenz.iconics.view.IconicsImageView;
 import zgan.ohos.Fgmt.fg_myaccount;
 import zgan.ohos.Fgmt.fg_myfront;
 import zgan.ohos.Fgmt.fg_myorder;
+import zgan.ohos.Models.MyOrder;
 import zgan.ohos.R;
+import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.services.login.ZganLoginService;
 import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.SystemUtils;
@@ -209,6 +211,7 @@ public class MainActivity extends myBaseActivity {
                     } else {
                         // // 如果Fragment不为空，则直接将它显示出来
                         transaction.show(myorder);
+                        myorder.onStart();
                     }
                     transaction.commit();
                 }
@@ -265,8 +268,10 @@ public class MainActivity extends myBaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(MainActivity.this, ZganLoginService.class);
-            stopService(intent);
+            Intent intentLogin = new Intent(MainActivity.this, ZganLoginService.class);
+            stopService(intentLogin);
+            Intent intentCommunity=new Intent(MainActivity.this, ZganCommunityService.class);
+            stopService(intentCommunity);
             Log.v(TAG, "service stoped,activity destroied");
             AppUtils.exits();
             android.os.Process.killProcess(android.os.Process.myPid());

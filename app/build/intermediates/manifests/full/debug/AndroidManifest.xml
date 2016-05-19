@@ -31,9 +31,10 @@
     <application
         android:name="zgan.ohos.MyApplication"
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/myAppTheme" >
 
@@ -228,6 +229,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name="zgan.ohos.Activities.CreditsRule" />
+        <activity android:name="zgan.ohos.Activities.CreditsDetail" />
         <activity android:name="com.mikepenz.aboutlibraries.ui.LibsActivity" />
     </application>
 

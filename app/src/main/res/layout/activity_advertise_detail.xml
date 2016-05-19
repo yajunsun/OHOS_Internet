@@ -53,4 +53,9 @@
         android:layout_height="match_parent">
 
     </ScrollView>
+   <WebView
+       android:layout_width="match_parent"
+       android:layout_below="@id/toolbar"
+       android:id="@+id/wvcreditsrule"
+       android:layout_height="match_parent"></WebView>
 </RelativeLayout>

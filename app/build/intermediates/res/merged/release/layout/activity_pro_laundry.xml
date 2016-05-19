@@ -227,5 +227,6 @@
             android:textColor="@color/solid_white"
             android:textSize="16sp" />
     </LinearLayout>
+
 </RelativeLayout>
 <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/activity_pro_laundry.xml -->

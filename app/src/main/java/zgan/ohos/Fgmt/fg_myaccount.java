@@ -9,6 +9,8 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -26,19 +28,28 @@ import android.widget.Toast;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import zgan.ohos.Activities.BindDevice;
+import zgan.ohos.Activities.CreditsDetail;
+import zgan.ohos.Activities.CreditsRule;
 import zgan.ohos.Activities.Login;
 import zgan.ohos.Activities.MyPakages;
 import zgan.ohos.Activities.UpdatePassword;
 import zgan.ohos.ConstomControls.RoundImageViewByXfermode;
 import zgan.ohos.R;
+import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.utils.AppUtils;
+import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
@@ -50,14 +61,16 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
     Toolbar toolbar;
     RoundImageViewByXfermode iv_header;
     //ImageView iv_updateheader, iv_updatepwd,iv_updatepaypwd,iv_pakages, iv_logout, iv_binddevice;
-    View ll_header, rl_updateheader, rl_updatepwd, rl_logout, rl_binddevice,rl_pakages;
+    View ll_header, rl_updateheader, rl_updatepwd,rl_usecredits, rl_logout, rl_binddevice, rl_pakages;
     ImageLoader imageLoader;
     boolean headerchanged = false;
-    String LOCALHEADERFILENAME ;
+    String LOCALHEADERFILENAME;
     File pictureFile;
     LayoutInflater myInflater;
-    Dialog headerSelectDialog,paypwdChangeDialog;
-    TextView txt_account;
+    Dialog headerSelectDialog, paypwdChangeDialog;
+    TextView txt_account, txtcredits;
+    ImageView ivcreditsrule;
+    String mStandardsUrl;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -136,17 +149,61 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
 //        iv_pakages=(ImageView)view.findViewById(R.id.iv_pakages);
         rl_updateheader = view.findViewById(R.id.rl_updateheader);
         rl_updatepwd = view.findViewById(R.id.rl_updatepwd);
+        rl_usecredits=view.findViewById(R.id.rl_usecredits);
         rl_logout = view.findViewById(R.id.rl_logout);
         rl_binddevice = view.findViewById(R.id.rl_binddevice);
-        rl_pakages=view.findViewById(R.id.rl_pakages);
+        rl_pakages = view.findViewById(R.id.rl_pakages);
 
         rl_updateheader.setOnClickListener(this);
         rl_updatepwd.setOnClickListener(this);
+        rl_usecredits.setOnClickListener(this);
         rl_logout.setOnClickListener(this);
         rl_binddevice.setOnClickListener(this);
         rl_pakages.setOnClickListener(this);
         txt_account = (TextView) view.findViewById(R.id.txt_account);
+        txtcredits = (TextView) view.findViewById(R.id.txtcredits);
+        ivcreditsrule = (ImageView) view.findViewById(R.id.ivcreditsrule);
+        ivcreditsrule.setOnClickListener(this);
         return view;
+    }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    Frame frame = (Frame) msg.obj;
+                    String[] results = frame.strData.split("\t");
+                    String ret = generalhelper.getSocketeStringResult(frame.strData);
+                    Log.v("suntest", frame.subCmd + "  " + ret);
+                    String datastr = results[2];
+                    if (frame.subCmd == 40) {
+                        if (results[0].equals("0") && results[1].equals("1022")) {
+                            if (datastr.length() > 0) {
+                                try {
+                                    JSONArray jsonArray = new JSONObject(datastr)
+                                            .getJSONArray("data");
+                                    Log.i("suntest", datastr);
+                                    JSONObject obj = (JSONObject) jsonArray.opt(0);
+                                    String integral = obj.get("integral").toString();
+                                    mStandardsUrl = obj.get("standards").toString();
+                                    txtcredits.setText(integral);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+    };
+
+    protected void loadData() {
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1022, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), handler);
     }
 
     @Override
@@ -159,6 +216,7 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
         else
             iv_header.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_account_box).colorRes(R.color.md_white_1000));
         txt_account.setText(PreferenceUtil.getUserName());
+        loadData();
     }
 
     @Override
@@ -174,8 +232,12 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
                 break;
             case R.id.rl_updatepaypwd:
                 break;
+            case R.id.rl_usecredits:
+                intent=new Intent(getActivity(), CreditsDetail.class);
+                startActivityWithAnim(getActivity(),intent);
+                break;
             case R.id.rl_pakages:
-                intent=new Intent(getActivity(), MyPakages.class);
+                intent = new Intent(getActivity(), MyPakages.class);
 
                 startActivityWithAnim(getActivity(), intent);
                 break;
@@ -210,6 +272,11 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
                 break;
             case R.id.btn_dismiss:
                 headerSelectDialog.dismiss();
+                break;
+            case R.id.ivcreditsrule:
+                intent = new Intent(getActivity(), CreditsRule.class);
+                intent.putExtra("creditsrule", mStandardsUrl);
+                startActivityWithAnim(getActivity(), intent);
                 break;
         }
     }

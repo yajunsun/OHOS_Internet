@@ -227,4 +227,5 @@
             android:textColor="@color/solid_white"
             android:textSize="16sp" />
     </LinearLayout>
+
 </RelativeLayout>

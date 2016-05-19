@@ -297,7 +297,7 @@ public class ZganLoginService_Main implements Runnable {
 
                             toStopMainData();
 
-                            Log.i("ZganJTWSService_Main", "接收超时");
+                            Log.i("ZganLoginService_Main", "接收超时");
                         } else {
                             intTime++;
                         }

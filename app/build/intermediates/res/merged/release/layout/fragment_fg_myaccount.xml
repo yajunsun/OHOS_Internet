@@ -41,10 +41,11 @@
             android:layout_width="@dimen/out_lo_header_size"
             android:layout_height="@dimen/out_lo_header_size"
             android:layout_centerInParent="true"
-            android:background="@drawable/linear_circle_stroke_bgd"
+            android:background="@drawable/img_header"
             android:gravity="center">
 
             <zgan.ohos.ConstomControls.RoundImageViewByXfermode
+                android:visibility="gone"
                 android:id="@+id/iv_header"
                 android:layout_width="@dimen/header_size"
                 android:layout_height="@dimen/header_size"
@@ -63,14 +64,25 @@
             android:visibility="gone" />
 
         <TextView
+            android:id="@+id/txtcredits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:text="钱包余额  ￥0.00"
+            android:layout_marginLeft="20dp"
+            android:text="我的积分  0"
             android:textColor="@color/solid_white"
-            android:textSize="18sp" />
+            android:textSize="@dimen/myaccount_txt_size" />
+
+        <ImageView
+            android:id="@+id/ivcreditsrule"
+            android:layout_width="@dimen/myaccount_img_cr_width"
+            android:layout_height="@dimen/myaccount_img_cr_height"
+            android:layout_alignBottom="@id/txtcredits"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:scaleType="fitEnd"
+            android:src="@drawable/img_creditsrule" />
     </RelativeLayout>
 
     <ScrollView
@@ -83,13 +95,13 @@
             android:layout_height="match_parent">
 
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/rl_updateheader"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/myaccount_item_height"
                 android:background="@drawable/draw_normalitem_bg"
                 android:focusable="true"
-                android:paddingLeft="@dimen/myaccount_tiem_padding_left">
+                android:paddingLeft="@dimen/myaccount_tiem_padding_left"
+                android:visibility="gone">
 
 
                 <TextView
@@ -117,8 +129,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
                 android:layout_below="@id/rl_updateheader"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/draw_normalitem_bg"
+                android:background="@color/transparent80"
                 android:clickable="true"
                 android:focusable="true"
                 android:paddingLeft="@dimen/myaccount_tiem_padding_left">
@@ -149,7 +160,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
                 android:layout_below="@id/rl_updatepwd"
-                android:layout_marginTop="2dp"
                 android:background="@drawable/draw_normalitem_bg"
                 android:clickable="true"
                 android:focusable="true"
@@ -176,17 +186,50 @@
 
             </RelativeLayout>
 
+
+            <RelativeLayout
+                android:id="@+id/rl_usecredits"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_below="@id/rl_updatepaypwd"
+                android:background="@color/transparent80"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingLeft="@dimen/myaccount_tiem_padding_left">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="积分兑换"
+                    android:textSize="@dimen/myaccount_txt_size" />
+
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:id="@+id/iv_usecredits"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    app:iiv_color="@color/myaccount_icon"
+                    app:iiv_icon="gmd-chevron-right" />
+
+            </RelativeLayout>
+
+
             <RelativeLayout
                 android:id="@+id/rl_binddevice"
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
-                android:layout_below="@id/rl_updatepaypwd"
+                android:layout_below="@id/rl_usecredits"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/draw_normalitem_bg"
                 android:clickable="true"
                 android:focusable="true"
-                android:visibility="gone"
-                android:paddingLeft="@dimen/myaccount_tiem_padding_left">
+                android:paddingLeft="@dimen/myaccount_tiem_padding_left"
+                android:visibility="gone">
 
 
                 <TextView
@@ -212,11 +255,9 @@
 
             <RelativeLayout
                 android:id="@+id/rl_pakages"
-
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
                 android:layout_below="@id/rl_binddevice"
-                android:layout_marginTop="2dp"
                 android:background="@drawable/draw_normalitem_bg"
                 android:clickable="true"
                 android:focusable="true"
@@ -246,12 +287,10 @@
 
             <RelativeLayout
                 android:id="@+id/rl_logout"
-
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
                 android:layout_below="@id/rl_pakages"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/draw_normalitem_bg"
+                android:background="@color/transparent80"
                 android:clickable="true"
                 android:focusable="true"
                 android:paddingLeft="@dimen/myaccount_tiem_padding_left">

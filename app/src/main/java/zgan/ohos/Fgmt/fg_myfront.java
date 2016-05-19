@@ -310,6 +310,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     }
 
     private void loadSqhdData() {
+        int int_marginTop=getResources().getInteger(R.integer.front_item_marginTop);
+        int marginTop=(int)(AppUtils.getDensity(getActivity())*int_marginTop);
         final List<FrontItem> bottoms = new ArrayList<>();
         int count = frontItems.size();
         if (count > 3) {
@@ -326,22 +328,23 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             ImageLoader.bindBitmap(bottoms.get(0).getpic_url(), iv_bottom3, 200, 200);
             iv_bottom3.setOnClickListener(new goodsClick(bottoms.get(0)));
         }
-        int llheight = (int) (frontItems.size() * 160 * AppUtils.getDensity(getActivity()));
-        ll_shequhuodong.setMinimumHeight(llheight);
 
-        int height = (int) (160 * AppUtils.getDensity(getActivity()));
-
+        int height = 5 * p.x;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         for (final FrontItem item : frontItems) {
             ImageView iv = new ImageView(getActivity());
-
-            iv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
-            iv.setPadding(0, 0, 0, 20);
+            iv.setLayoutParams(params);
+            iv.setPadding(0, 0, 0, marginTop);
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
-            ImageLoader.bindBitmap(item.getpic_url(), iv, p.x, height);
+            iv.setAdjustViewBounds(true);
+            iv.setMaxWidth(p.x);
+            iv.setMaxHeight(height);
+            ImageLoader.bindBitmap(item.getpic_url(), iv, p.x, p.x);
             iv.setOnClickListener(new goodsClick(item));
             ll_shequhuodong.addView(iv);
             iv_shequfuwu.setVisibility(View.VISIBLE);
         }
+        ll_shequhuodong.setMinimumHeight(0);
     }
 
     class goodsClick implements View.OnClickListener {
@@ -439,14 +442,10 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             Intent intent;
-            if (advertise.getad_type() == 6) {
-                intent = new Intent("url:" + advertise.getweb_url());
-            } else {
-                intent = new Intent(getActivity(), AdvertiseDetail.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("advertise", advertise);
-                intent.putExtras(bundle);
-            }
+            intent = new Intent(getActivity(), AdvertiseDetail.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("advertise", advertise);
+            intent.putExtras(bundle);
             startActivityWithAnim(getActivity(), intent);
         }
     }
@@ -486,7 +485,6 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                     Frame frame = (Frame) msg.obj;
                     String ret = generalhelper.getSocketeStringResult(frame.strData);
                     Log.i(TAG, frame.subCmd + "  " + ret);
-
                     if (frame.subCmd == 20) {
                         if (ret.equals("0"))
                             Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), "门开了", Snackbar.LENGTH_LONG).show();

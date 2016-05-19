@@ -52,7 +52,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/edittext_height"
                     android:gravity="top"
-                    android:hint="请输入您的手机号码" />
+                    />
             </android.support.design.widget.TextInputLayout>
         </RelativeLayout>
 
@@ -89,7 +89,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/edittext_height"
                     android:gravity="top"
-                    android:hint="请输入您的登录密码"
+
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
         </RelativeLayout>

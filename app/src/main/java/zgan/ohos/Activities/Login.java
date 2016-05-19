@@ -43,8 +43,6 @@ public class Login extends myBaseActivity {
         til_pwd = (TextInputLayout) findViewById(R.id.til_pwd);
         et_Phone = (EditText) findViewById(R.id.et_Phone);
         et_pwd = (EditText) findViewById(R.id.et_pwd);
-        til_Phone.setHint("请输入您的电话号码");
-        til_pwd.setHint("请输入您的密码");
     }
 
     public void ViewClick(View view) {
@@ -114,7 +112,7 @@ public class Login extends myBaseActivity {
                     } else if (result.equals("6") || result.equals("8")) {
                         til_Phone.setError("不存在此用户，请先注册");
                         til_Phone.setErrorEnabled(true);
-                    } else if (result.equals("1")) {
+                    } else if (result.equals("26")) {
                         til_pwd.setError("密码错误");
                         til_pwd.setErrorEnabled(true);
                     }

@@ -239,11 +239,19 @@ public final class ImageLoader {
         DiskLruCache.Snapshot snapshot = diskLruCache.get(key);
         if (snapshot != null) {
             FileInputStream fileInputStream = (FileInputStream) snapshot.getInputStream(DISK_CACHE_INDEX);
-            FileDescriptor fileDescriptor = fileInputStream.getFD();
-            bitmap = mImageResizer.decodeSampledBitmapFromFileDescriptor(fileDescriptor, reqWidth, reqHeight);
-            if (bitmap != null)
-                Add2Cache(key, bitmap);
-            fileInputStream.close();
+//            try {
+                FileDescriptor fileDescriptor = fileInputStream.getFD();
+                bitmap = mImageResizer.decodeSampledBitmapFromFileDescriptor(fileDescriptor, reqWidth, reqHeight);
+                if (bitmap != null)
+                    Add2Cache(key, bitmap);
+//            }
+//            catch (Exception e)
+//            {
+//                e.printStackTrace();
+//            }
+//            finally {
+                fileInputStream.close();
+            //}
         }
         return bitmap;
     }

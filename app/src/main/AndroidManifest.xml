@@ -10,22 +10,23 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <!--<uses-permission android:name="android.permission.RESTART_PACKAGES" />-->
-    <!--<uses-permission android:name="android.permission.READ_LOGS" />-->
+    <!-- <uses-permission android:name="android.permission.RESTART_PACKAGES" /> -->
+    <!-- <uses-permission android:name="android.permission.READ_LOGS" /> -->
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
+    <!-- <uses-permission android:name="android.permission.GET_TASKS" /> -->
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <!--<uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
+    <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS" /> -->
     <uses-permission android:name="android.permission.READ_PROFILE" />
-    <!--<uses-permission android:name="android.permission.READ_CONTACTS" />-->
+    <!-- <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!--<uses-permission android:name="android.permission.CALL_PHONE" />-->
+    <!-- <uses-permission android:name="android.permission.CALL_PHONE" /> -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
         android:icon="@drawable/launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -54,11 +55,16 @@
         </receiver>
 
         <activity android:name=".Activities.UserCommSelect" />
-        <activity android:name=".Activities.Login" android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.Register" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activities.Login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Register"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.MessageActivity"
-            android:label="@string/news_option_name"  android:screenOrientation="portrait"/>
+            android:label="@string/news_option_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.MainActivity"
             android:launchMode="singleTask"
@@ -108,9 +114,12 @@
         <activity android:name=".Activities.BindDevice" />
         <activity android:name=".Activities.LeaveMessages" />
         <activity
-            android:name=".Activities.ReplyMessages" android:screenOrientation="portrait"
+            android:name=".Activities.ReplyMessages"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".Activities.CakeList" android:screenOrientation="portrait">
+        <activity
+            android:name=".Activities.CakeList"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="Page.1003" />
 
@@ -119,8 +128,11 @@
         </activity>
         <activity
             android:name=".Activities.CakeDetail"
-            android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait" />
-        <activity android:name=".Activities.HightQualityService" android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".Activities.HightQualityService"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="Page.1007" />
                 <action android:name="Page.1006" />
@@ -128,8 +140,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.HightQualityDetail" android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.VegetableMart" android:screenOrientation="portrait">
+        <activity
+            android:name=".Activities.HightQualityDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.VegetableMart"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="Page.1005" />
 
@@ -145,40 +161,70 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.SuperMarket" android:screenOrientation="portrait">
+        <activity
+            android:name=".Activities.SuperMarket"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="Page.1009" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ElectricalMaintenance" android:screenOrientation="portrait">
+        <activity
+            android:name=".Activities.ElectricalMaintenance"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="Page.1011" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.CommitOrder" android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.SMSValidationStep1" android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.SMSValidationStep2" android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.UpdatePassword2" android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.MyPakages" android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.OrderList" android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.CallOut" android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.bitmaptshow" android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.AdvertiseDetail" android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.OrderDetail" android:screenOrientation="portrait"/>
         <activity
-            android:name=".wxapi.WXPayEntryActivity" android:screenOrientation="portrait"
+            android:name=".Activities.CommitOrder"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.SMSValidationStep1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.SMSValidationStep2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.UpdatePassword2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.MyPakages"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.OrderList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.CallOut"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.bitmaptshow"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.AdvertiseDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.OrderDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop" />
-        <activity android:name=".Activities.IcecreamList" android:screenOrientation="portrait">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.IcecreamList"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="Page.1021" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.CreditsRule" />
+        <activity android:name=".Activities.CreditsDetail"></activity>
     </application>
 
 </manifest>

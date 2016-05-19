@@ -17,6 +17,7 @@ public class SystemUtils {
 
     private static String address;
     private static String village;
+    private static String housenum;
 
     public static String getAddress() {
         return address;
@@ -33,7 +34,14 @@ public class SystemUtils {
     public static void setVillage(String village) {
         SystemUtils.village = village;
     }
-//private static String SID="";
+
+    public static String getHousenum(){return housenum;}
+
+    public static void setHousenum(String housenum){
+        SystemUtils.housenum=housenum;
+    }
+
+    //private static String SID="";
 
     public static boolean getIsLogin() {
         return isLogin;

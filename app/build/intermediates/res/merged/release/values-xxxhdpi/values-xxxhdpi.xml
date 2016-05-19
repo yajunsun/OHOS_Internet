@@ -27,7 +27,9 @@
     <dimen name="front_base_func_layout_height">100dp</dimen>
     <dimen name="front_base_func_text_margin_top">0dp</dimen>
     <dimen name="front_base_func_text_size">12sp</dimen>
+    <dimen name="front_bottom_item_height">140dp</dimen>
     <dimen name="front_eventaction_layout_margin_top">-10dp</dimen>
+    <dimen name="front_item_margin_top">10dp</dimen>
     <dimen name="front_msg_func_textsize">20sp</dimen>
     <dimen name="front_msg_layout_height">200dp</dimen>
     <dimen name="front_msg_text_margin">10dp</dimen>
@@ -55,10 +57,12 @@
     <dimen name="login_logo_size">200dp</dimen>
     <dimen name="mine_bg_height">92dp</dimen>
     <dimen name="myaccount_header_Height">190dp</dimen>
+    <dimen name="myaccount_img_cr_height">25dp</dimen>
+    <dimen name="myaccount_img_cr_width">90dp</dimen>
     <dimen name="myaccount_item_height">60dp</dimen>
     <dimen name="myaccount_tiem_padding_left">20dp</dimen>
     <dimen name="myaccount_txt_account_margin_top">5dp</dimen>
-    <dimen name="myaccount_txt_size">20sp</dimen>
+    <dimen name="myaccount_txt_size">18sp</dimen>
     <dimen name="myorder_statusbar_height">55dp</dimen>
     <dimen name="myorder_statustxt_size">18sp</dimen>
     <dimen name="navigation_height">55dp</dimen>
@@ -77,6 +81,7 @@
     <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values-xxxhdpi/integers.xml -->
     <eat-comment/>
     <integer name="cake_select_count_size">80</integer>
+    <integer name="front_item_marginTop">10</integer>
     <integer name="supermarket_img_height">500</integer>
     <integer name="vegetable_select_count_size">80</integer>
     <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values-xxxhdpi/strings.xml -->
