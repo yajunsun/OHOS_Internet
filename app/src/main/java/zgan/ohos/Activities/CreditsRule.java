@@ -18,7 +18,7 @@ public class CreditsRule extends myBaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_credits_rule);
-        //mRuleUrl = getIntent().getStringExtra("creditsrule");
+        mRuleUrl = getIntent().getStringExtra("creditsrule");
         wvcreditsrule = (WebView) findViewById(R.id.wvcreditsrule);
         wvcreditsrule.loadUrl(mRuleUrl);
         wvcreditsrule.setWebViewClient(new WebViewClient() {

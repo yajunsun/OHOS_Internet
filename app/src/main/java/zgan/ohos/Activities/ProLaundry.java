@@ -130,7 +130,7 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
     }
 
     void bindData() {
-        int h = (int) (250 * AppUtils.getDensity(this) / list.size());
+        int h = (int) (250 * density / list.size());
         for (int i = 0; i < list.size(); i++) {
             TextView t = new TextView(this);
             ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, h);
@@ -450,11 +450,11 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
                 if (fee > 0) {
                     lcheck.setVisibility(View.GONE);
                     rcheck.setVisibility(View.VISIBLE);
-                    params.setMargins(0, toolbar.getHeight() + llpreview.getHeight(), 0, rcheck.getHeight());
+                    params.setMargins(0, toolbar.getHeight() + llpreview.getHeight(), 0, (int)(60*density));
                 } else {
                     lcheck.setVisibility(View.VISIBLE);
                     rcheck.setVisibility(View.GONE);
-                    params.setMargins(0, toolbar.getHeight() + llpreview.getHeight(), 0, lcheck.getHeight());
+                    params.setMargins(0, toolbar.getHeight() + llpreview.getHeight(), 0, (int)(100*density));
                 }
                 imgdetail.setLayoutParams(params);
                 current_option_index = _index;

@@ -36,7 +36,9 @@ public class AdvertiseDetail extends myBaseActivity {
         });
         ll_content = (ScrollView) findViewById(R.id.ll_content);
         txt_title = (TextView) findViewById(R.id.txt_title);
+        wvcreditsrule=(WebView)findViewById(R.id.wvcreditsrule);
         txt_title.setText(advertise.getview_title());
+
 
         if (advertise.getad_type() == 0) {
             wvcreditsrule.setVisibility(View.GONE);

@@ -135,20 +135,22 @@ public class Register extends myBaseActivity {
             if (msg.what == 1) {
                 Frame frame = (Frame) msg.obj;
                 String result = generalhelper.getSocketeStringResult(frame.strData);
-                if (frame.subCmd == 2 && result.equals("0")) {
+                if (frame.subCmd == 1 && result.equals("0")) {
+                    Intent intent = new Intent(Register.this, BindDevice.class);
+                    intent.putExtra("username", Phone);
+                    intent.putExtra("pwd", Pwd);
+                    intent.putExtra("showcancel", true);
+                    startActivityWithAnim(intent);
+                    toCloseProgress();
+                    finish();
+                } else if (frame.subCmd == 2 && result.equals("0")) {
 //                    setResult(resultCodes.LOGIN);
 //                    SystemUtils.setIsLogin(true);
 //                    PreferenceUtil.setUserName(Phone);
 //                    PreferenceUtil.setPassWord(Pwd);
                     //PreferenceUtil.setCommunityId(String.valueOf(communityId));
                     Log.v(TAG, "注册成功");
-                    Intent intent = new Intent(Register.this, BindDevice.class);
-                    intent.putExtra("username",Phone);
-                    intent.putExtra("pwd",Pwd);
-                    intent.putExtra("showcancel", true);
-                    startActivityWithAnim(intent);
-                    toCloseProgress();
-                    finish();
+                    ZganLoginService.toUserLogin(Phone, Pwd, "", handler);
                 } else if (frame.subCmd == 2 && result.equals("24")) {
                     generalhelper.ToastShow(Register.this, "该号码已被注册");
                     toCloseProgress();

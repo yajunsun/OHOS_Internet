@@ -1,10 +1,6 @@
 package zgan.ohos.utils;
 
 import android.content.res.Resources;
-import android.os.Handler;
-
-import zgan.ohos.MyApplication;
-import zgan.ohos.services.login.ZganLoginService;
 
 public class SystemUtils {
     public static int getScreenOrientation() {
@@ -12,34 +8,55 @@ public class SystemUtils {
     }
 
     private static boolean isLogin = false;
-    private static boolean isCommunityLogin=false;
+    private static boolean isCommunityLogin = false;
     public static final String FORRESULT = "forresult";
 
     private static String address;
     private static String village;
-    private static String housenum;
+    private static String shop;
+    private static String property;
+    private static String Fname;
+
+    public static String getShop() {
+        return shop;
+    }
+
+    public static void setShop(String _shop) {
+        SystemUtils.shop = _shop;
+    }
+
+    public static String getProperty() {
+        return property;
+    }
+
+    public static void setProperty(String _property) {
+        SystemUtils.property = _property;
+    }
+
+    public static String getFname() {
+        return Fname;
+    }
+
+    public static void setFname(String _fname) {
+        Fname = _fname;
+    }
 
     public static String getAddress() {
         return address;
     }
 
-    public static void setAddress(String address) {
-        SystemUtils.address = address;
+    public static void setAddress(String _address) {
+        SystemUtils.address = _address;
     }
 
     public static String getVillage() {
         return village;
     }
 
-    public static void setVillage(String village) {
-        SystemUtils.village = village;
+    public static void setVillage(String _village) {
+        SystemUtils.village = _village;
     }
 
-    public static String getHousenum(){return housenum;}
-
-    public static void setHousenum(String housenum){
-        SystemUtils.housenum=housenum;
-    }
 
     //private static String SID="";
 
@@ -51,11 +68,12 @@ public class SystemUtils {
         isLogin = islogin;
     }
 
-    public static boolean getIsCommunityLogin(){return isCommunityLogin;}
+    public static boolean getIsCommunityLogin() {
+        return isCommunityLogin;
+    }
 
-    public static void setIsCommunityLogin(boolean islogin)
-    {
-        isCommunityLogin=islogin;
+    public static void setIsCommunityLogin(boolean islogin) {
+        isCommunityLogin = islogin;
     }
 
 //    public static String getSID() {

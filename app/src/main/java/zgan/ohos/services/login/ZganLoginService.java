@@ -149,6 +149,8 @@ public class ZganLoginService extends Service {
      * 用户登录
      */
     public static void toUserLogin(String strUName, String strPwd, String strImei, Handler _handler) {
+        if (strImei.equals(""))
+            strImei=LocationUtil.getDrivenToken(MyApplication.context, strUName);
         Log.v(TAG, "ZganLoginService log in");
         Frame f = createFrame();
         f.subCmd = 1;

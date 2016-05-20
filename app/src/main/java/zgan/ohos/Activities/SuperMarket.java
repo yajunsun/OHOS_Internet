@@ -18,6 +18,7 @@ import zgan.ohos.Dals.SuperMarketDal;
 import zgan.ohos.Models.SuperMarketM;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
+import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
@@ -33,12 +34,14 @@ public class SuperMarket extends myBaseActivity {
     GridLayoutManager mLayoutManager;
     Calendar lastCall;
     Calendar thisCall;
+    int width=0;
     //myAdapter adapter;
     @Override
     protected void initView() {
         setContentView(R.layout.activity_super_market);
         dal=new SuperMarketDal();
         llcontent=(LinearLayout)findViewById(R.id.ll_content);
+        width= AppUtils.getWindowSize(this).x;
         View back=findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,28 +68,44 @@ public class SuperMarket extends myBaseActivity {
         }
     }
 
-    void bindData() {
-//        if (!isLoadingMore) {
-//            adapter = new myAdapter();
-//            rv_cakes.setAdapter(adapter);
-//            rv_cakes.setLayoutManager(mLayoutManager);
-//        } else
-//            adapter.notifyDataSetChanged();
-//        if (m!=null)
+//    void bindData() {
+////        if (!isLoadingMore) {
+////            adapter = new myAdapter();
+////            rv_cakes.setAdapter(adapter);
+////            rv_cakes.setLayoutManager(mLayoutManager);
+////        } else
+////            adapter.notifyDataSetChanged();
+////        if (m!=null)
+////        {
+////            ImageLoader.bindBitmap(m.getpic_url(),ivpreview,500,500);
+////        }
+//        ViewGroup.MarginLayoutParams params=new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,getResources().getInteger(R.integer.supermarket_img_height));
+//        for (int i=0;i<list.size();i++)
 //        {
-//            ImageLoader.bindBitmap(m.getpic_url(),ivpreview,500,500);
+//            ImageView iv=new ImageView(this);
+//            iv.setLayoutParams(params);
+//            iv.setScaleType(ImageView.ScaleType.FIT_XY);
+//            ImageLoader.bindBitmap(list.get(i).getpic_url(), iv, 800, getResources().getInteger(R.integer.supermarket_img_height));
+//            llcontent.addView(iv);
 //        }
-        ViewGroup.MarginLayoutParams params=new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,getResources().getInteger(R.integer.supermarket_img_height));
-        for (int i=0;i<list.size();i++)
-        {
-            ImageView iv=new ImageView(this);
+//    }
+
+    void bindData() {
+        // ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getInteger(R.integer.supermarket_img_height));
+        ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int maxheight=width*5;
+        params.setMargins(0, 0, 0, 0);
+        for (int i = 0; i < list.size(); i++) {
+            ImageView iv = new ImageView(this);
             iv.setLayoutParams(params);
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
-            ImageLoader.bindBitmap(list.get(i).getpic_url(), iv, 800, getResources().getInteger(R.integer.supermarket_img_height));
+            iv.setAdjustViewBounds(true);
+            iv.setMaxWidth(width);
+            iv.setMaxHeight(maxheight);
+            ImageLoader.bindBitmap(list.get(i).getpic_url(), iv, width, width);
             llcontent.addView(iv);
         }
     }
-
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

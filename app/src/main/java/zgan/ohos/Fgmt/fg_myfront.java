@@ -310,8 +310,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     }
 
     private void loadSqhdData() {
-        int int_marginTop=getResources().getInteger(R.integer.front_item_marginTop);
-        int marginTop=(int)(AppUtils.getDensity(getActivity())*int_marginTop);
+        int int_marginTop = getResources().getInteger(R.integer.front_item_marginTop);
+        int marginTop = (int) (AppUtils.getDensity(getActivity()) * int_marginTop);
         final List<FrontItem> bottoms = new ArrayList<>();
         int count = frontItems.size();
         if (count > 3) {
@@ -514,8 +514,15 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         JSONObject obj = (JSONObject) jsonArray.opt(0);
                                         String address = obj.get("address").toString();
                                         String village = obj.get("village").toString();
+                                        String shop = obj.get("shop").toString();
+                                        String property = obj.get("property").toString();
+                                        String Fname = obj.get("Fname").toString();
+
                                         SystemUtils.setAddress(address);
                                         SystemUtils.setVillage(village);
+                                        SystemUtils.setShop(shop);
+                                        SystemUtils.setProperty(property);
+                                        SystemUtils.setFname(Fname);
                                         txt_xiaoqu.setText(village);
                                     } catch (JSONException e) {
                                         e.printStackTrace();

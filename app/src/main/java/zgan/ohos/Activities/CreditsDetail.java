@@ -21,6 +21,7 @@ import zgan.ohos.Dals.SuperMarketDal;
 import zgan.ohos.Models.SuperMarketM;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
+import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
@@ -32,10 +33,12 @@ public class CreditsDetail extends myBaseActivity {
     LinearLayout llcontent;
     int pageindex = 0;
     boolean isLoadingMore = false;
+    int width=0;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_credits_detail);
+        width= AppUtils.getWindowSize(this).x;
         llcontent = (LinearLayout) findViewById(R.id.ll_content);
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -52,17 +55,22 @@ public class CreditsDetail extends myBaseActivity {
     protected void loadData() {
         isLoadingMore = false;
         list=new ArrayList<>();
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1023, "@id=22,@account=%s", "@22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1023, String.format("@id=22,@account=%s",PreferenceUtil.getUserName()), "@22"), handler);
     }
 
     void bindData() {
-        ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getInteger(R.integer.supermarket_img_height));
+       // ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getInteger(R.integer.supermarket_img_height));
+        ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int maxheight=width*5;
         params.setMargins(0, 0, 0, 0);
         for (int i = 0; i < list.size(); i++) {
             ImageView iv = new ImageView(this);
             iv.setLayoutParams(params);
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
-            ImageLoader.bindBitmap(list.get(i), iv, 800, getResources().getInteger(R.integer.supermarket_img_height));
+            iv.setAdjustViewBounds(true);
+            iv.setMaxWidth(width);
+            iv.setMaxHeight(maxheight);
+            ImageLoader.bindBitmap(list.get(i), iv, width, width);
             llcontent.addView(iv);
         }
     }

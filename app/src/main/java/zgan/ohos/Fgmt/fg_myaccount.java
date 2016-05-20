@@ -61,7 +61,7 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
     Toolbar toolbar;
     RoundImageViewByXfermode iv_header;
     //ImageView iv_updateheader, iv_updatepwd,iv_updatepaypwd,iv_pakages, iv_logout, iv_binddevice;
-    View ll_header, rl_updateheader, rl_updatepwd,rl_usecredits, rl_logout, rl_binddevice, rl_pakages;
+    View ll_header, rl_updateheader, rl_updatepwd, rl_usecredits, rl_logout, rl_binddevice, rl_pakages;
     ImageLoader imageLoader;
     boolean headerchanged = false;
     String LOCALHEADERFILENAME;
@@ -131,7 +131,7 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ll_header = view.findViewById(R.id.ll_header);
         imageLoader = new ImageLoader();
-        Point p = AppUtils.getWindowSize(getActivity());
+        //Point p = AppUtils.getWindowSize(getActivity());
 //        imageLoader.loadDrawableRS(getActivity(), R.drawable.bg_header, ll_header, new IImageloader() {
 //            @Override
 //            public void onDownloadSucc(Bitmap bitmap, String c_url, View imageView) {
@@ -149,7 +149,7 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
 //        iv_pakages=(ImageView)view.findViewById(R.id.iv_pakages);
         rl_updateheader = view.findViewById(R.id.rl_updateheader);
         rl_updatepwd = view.findViewById(R.id.rl_updatepwd);
-        rl_usecredits=view.findViewById(R.id.rl_usecredits);
+        rl_usecredits = view.findViewById(R.id.rl_usecredits);
         rl_logout = view.findViewById(R.id.rl_logout);
         rl_binddevice = view.findViewById(R.id.rl_binddevice);
         rl_pakages = view.findViewById(R.id.rl_pakages);
@@ -176,25 +176,41 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
                     Frame frame = (Frame) msg.obj;
                     String[] results = frame.strData.split("\t");
                     String ret = generalhelper.getSocketeStringResult(frame.strData);
-                    Log.v("suntest", frame.subCmd + "  " + ret);
-                    String datastr = results[2];
+                    Log.v("suntest", frame.subCmd + "  " + ret);;
                     if (frame.subCmd == 40) {
                         if (results[0].equals("0") && results[1].equals("1022")) {
-                            if (datastr.length() > 0) {
+                            if (results[2].length() > 0) {
                                 try {
-                                    JSONArray jsonArray = new JSONObject(datastr)
+                                    JSONArray jsonArray = new JSONObject(results[2])
                                             .getJSONArray("data");
-                                    Log.i("suntest", datastr);
+                                    Log.i("suntest", results[2]);
                                     JSONObject obj = (JSONObject) jsonArray.opt(0);
-                                    String integral = obj.get("integral").toString();
                                     mStandardsUrl = obj.get("standards").toString();
-                                    txtcredits.setText(integral);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 } catch (Exception e1) {
                                     e1.printStackTrace();
                                 }
                             }
+                        } else if (results[0].equals("0") && results[1].equals("1024")) {
+                            if (results.length > 3) {
+                                if (results[2].length() > 0) {
+                                    try {
+                                        JSONArray jsonArray = new JSONObject(results[2])
+                                                .getJSONArray("data");
+                                        Log.i("suntest", results[2]);
+                                        JSONObject obj = (JSONObject) jsonArray.opt(0);
+                                        String integral = obj.get("integral").toString();
+                                        txtcredits.setText("我的积分 "+integral);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    } catch (Exception e1) {
+                                        e1.printStackTrace();
+                                    }
+                                }
+                            }
+                            else
+                                txtcredits.setText("我的积分 "+0);
                         }
                     }
                     break;
@@ -204,18 +220,19 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
 
     protected void loadData() {
         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1022, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1024, String.format("@id=22,@Fname=%s", SystemUtils.getFname()), "22"), handler);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        LOCALHEADERFILENAME = PreferenceUtil.getUserName() + "_header";
-        pictureFile = picturefile.getdochead(LOCALHEADERFILENAME);
-        if (pictureFile != null && pictureFile.exists())
-            iv_header.setImageBitmap(BitmapFactory.decodeFile(pictureFile.getPath()));
-        else
-            iv_header.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_account_box).colorRes(R.color.md_white_1000));
-        txt_account.setText(PreferenceUtil.getUserName());
+//        LOCALHEADERFILENAME = PreferenceUtil.getUserName() + "_header";
+//        pictureFile = picturefile.getdochead(LOCALHEADERFILENAME);
+//        if (pictureFile != null && pictureFile.exists())
+//            iv_header.setImageBitmap(BitmapFactory.decodeFile(pictureFile.getPath()));
+//        else
+//            iv_header.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_account_box).colorRes(R.color.md_white_1000));
+//        txt_account.setText(PreferenceUtil.getUserName());
         loadData();
     }
 
@@ -233,8 +250,8 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
             case R.id.rl_updatepaypwd:
                 break;
             case R.id.rl_usecredits:
-                intent=new Intent(getActivity(), CreditsDetail.class);
-                startActivityWithAnim(getActivity(),intent);
+                intent = new Intent(getActivity(), CreditsDetail.class);
+                startActivityWithAnim(getActivity(), intent);
                 break;
             case R.id.rl_pakages:
                 intent = new Intent(getActivity(), MyPakages.class);
