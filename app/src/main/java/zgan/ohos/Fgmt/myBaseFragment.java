@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 
 import zgan.ohos.R;
+import zgan.ohos.utils.DataCacheHelper;
 
 /**
  * Created by yajunsun on 2016/1/11.
@@ -30,6 +31,14 @@ public class myBaseFragment extends Fragment {
         else {
             startActivityForResult(intent, requestCode);
             activity.overridePendingTransition(R.animator.enter, R.animator.exit);
+        }
+    }
+
+    protected void addCache(String param, String data) {
+        try {
+            DataCacheHelper.add2DiskCache(param, data);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

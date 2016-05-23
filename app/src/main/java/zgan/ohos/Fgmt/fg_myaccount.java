@@ -179,6 +179,8 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
                     Log.v("suntest", frame.subCmd + "  " + ret);;
                     if (frame.subCmd == 40) {
                         if (results[0].equals("0") && results[1].equals("1022")) {
+                            if (results.length<3)
+                                return;
                             if (results[2].length() > 0) {
                                 try {
                                     JSONArray jsonArray = new JSONObject(results[2])
@@ -193,7 +195,7 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
                                 }
                             }
                         } else if (results[0].equals("0") && results[1].equals("1024")) {
-                            if (results.length > 3) {
+                            if (results.length >2) {
                                 if (results[2].length() > 0) {
                                     try {
                                         JSONArray jsonArray = new JSONObject(results[2])
@@ -220,7 +222,7 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
 
     protected void loadData() {
         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1022, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), handler);
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1024, String.format("@id=22,@Fname=%s", SystemUtils.getFname()), "22"), handler);
+        ZganCommunityService.toGetServerData(40,2, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1024, String.format("@id=22,@Fname=%s", SystemUtils.getFname()), "22"), handler);
     }
 
     @Override

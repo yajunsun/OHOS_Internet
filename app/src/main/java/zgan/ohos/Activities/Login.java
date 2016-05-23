@@ -160,6 +160,14 @@ public class Login extends myBaseActivity {
                         SystemUtils.setIsCommunityLogin(true);
                         ZganLoginService.toGetServerData(28, 0, PhoneNum, communityHandler);
                     }
+                    else
+                    {
+                        Intent intent = new Intent(Login.this, BindDevice.class);
+                        intent.putExtra("username",PhoneNum);
+                        intent.putExtra("pwd",et_pwd.getText().toString().trim());
+                        intent.putExtra("showcancel", true);
+                        startActivityWithAnim(intent);
+                    }
                 } else if (frame.subCmd == 28 && results[0].equals("0")) {
                     if (results.length == 2) {
                         PreferenceUtil.setSID(results[1]);

@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+import zgan.ohos.Activities.Login;
 import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.services.push.ZganSocketClient;
 import zgan.ohos.utils.Frame;
@@ -53,7 +54,9 @@ public class ZganLoginService_Listen implements Runnable {
                         ZganCommunityService.toAutoUserLogin(mycommunityHandler);
                     }
                 } else {
-                    Log.i(TAG, "自动重新登录失败");
+                    //Log.i(TAG, "自动重新登录失败");
+                    Intent loginitent=new Intent(ZganLoginService._zgan_context, Login.class);
+                    ZganLoginService._zgan_context.startActivity(loginitent);
                 }
             }
         }

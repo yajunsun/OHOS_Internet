@@ -531,6 +531,9 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                     }
                                 }
                             }
+                            if (frame.platform != 0&&datastr!=null&&datastr.length()>0) {
+                                addCache(results[1] ,datastr);
+                            }
                         }
                     }
                 } else if (msg.what == ADSINDEX) {

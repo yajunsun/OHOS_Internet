@@ -31,7 +31,7 @@ public class MainActivity extends myBaseActivity {
     final static int CURRENT_OPTION_CATEGORY = 2;
     final static int CURRENT_OPTION_SC = 3;
     final static int CURRENT_OPTION_MINE = 4;
-    static int current_option_index = 0;
+    int current_option_index = 0;
 //    static int badgeCount = 6;
 //    private BadgeStyle style = ActionItemBadge.BadgeStyles.RED.getStyle();
     /*********/
@@ -141,6 +141,19 @@ public class MainActivity extends myBaseActivity {
         current_option_index = 0;
         setTabSelection(CURRENT_OPTION_MAIN);
         Log.v(TAG, "main activity initialed");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        current_option_index=savedInstanceState.getInt("currentoptionindex");
+        setTabSelection(current_option_index);
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("currentoptionindex",current_option_index);
+        //super.onSaveInstanceState(outState);
     }
 
     void initialOptions() {

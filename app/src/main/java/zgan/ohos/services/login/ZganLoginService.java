@@ -44,7 +44,7 @@ public class ZganLoginService extends Service {
 
     //正式115.29.147.12  测试60.172.246.193
     //神行云域名
-    private final static String ZGAN_LOGIN_DOMAINNAME = "login.1home1shop.com"; //"test.1home1shop.com"
+    private final static String ZGAN_LOGIN_DOMAINNAME ="test.1home1shop.com";//"login.1home1shop.com" ;
     //神行云默认IP
     private final static String ZGAN_LOGIN_IP = "115.28.202.130";
     //神行云默认port
