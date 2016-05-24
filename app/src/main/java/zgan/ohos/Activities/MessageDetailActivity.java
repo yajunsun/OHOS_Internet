@@ -82,6 +82,9 @@ public class MessageDetailActivity extends myBaseActivity {
                         if (results.length == 2 && results[0].equals("0")) {
                             try {
                                 message = msgdal.GetMessage(results[1]);
+                                if (f.platform!=0) {
+                                    addCache("25"+String.format("%s\t%s", PreferenceUtil.getUserName(), msg_id),f.strData);
+                                }
                                 handler.post(new Runnable() {
                                     @Override
                                     public void run() {

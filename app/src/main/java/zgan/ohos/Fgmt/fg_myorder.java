@@ -1,14 +1,10 @@
 package zgan.ohos.Fgmt;
 
-import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,18 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import zgan.ohos.Activities.OrderDetail;
-import zgan.ohos.Contracts.IImageloader;
-import zgan.ohos.Dals.MyOrderDal;
 import zgan.ohos.Dals.QueryOrderDal;
 import zgan.ohos.Models.BaseGoods;
 import zgan.ohos.Models.MyOrder;
@@ -44,7 +35,7 @@ import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.resultCodes;
 
-public class fg_myorder extends Fragment implements View.OnClickListener {
+public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     int pageindex = 1;
     boolean isLoadingMore = false;
     LinearLayoutManager mLayoutManager;
@@ -156,9 +147,10 @@ public class fg_myorder extends Fragment implements View.OnClickListener {
                         try {
                             if (!isLoadingMore) {
                                 list = dal.getList(results[2]);
-//                                if (frame.platform != 0) {
-//                                    addCache("40, 1016,"+mOrder_type, results[2]);
-//                                }
+                                if (frame.platform!=0)
+                                {
+                                    String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), frame.strData);
+                                }
                             } else
                                 list.addAll(dal.getList(results[2]));
                             handler.post(new Runnable() {

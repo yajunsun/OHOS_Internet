@@ -126,8 +126,8 @@ public class HightQualityService extends myBaseActivity {
                         try {
                             if (!isLoadingMore) {
                                 list = dal.getList(results[2]);
-                                if (frame.platform != 0) {
-                                    addCache("40,"+pageid, results[1]);
+                                if (frame.platform!=0) {
+                                    addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, "@id=22", "22"),frame.strData);
                                 }
                             } else
                                 list.addAll(dal.getList(results[2]));

@@ -5,8 +5,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import zgan.ohos.MyApplication;
+import zgan.ohos.utils.DataCacheHelper;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.FrameTools;
+import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.RDTFrame;
 
 import java.util.LinkedList;
@@ -396,8 +398,13 @@ public class ZganCommunityService_Main implements Runnable {
                         if (intSendOutTime == intTime) {
                             if (getFrame._handler != null) {
                                 Message msg = getFrame._handler.obtainMessage();
+                                //getFrame.strData
                                 msg.what = 0;
-
+                                Frame frame=loadData(getFrame.subCmd,getFrame.strData);
+                                if (frame.strData!=null&&frame.strData.length()>0)
+                                {
+                                    msg.what=1;
+                                }
                                 getFrame._handler.sendMessage(msg);
                             }
 
@@ -417,7 +424,17 @@ public class ZganCommunityService_Main implements Runnable {
             }
         }
     }
+    private Frame loadData(int subCmd, String strData) {
+        String param = String.format("s%s%", subCmd, strData);
+        Log.i("suntest",param);
+        String key = ImageLoader.hashKeyFromUrl(param);
+        Frame f = new Frame();
+        f.platform = 0;
+        f.subCmd = subCmd;
+        f.strData = DataCacheHelper.loadData(key);
+        Log.i("suntest","load from cache");
+        return f;
+    }
 
-    ;
 
 }

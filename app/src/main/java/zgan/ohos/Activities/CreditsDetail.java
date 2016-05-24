@@ -97,6 +97,9 @@ public class CreditsDetail extends myBaseActivity {
                                     String url = obj.get("pic_url").toString();
                                     list.add(url);
                                 }
+                                if (frame.platform!=0) {
+                                    addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1023, String.format("@id=22,@account=%s",PreferenceUtil.getUserName()), "@22"),frame.strData);
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (Exception e1) {

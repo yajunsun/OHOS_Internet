@@ -161,14 +161,16 @@ public class ZganCommunityService_Listen implements Runnable {
     public boolean toConnectServer() {
         Log.v(TAG, zsc.isRun ? "繁忙" : "空闲");
         if (!zsc.isRun) {
-            zsc.Server_IP = ZganCommunityService.CommunityIp;
-            zsc.ServerPort = ZganCommunityService.CommunityPort;
-            if (ZganCommunityService.CommunityIp!=null&&!ZganCommunityService.CommunityIp.equals("")&&!ZganCommunityService.CommunityIp.equals("0"))
-            if (zsc.toConnectServer()) {
-                ServerState = 1;
-                return true;
-            } else
-                return false;
+            synchronized (ZganCommunityService_Listen.class) {
+                zsc.Server_IP = ZganCommunityService.CommunityIp;
+                zsc.ServerPort = ZganCommunityService.CommunityPort;
+                if (ZganCommunityService.CommunityIp != null && !ZganCommunityService.CommunityIp.equals("") && !ZganCommunityService.CommunityIp.equals("0"))
+                    if (zsc.toConnectServer()) {
+                        ServerState = 1;
+                        return true;
+                    } else
+                        return false;
+            }
         }
         return true;
     }

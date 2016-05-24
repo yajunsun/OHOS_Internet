@@ -499,11 +499,19 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                 if (datastr.length() > 0) {
                                     frontItems = frontItemDal.getList(datastr);
                                     loadSqhdData();
+                                    if (frame.platform!=0)
+                                    {
+                                        addCache("40"+ String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1001, "@id=22", "22"),frame.strData);
+                                    }
                                 }
                             } else if (results[1].equals("1002")) {
                                 if (datastr.length() > 0) {
                                     advertises = advertiseDal.getList(results[2]);
                                     loadGuanggaoData();
+                                    if (frame.platform!=0)
+                                    {
+                                        addCache("40"+ String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1002, "@id=22", "22"),frame.strData);
+                                    }
                                 }
                             } else if (results[1].equals("1020")) {
                                 if (datastr.length() > 0) {
@@ -524,6 +532,9 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         SystemUtils.setProperty(property);
                                         SystemUtils.setFname(Fname);
                                         txt_xiaoqu.setText(village);
+                                        if (frame.platform!=0) {
+                                            addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1020, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"),frame.strData);
+                                        }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     } catch (Exception e1) {

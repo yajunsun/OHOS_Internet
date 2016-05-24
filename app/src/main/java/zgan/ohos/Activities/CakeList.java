@@ -114,8 +114,8 @@ public class CakeList extends myBaseActivity {
                         try {
                             if (!isLoadingMore) {
                                 list = cakeDal.getList(results[2]);
-                                if (frame.platform != 0) {
-                                    addCache("40, 1003", results[2]);
+                                if (frame.platform!=0) {
+                                    addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1003, "@id=22", "22"),frame.strData);
                                 }
                             } else
                                 list.addAll(cakeDal.getList(results[2]));

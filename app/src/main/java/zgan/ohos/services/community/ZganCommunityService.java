@@ -220,47 +220,23 @@ public class ZganCommunityService extends Service {
     }
 
     public static void toGetServerData(int subcmd, int zip, String strData, Handler _handler) {
-        if (isNetworkAvailable(MyApplication.context)) {
             Frame f = createFrame();
             f.subCmd = subcmd;
             f.strData = strData;
             f.zip = zip;
             f._handler = _handler;
             toGetData(f);
-        }
-        else
-        {
-            loadData(_handler,subcmd,zip,1,strData);
-        }
     }
 
-    private static void loadData(Handler handler, int subCmd, int zip, int ver,String other) {
-            String param = String.format("s%,s%,s%,s%", subCmd, zip, ver,other);
-            String key = ImageLoader.hashKeyFromUrl(param);
-            Frame f = new Frame();
-            f.platform = 0;
-            f.subCmd = subCmd;
-            f.strData = "0\t" + DataCacheHelper.loadData(key);
-            Message msg = handler.obtainMessage();
-            msg.obj = f;
-            msg.what = 1;
-            msg.sendToTarget();
-    }
     public static void toGetServerData(int subcmd, int zip, int ver, String strData, Handler _handler) {
-        if (isNetworkAvailable(MyApplication.context)) {
             Frame f = createFrame();
             f.subCmd = subcmd;
             f.strData = strData;
             f.zip = zip;
             f._handler = _handler;
             f.version = ver;
-
+            Log.i(TAG,String.format("toGetServerData(%s,%s,%s,%s,handler)",subcmd,zip,ver,strData));
             toGetData(f);
-        }
-        else
-        {
-            loadData(_handler,subcmd,zip,ver,strData);
-        }
     }
 
     /**

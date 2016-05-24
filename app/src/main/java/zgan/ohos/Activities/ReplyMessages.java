@@ -60,7 +60,9 @@ public class ReplyMessages extends myBaseActivity {
                             String xmlstr = results[1].substring(results[1].indexOf("<li>"), results[1].length());
                             if (!isLoadingMore) {
                                 messagelist = replyMsgDal.getReplyMessages(xmlstr);
-                                addCache("32,0,1,"+String.valueOf(sessionId),results[1]);
+                                if (f.platform != 0) {
+                                    addCache("32" +  String.format("%s\t%d\t%d", PreferenceUtil.getUserName(), sessionId, pageindex), f.strData);
+                                }
                             }
                             else
                             {

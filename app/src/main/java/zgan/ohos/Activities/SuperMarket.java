@@ -122,7 +122,7 @@ public class SuperMarket extends myBaseActivity {
                             if (!isLoadingMore) {
                                 list = dal.getList(results[2]);
                                 if (frame.platform != 0) {
-                                    addCache("40, 1009", results[2]);
+                                    addCache("40" +  String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1009, "@id=22", "@22"), frame.strData);
                                 }
                             } else
                             {}

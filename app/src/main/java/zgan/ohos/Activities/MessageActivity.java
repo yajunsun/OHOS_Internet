@@ -164,8 +164,8 @@ public class MessageActivity extends myBaseActivity {
                             try {
                                 if (!isLoadingMore) {
                                     msglst = messageDal.GetMessages(results[1]);
-                                    if (f.platform != 0) {
-                                        addCache("26, 0, 2," + String.valueOf(msgtype), results[1]);
+                                    if (f.platform!=0) {
+                                        addCache("26"+String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex),f.strData);
                                     }
                                 } else
                                     msglst.addAll(messageDal.GetMessages(results[1]));

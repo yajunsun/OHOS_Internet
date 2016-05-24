@@ -113,9 +113,9 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                         try {
                             if (!isLoadingMore) {
                                 list = dal.getList(results[2]);
-//                                if (frame.platform != 0) {
-//                                    addCache("40, 1016,"+mOrder_type, results[2]);
-//                                }
+                                if (frame.platform != 0) {
+                                    addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), "22"), frame.strData);
+                                }
                             } else
                                 list.addAll(dal.getList(results[2]));
                             handler.post(new Runnable() {

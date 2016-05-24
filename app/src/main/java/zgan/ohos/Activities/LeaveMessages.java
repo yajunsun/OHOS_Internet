@@ -178,8 +178,8 @@ public class LeaveMessages extends myBaseActivity {
                                 String xmlstr = results[1].substring(results[1].indexOf("<li>"), results[1].length());
                                 if (!isLoadingMore) {
                                     msglst = leavemsgDal.getLeaveMessages(xmlstr);
-                                    if (f.platform != 0) {
-                                        addCache("31,0,1", results[1]);
+                                    if (f.platform!=0) {
+                                        addCache("31"+String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex),f.strData);
                                     }
                                     handler.post(new Runnable() {
                                         @Override

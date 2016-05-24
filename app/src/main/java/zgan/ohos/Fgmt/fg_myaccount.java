@@ -176,7 +176,7 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
                     Frame frame = (Frame) msg.obj;
                     String[] results = frame.strData.split("\t");
                     String ret = generalhelper.getSocketeStringResult(frame.strData);
-                    Log.v("suntest", frame.subCmd + "  " + ret);;
+                    Log.v("suntest", frame.subCmd + "  " + ret);
                     if (frame.subCmd == 40) {
                         if (results[0].equals("0") && results[1].equals("1022")) {
                             if (results.length<3)
@@ -188,6 +188,9 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
                                     Log.i("suntest", results[2]);
                                     JSONObject obj = (JSONObject) jsonArray.opt(0);
                                     mStandardsUrl = obj.get("standards").toString();
+                                    if (frame.platform != 0) {
+                                        addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1022, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), frame.strData);
+                                    }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 } catch (Exception e1) {
@@ -202,8 +205,11 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
                                                 .getJSONArray("data");
                                         Log.i("suntest", results[2]);
                                         JSONObject obj = (JSONObject) jsonArray.opt(0);
-                                        String integral = obj.get("integral").toString();
+                                        int integral = obj.getInt("integral");
                                         txtcredits.setText("我的积分 "+integral);
+                                        if (frame.platform != 0) {
+                                            addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1024, String.format("@id=22,@Fname=%s", SystemUtils.getFname()), "22"), frame.strData);
+                                        }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     } catch (Exception e1) {
@@ -222,7 +228,7 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
 
     protected void loadData() {
         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1022, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), handler);
-        ZganCommunityService.toGetServerData(40,2, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1024, String.format("@id=22,@Fname=%s", SystemUtils.getFname()), "22"), handler);
+        ZganCommunityService.toGetServerData(40,0,2, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1024, String.format("@id=22,@Fname=%s", SystemUtils.getFname()), "22"), handler);
     }
 
     @Override

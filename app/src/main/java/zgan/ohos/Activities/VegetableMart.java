@@ -161,7 +161,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                             if (!isLoadingMore) {
                                 list = dal.getList(results[2]);
                                 if (frame.platform != 0) {
-                                    addCache("40, 1005", results[2]);
+                                    addCache("40" +  String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1005, "@id=22", "22"), frame.strData);
                                 }
                             } else
                                 list.addAll(dal.getList(results[2]));

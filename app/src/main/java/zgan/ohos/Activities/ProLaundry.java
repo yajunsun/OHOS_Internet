@@ -163,7 +163,7 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
                         try {
                             list = dal.getList(results[2]);
                             if (frame.platform != 0) {
-                                addCache("40, 1008", results[1]);
+                                addCache("40" +  String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1008, "@id=22", "22"), frame.strData);
                             }
                             handler.post(new Runnable() {
                                 @Override

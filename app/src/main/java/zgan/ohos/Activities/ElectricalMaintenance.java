@@ -130,8 +130,8 @@ public class ElectricalMaintenance extends myBaseActivity implements View.OnClic
                         try {
                             if (!isLoadingMore) {
                                 m = dal.getItem(results[2]);
-                                if (frame.platform != 0) {
-                                    addCache("40, 1011", results[2]);
+                                if (frame.platform!=0) {
+                                    addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1011, "@id=22", "@22"),frame.strData);
                                 }
                             } else {
                             }

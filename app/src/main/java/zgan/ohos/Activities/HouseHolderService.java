@@ -129,8 +129,8 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
                         try {
                             if (!isLoadingMore) {
                                 m = dal.getItem(results[2]);
-                                if (frame.platform != 0) {
-                                    addCache("40, 1010", results[2]);
+                                if (frame.platform!=0) {
+                                    addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1010, "@id=22", "@22"),frame.strData);
                                 }
                             } else {
                             }
