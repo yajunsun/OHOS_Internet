@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -108,14 +109,15 @@ public class MessageActivity extends myBaseActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
-                int totalItemCount = mLayoutManager.getItemCount();
-                //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
-                // dy>0 表示向下滑动
-                if (lastVisibleItem == totalItemCount - 1 && !isLoadingMore && dy > 0) {
-
-                    loadMoreData();//这里多线程也要手动控制isLoadingMore
-                    //isLoadingMore = false;
+                if (dy > 0) {
+                    int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
+                    // dy>0 表示向下滑动
+                    if (lastVisibleItem == totalItemCount - 1&&isLoadingMore==false) {
+                        loadMoreData();//这里多线程也要手动控制isLoadingMore
+                        isLoadingMore = true;
+                    }
                 }
             }
         });
@@ -127,8 +129,8 @@ public class MessageActivity extends myBaseActivity {
 //            toShowProgress();
             refreshview.setRefreshing(true);
             pageindex++;
-            isLoadingMore = true;
-            ZganLoginService.toGetServerData(26, 0, 2, String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex), handler);
+            //isLoadingMore = true;
+            ZganCommunityService.toGetServerData(26, 0, 2, String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex), handler);
             //msglst.addAll(messageDal.GetMessages(pagesize, pageindex, msgtype));
             //adapter.notifyDataSetChanged();
         } catch (Exception ex) {
@@ -139,7 +141,7 @@ public class MessageActivity extends myBaseActivity {
     protected void loadData() {
 //        toSetProgressText(getResources().getString(R.string.loading));
 //        toShowProgress();
-        isLoadingMore = false;
+        //isLoadingMore = false;
         refreshview.setRefreshing(true);
         //小区ID\t帐号\t消息类型ID\t开始时间\t结束时间
         // ZganLoginService.toGetServerData(26, 0, 2, String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex), handler);
@@ -162,13 +164,14 @@ public class MessageActivity extends myBaseActivity {
                     if (f.subCmd == 26) {
                         if (results.length == 2 && results[0].equals("0")) {
                             try {
-                                if (!isLoadingMore) {
-                                    msglst = messageDal.GetMessages(results[1]);
-                                    if (f.platform!=0) {
-                                        addCache("26"+String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex),f.strData);
-                                    }
-                                } else
-                                    msglst.addAll(messageDal.GetMessages(results[1]));
+                                if (pageindex==0)
+                                {
+                                    msglst=new ArrayList<>();
+                                }
+                                if (f.platform != 0) {
+                                    addCache("26" + String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex), f.strData);
+                                }
+                                msglst.addAll(messageDal.GetMessages(results[1]));
                                 handler.post(new Runnable() {
                                     @Override
                                     public void run() {
@@ -193,12 +196,13 @@ public class MessageActivity extends myBaseActivity {
 
     void bindData() {
         date = new Date();
-        if (!isLoadingMore) {
+        if (adapter==null) {
             adapter = new myAdapter();
             rvmsg.setAdapter(adapter);
             rvmsg.setLayoutManager(mLayoutManager);
         } else
             adapter.notifyDataSetChanged();
+        isLoadingMore=false;
 //        Animation animation = AnimationUtils.loadAnimation(this, R.anim.enter);
 //
 //        //得到一个LayoutAnimationController对象；
@@ -234,7 +238,7 @@ public class MessageActivity extends myBaseActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, final int position) {
-          final Message msg = msglst.get(position);
+            final Message msg = msglst.get(position);
             if (msgtype == 3) {
                 holder.txt_msg_type.setText(msg.getMsgType());
                 holder.txt_pub_time.setText(generalhelper.getStringFromDate(

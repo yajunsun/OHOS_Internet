@@ -77,7 +77,7 @@ public class JsonParser<T extends BaseModel> {
                             Type[] types = m.getParameterTypes();
                             if (types.length > 0) {
                                 try {
-                                    String value = obj.get(mName.substring(3)).toString();
+                                    String value = obj.get(mName.substring(3)).toString().trim();
                                     m.invoke(model, value);
                                 }
                                 catch (JSONException jse)

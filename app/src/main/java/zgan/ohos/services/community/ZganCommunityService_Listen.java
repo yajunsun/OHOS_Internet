@@ -58,7 +58,7 @@ public class ZganCommunityService_Listen implements Runnable {
         //zsc.ZganReceiveTime = 500;
         zsc.toStartClient();
         zsc.toStartPing(ZganCommunityService.PLATFORM_APP, FrameTools.Frame_MainCmd_Ping);
-        zsc.ThreadName = "ZganCommunityService";
+        zsc.ThreadName = "CommunityClient";
     }
 
     @Override

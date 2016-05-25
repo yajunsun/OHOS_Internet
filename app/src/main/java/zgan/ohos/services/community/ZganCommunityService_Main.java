@@ -396,7 +396,7 @@ public class ZganCommunityService_Main implements Runnable {
                     if (isSendOutTime) {
 
                         if (intSendOutTime == intTime) {
-                            if (getFrame._handler != null) {
+                            if (getFrame.subCmd==40&&getFrame._handler != null) {
                                 Message msg = getFrame._handler.obtainMessage();
                                 //getFrame.strData
                                 msg.what = 0;
@@ -425,7 +425,7 @@ public class ZganCommunityService_Main implements Runnable {
         }
     }
     private Frame loadData(int subCmd, String strData) {
-        String param = String.format("s%s%", subCmd, strData);
+        String param = String.format("%s%s", subCmd, strData);
         Log.i("suntest",param);
         String key = ImageLoader.hashKeyFromUrl(param);
         Frame f = new Frame();

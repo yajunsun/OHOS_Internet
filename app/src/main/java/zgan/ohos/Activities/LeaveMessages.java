@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -84,14 +85,15 @@ public class LeaveMessages extends myBaseActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
-                int totalItemCount = mLayoutManager.getItemCount();
-                //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
-                // dy>0 表示向下滑动
-                if (lastVisibleItem == totalItemCount - 1 && !isLoadingMore && dy > 0) {
-
-                    loadMoreData();//这里多线程也要手动控制isLoadingMore
-                    //isLoadingMore = true;
+                if (dy > 0) {
+                    int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
+                    // dy>0 表示向下滑动
+                    if (lastVisibleItem == totalItemCount - 1 && isLoadingMore == false) {
+                        loadMoreData();//这里多线程也要手动控制isLoadingMore
+                        isLoadingMore = true;
+                    }
                 }
             }
         });
@@ -140,7 +142,6 @@ public class LeaveMessages extends myBaseActivity {
             refreshview.setRefreshing(true);
             et_input.setText("");
             pageindex++;
-            isLoadingMore = true;
             ZganCommunityService.toGetServerData(31, 0, String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
@@ -148,9 +149,8 @@ public class LeaveMessages extends myBaseActivity {
     }
 
     public void loadData() {
-        pageindex = 0;
         //refreshview.setRefreshing(true);
-        isLoadingMore = false;
+        //isLoadingMore = false;
         //小区ID\t帐号\t消息类型ID\t开始时间\t结束时间
         ZganCommunityService.toGetServerData(31, 0, String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex), handler);
     }
@@ -176,23 +176,21 @@ public class LeaveMessages extends myBaseActivity {
                         if (results.length == 2 && results[0].equals("0")) {
                             try {
                                 String xmlstr = results[1].substring(results[1].indexOf("<li>"), results[1].length());
-                                if (!isLoadingMore) {
-                                    msglst = leavemsgDal.getLeaveMessages(xmlstr);
-                                    if (f.platform!=0) {
-                                        addCache("31"+String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex),f.strData);
-                                    }
-                                    handler.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            bindData();
-                                            //toCloseProgress();
-                                            refreshview.setRefreshing(false);
-                                        }
-                                    });
-                                } else {
-                                    msglst.addAll(leavemsgDal.getLeaveMessages(xmlstr));
-                                    adapter.notifyDataSetChanged();
+                                if (pageindex == 0) {
+                                    msglst = new ArrayList<>();
                                 }
+                                if (f.platform != 0) {
+                                    addCache("31" + String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex), f.strData);
+                                }
+                                msglst.addAll(leavemsgDal.getLeaveMessages(xmlstr));
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        bindData();
+                                        //toCloseProgress();
+                                        refreshview.setRefreshing(false);
+                                    }
+                                });
                             } catch (Exception ex) {
                                 android.os.Message msg1 = new android.os.Message();
                                 msg1.what = 0;
@@ -210,13 +208,14 @@ public class LeaveMessages extends myBaseActivity {
 
     void bindData() {
         date = new Date();
-        if (!isLoadingMore) {
+        if (adapter==null) {
             adapter = new myAdapter();
             rvmsg.setAdapter(adapter);
             rvmsg.setLayoutManager(mLayoutManager);
         } else {
             adapter.notifyDataSetChanged();
         }
+        isLoadingMore=false;
 //        Animation animation = AnimationUtils.loadAnimation(this, R.anim.enter);
 //        //得到一个LayoutAnimationController对象；
 //        LayoutAnimationController lac = new LayoutAnimationController(animation);
@@ -244,7 +243,7 @@ public class LeaveMessages extends myBaseActivity {
             String address[];
             int contentIndex = content.indexOf("$$");
             if (contentIndex > -1) {
-                address = content.substring(0, contentIndex ).split(",");
+                address = content.substring(0, contentIndex).split(",");
                 content = content.substring(contentIndex + 2);
                 if (address.length >= 4) {
                     holder.txt_houser.setText(address[0] + "栋" + address[1] + "单元" + address[2] + "-" + address[3]);

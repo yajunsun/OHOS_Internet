@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import zgan.ohos.Contracts.IImageloader;
@@ -39,42 +40,41 @@ public class HightQualityService extends myBaseActivity {
     List<HightQualityServiceM> list;
     HightQualityDal dal;
     ImageLoader imageLoader;
-    String pageid ="1006";
+    String pageid = "1006";
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_hight_quality_service);
-        pageid=getIntent().getStringExtra("pageid");
-        if (pageid.equals("1006"))
-        {
-            TextView t=(TextView)findViewById(R.id.txt_title);
+        pageid = getIntent().getStringExtra("pageid");
+        if (pageid.equals("1006")) {
+            TextView t = (TextView) findViewById(R.id.txt_title);
             t.setText("土特产");
         }
-        if (pageid.equals("1007"))
-        {
-            TextView t=(TextView)findViewById(R.id.txt_title);
+        if (pageid.equals("1007")) {
+            TextView t = (TextView) findViewById(R.id.txt_title);
             t.setText("高端特供");
         }
         mLayoutManager = new LinearLayoutManager(HightQualityService.this);
         rc_items = (RecyclerView) findViewById(R.id.rv_items);
         dal = new HightQualityDal();
         imageLoader = new ImageLoader();
-//        rc_items.setOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
-//                int totalItemCount = mLayoutManager.getItemCount();
-//                //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
-//                // dy>0 表示向下滑动
-//                if (lastVisibleItem == totalItemCount - 1 && !isLoadingMore && dy > 0) {
-//
-//                    loadMoreData();//这里多线程也要手动控制isLoadingMore
-//                    //isLoadingMore = false;
-//                }
-//            }
-//        });
-        View back=findViewById(R.id.back);
+        rc_items.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
+                    // dy>0 表示向下滑动
+                    if (lastVisibleItem == totalItemCount - 1 && isLoadingMore == false) {
+                        loadMoreData();//这里多线程也要手动控制isLoadingMore
+                        isLoadingMore = true;
+                    }
+                }
+            }
+        });
+        View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,27 +88,28 @@ public class HightQualityService extends myBaseActivity {
     }
 
     protected void loadData() {
-        isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, "@id=22", "22"), handler);
+        //isLoadingMore = false;
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, "@id=22,@page=0", "22"), handler);
     }
 
     public void loadMoreData() {
         try {
             pageindex++;
-            isLoadingMore = true;
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, "@id=22", "22"), handler);
+            //isLoadingMore = true;
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, String.format("@id=22,@page=%s", pageindex), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
     }
 
     void bindData() {
-        if (!isLoadingMore) {
+        if (adapter == null) {
             adapter = new myAdapter();
             rc_items.setAdapter(adapter);
             rc_items.setLayoutManager(mLayoutManager);
         } else
             adapter.notifyDataSetChanged();
+        isLoadingMore = false;
     }
 
     private Handler handler = new Handler() {
@@ -122,15 +123,16 @@ public class HightQualityService extends myBaseActivity {
                 Log.v(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0")&& results[1].equals(pageid)) {
+                    if (results[0].equals("0") && results[1].equals(pageid)) {
                         try {
-                            if (!isLoadingMore) {
-                                list = dal.getList(results[2]);
-                                if (frame.platform!=0) {
-                                    addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, "@id=22", "22"),frame.strData);
-                                }
-                            } else
-                                list.addAll(dal.getList(results[2]));
+                            if (pageindex == 0) {
+                                list = new ArrayList<>();
+                            }
+                            if (frame.platform != 0) {
+
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, "@id=22,@page=0", "22"), frame.strData);
+                            }
+                            list.addAll(dal.getList(results[2]));
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -149,6 +151,7 @@ public class HightQualityService extends myBaseActivity {
             }
         }
     };
+
     @Override
     public void ViewClick(View v) {
 
@@ -156,12 +159,13 @@ public class HightQualityService extends myBaseActivity {
 
     class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHoler> {
 
-        int width=200,height=200;
-        public myAdapter()
-        {
-            width= AppUtils.getWindowSize(HightQualityService.this).x;
-            height=5*width;
+        int width = 200, height = 200;
+
+        public myAdapter() {
+            width = AppUtils.getWindowSize(HightQualityService.this).x;
+            height = 5 * width;
         }
+
         @Override
         public ViewHoler onCreateViewHolder(ViewGroup parent, int viewType) {
             return new ViewHoler(getLayoutInflater().inflate(R.layout.lo_hightq_item, parent, false));
@@ -169,18 +173,18 @@ public class HightQualityService extends myBaseActivity {
 
         @Override
         public void onBindViewHolder(ViewHoler holder, int position) {
-            final HightQualityServiceM m=list.get(position);
-            ImageLoader.bindBitmap(m.getpic_url(),holder.ivpreview,600,600);
+            final HightQualityServiceM m = list.get(position);
+            ImageLoader.bindBitmap(m.getpic_url(), holder.ivpreview, 600, 600);
             holder.txtdesc.setText(m.gettitle());
             holder.txtprice.setText("￥" + m.getprice());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(HightQualityService.this,HightQualityDetail.class);
-                    Bundle bundle=new Bundle();
-                    bundle.putSerializable("hqs",m);
+                    Intent intent = new Intent(HightQualityService.this, HightQualityDetail.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("hqs", m);
                     intent.putExtras(bundle);
-                    intent.putExtra("pageid",pageid);
+                    intent.putExtra("pageid", pageid);
                     startActivityWithAnim(intent);
                 }
             });
