@@ -74,15 +74,70 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
         tunget.setTextColor(getResources().getColor(R.color.solid_black));
     }
 
+    @Override
+    protected void initView() {
+
+        setContentView(R.layout.activity_order_list);
+        myInflater = getLayoutInflater();
+        dal = new QueryOrderDal();
+        density = AppUtils.getDensity(this);
+        mLayoutManager = new LinearLayoutManager(this);
+        imageLoader = new ImageLoader();
+        //list = MyOrderDal.mConfirmedOrders;
+        rv_orders = (RecyclerView) findViewById(R.id.rv_orders);
+        rv_orders.addItemDecoration(new RecyclerViewItemSpace(20));
+        refreshview = (SwipeRefreshLayout) findViewById(R.id.refreshview);
+        refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pageindex = 1;
+                isLoadingMore = false;
+                loadData();
+            }
+        });
+        rv_orders.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
+                    // dy>0 表示向下滑动
+                    if (lastVisibleItem == totalItemCount - 1 && isLoadingMore == false) {
+                        loadMoreData();//这里多线程也要手动控制isLoadingMore
+                        isLoadingMore = true;
+                    }
+                }
+            }
+        });
+        View back = findViewById(R.id.back);
+        back.setVisibility(View.VISIBLE);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        tall = (TextView) findViewById(R.id.t_all);
+        tunpay = (TextView) findViewById(R.id.t_unpay);
+        tunget = (TextView) findViewById(R.id.t_unget);
+        tall.setOnClickListener(this);
+        tunpay.setOnClickListener(this);
+        tunget.setOnClickListener(this);
+        tall.setTextColor(getResources().getColor(R.color.primary));
+        loadData();
+    }
+
     protected void loadData() {
-        isLoadingMore = false;
+        refreshview.setRefreshing(true);
         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), "22"), handler);
     }
 
     public void loadMoreData() {
         try {
             pageindex++;
-            isLoadingMore = true;
+            refreshview.setRefreshing(true);
             ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
@@ -90,12 +145,13 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
     }
 
     void bindData() {
-        if (!isLoadingMore) {
+        if (adapter == null) {
             adapter = new myAdapter();
             rv_orders.setAdapter(adapter);
             rv_orders.setLayoutManager(mLayoutManager);
         } else
             adapter.notifyDataSetChanged();
+        isLoadingMore = false;
     }
 
     private Handler handler = new Handler() {
@@ -109,15 +165,16 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 Log.v("suntest", frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1016")) {
+                    if (results[0].equals("0") && results[1].equals("1016")&&results.length>2) {
                         try {
-                            if (!isLoadingMore) {
-                                list = dal.getList(results[2]);
-                                if (frame.platform != 0) {
-                                    addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), "22"), frame.strData);
-                                }
-                            } else
-                                list.addAll(dal.getList(results[2]));
+                            if (pageindex == 1) {
+                                list = new ArrayList<>();
+                            }
+                            if (frame.platform != 0) {
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), "22"), frame.strData);
+                            }
+                            List<QueryOrderM> orders = dal.getList(results[2]);
+                            list.addAll(orders);
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -131,6 +188,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                             handler.sendMessage(msg1);
                         }
                     }
+                    refreshview.setRefreshing(false);
                 }
                 //toCloseProgress();
             }
@@ -139,6 +197,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        refreshview.setRefreshing(false);
         switch (v.getId()) {
             case R.id.t_all:
                 initialOptions();
@@ -159,44 +218,6 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 loadData();
                 break;
         }
-    }
-
-    @Override
-    protected void initView() {
-
-        setContentView(R.layout.activity_order_list);
-        myInflater = getLayoutInflater();
-        dal = new QueryOrderDal();
-        density = AppUtils.getDensity(this);
-        mLayoutManager = new LinearLayoutManager(this);
-        imageLoader = new ImageLoader();
-        //list = MyOrderDal.mConfirmedOrders;
-        rv_orders = (RecyclerView) findViewById(R.id.rv_orders);
-        rv_orders.addItemDecoration(new RecyclerViewItemSpace(20));
-        refreshview = (SwipeRefreshLayout) findViewById(R.id.refreshview);
-        refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                rv_orders.setAdapter(new myAdapter());
-                refreshview.setRefreshing(false);
-            }
-        });
-        View back = findViewById(R.id.back);
-        back.setVisibility(View.VISIBLE);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        tall = (TextView) findViewById(R.id.t_all);
-        tunpay = (TextView) findViewById(R.id.t_unpay);
-        tunget = (TextView) findViewById(R.id.t_unget);
-        tall.setOnClickListener(this);
-        tunpay.setOnClickListener(this);
-        tunget.setOnClickListener(this);
-        tall.setTextColor(getResources().getColor(R.color.primary));
-        loadData();
     }
 
     @Override
@@ -284,6 +305,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
 
             @Override
             public void onClick(View v) {
+                refreshview.setRefreshing(false);
                 Intent intent;
                 switch (v.getId()) {
                     case R.id.btn_deleteorder:

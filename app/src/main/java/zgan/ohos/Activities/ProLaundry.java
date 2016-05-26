@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
@@ -51,10 +52,10 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
     }
 
     int current_option_index = -1;
-    TextView pkg_name, pkg_price, pkg_desc;
+    SwipeRefreshLayout refreshview;
     ImageView iv_preview, iv_detail;
     ImageLoader imageLoader;
-    ScrollView txtdetail, imgdetail;
+    ScrollView imgdetail;
     LinearLayout llprename;
     List<MyPakage> list;
     MyPakageDal dal;
@@ -97,15 +98,18 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
         imageLoader = new ImageLoader();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         llpreview = findViewById(R.id.llpreview);
-        pkg_name = (TextView) findViewById(R.id.pkg_name);
-        pkg_price = (TextView) findViewById(R.id.pkg_price);
-        pkg_desc = (TextView) findViewById(R.id.pkg_desc);
         iv_preview = (ImageView) findViewById(R.id.iv_preview);
         iv_detail = (ImageView) findViewById(R.id.iv_detail);
-        txtdetail = (ScrollView) findViewById(R.id.txtdetail);
         imgdetail = (ScrollView) findViewById(R.id.imgdetail);
         llprename = (LinearLayout) findViewById(R.id.llprename);
-
+        refreshview = (SwipeRefreshLayout) findViewById(R.id.refreshview);
+        refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+                //adapter.notifyDataSetChanged();
+            }
+        });
 
         txt_time = (TextView) findViewById(R.id.txt_time);
         btn_immediate = (TextView) findViewById(R.id.btn_immediate);
@@ -126,6 +130,7 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
     }
 
     protected void loadData() {
+        refreshview.setRefreshing(true);
         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1008, "@id=22", "22"), handler);
     }
 
@@ -181,6 +186,7 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
                         Toast.makeText(ProLaundry.this, "订单已提交，工作人员将在20分钟内上门服务~", Toast.LENGTH_LONG).show();
                         finish();
                     }
+                    refreshview.setRefreshing(false);
                 }
                 toCloseProgress();
             }
@@ -302,7 +308,7 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
     @Override
     public void ViewClick(View v) {
         Intent intent = null;
-
+        refreshview.setRefreshing(false);
         switch (v.getId()) {
             case R.id.btncheck:
                 BaseGoods goods = list.get(index);
@@ -435,7 +441,6 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
 //                    pkg_price.setText("￥" + list.get(_index).getprice() + "/月");
 //                } else
                 if (!list.get(_index).getdetails_url().equals("")) {
-                    show_img();
                     int maxwidth = AppUtils.getWindowSize(this).x;
                     int maxheight = 5 * maxwidth;
                     iv_detail.setMaxWidth(maxwidth);
@@ -460,16 +465,6 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
                 current_option_index = _index;
             }
         }
-    }
-
-    void show_txt() {
-        txtdetail.setVisibility(View.VISIBLE);
-        imgdetail.setVisibility(View.GONE);
-    }
-
-    void show_img() {
-        txtdetail.setVisibility(View.GONE);
-        imgdetail.setVisibility(View.VISIBLE);
     }
 
 }

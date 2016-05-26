@@ -88,6 +88,13 @@ public class MainActivity extends myBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        FragmentTransaction transaction = fgManager.beginTransaction();
+        transaction.remove(myfront);
+        transaction.remove(myorder);
+        transaction.remove(myaccount);
+        myfront = null;
+        myorder = null;
+        myaccount = null;
     }
 
     @Override
@@ -145,14 +152,14 @@ public class MainActivity extends myBaseActivity {
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        current_option_index=savedInstanceState.getInt("currentoptionindex");
+        current_option_index = savedInstanceState.getInt("currentoptionindex");
         setTabSelection(current_option_index);
         super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt("currentoptionindex",current_option_index);
+        outState.putInt("currentoptionindex", current_option_index);
         //super.onSaveInstanceState(outState);
     }
 
@@ -283,7 +290,7 @@ public class MainActivity extends myBaseActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             Intent intentLogin = new Intent(MainActivity.this, ZganLoginService.class);
             stopService(intentLogin);
-            Intent intentCommunity=new Intent(MainActivity.this, ZganCommunityService.class);
+            Intent intentCommunity = new Intent(MainActivity.this, ZganCommunityService.class);
             stopService(intentCommunity);
             Log.v(TAG, "service stoped,activity destroied");
             AppUtils.exits();

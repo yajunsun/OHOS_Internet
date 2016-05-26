@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -32,9 +33,10 @@ import zgan.ohos.utils.generalhelper;
 
 public class IcecreamList extends myBaseActivity implements View.OnClickListener {
 
-    int pageindex = 1;
+    int pageindex = 0;
     boolean isLoadingMore = false;
     LinearLayoutManager mLayoutManager;
+    SwipeRefreshLayout refreshview;
     myAdapter adapter;
     List<Vegetable> list;
     List<BaseGoods> buylist;
@@ -82,21 +84,33 @@ public class IcecreamList extends myBaseActivity implements View.OnClickListener
         dal = new VegetableDal();
         buylist = new ArrayList<>();
         imageLoader = new ImageLoader();
-//        rv_vegetable.setOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
-//                int totalItemCount = mLayoutManager.getItemCount();
-//                //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
-//                // dy>0 表示向下滑动
-//                if (lastVisibleItem == totalItemCount - 1 && !isLoadingMore && dy > 0) {
-//
-//                    loadMoreData();//这里多线程也要手动控制isLoadingMore
-//                    //isLoadingMore = false;
-//                }
-//            }
-//        });
+        refreshview = (SwipeRefreshLayout) findViewById(R.id.refreshview);
+        refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pageindex = 0;
+                isLoadingMore = false;
+                loadData();
+                //adapter.notifyDataSetChanged();
+
+            }
+        });
+        rv_vegetable.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
+                    // dy>0 表示向下滑动
+                    if (lastVisibleItem == totalItemCount - 1 && isLoadingMore == false) {
+                        loadMoreData();//这里多线程也要手动控制isLoadingMore
+                        isLoadingMore = true;
+                    }
+                }
+            }
+        });
         gdcount = (TextView) findViewById(R.id.gdcount);
         totalpay = (TextView) findViewById(R.id.totalpay);
         btncheck = (Button) findViewById(R.id.btncheck);
@@ -115,27 +129,30 @@ public class IcecreamList extends myBaseActivity implements View.OnClickListener
     }
 
     protected void loadData() {
-        isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1021, "@id=22", "22"), handler);
+        //isLoadingMore = false;
+        refreshview.setRefreshing(true);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1021, "@id=22,@page=0", "22"), handler);
     }
 
     public void loadMoreData() {
         try {
             pageindex++;
-            isLoadingMore = true;
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1005, "@id=22", "22"), handler);
+            //isLoadingMore = true;
+            refreshview.setRefreshing(true);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1021, String.format("@id=22,@page=%d", pageindex), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
     }
 
     void bindData() {
-        if (!isLoadingMore) {
+        if (adapter == null) {
             adapter = new myAdapter();
             rv_vegetable.setAdapter(adapter);
             rv_vegetable.setLayoutManager(mLayoutManager);
         } else
             adapter.notifyDataSetChanged();
+        isLoadingMore = false;
     }
 
     private Handler handler = new Handler() {
@@ -149,15 +166,16 @@ public class IcecreamList extends myBaseActivity implements View.OnClickListener
                 Log.v(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1021")) {
+                    if (results[0].equals("0") && results[1].equals("1021")&&results.length>2) {
                         try {
-                            if (!isLoadingMore) {
-                                list = dal.getList(results[2]);
-                                if (frame.platform!=0) {
-                                    addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1021, "@id=22", "22"),frame.strData);
-                                }
-                            } else
-                                list.addAll(dal.getList(results[2]));
+                            if (pageindex == 0) {
+                                list = new ArrayList<>();
+                            }
+                            if (frame.platform != 0) {
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1021, String.format("@id=22,@page=%d", pageindex), "22"), frame.strData);
+                            }
+                            List<Vegetable> vegetables = dal.getList(results[2]);
+                            list.addAll(vegetables);
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -171,6 +189,7 @@ public class IcecreamList extends myBaseActivity implements View.OnClickListener
                             handler.sendMessage(msg1);
                         }
                     }
+                    refreshview.setRefreshing(false);
                 }
                 toCloseProgress();
             }

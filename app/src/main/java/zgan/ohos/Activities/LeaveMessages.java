@@ -149,7 +149,7 @@ public class LeaveMessages extends myBaseActivity {
     }
 
     public void loadData() {
-        //refreshview.setRefreshing(true);
+        refreshview.setRefreshing(true);
         //isLoadingMore = false;
         //小区ID\t帐号\t消息类型ID\t开始时间\t结束时间
         ZganCommunityService.toGetServerData(31, 0, String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex), handler);
@@ -182,7 +182,8 @@ public class LeaveMessages extends myBaseActivity {
                                 if (f.platform != 0) {
                                     addCache("31" + String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex), f.strData);
                                 }
-                                msglst.addAll(leavemsgDal.getLeaveMessages(xmlstr));
+                                List<LeaveMessage> msgs=leavemsgDal.getLeaveMessages(xmlstr);
+                                msglst.addAll(msgs);
                                 handler.post(new Runnable() {
                                     @Override
                                     public void run() {

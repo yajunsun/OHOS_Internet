@@ -55,10 +55,16 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_vegetable"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/check"
-        android:layout_below="@id/toolbar" />
+        android:layout_below="@id/toolbar">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_vegetable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

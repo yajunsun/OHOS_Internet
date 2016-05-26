@@ -171,7 +171,8 @@ public class MessageActivity extends myBaseActivity {
                                 if (f.platform != 0) {
                                     addCache("26" + String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex), f.strData);
                                 }
-                                msglst.addAll(messageDal.GetMessages(results[1]));
+                                List<Message> msgs=messageDal.GetMessages(results[1]);
+                                msglst.addAll(msgs);
                                 handler.post(new Runnable() {
                                     @Override
                                     public void run() {

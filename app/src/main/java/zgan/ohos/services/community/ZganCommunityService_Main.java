@@ -17,7 +17,7 @@ public class ZganCommunityService_Main implements Runnable {
     private java.util.Queue<byte[]> Queue = new LinkedList<byte[]>();
     private java.util.Queue<Frame> Queue_Function = new LinkedList<Frame>();
     private boolean isGetData = false;
-    private static final String  TAG="ZganCommunity_Main";
+    private static final String TAG = "ZganCommunity_Main";
     private int intSendOutTime = 200; // 20秒
     private boolean isSendOutTime = false;
     private int intTime = 0;
@@ -41,7 +41,7 @@ public class ZganCommunityService_Main implements Runnable {
 
                 if (ZganCommunityService_Listen.ServerState == 1
                         && Queue_Function != null && Queue_Function.size() > 0) {
-                   Log.v(TAG, "Queue_Function:" + Queue_Function.size()) ;
+                    Log.v(TAG, "Queue_Function:" + Queue_Function.size());
                     getFrame = Queue_Function.poll();
 
                     isGetData = true;
@@ -57,7 +57,7 @@ public class ZganCommunityService_Main implements Runnable {
                     // 接收数据
                     while (isGetData) {
                         if (Queue.size() > 0) {
-                            Log.v(TAG, "Queue:" + Queue.size()) ;
+                            Log.v(TAG, "Queue:" + Queue.size());
                             byte[] resultByte = null;
                             resultByte = Queue.poll();
                             /****************沾包分包********************/
@@ -65,21 +65,20 @@ public class ZganCommunityService_Main implements Runnable {
                             System.arraycopy(resultByte, 0, readPool, nReadSize, resultByte.length);
                             //缓存中数据的长度
                             nReadSize += resultByte.length;//此处size有问题
-                            if (nReadSize<11)
+                            if (nReadSize < 11)
                                 continue;
                             //读取数据的长度
-                            int intDataLen = FrameTools.HighLowToInt(readPool[9], readPool[10])+12;
-                            if (intDataLen>nReadSize)
-                            {
+                            int intDataLen = FrameTools.HighLowToInt(readPool[9], readPool[10]) + 12;
+                            if (intDataLen > nReadSize) {
                                 continue;
-                            }
-                            else if (intDataLen<nReadSize)
-                            {
+                            } else if (intDataLen < nReadSize) {
+                                Log.i("suntest", String.format("这里有沾包，需要数据长度%d，实际读取长度%d", intDataLen, nReadSize));
                                 int dataL = intDataLen;//此帧数据长度
                                 int writeSize = 0;//缓存中已经被读取的长度
                                 Frame f1;
                                 //循环读取缓存数据
                                 while (dataL < nReadSize) {
+                                    Log.i("suntest", String.format("已处理长度%d", dataL));
                                     try {
                                         //每一帧的数据
                                         byte[] b1 = new byte[dataL];
@@ -89,7 +88,7 @@ public class ZganCommunityService_Main implements Runnable {
                                         isSendOutTime = false;
                                         isGetData = false;
                                         //回调接口
-                                        if (getFrame._handler!=null) {
+                                        if (getFrame._handler != null) {
                                             Message msg = getFrame._handler
                                                     .obtainMessage();
                                             msg.obj = f;
@@ -109,7 +108,7 @@ public class ZganCommunityService_Main implements Runnable {
                                             break;
                                         //继续计算下一帧数据的长度
                                         //f1 = new RDTFrame(readPool);
-                                        dataL =FrameTools.HighLowToInt(readPool[9], readPool[10])+12; //f1.mLen;
+                                        dataL = FrameTools.HighLowToInt(readPool[9], readPool[10]) + 12; //f1.mLen;
                                         //如果下一帧播放的长度=缓存池数据的长度则直接播放并初始化缓存池
                                         if (dataL == nReadSize) {
                                             //playRDT(mAVChannel, pFrmNo, f1);
@@ -118,7 +117,7 @@ public class ZganCommunityService_Main implements Runnable {
                                             isSendOutTime = false;
                                             isGetData = false;
                                             //回调接口
-                                            if (getFrame._handler!=null) {
+                                            if (getFrame._handler != null) {
                                                 Message msg = getFrame._handler
                                                         .obtainMessage();
                                                 msg.obj = f1;
@@ -136,21 +135,19 @@ public class ZganCommunityService_Main implements Runnable {
                                         break;
                                     }
                                 }
-                            }
-                            else
-                            {
-                                byte[] data=new byte[nReadSize];
-                                System.arraycopy(readPool,0,data,0,nReadSize);
+                            } else {
+                                byte[] data = new byte[nReadSize];
+                                System.arraycopy(readPool, 0, data, 0, nReadSize);
                                 Frame f = new Frame(data);
-                                readPool=new byte[1024*30];
-                                nReadSize=0;
-                                Log.v(TAG, "ZganCommunityService_Main接收到数据"+f.subCmd);
+                                readPool = new byte[1024 * 30];
+                                nReadSize = 0;
+                                Log.v(TAG, "ZganCommunityService_Main接收到数据" + f.subCmd);
                                 //modified by yajunsun 20151218暂时修改
                                 intTime = 0;
                                 isSendOutTime = false;
                                 isGetData = false;
                                 //回调接口
-                                if (getFrame._handler!=null) {
+                                if (getFrame._handler != null) {
                                     Message msg = getFrame._handler
                                             .obtainMessage();
                                     msg.obj = f;
@@ -396,14 +393,13 @@ public class ZganCommunityService_Main implements Runnable {
                     if (isSendOutTime) {
 
                         if (intSendOutTime == intTime) {
-                            if (getFrame.subCmd==40&&getFrame._handler != null) {
+                            if (getFrame.subCmd == 40 && getFrame._handler != null) {
                                 Message msg = getFrame._handler.obtainMessage();
                                 //getFrame.strData
                                 msg.what = 0;
-                                Frame frame=loadData(getFrame.subCmd,getFrame.strData);
-                                if (frame.strData!=null&&frame.strData.length()>0)
-                                {
-                                    msg.what=1;
+                                Frame frame = loadData(getFrame.subCmd, getFrame.strData);
+                                if (frame.strData != null && frame.strData.length() > 0) {
+                                    msg.what = 1;
                                 }
                                 getFrame._handler.sendMessage(msg);
                             }
@@ -424,15 +420,16 @@ public class ZganCommunityService_Main implements Runnable {
             }
         }
     }
+
     private Frame loadData(int subCmd, String strData) {
         String param = String.format("%s%s", subCmd, strData);
-        Log.i("suntest",param);
+        Log.i("suntest", param);
         String key = ImageLoader.hashKeyFromUrl(param);
         Frame f = new Frame();
         f.platform = 0;
         f.subCmd = subCmd;
         f.strData = DataCacheHelper.loadData(key);
-        Log.i("suntest","load from cache");
+        Log.i("suntest", "load from cache");
         return f;
     }
 

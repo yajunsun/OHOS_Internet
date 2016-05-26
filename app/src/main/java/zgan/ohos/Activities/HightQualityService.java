@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,7 @@ public class HightQualityService extends myBaseActivity {
 
     int pageindex = 0;
     boolean isLoadingMore = false;
+    SwipeRefreshLayout refreshview;
     LinearLayoutManager mLayoutManager;
     myAdapter adapter;
     RecyclerView rc_items;
@@ -58,6 +60,17 @@ public class HightQualityService extends myBaseActivity {
         rc_items = (RecyclerView) findViewById(R.id.rv_items);
         dal = new HightQualityDal();
         imageLoader = new ImageLoader();
+        refreshview = (SwipeRefreshLayout) findViewById(R.id.refreshview);
+        refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pageindex = 0;
+                isLoadingMore = false;
+                loadData();
+                //adapter.notifyDataSetChanged();
+
+            }
+        });
         rc_items.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -89,6 +102,7 @@ public class HightQualityService extends myBaseActivity {
 
     protected void loadData() {
         //isLoadingMore = false;
+        refreshview.setRefreshing(true);
         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, "@id=22,@page=0", "22"), handler);
     }
 
@@ -96,6 +110,7 @@ public class HightQualityService extends myBaseActivity {
         try {
             pageindex++;
             //isLoadingMore = true;
+            refreshview.setRefreshing(true);
             ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, String.format("@id=22,@page=%s", pageindex), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
@@ -123,16 +138,17 @@ public class HightQualityService extends myBaseActivity {
                 Log.v(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals(pageid)) {
+                    if (results[0].equals("0") && results[1].equals(pageid)&&results.length>2) {
                         try {
                             if (pageindex == 0) {
                                 list = new ArrayList<>();
                             }
                             if (frame.platform != 0) {
 
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, "@id=22,@page=0", "22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, String.format("@id=22,@page=%s", pageindex), "22"), frame.strData);
                             }
-                            list.addAll(dal.getList(results[2]));
+                            List<HightQualityServiceM>hightQualityServiceMs = dal.getList(results[2]);
+                            list.addAll(hightQualityServiceMs);
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -146,6 +162,7 @@ public class HightQualityService extends myBaseActivity {
                             handler.sendMessage(msg1);
                         }
                     }
+                    refreshview.setRefreshing(false);
                 }
                 toCloseProgress();
             }
@@ -180,6 +197,7 @@ public class HightQualityService extends myBaseActivity {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    refreshview.setRefreshing(false);
                     Intent intent = new Intent(HightQualityService.this, HightQualityDetail.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("hqs", m);

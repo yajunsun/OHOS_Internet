@@ -77,10 +77,27 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
         refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //rv_orders.setAdapter(new myAdapter());
                 pageindex = 1;
                 isLoadingMore = false;
                 loadData();
+                //adapter.notifyDataSetChanged();
+
+            }
+        });
+        rv_orders.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
+                    // dy>0 表示向下滑动
+                    if (lastVisibleItem == totalItemCount - 1 && isLoadingMore == false) {
+                        loadMoreData();//这里多线程也要手动控制isLoadingMore
+                        isLoadingMore = true;
+                    }
+                }
             }
         });
 
@@ -98,7 +115,6 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     public void onStart() {
         super.onStart();
         pageindex = 1;
-        isLoadingMore = false;
         loadData();
     }
 
@@ -109,14 +125,14 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     }
 
     protected void loadData() {
-        isLoadingMore = false;
+        refreshview.setRefreshing(true);
         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), "22"), handler);
     }
 
     public void loadMoreData() {
         try {
             pageindex++;
-            isLoadingMore = true;
+            refreshview.setRefreshing(true);
             ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(getActivity(), ex.getMessage());
@@ -124,12 +140,13 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     }
 
     void bindData() {
-        if (!isLoadingMore) {
+        if (adapter == null) {
             adapter = new myAdapter();
             rv_orders.setAdapter(adapter);
             rv_orders.setLayoutManager(mLayoutManager);
         } else
             adapter.notifyDataSetChanged();
+        isLoadingMore = false;
     }
 
     private Handler handler = new Handler() {
@@ -145,14 +162,14 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                 if (frame.subCmd == 40) {
                     if (results[0].equals("0") && results[1].equals("1016")) {
                         try {
-                            if (!isLoadingMore) {
-                                list = dal.getList(results[2]);
-                                if (frame.platform!=0)
-                                {
-                                    String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), frame.strData);
-                                }
-                            } else
-                                list.addAll(dal.getList(results[2]));
+                            if (pageindex == 1) {
+                                list = new ArrayList<>();
+                            }
+                            if (frame.platform != 0) {
+                                String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), frame.strData);
+                            }
+                            List<QueryOrderM> orders=dal.getList(results[2]);
+                            list.addAll(orders);
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -167,6 +184,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                             handler.sendMessage(msg1);
                         }
                     }
+                    refreshview.setRefreshing(false);
                 }
                 //toCloseProgress();
             }
@@ -175,6 +193,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        refreshview.setRefreshing(false);
         switch (v.getId()) {
             case R.id.t_all:
                 initialOptions();
@@ -253,10 +272,10 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
 //                holder.btn_checkshipping.setVisibility(View.GONE);
 //                holder.btn_payimmediatly.setVisibility(View.VISIBLE);
 //            }
-            holder.btn_deleteorder.setOnClickListener(new ItemButtonOnclickListner(o,m.getStatusText(),m.getsub_time()));
-            holder.btn_checkshipping.setOnClickListener(new ItemButtonOnclickListner(o,m.getStatusText(),m.getsub_time()));
-            holder.btn_payimmediatly.setOnClickListener(new ItemButtonOnclickListner(o,m.getStatusText(),m.getsub_time()));
-            holder.itemView.setOnClickListener(new ItemButtonOnclickListner(o,m.getStatusText(),m.getsub_time()));
+            holder.btn_deleteorder.setOnClickListener(new ItemButtonOnclickListner(o, m.getStatusText(), m.getsub_time()));
+            holder.btn_checkshipping.setOnClickListener(new ItemButtonOnclickListner(o, m.getStatusText(), m.getsub_time()));
+            holder.btn_payimmediatly.setOnClickListener(new ItemButtonOnclickListner(o, m.getStatusText(), m.getsub_time()));
+            holder.itemView.setOnClickListener(new ItemButtonOnclickListner(o, m.getStatusText(), m.getsub_time()));
         }
 
         @Override
@@ -269,14 +288,15 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
             String statusText = "配送中";
             String addTime;
 
-            public ItemButtonOnclickListner(MyOrder _o,String _sText,String _addTime) {
+            public ItemButtonOnclickListner(MyOrder _o, String _sText, String _addTime) {
                 o = _o;
-                statusText=_sText;
-                addTime=_addTime;
+                statusText = _sText;
+                addTime = _addTime;
             }
 
             @Override
             public void onClick(View v) {
+                refreshview.setRefreshing(false);
                 Intent intent;
                 switch (v.getId()) {
                     case R.id.btn_deleteorder:
@@ -292,8 +312,8 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("order", o);
                         intent.putExtra("ordertype", mOrder_type);
-                        intent.putExtra("orderstatus",statusText);
-                        intent.putExtra("addtime",addTime);
+                        intent.putExtra("orderstatus", statusText);
+                        intent.putExtra("addtime", addTime);
                         intent.putExtra("fee", o.gettotal());
                         intent.putExtras(bundle);
                         startActivityForResult(intent, 0);

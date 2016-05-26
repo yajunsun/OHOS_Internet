@@ -18,6 +18,7 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import zgan.ohos.Dals.ReplyMessageDal;
@@ -58,17 +59,22 @@ public class ReplyMessages extends myBaseActivity {
                     if (f.subCmd == 32) {
                         if (results.length == 2 && results[0].equals("0")) {
                             String xmlstr = results[1].substring(results[1].indexOf("<li>"), results[1].length());
-                            if (!isLoadingMore) {
-                                messagelist = replyMsgDal.getReplyMessages(xmlstr);
-                                if (f.platform != 0) {
-                                    addCache("32" +  String.format("%s\t%d\t%d", PreferenceUtil.getUserName(), sessionId, pageindex), f.strData);
+                            if (pageindex == 0) {
+                                messagelist = new ArrayList<>();
+                            }
+                            if (f.platform != 0) {
+                                addCache("32" + String.format("%s\t%d\t%d", PreferenceUtil.getUserName(), sessionId, pageindex), f.strData);
+                            }
+                            List<ReplyMessage> msgs=replyMsgDal.getReplyMessages(xmlstr);
+                            messagelist.addAll(msgs);
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    bindData();
+                                    //toCloseProgress();
+                                    refreshview.setRefreshing(false);
                                 }
-                            }
-                            else
-                            {
-                                messagelist.addAll(replyMsgDal.getReplyMessages(xmlstr));
-                            }
-                            bindData();
+                            });
                         }
                     }
                     if (f.subCmd == 30) {
@@ -144,14 +150,15 @@ public class ReplyMessages extends myBaseActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
-                int totalItemCount = mLayoutManager.getItemCount();
-                //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
-                // dy>0 表示向下滑动
-                if (lastVisibleItem == totalItemCount - 1 && !isLoadingMore && dy > 0) {
-
-                    loadMoreData();//这里多线程也要手动控制isLoadingMore
-                    //isLoadingMore = true;
+                if (dy > 0) {
+                    int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
+                    // dy>0 表示向下滑动
+                    if (lastVisibleItem == totalItemCount - 1 && isLoadingMore == false) {
+                        loadMoreData();//这里多线程也要手动控制isLoadingMore
+                        isLoadingMore = true;
+                    }
                 }
             }
         });
@@ -163,7 +170,7 @@ public class ReplyMessages extends myBaseActivity {
 //            toShowProgress();
             refreshview.setRefreshing(true);
             pageindex++;
-            isLoadingMore = true;
+            //isLoadingMore = true;
             ZganCommunityService.toGetServerData(32, 0, String.format("%s\t%d\t%d", PreferenceUtil.getUserName(), sessionId, pageindex), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
@@ -172,7 +179,7 @@ public class ReplyMessages extends myBaseActivity {
 
     private void loadData() {
         pageindex = 0;
-        //refreshview.setRefreshing(true);
+        refreshview.setRefreshing(true);
         ZganCommunityService.toGetServerData(32, 0, String.format("%s\t%d\t%d", PreferenceUtil.getUserName(), sessionId, pageindex), handler);
     }
 

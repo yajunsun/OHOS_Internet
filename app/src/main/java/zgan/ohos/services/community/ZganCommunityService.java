@@ -318,6 +318,10 @@ public class ZganCommunityService extends Service {
         ZganCommunityServiceTools.toGetFunction(f);
     }
 
+    public static void disconnectToserver()
+    {
+        ztl.toDisConnectServer();
+    }
     public static void toRestartLoginSerice() {
         ServiceRin = false;
         ztl.toDisConnectServer();

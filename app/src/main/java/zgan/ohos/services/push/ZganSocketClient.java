@@ -102,13 +102,11 @@ public class ZganSocketClient {
 
 
             Log.i("toConnectServer", "连接服务器[" + Server_IP + ":" + ServerPort + "]");
-            Log.v("suntest", "ZganSocketClient连接服务器[" + Server_IP + ":" + ServerPort + "]");
             LastSocketStatus = true;
             ZganLoginService.BroadError("1");
         } catch (UnknownHostException e) {
             // TODO Auto-generated catch block
             //e.printStackTrace();
-            Log.v("suntest", "ZganSocketClient连接"+Server_IP+":"+ServerPort+"超时UnknownHostException" + e.getMessage());
             Log.i("suntest", "ZganSocketClient连接"+Server_IP+":"+ServerPort+"超时UnknownHostException" + e.getMessage());
             isRun = false;
             ZganLoginService.BroadError("连接服务器超时");
@@ -116,7 +114,6 @@ public class ZganSocketClient {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             //e.printStackTrace();
-            Log.v("suntest", "ZganSocketClient连接"+Server_IP+":"+ServerPort+"超时IOException" + e.getMessage());
             Log.i("suntest", "ZganSocketClient连接" + Server_IP + ":" + ServerPort+"超时IOException" + e.getMessage());
             isRun = false;
             ZganLoginService.BroadError("连接服务器超时");
@@ -134,12 +131,10 @@ public class ZganSocketClient {
 
         if (client != null) {
             try {
-                Log.v("suntest", "ZganSocketClientsocket close");
                 Log.i("suntest", "ZganSocketClientsocket close");
                 client.close();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
-                Log.v("suntest", "ZganSocketClientsocket close faild " + e.getMessage());
                 Log.i("suntest", "ZganSocketClientsocket close faild " + e.getMessage());
                 // e.printStackTrace();
             }
@@ -147,12 +142,10 @@ public class ZganSocketClient {
 
         if (ops != null) {
             try {
-                Log.v("suntest", "ZganSocketClientops close");
                 Log.i("suntest", "ZganSocketClientops close");
                 ops.close();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
-                Log.v("suntest", "ZganSocketClientops close faild " + e.getMessage());
                 Log.i("suntest", "ZganSocketClientops close faild " + e.getMessage());
                 //e.printStackTrace();
             }
@@ -160,12 +153,10 @@ public class ZganSocketClient {
 
         if (sin != null) {
             try {
-                Log.v("suntest", "ZganSocketClientsin close");
                 Log.i("suntest", "ZganSocketClientsin close");
                 sin.close();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
-                Log.v("suntest", "ZganSocketClientsin close faild" + e.getMessage());
                 Log.i("suntest", "ZganSocketClientsin close faild" + e.getMessage());
                 //e.printStackTrace();
             }
@@ -176,7 +167,6 @@ public class ZganSocketClient {
      * 关闭客户端
      */
     public void toCloseClient() {
-        Log.v("suntest","toCloseClient");
         Log.i("suntest", "toCloseClient");
         toConnectDisconnect();
 
@@ -202,14 +192,12 @@ public class ZganSocketClient {
                     // TODO Auto-generated catch block
                     isRun = false;
                     e1.printStackTrace();
-                    Log.v("suntest", e1.getMessage());
                 }
 
                 if (isRun && send_Queue.size() > 0) {
                     byte[] sendByte = null;
 
                     toStopPing();
-                    Log.v("suntest", "ZganSocketClient发送数据");
                     Log.i("suntest", "ZganSocketClient发送数据");
                     sendByte = send_Queue.poll();
 
@@ -226,7 +214,6 @@ public class ZganSocketClient {
                         isRun = false;
                         // TODO Auto-generated catch block
                         //e.printStackTrace();
-                        Log.v("suntest", "ZganSocketClientsend error" + e.getMessage());
                         Log.i("suntest", "ZganSocketClientsend error" + e.getMessage());
                         //ZganLoginService_Listen.ServerState=2;
                         continue;
@@ -259,7 +246,6 @@ public class ZganSocketClient {
                     // TODO Auto-generated catch block
                     isRun = false;
                     e1.printStackTrace();
-                    Log.v("suntest", "ZganSocketClientreceive error" + e1.getMessage());
                     Log.i("suntest", "ZganSocketClientreceive error" + e1.getMessage());
                     break;
                 }
@@ -282,7 +268,6 @@ public class ZganSocketClient {
 
                                     //判断是否是心跳包
                                     if (resultByte[7] == 0 && resultByte[8] == 0) {
-                                        Log.v("suntest", "ZganSocketClient心跳 1");
                                         Log.i("suntest", "ZganSocketClient心跳 1");
                                         PingTime = Calendar.getInstance();
                                         PingSendTime = null;
@@ -432,7 +417,6 @@ public class ZganSocketClient {
                         PingSendTime = Calendar.getInstance();
                         PingTime = null;
                         toSendMsg(f);
-                        Log.v("suntest", "ZganSocketClientping");
                         Log.i("suntest", "ZganSocketClientping");
                     }
                 }
@@ -456,7 +440,6 @@ public class ZganSocketClient {
                 } catch (InterruptedException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
-                    Log.v("suntest", e1.getMessage());
                     break;
                 }
 

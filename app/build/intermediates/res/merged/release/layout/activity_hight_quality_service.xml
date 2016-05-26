@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="zgan.ohos.Activities.HightQualityService">
@@ -31,10 +31,10 @@
                 android:clickable="true">
 
                 <com.mikepenz.iconics.view.IconicsImageView
-                    app:iiv_color="@color/color_txt_toobar"
-                    app:iiv_icon="gmd-chevron-left"
                     android:layout_width="@dimen/back_icon_size"
-                    android:layout_height="@dimen/back_icon_size" />
+                    android:layout_height="@dimen/back_icon_size"
+                    app:iiv_color="@color/color_txt_toobar"
+                    app:iiv_icon="gmd-chevron-left" />
             </LinearLayout>
 
             <TextView
@@ -48,10 +48,16 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_items"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar" />
+        android:layout_below="@id/toolbar">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_items"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>
 <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/activity_hight_quality_service.xml -->
