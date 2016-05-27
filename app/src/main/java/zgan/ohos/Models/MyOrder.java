@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 
 /**
@@ -400,7 +401,7 @@ public class MyOrder extends BaseModel implements Serializable {
 
     public void setgoods_type(Object value) {
         if (value!=null)
-            this.goods_type =Integer.valueOf(value.toString());
+            this.goods_type = SystemUtils.getIntValue(value.toString());
     }
 
     private String order_id;//	订单号码

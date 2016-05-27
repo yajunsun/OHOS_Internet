@@ -5,6 +5,8 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.util.Hashtable;
 
+import zgan.ohos.utils.SystemUtils;
+
 /**
  * Created by yajunsun on 2016/1/13.
  */
@@ -37,7 +39,7 @@ public class HouseHoldingMsg extends BaseObject {
 
     public void setId(Object value) {
         if (value != null)
-            Id = Integer.valueOf(value.toString());
+            Id = SystemUtils.getIntValue(value.toString());
     }
 
     public String getFcontent() {

@@ -6,6 +6,8 @@ import org.ksoap2.serialization.SoapObject;
 import java.util.Hashtable;
 import java.util.Objects;
 
+import zgan.ohos.utils.SystemUtils;
+
 /**
  * Created by yajunsun on 2015/12/28.
  */
@@ -30,7 +32,7 @@ public class MessageType extends BaseObject {
 
     public void setMsgTypeId(Object value) {
         if (value != null)
-            MsgTypeId = Integer.valueOf(value.toString());
+            MsgTypeId = SystemUtils.getIntValue(value.toString());
     }
 
     public String getMsgTypeName() {
@@ -51,7 +53,7 @@ public class MessageType extends BaseObject {
 
     public void setMsgTypePId(Object value) {
         if (value != null)
-            MsgTypePId = Integer.valueOf( value.toString());
+            MsgTypePId = SystemUtils.getIntValue(value.toString());
     }
 
     private int MsgTypeId;

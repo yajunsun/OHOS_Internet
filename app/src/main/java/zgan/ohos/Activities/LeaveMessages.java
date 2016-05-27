@@ -26,6 +26,7 @@ import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.services.login.ZganLoginService;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
+import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 
 public class LeaveMessages extends myBaseActivity {
@@ -241,16 +242,11 @@ public class LeaveMessages extends myBaseActivity {
         public void onBindViewHolder(final ViewHolder holder, final int position) {
             msg = msglst.get(position);
             String content = msg.getContent();
-            String address[];
             int contentIndex = content.indexOf("$$");
             if (contentIndex > -1) {
-                address = content.substring(0, contentIndex).split(",");
                 content = content.substring(contentIndex + 2);
-                if (address.length >= 4) {
-                    holder.txt_houser.setText(address[0] + "栋" + address[1] + "单元" + address[2] + "-" + address[3]);
-                }
             }
-
+            holder.txt_houser.setText(SystemUtils.getVillage()+" "+SystemUtils.getAddress());
             holder.txt_content.setText(content);
             holder.txt_pub_time.setText(msg.getDate());
             holder.sessionid = msg.getId();

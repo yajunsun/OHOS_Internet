@@ -87,7 +87,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:text="123123"
                     android:textSize="@dimen/front_text_size" />
 
                 <TextView
@@ -97,7 +96,6 @@
                     android:layout_marginRight="20dp"
                     android:layout_weight="3"
                     android:gravity="right"
-                    android:text="asdfa"
                     android:textColor="@color/primary"
                     android:textSize="@dimen/front_text_size" />
             </LinearLayout>

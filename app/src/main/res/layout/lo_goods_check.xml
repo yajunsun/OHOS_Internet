@@ -11,8 +11,7 @@
         android:layout_centerVertical="true"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:textSize="@dimen/front_text_size"
-        android:text="商品：1" />
+        android:textSize="@dimen/front_text_size" />
 
     <TextView
         android:id="@+id/totalpay"
@@ -22,7 +21,6 @@
         android:textSize="@dimen/front_text_size"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/gdcount"
-        android:text="合计：125.00"
         android:textColor="@color/primary_light" />
 
     <Button

@@ -52,7 +52,6 @@
         android:layout_alignBottom="@id/lname"
         android:layout_marginLeft="20dp"
         android:layout_toRightOf="@id/lname"
-        android:text="asdf a"
         android:textSize="@dimen/front_text_size" />
 
     <TextView
@@ -64,7 +63,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:text="asdf as"
         android:textColor="@color/primary"
         android:textSize="@dimen/front_text_size" />
 

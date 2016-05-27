@@ -6,12 +6,12 @@
     android:orientation="horizontal"
 
     android:paddingRight="10dp"
-    android:paddingTop="10dp" >
+    android:paddingTop="10dp">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right" >
+        android:layout_gravity="right">
 
         <TextView
             android:id="@+id/txtlogtime"
@@ -26,33 +26,31 @@
 
         <ImageView
             android:id="@+id/ivname"
-            android:layout_marginTop="10dp"
             android:layout_width="30dp"
-            android:layout_below="@id/txtlogtime"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
+            android:layout_below="@id/txtlogtime"
             android:layout_marginRight="10dp"
-            android:src="@drawable/wuguanheader"
-            android:layout_height="30dp" />
+            android:layout_marginTop="10dp"
+            android:src="@drawable/wuguanheader" />
 
         <TextView
-            android:layout_below="@id/txtlogtime"
             android:id="@+id/txtcontent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:layout_below="@id/txtlogtime"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/ivname"
-            android:paddingLeft="10dp"
-            android:layout_marginLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="5dp"
             android:background="@drawable/chatto_bg"
             android:clickable="true"
             android:focusable="true"
             android:gravity="left|top"
             android:lineSpacingExtra="2dp"
-            android:text="adf"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
             android:textSize="@dimen/front_text_size" />
     </RelativeLayout>
 

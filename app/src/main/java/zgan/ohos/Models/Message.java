@@ -2,6 +2,8 @@ package zgan.ohos.Models;
 
 import java.io.Serializable;
 
+import zgan.ohos.utils.SystemUtils;
+
 /**
  * Created by yajunsun on 2015/12/28.
  */
@@ -58,7 +60,7 @@ public class Message extends BaseModel implements Serializable {
 
     public void setmsg_id(Object value) {
         if (value != null)
-            MsgId = Integer.valueOf(value.toString());
+            MsgId = SystemUtils.getIntValue(value.toString());
     }
 
     public String getMsgOffTime() {

@@ -1,5 +1,7 @@
 package zgan.ohos.Models;
 
+import zgan.ohos.utils.SystemUtils;
+
 /**
  * Created by Administrator on 16-3-7.
  */
@@ -23,7 +25,7 @@ public class LeaveMessage extends BaseModel {
 
     public void setq_id(Object value) {
         if (value != null) {
-            Id = Integer.valueOf(value.toString());
+            Id = SystemUtils.getIntValue(value.toString());
         }
     }
 

@@ -1,5 +1,7 @@
 package zgan.ohos.Models;
 
+import zgan.ohos.utils.SystemUtils;
+
 /**
  * Created by Administrator on 16-5-6.
  */
@@ -14,7 +16,7 @@ public class SuperMarketM extends BaseModel {
 
     public void setorder(Object value) {
         if (value != null)
-            this.order = Integer.valueOf(value.toString());
+            this.order = SystemUtils.getIntValue(value.toString());
     }
 
     public String getpic_url() {

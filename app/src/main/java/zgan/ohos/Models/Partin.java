@@ -6,6 +6,8 @@ import org.ksoap2.serialization.SoapObject;
 import java.io.Serializable;
 import java.util.Hashtable;
 
+import zgan.ohos.utils.SystemUtils;
+
 /**
  * Created by yajunsun on 2015/11/24.
  */
@@ -50,7 +52,7 @@ public class Partin extends BaseObject implements Serializable{
 
     public void setEventId(Object value) {
         if (value != null)
-            EventId = Integer.valueOf( value.toString());
+            EventId = SystemUtils.getIntValue(value.toString());
     }
 
     public int getId() {
@@ -59,7 +61,7 @@ public class Partin extends BaseObject implements Serializable{
 
     public void setId(Object id) {
         if (id != null)
-            Id = Integer.valueOf(id.toString());
+            Id = SystemUtils.getIntValue(id.toString());
     }
 
     public String getPhone() {
@@ -103,10 +105,10 @@ public class Partin extends BaseObject implements Serializable{
         if (o != null)
             switch (i) {
                 case 0:
-                    this.Id = Integer.valueOf(o.toString());
+                    this.Id = SystemUtils.getIntValue(o.toString());
                     break;
                 case 1:
-                    this.EventId =Integer.valueOf(o.toString());
+                    this.EventId =SystemUtils.getIntValue(o.toString());
                     break;
                 case 2:
                     this.Phone = o.toString();

@@ -1,5 +1,7 @@
 package zgan.ohos.Models;
 
+import zgan.ohos.utils.SystemUtils;
+
 /**
  * Created by Administrator on 16-3-7.
  */
@@ -25,7 +27,7 @@ public class ReplyMessage extends BaseModel {
     {
         if (value!=null)
         {
-            msgType=Integer.valueOf(value.toString());
+            msgType= SystemUtils.getIntValue(value.toString());
         }
     }
     public void setq_content(Object value)

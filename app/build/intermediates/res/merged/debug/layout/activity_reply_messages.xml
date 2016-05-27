@@ -58,7 +58,6 @@
             android:id="@+id/txt_leavemsg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="啊收到了伐"
             android:textColor="@color/solid_black"
             android:textSize="@dimen/front_text_size" />
 
@@ -67,7 +66,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="2016-03-21"
             android:textSize="@dimen/front_text_size"/>
     </LinearLayout>
 

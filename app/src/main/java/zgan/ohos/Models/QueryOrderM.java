@@ -1,5 +1,7 @@
 package zgan.ohos.Models;
 
+import zgan.ohos.utils.SystemUtils;
+
 /**
  * Created by Administrator on 16-4-30.
  */
@@ -49,7 +51,7 @@ public class QueryOrderM extends BaseModel {
 
     public void setorder_state(Object value) {
         if (value != null)
-            this.order_state = Integer.valueOf(value.toString());
+            this.order_state = SystemUtils.getIntValue(value.toString());
     }
 
     public String gettitle() {
@@ -67,7 +69,7 @@ public class QueryOrderM extends BaseModel {
 
     public void setcount(Object value) {
         if (value != null)
-            this.count = Integer.valueOf(value.toString());
+            this.count = SystemUtils.getIntValue(value.toString());
     }
 
     public double getprice() {
@@ -103,7 +105,7 @@ public class QueryOrderM extends BaseModel {
 
     public void setpay_type(Object value) {
         if (value != null)
-            this.pay_type = Integer.valueOf(value.toString());
+            this.pay_type = SystemUtils.getIntValue(value.toString());
     }
 
     public String getdiliver_time() {

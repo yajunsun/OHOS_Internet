@@ -84,4 +84,15 @@ public class SystemUtils {
 //        SID = _SID;
 //    }
 
+    public static Integer getIntValue(String strValue) {
+        try {
+            return Integer.valueOf(strValue);
+        } catch (NumberFormatException nfe) {
+            int dotIndex = strValue.indexOf(".");
+            if (dotIndex > -1)
+                return Integer.valueOf(strValue.substring(0, dotIndex));
+        } catch (Exception e) {
+        }
+        return 0;
+    }
 }

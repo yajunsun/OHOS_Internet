@@ -2,6 +2,8 @@ package zgan.ohos.Models;
 
 import java.util.Objects;
 
+import zgan.ohos.utils.SystemUtils;
+
 /**
  * Created by Administrator on 16-4-8.
  */
@@ -21,7 +23,7 @@ public class MyPakage extends BaseGoods{
     }
 
     public void setpused(Object value) {
-        if (value!=null)this.pused =Integer.valueOf( value.toString());
+        if (value!=null)this.pused = SystemUtils.getIntValue(value.toString());
     }
 
     public int getpleft() {
@@ -29,7 +31,7 @@ public class MyPakage extends BaseGoods{
     }
 
     public void setpleft(Object value) {
-        if (value!=null)this.pleft = Integer.valueOf(value.toString());
+        if (value!=null)this.pleft = SystemUtils.getIntValue(value.toString());
     }
 
     public int getimgdesc() {
@@ -38,7 +40,7 @@ public class MyPakage extends BaseGoods{
 
     public void setimgdesc(Object value) {
         if (value!=null)
-        this.imgdesc = Integer.valueOf(value.toString());
+        this.imgdesc = SystemUtils.getIntValue(value.toString());
     }
 
     private int imgdesc;
