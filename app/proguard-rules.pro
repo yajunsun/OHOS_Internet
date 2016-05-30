@@ -12,9 +12,6 @@
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
 
 -ignorewarning
 -dontwarn org.apache.http.**
@@ -25,15 +22,42 @@
 #-dontwarn org.apache.http.auth.AuthSchemeRegistry
 #-dontwarn org.apache.http.cookie.CookieSpecRegistry
 #-dontwarn org.apache.http.client.CredentialsProvider
+
+
 -keepclasseswithmembernames class * {
     native <methods>;
 }
-#-keep class com.tencent.mm.sdk.** {
-#     *;
-#  }
-  -keep class com.** {
-      *;
-   }
+#-libraryjars libs/alipaySDK-20160223.jar
+#-libraryjars libs/libammsdk.jar
+
+-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+   public *;
+}
+
+-keep class com.alipay.android.app.IAlixPay{*;}
+-keep class com.alipay.android.app.IAlixPay$Stub{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
+-keep class com.alipay.sdk.app.PayTask{ public *;}
+-keep class com.alipay.sdk.app.AuthTask{ public *;}
+
+-keep class com.tencent.mm.sdk.** {
+   *;
+}
+#不混淆资源类
+-keep class .R
+-keep class **.R$* {
+    <fields>;
+}
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+-keep class com.mikepenz.iconics.view.**{
+    public <init>(android.content.Context);
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+    public void set*(...);
+    }
 -dontwarn android.support.**
 ############<span></span>混淆保护自己项目的部分代码以及引用的第三方jar包library-end##################
 -keep public class * extends android.view.View {

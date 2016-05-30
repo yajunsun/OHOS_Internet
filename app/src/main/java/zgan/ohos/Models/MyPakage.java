@@ -1,5 +1,6 @@
 package zgan.ohos.Models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import zgan.ohos.utils.SystemUtils;
@@ -7,7 +8,7 @@ import zgan.ohos.utils.SystemUtils;
 /**
  * Created by Administrator on 16-4-8.
  */
-public class MyPakage extends BaseGoods{
+public class MyPakage extends BaseGoods implements Serializable {
 
     public int getptotal() {
         return ptotal;

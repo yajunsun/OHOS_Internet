@@ -518,7 +518,6 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                     try {
                                         JSONArray jsonArray = new JSONObject(datastr)
                                                 .getJSONArray("data");
-                                        Log.i("suntest", datastr);
                                         JSONObject obj = (JSONObject) jsonArray.opt(0);
                                         String address = obj.get("address").toString();
                                         String village = obj.get("village").toString();
@@ -533,7 +532,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         SystemUtils.setFname(Fname);
                                         txt_xiaoqu.setText(village);
                                         if (frame.platform!=0) {
-                                            addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1020, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"),frame.strData);
+                                            addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1020, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), frame.strData);
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();

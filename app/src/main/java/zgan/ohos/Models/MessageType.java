@@ -3,6 +3,7 @@ package zgan.ohos.Models;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 
+import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import zgan.ohos.utils.SystemUtils;
 /**
  * Created by yajunsun on 2015/12/28.
  */
-public class MessageType extends BaseObject {
+public class MessageType extends BaseObject  implements Serializable {
 
     private static final long serialVersionUID = getserialVersionUID("MessageType");
 

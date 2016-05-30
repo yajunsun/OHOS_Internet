@@ -1,11 +1,13 @@
 package zgan.ohos.Models;
 
+import java.io.Serializable;
+
 import zgan.ohos.utils.SystemUtils;
 
 /**
  * Created by Administrator on 16-5-6.
  */
-public class SuperMarketM extends BaseModel {
+public class SuperMarketM extends BaseModel  implements Serializable {
 
     private int order;
     private String pic_url;

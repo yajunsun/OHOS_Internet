@@ -5,6 +5,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.StringReader;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,7 +18,7 @@ import zgan.ohos.utils.XmlParser_model;
 /**
  * Created by Administrator on 16-4-27.
  */
-public class WXPayM extends BaseModel {
+public class WXPayM extends BaseModel  implements Serializable {
 
     private String return_code;
     private String return_msg;

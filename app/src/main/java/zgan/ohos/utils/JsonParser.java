@@ -6,12 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.IllegalFormatException;
-import java.util.Iterator;
 import java.util.List;
 
 import zgan.ohos.Models.BaseModel;
@@ -67,7 +64,7 @@ public class JsonParser<T extends BaseModel> {
             try {
                 JSONArray jsonArray = new JSONObject(jsonstr)
                         .getJSONArray("data");
-                Log.i("suntest", jsonstr);
+//                Log.i("suntest", jsonstr);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     model = modelInstance.getnewinstance();
                     JSONObject obj = (JSONObject) jsonArray.opt(i);

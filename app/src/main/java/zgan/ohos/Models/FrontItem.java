@@ -1,9 +1,11 @@
 package zgan.ohos.Models;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 16-4-21.
  */
-public class FrontItem extends BaseModel{
+public class FrontItem extends BaseModel implements Serializable{
     private String pic_url;
     private String view_id;
     private int order;

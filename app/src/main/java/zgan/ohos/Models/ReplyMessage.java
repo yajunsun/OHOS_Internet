@@ -1,11 +1,13 @@
 package zgan.ohos.Models;
 
+import java.io.Serializable;
+
 import zgan.ohos.utils.SystemUtils;
 
 /**
  * Created by Administrator on 16-3-7.
  */
-public class ReplyMessage extends BaseModel {
+public class ReplyMessage extends BaseModel  implements Serializable {
 
     private int msgType;
     private String msgContent;

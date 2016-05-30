@@ -1,11 +1,13 @@
 package zgan.ohos.Models;
 
+import java.io.Serializable;
+
 import zgan.ohos.utils.SystemUtils;
 
 /**
  * Created by Administrator on 16-3-7.
  */
-public class LeaveMessage extends BaseModel {
+public class LeaveMessage extends BaseModel implements Serializable {
 
     private int Id;
     private String Content;

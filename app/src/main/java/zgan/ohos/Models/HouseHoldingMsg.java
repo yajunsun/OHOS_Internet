@@ -3,6 +3,7 @@ package zgan.ohos.Models;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 
+import java.io.Serializable;
 import java.util.Hashtable;
 
 import zgan.ohos.utils.SystemUtils;
@@ -10,7 +11,7 @@ import zgan.ohos.utils.SystemUtils;
 /**
  * Created by yajunsun on 2016/1/13.
  */
-public class HouseHoldingMsg extends BaseObject {
+public class HouseHoldingMsg extends BaseObject implements Serializable{
 
     private int Id;
     private String Ffrom;

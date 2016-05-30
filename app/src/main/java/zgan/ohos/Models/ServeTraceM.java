@@ -1,9 +1,11 @@
 package zgan.ohos.Models;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 16-4-7.
  */
-public class ServeTraceM {
+public class ServeTraceM  implements Serializable {
     private String detail;
 
     public int getSequence() {

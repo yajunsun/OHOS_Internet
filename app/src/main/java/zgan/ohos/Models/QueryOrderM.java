@@ -1,11 +1,13 @@
 package zgan.ohos.Models;
 
+import java.io.Serializable;
+
 import zgan.ohos.utils.SystemUtils;
 
 /**
  * Created by Administrator on 16-4-30.
  */
-public class QueryOrderM extends BaseModel {
+public class QueryOrderM extends BaseModel  implements Serializable {
     private String order_id;//	订单id
     private int order_state;//	订单状态
     private String title;//	商品标题
