@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/material_drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" /><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/res/layout/material_drawer.xml -->

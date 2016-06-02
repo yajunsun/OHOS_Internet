@@ -122,7 +122,7 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
                 Frame frame = (Frame) msg.obj;
                 String[] results = frame.strData.split("\t");
                 String ret = generalhelper.getSocketeStringResult(frame.strData);
-                Log.v(TAG, frame.subCmd + "  " + ret);
+                Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
                     if (results[0].equals("0") && results[1].equals("1010")) {

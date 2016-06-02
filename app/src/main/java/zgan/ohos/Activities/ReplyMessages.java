@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -25,7 +26,6 @@ import zgan.ohos.Dals.ReplyMessageDal;
 import zgan.ohos.Models.ReplyMessage;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
-import zgan.ohos.services.login.ZganLoginService;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
@@ -55,6 +55,7 @@ public class ReplyMessages extends myBaseActivity {
                 case 1:
                     Frame f = (Frame) msg.obj;
                     String result = f.strData;
+                    Log.i(TAG,result);
                     String[] results = result.split("\t");
                     if (f.subCmd == 32) {
                         if (results.length == 2 && results[0].equals("0")) {

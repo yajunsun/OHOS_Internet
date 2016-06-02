@@ -1,8 +1,6 @@
 package com.pay.wxpay;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.tencent.mm.sdk.constants.Build;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -251,14 +249,12 @@ public class WXPay {
                 appid, attach, body, detail, device_info, fee_type, goods_tag, limit_pay, mch_id, nonce_str, notify_url, out_trade_no, spbill_create_ip, time_expire, time_start, total_fee, trade_type);
         String SignTemp = String.format("%s&key=%s", A, key);
         String sign = MD5.getMessageDigest(SignTemp.getBytes()).toUpperCase();
-        Log.i("suntest", String.format("stringA=%s,StringIgnTemp=%s, sign=%s", A, SignTemp, sign));
         return sign;
     }
     private String getpaySIGN(PayReq req) {
         String A = String.format("appid=%s&noncestr=%s&package=Sign=WXPay&partnerid=%s&prepayid=%s&timestamp=%s",req.appId,req.nonceStr,req.partnerId,req.prepayId,req.timeStamp);
         String SignTemp = String.format("%s&key=%s", A, key);
         String sign = MD5.getMessageDigest(SignTemp.getBytes()).toUpperCase();
-        Log.i("suntest", String.format("stringA=%s,StringIgnTemp=%s, sign=%s", A, SignTemp, sign));
         req.sign=sign;
         return sign;
     }

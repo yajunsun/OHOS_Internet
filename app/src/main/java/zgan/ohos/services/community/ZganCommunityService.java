@@ -110,6 +110,7 @@ public class ZganCommunityService extends Service {
         public void hangup()
         {
             toGetServerData(37, 0, String.format("%s\t4", PreferenceUtil.getUserName()), null);
+            Log.i("suntest","toGetServerData(37, 0, \""+PreferenceUtil.getUserName()+"\\t4\"), null)");
         }
         public void reqquestCall()
         {
@@ -157,6 +158,14 @@ public class ZganCommunityService extends Service {
                                     callOutListner.NotOnLine();
                                 }
                             }
+                            else if (results[0].equals("25"))
+                            {
+                                //设备忙
+                                if (callOutListner!=null)
+                                {
+                                    callOutListner.InBusy();
+                                }
+                            }
 
                         }
                         break;
@@ -170,6 +179,7 @@ public class ZganCommunityService extends Service {
         void Connect(String devUid);
         void CanntConnect();
         void NotOnLine();
+        void InBusy();
     }
     /**
      * 用户登录

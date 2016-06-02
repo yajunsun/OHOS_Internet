@@ -2,11 +2,15 @@ package zgan.ohos;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 import zgan.ohos.services.crash.CrashHandler;
+import zgan.ohos.utils.ImageLoader;
 
 
 /**
@@ -14,16 +18,44 @@ import zgan.ohos.services.crash.CrashHandler;
  */
 public class MyApplication extends Application {
 
-    public static String phone = "";
+    public static String phone = "75B31FF74287E76F37E3F7817B123AEC";
     public static Context context;
     public static RequestQueue requestQueue;
+    public static final String SIGN_APP="";
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
-        requestQueue = Volley.newRequestQueue(this);
-        CrashHandler crashHandler = CrashHandler.getInstance();
-        crashHandler.init(getApplicationContext());
+//        if (isOwnAPP()) {
+            requestQueue = Volley.newRequestQueue(this);
+            CrashHandler crashHandler = CrashHandler.getInstance();
+            crashHandler.init(getApplicationContext());
+//        }
+//        else
+//        {
+//            android.os.Process.killProcess(android.os.Process.myPid());
+//            System.exit(1);
+//        }
+    }
+
+    private String getSignature() {
+        StringBuilder thisSign = new StringBuilder();
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+            android.content.pm.Signature[] signatures = packageInfo.signatures;
+            for (Signature sign : signatures) {
+                thisSign.append(sign.toCharsString());
+            }
+            return thisSign.toString();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+    private boolean isOwnAPP()
+    {
+        String signStr= ImageLoader.hashKeyFromUrl(getSignature());
+        return SIGN_APP.equals(signStr);
     }
 }

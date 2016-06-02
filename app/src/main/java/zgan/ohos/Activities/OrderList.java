@@ -162,7 +162,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 Frame frame = (Frame) msg.obj;
                 String[] results = frame.strData.split("\t");
                 String ret = generalhelper.getSocketeStringResult(frame.strData);
-                Log.v("suntest", frame.subCmd + "  " + ret);
+                Log.i("suntest", frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
                     if (results[0].equals("0") && results[1].equals("1016")&&results.length>2) {

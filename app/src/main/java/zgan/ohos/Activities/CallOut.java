@@ -303,7 +303,13 @@ public class CallOut extends myBaseActivity implements IRegisterIOTCListener, Vi
     @Override
     public void NotOnLine() {
         //设备不在线
-        iniDialog("错误","设备不在线");
+        iniDialog("提示","设备不在线");
+    }
+
+    @Override
+    public void InBusy() {
+        //设备不在线
+        iniDialog("提示","忙碌中，请稍后再拨");
     }
 
     void iniDialog(String title,String msg)

@@ -15,6 +15,8 @@ import com.decoder.util.DecMp3;
 import com.decoder.util.DecMpeg4;
 import com.decoder.util.DecSpeex;
 
+import net.iwebrtc.audioprocess.sdk.AudioProcess;
+
 import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -403,7 +405,7 @@ public class Camera {
                 DecG726.g726_dec_state_create((byte) DecG726.G726_16, (byte) DecG726.FORMAT_LINEAR);
             }
             Log.i("suntest", "play voice");
-            mAudioTrack.setStereoVolume(1.0f, 1.0f);
+            //mAudioTrack.setStereoVolume(1.0f, 1.0f);
             mAudioTrack.play();
             mInitAudio = true;
 
@@ -526,7 +528,6 @@ public class Camera {
     }
 
 
-
     private class ThreadRecvVideo2 extends Thread {
         private static final int MAX_BUF_SIZE = 1024 * 20;
         private boolean bIsRunning = false;
@@ -619,7 +620,7 @@ public class Camera {
                         mAVChannel.VideoFPS = mAVChannel.VideoBPS = mAVChannel.AudioBPS = 0;
                     }
                     //读取RDT
-                    short[] buf1 = new short[]{};
+                    //short[] buf1 = new short[]{};
                     int len = RDTAPIs.RDT_Read(nRDT_ID, buf, MAX_BUF_SIZE, 30000);
                     if (len < 0) {
                         for (int i = 0; i < mIOTCListeners.size(); i++) {
@@ -631,6 +632,7 @@ public class Camera {
                     byte[] data = new byte[len];
                     System.arraycopy(buf, 0, data, 0, len);
                     mAVChannel.rdtQueue.Enqueue(len, data);
+                    Log.i("IOTCamera", "Enqueue rdtQueue left " + mAVChannel.rdtQueue.getCount());
                 }
             }// while--end
             if (bInitAudio) {
@@ -692,6 +694,7 @@ public class Camera {
                 try {
                     //从队列中获取数据
                     RDTQueue.RDTData data = mAVChannel.rdtQueue.Dequeue();
+                    Log.i("IOTCamera", "Dequeue rdtQueue left " + mAVChannel.rdtQueue.getCount());
                     //将获取的数据放入写入缓存readPool中
                     System.arraycopy(data.getData(), 0, readPool, nReadSize, data.getLength());
                     //缓存中数据的长度
@@ -778,6 +781,7 @@ public class Camera {
             nCodecId = (int) frame.getCodecId();
             if (nCodecId == AVFrame.MEDIA_CODEC_VIDEO_H264) {
                 mAVChannel.VideoFrameQueue.addLast(frame);
+                Log.i("IOTCamera", "Enqueue AVFrameQueue left " + mAVChannel.VideoFrameQueue.getCount());
             }
         }
         if (rdtFrame.mType == 2) {
@@ -785,14 +789,14 @@ public class Camera {
                 mAVChannel.AudioBPS += rdtFrame.mLen;
                 //AVFrame frame = new AVFrame(pFrmNo, AVFrame.FRM_STATE_COMPLETE, frameData, frameData.length);
 
-                nCodecId = AVFrame.MEDIA_CODEC_AUDIO_PCM;//AVFrame.MEDIA_CODEC_AUDIO_PCM;
-
-                if (nCodecId == AVFrame.MEDIA_CODEC_AUDIO_ADPCM) {
-                    DecADPCM.Decode(frameData, frameData.length, adpcmOutBuf);
-                    mAudioTrack.write(adpcmOutBuf, 0, 640);
-                } else if (nCodecId == AVFrame.MEDIA_CODEC_AUDIO_PCM) {
-                    mAudioTrack.write(frameData, 0, frameData.length);
-                }
+//                nCodecId = AVFrame.MEDIA_CODEC_AUDIO_PCM;//AVFrame.MEDIA_CODEC_AUDIO_PCM;
+//
+//                if (nCodecId == AVFrame.MEDIA_CODEC_AUDIO_ADPCM) {
+//                    DecADPCM.Decode(frameData, frameData.length, adpcmOutBuf);
+//                    mAudioTrack.write(adpcmOutBuf, 0, 640);
+//                } else if (nCodecId == AVFrame.MEDIA_CODEC_AUDIO_PCM) {
+                mAudioTrack.write(frameData, 0, frameData.length);
+                // }
             } catch (Exception e) {
                 e.printStackTrace();
                 //Log.i("suntest", "voice error:" + e.getMessage());
@@ -858,14 +862,11 @@ public class Camera {
 
                 try {
                     if (mAVChannel.VideoFrameQueue.getCount() > 0) {
-
                         avFrame = mAVChannel.VideoFrameQueue.removeHead();
-
                         if (avFrame == null)
                             continue;
-
+                        Log.i("IOTCamera", "Dequeue AVFrameQueue left " + mAVChannel.VideoFrameQueue.getCount());
                         avFrameSize = avFrame.getFrmSize();
-
                     } else {
 //                    try {
 //                        Thread.sleep(32);
@@ -910,11 +911,11 @@ public class Camera {
                         Log.i("IOTCamera", "delayTime: " + delayTime);
                     }
 
-                    if (avFrameSize > 0) {
-
+                    if (avFrameSize > 0 && avFrame != null) {
                         out_size[0] = 0;
                         out_width[0] = 0;
                         out_height[0] = 0;
+                        Log.i("IOTCamera", "avFrame.getCodecId()=" + avFrame.getCodecId());
                         if (avFrame.getCodecId() == AVFrame.MEDIA_CODEC_VIDEO_H264) {
 
                             t1 = System.currentTimeMillis();
@@ -923,10 +924,10 @@ public class Camera {
                                 DecH264.InitDecoder();
                                 bInitH264 = true;
                             } // else {
-                            // Log.i("IOTCamera", "before decode: " + (avFrame.isIFrame() ? "i" : "p"));
+                            Log.i("IOTCamera", "before decode: " + (avFrame.isIFrame() ? "i" : "p"));
                             // FFMPEG - DecH264.Decode(avFrame.frmData, avFrameSize, bufOut, out_size, out_width, out_height);
                             DecH264.DecoderNal(avFrame.frmData, avFrameSize, framePara, bufOut);
-                            // Log.i("IOTCamera", "after decode");
+                            Log.i("IOTCamera", "after decode");
                             // }
 
                         } else if (avFrame.getCodecId() == AVFrame.MEDIA_CODEC_VIDEO_MPEG4) {
@@ -975,8 +976,8 @@ public class Camera {
                                 long t = System.currentTimeMillis();
                                 t2 = t - t1;
 
-                                sleepTime = (firstTimeStampFromLocal + (avFrame.getTimeStamp() - firstTimeStampFromDevice)) - t;
-                                delayTime = sleepTime * -1;
+//                                sleepTime = (firstTimeStampFromLocal + (avFrame.getTimeStamp() - firstTimeStampFromDevice)) - t;
+//                                delayTime = sleepTime * -1;
                                 // Log.i("IOTCamera", "decode time(" + t2 + "); sleep time (" + sleepTime + ") = t0 (" + firstTimeStampFromLocal + ") + (Tn (" + avFrame.getTimeStamp() + ") - T0 (" + firstTimeStampFromDevice + ") " + (avFrame.getTimeStamp() - firstTimeStampFromDevice) + ") - tn' (" + t + ")" );
 
                                 if (sleepTime >= 0) {
@@ -1018,19 +1019,20 @@ public class Camera {
                                 }
                             }
                             mAVChannel.LastFrame = bmp;
+                            Log.i("IOTCamera", String.format("decoded width=%s and height=%s", bmp.getWidth(), bmp.getHeight()));
 
                         } else {
                             // Log.i("IOTCamera", "decoded size, width and height = 0");
                         }
                     }
 
-//                    if (avFrame != null) {
-//                        avFrame.frmData = null;
-//                        avFrame = null;
-//                        // System.gc();
-//                    }
+                    if (avFrame != null) {
+                        avFrame.frmData = null;
+                        avFrame = null;
+                        System.gc();
+                    }
                 } catch (Exception e) {
-                    //Log.i("IOTCamera", e.getMessage());
+                    Log.i("IOTCamera", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -1099,21 +1101,21 @@ public class Camera {
 
 			/* init mic of phone */
             AudioRecord recorder = null;
-            //AudioProcess mAudioProcess = null;
+            AudioProcess mAudioProcess = null;
             //AudioTrack audioTrack = null;
 
             recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_CONFIGURATION_MONO, AudioFormat.ENCODING_PCM_16BIT, nMinBufSize);
-            //mAudioProcess = new AudioProcess();
+            mAudioProcess = new AudioProcess();
             //playBufSize = AudioTrack.getMinBufferSize(SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_CONFIGURATION_MONO, AudioFormat.ENCODING_PCM_16BIT);
             //audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE_IN_HZ, AudioFormat.ENCODING_PCM_16BIT, AudioFormat.CHANNEL_CONFIGURATION_DEFAULT, playBufSize, AudioTrack.MODE_STREAM);
-            //mAudioProcess.init(SAMPLE_RATE_IN_HZ, AudioFormat.ENCODING_PCM_8BIT, AudioFormat.CHANNEL_CONFIGURATION_MONO);
+            mAudioProcess.init(SAMPLE_RATE_IN_HZ, AudioFormat.ENCODING_PCM_8BIT, AudioFormat.CHANNEL_CONFIGURATION_MONO);
             recorder.startRecording();
             //audioTrack.play();
 
 			/* send audio data continuously */
             while (m_bIsRunning) {
-                //int bufferSize = mAudioProcess.calculateBufferSize(SAMPLE_RATE_IN_HZ, AudioFormat.ENCODING_PCM_8BIT, AudioFormat.CHANNEL_CONFIGURATION_MONO);
-                byte[] inPCMBuf = new byte[nMinBufSize];
+                int bufferSize = mAudioProcess.calculateBufferSize(SAMPLE_RATE_IN_HZ, AudioFormat.ENCODING_PCM_8BIT, AudioFormat.CHANNEL_CONFIGURATION_MONO);
+                byte[] inPCMBuf = new byte[bufferSize];
                 nReadBytes = recorder.read(inPCMBuf, 0, inPCMBuf.length);
                 byte d = (byte) (nReadBytes + 12 & 0x000000ff);
                 byte c = (byte) ((nReadBytes + 12 & 0x0000ff00) >> 8);
@@ -1307,7 +1309,6 @@ public class Camera {
 
             public RDTData() {
             }
-
         }
 
         LinkedList<RDTData> listData = new LinkedList<RDTData>();
@@ -1320,6 +1321,9 @@ public class Camera {
             listData.addLast(new RDTData(len, data));
         }
 
+        public int getCount() {
+            return this.listData.size();
+        }
 
         public synchronized RDTData Dequeue() {
 
