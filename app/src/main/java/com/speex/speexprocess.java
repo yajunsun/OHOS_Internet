@@ -8,9 +8,9 @@ public class speexprocess {
         System.loadLibrary("speexprocess");
     }
 
-    public native int Speex_init(int frame_size, int filter_length, int sample_rate);
+    public  native int Speex_init(int frame_size, int filter_length, int sample_rate);
 
-    public native int Speex_exit();
+    public  native int Speex_exit();
 
-    public native int Speex_process(byte[] net_buf, byte[] mic_buf, byte[] out_buf, byte[] noise);
+    public  native int Speex_process(byte[] net_buf, byte[] mic_buf, byte[] out_buf);
 }

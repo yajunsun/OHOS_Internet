@@ -14,13 +14,17 @@ import com.decoder.util.DecH264;
 import com.decoder.util.DecMp3;
 import com.decoder.util.DecMpeg4;
 import com.decoder.util.DecSpeex;
+import com.speex.speexprocess;
 
 import net.iwebrtc.audioprocess.sdk.AudioProcess;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 import java.util.Vector;
 
 import zgan.ohos.utils.RDTFrame;
@@ -57,6 +61,9 @@ public class Camera {
 
     private boolean mInitAudio = false;
     private AudioTrack mAudioTrack = null;
+    private Stack<TimBytes> latestNetVoice;
+    private speexprocess mSpeex = null;
+    //AudioProcess mAudioProcess = null;
     private int mCamIndex = 0;
 
     /* camera info */
@@ -632,7 +639,7 @@ public class Camera {
                     byte[] data = new byte[len];
                     System.arraycopy(buf, 0, data, 0, len);
                     mAVChannel.rdtQueue.Enqueue(len, data);
-                    Log.i("IOTCamera", "Enqueue rdtQueue left " + mAVChannel.rdtQueue.getCount());
+                    //Log.i("IOTCamera", "Enqueue rdtQueue left " + mAVChannel.rdtQueue.getCount());
                 }
             }// while--end
             if (bInitAudio) {
@@ -694,7 +701,7 @@ public class Camera {
                 try {
                     //从队列中获取数据
                     RDTQueue.RDTData data = mAVChannel.rdtQueue.Dequeue();
-                    Log.i("IOTCamera", "Dequeue rdtQueue left " + mAVChannel.rdtQueue.getCount());
+                    //Log.i("IOTCamera", "Dequeue rdtQueue left " + mAVChannel.rdtQueue.getCount());
                     //将获取的数据放入写入缓存readPool中
                     System.arraycopy(data.getData(), 0, readPool, nReadSize, data.getLength());
                     //缓存中数据的长度
@@ -781,22 +788,23 @@ public class Camera {
             nCodecId = (int) frame.getCodecId();
             if (nCodecId == AVFrame.MEDIA_CODEC_VIDEO_H264) {
                 mAVChannel.VideoFrameQueue.addLast(frame);
-                Log.i("IOTCamera", "Enqueue AVFrameQueue left " + mAVChannel.VideoFrameQueue.getCount());
+                //Log.i("IOTCamera", "Enqueue AVFrameQueue left " + mAVChannel.VideoFrameQueue.getCount());
             }
         }
         if (rdtFrame.mType == 2) {
             try {
                 mAVChannel.AudioBPS += rdtFrame.mLen;
-                //AVFrame frame = new AVFrame(pFrmNo, AVFrame.FRM_STATE_COMPLETE, frameData, frameData.length);
+                //960 4*960,16000
+                if (latestNetVoice == null)
+                    latestNetVoice = new Stack<>();
+                else {
+                    if (latestNetVoice.size() > 0)
+                        latestNetVoice.clear();
+                    latestNetVoice.push(new TimBytes(System.currentTimeMillis(), frameData));
 
-//                nCodecId = AVFrame.MEDIA_CODEC_AUDIO_PCM;//AVFrame.MEDIA_CODEC_AUDIO_PCM;
-//
-//                if (nCodecId == AVFrame.MEDIA_CODEC_AUDIO_ADPCM) {
-//                    DecADPCM.Decode(frameData, frameData.length, adpcmOutBuf);
-//                    mAudioTrack.write(adpcmOutBuf, 0, 640);
-//                } else if (nCodecId == AVFrame.MEDIA_CODEC_AUDIO_PCM) {
+                }
                 mAudioTrack.write(frameData, 0, frameData.length);
-                // }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 //Log.i("suntest", "voice error:" + e.getMessage());
@@ -865,7 +873,7 @@ public class Camera {
                         avFrame = mAVChannel.VideoFrameQueue.removeHead();
                         if (avFrame == null)
                             continue;
-                        Log.i("IOTCamera", "Dequeue AVFrameQueue left " + mAVChannel.VideoFrameQueue.getCount());
+                        //Log.i("IOTCamera", "Dequeue AVFrameQueue left " + mAVChannel.VideoFrameQueue.getCount());
                         avFrameSize = avFrame.getFrmSize();
                     } else {
 //                    try {
@@ -1101,53 +1109,50 @@ public class Camera {
 
 			/* init mic of phone */
             AudioRecord recorder = null;
-            AudioProcess mAudioProcess = null;
             //AudioTrack audioTrack = null;
-
+            mSpeex = new speexprocess();
+            int speexinit= mSpeex.Speex_init(960, 960 * 4, 16000);
             recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_CONFIGURATION_MONO, AudioFormat.ENCODING_PCM_16BIT, nMinBufSize);
-            mAudioProcess = new AudioProcess();
-            //playBufSize = AudioTrack.getMinBufferSize(SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_CONFIGURATION_MONO, AudioFormat.ENCODING_PCM_16BIT);
-            //audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE_IN_HZ, AudioFormat.ENCODING_PCM_16BIT, AudioFormat.CHANNEL_CONFIGURATION_DEFAULT, playBufSize, AudioTrack.MODE_STREAM);
-            mAudioProcess.init(SAMPLE_RATE_IN_HZ, AudioFormat.ENCODING_PCM_8BIT, AudioFormat.CHANNEL_CONFIGURATION_MONO);
             recorder.startRecording();
-            //audioTrack.play();
-
-			/* send audio data continuously */
             while (m_bIsRunning) {
-                int bufferSize = mAudioProcess.calculateBufferSize(SAMPLE_RATE_IN_HZ, AudioFormat.ENCODING_PCM_8BIT, AudioFormat.CHANNEL_CONFIGURATION_MONO);
-                byte[] inPCMBuf = new byte[bufferSize];
+                byte[] inPCMBuf = new byte[960];
                 nReadBytes = recorder.read(inPCMBuf, 0, inPCMBuf.length);
+                byte[] srcProcess = new byte[960];
+                try {
+                    if (latestNetVoice == null || latestNetVoice.size() == 0) {
+                        srcProcess = inPCMBuf;
+                        Log.i("IOTCamera", "没有降噪");
+                    } else {
+                        TimBytes timBytes = latestNetVoice.pop();
+                        long current = System.currentTimeMillis();
+                        if (Math.abs(timBytes.getTimstamp() - current) < 10) {
+                            mSpeex.Speex_process(timBytes.getData(), inPCMBuf, srcProcess);
+                            Log.i("IOTCamera", "已降噪");
+                        } else
+                            srcProcess = inPCMBuf;
+                        Log.i("IOTCamera", "usetime:" + timBytes.getTimstamp());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                    srcProcess = inPCMBuf;
+                }
                 byte d = (byte) (nReadBytes + 12 & 0x000000ff);
                 byte c = (byte) ((nReadBytes + 12 & 0x0000ff00) >> 8);
                 byte b = (byte) ((nReadBytes + 12 & 0x00ff0000) >> 16);
                 byte a = (byte) ((nReadBytes + 12 & 0xff000000) >> 24);
                 if (nReadBytes > 0) {
                     byte[] head = new byte[]{36, 83, 88, 38, a, b, c, d, 2, 0, 0, 0};
-                    byte[] tmpBuf_src = new byte[nReadBytes + 12];
-                    System.arraycopy(inPCMBuf, 0, tmpBuf_src, 12, nReadBytes); // setp
-                    System.arraycopy(head, 0, tmpBuf_src, 0, 12);
-                    //byte[] tmpBuf_processed =  mAudioProcess.processCircle(tmpBuf_src,nReadBytes + 12,3);
-                    RDTAPIs.RDT_Write(nRDT_ID, tmpBuf_src, nReadBytes + 12);
+                    byte[] Buf_processed = new byte[nReadBytes + 12];
+                    System.arraycopy(srcProcess, 0, Buf_processed, 12, nReadBytes); // setp
+                    System.arraycopy(head, 0, Buf_processed, 0, 12);
+                    RDTAPIs.RDT_Write(nRDT_ID, Buf_processed, nReadBytes + 12);
                 }
             }
-            //audioTrack.stop();
             recorder.stop();
-            /* uninit speaker of phone */
-//            if (recorder != null) {
-//                recorder.stop();
-//                recorder.release();
-            //mAudioProcess.destroy();
-            //recorder = null;
-            //           }
-
-			/* close connection */
-//            if (avIndexForSendAudio >= 0) {
-//                AVAPIs.avServStop(avIndexForSendAudio);
-//            }
-//
-//            if (chIndexForSendAudio >= 0) {
-//                IOTCAPIs.IOTC_Session_Channel_OFF(mSID, chIndexForSendAudio);
-//            }
+            mSpeex.Speex_exit();
+            mSpeex = null;
 
             avIndexForSendAudio = -1;
             chIndexForSendAudio = -1;
@@ -1335,6 +1340,32 @@ public class Camera {
                 listData.clear();
         }
 
+    }
+
+    private class TimBytes {
+        public TimBytes(long t, byte[] d) {
+            setTimstamp(t);
+            setData(d);
+        }
+
+        public Long getTimstamp() {
+            return timstamp;
+        }
+
+        public void setTimstamp(Long timstamp) {
+            this.timstamp = timstamp;
+        }
+
+        public byte[] getData() {
+            return data;
+        }
+
+        public void setData(byte[] data) {
+            this.data = data;
+        }
+
+        private Long timstamp;
+        private byte[] data;
     }
 
 }

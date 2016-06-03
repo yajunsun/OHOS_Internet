@@ -29,7 +29,7 @@ JNIEXPORT jint JNICALL Java_com_speex_speexprocess_Speex_1exit
  * Signature: ([B[B[B[B)I
  */
 JNIEXPORT jint JNICALL Java_com_speex_speexprocess_Speex_1process
-  (JNIEnv *, jobject, jbyteArray, jbyteArray, jbyteArray, jbyteArray);
+  (JNIEnv *, jobject, jbyteArray, jbyteArray, jbyteArray);
 
 #ifdef __cplusplus
 }
