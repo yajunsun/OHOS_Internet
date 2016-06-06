@@ -20,4 +20,4 @@
         android:layout_marginLeft="20dp"
         android:background="@color/myaccount_icon"
         android:layout_height="1px" />
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_servetrace_item.xml -->
+</LinearLayout>

@@ -31,4 +31,4 @@
         android:layout_marginRight="0dp"
         android:layout_marginStart="72dp"
         android:orientation="vertical" />
-</com.mikepenz.crossfader.view.CrossFadeSlidingPaneLayout><!-- From: file:/Users/mikepenz/Drive/Development/AndroidLibraries/Crossfader/library/src/main/res/layout/crossfader_base.xml --><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/crossfader/1.1.3/res/layout/crossfader_base.xml -->
+</com.mikepenz.crossfader.view.CrossFadeSlidingPaneLayout><!-- From: file:/Users/mikepenz/Drive/Development/AndroidLibraries/Crossfader/library/src/main/res/layout/crossfader_base.xml -->

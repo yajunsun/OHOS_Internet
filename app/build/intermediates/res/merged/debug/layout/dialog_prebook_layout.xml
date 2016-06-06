@@ -66,4 +66,4 @@
         android:clickable="true"
         android:scaleType="fitCenter"
         android:src="@drawable/prebook_no" />
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/dialog_prebook_layout.xml -->
+</LinearLayout>

@@ -54,4 +54,4 @@
             android:textSize="@dimen/front_text_size" />
     </RelativeLayout>
 
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/chatrightview.xml -->
+</LinearLayout>

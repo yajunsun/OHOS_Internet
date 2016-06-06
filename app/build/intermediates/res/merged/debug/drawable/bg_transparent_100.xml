@@ -3,4 +3,4 @@
     android:shape="rectangle">
     <solid android:color="@color/transparent100" />
     <corners android:radius="20dp" />
-</shape><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/drawable/bg_transparent_100.xml -->
+</shape>

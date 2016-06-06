@@ -48,4 +48,4 @@
         android:gravity="center"
         android:textColor="@color/solid_black"
         android:textSize="@dimen/front_text_size" />
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/dialog_call_not_sucecess.xml -->
+</LinearLayout>

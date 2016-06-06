@@ -57,4 +57,4 @@
             android:text="确定"
             android:textSize="24sp" />
     </LinearLayout>
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_paypwd_dialog.xml -->
+</LinearLayout>

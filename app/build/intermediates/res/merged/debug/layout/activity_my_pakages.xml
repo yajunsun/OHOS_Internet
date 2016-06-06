@@ -57,4 +57,3 @@
         android:layout_below="@id/toolbar" />
 
 </RelativeLayout>
-<!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/activity_my_pakages.xml -->

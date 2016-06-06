@@ -105,4 +105,3 @@
         android:layout_above="@id/lo_net_error" />
 
 </RelativeLayout>
-<!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/activity_main2.xml -->

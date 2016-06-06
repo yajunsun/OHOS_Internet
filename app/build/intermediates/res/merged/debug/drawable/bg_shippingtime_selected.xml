@@ -7,4 +7,3 @@
         android:color="@color/primary"></stroke>
     <solid android:color="@color/solid_white"></solid>
 </shape>
-<!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/drawable/bg_shippingtime_selected.xml -->

@@ -1126,7 +1126,7 @@ public class Camera {
                         TimBytes timBytes = latestNetVoice.pop();
                         long current = System.currentTimeMillis();
                         if (Math.abs(timBytes.getTimstamp() - current) < 10) {
-                            mSpeex.Speex_process(timBytes.getData(), inPCMBuf, srcProcess);
+                          int re=  mSpeex.Speex_process(timBytes.getData(), inPCMBuf, srcProcess);
                             Log.i("IOTCamera", "已降噪");
                         } else
                             srcProcess = inPCMBuf;

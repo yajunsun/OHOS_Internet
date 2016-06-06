@@ -140,4 +140,3 @@
         android:layout_height="20dp"
         android:layout_alignParentBottom="true" />
 </RelativeLayout>
-<!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_activity_login.xml -->

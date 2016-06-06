@@ -59,4 +59,3 @@
        android:id="@+id/wvcreditsrule"
        android:layout_height="match_parent"></WebView>
 </RelativeLayout>
-<!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/activity_advertise_detail.xml -->

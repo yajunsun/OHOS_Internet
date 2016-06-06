@@ -11,4 +11,4 @@
     android:textSize="12sp"
     android:textColor="@color/md_white_1000"
     android:layout_height="wrap_content" />
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/net_status_error.xml -->
+</LinearLayout>

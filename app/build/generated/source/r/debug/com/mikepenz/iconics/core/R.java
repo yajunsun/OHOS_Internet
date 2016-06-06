@@ -328,10 +328,10 @@ public final class R {
 		public static final int switch_thumb_normal_material_light = 0x7f0d01ae;
 	}
 	public static final class dimen {
-		public static final int abc_action_bar_content_inset_material = 0x7f0a0060;
+		public static final int abc_action_bar_content_inset_material = 0x7f0a005e;
 		public static final int abc_action_bar_default_height_material = 0x7f0a0052;
-		public static final int abc_action_bar_default_padding_end_material = 0x7f0a0061;
-		public static final int abc_action_bar_default_padding_start_material = 0x7f0a0062;
+		public static final int abc_action_bar_default_padding_end_material = 0x7f0a005f;
+		public static final int abc_action_bar_default_padding_start_material = 0x7f0a0060;
 		public static final int abc_action_bar_icon_vertical_padding_material = 0x7f0a0079;
 		public static final int abc_action_bar_overflow_padding_end_material = 0x7f0a007a;
 		public static final int abc_action_bar_overflow_padding_start_material = 0x7f0a007b;

@@ -8,4 +8,4 @@
         android:duration="350"
         android:fromXDelta="-100%p"
         android:toXDelta="0" />
-</set><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/animator/enter.xml -->
+</set>

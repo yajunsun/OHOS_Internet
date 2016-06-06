@@ -5,4 +5,4 @@
             <stroke android:width="5dp" android:color="@color/primary" />
         </shape>
     </item>
-</selector><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/drawable/linear_circle_stroke_bgd.xml -->
+</selector>

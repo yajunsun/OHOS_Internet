@@ -56,4 +56,3 @@
         android:layout_margin="5dp"
         android:clipToPadding="false" />
 </RelativeLayout>
-<!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_user_comm_select.xml -->

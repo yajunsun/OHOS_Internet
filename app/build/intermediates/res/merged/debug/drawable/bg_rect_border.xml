@@ -6,4 +6,4 @@
         android:color="@color/transparent80"></stroke>
     <solid android:color="@color/solid_white" />
 
-</shape><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/drawable/bg_rect_border.xml -->
+</shape>

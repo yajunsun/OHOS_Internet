@@ -78,4 +78,4 @@
         android:layout_marginLeft="10dp"
         android:layout_below="@id/txt_content"
         android:background="@color/icon_base_color"></LinearLayout>
-</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_shequgonggao_item.xml -->
+</RelativeLayout>

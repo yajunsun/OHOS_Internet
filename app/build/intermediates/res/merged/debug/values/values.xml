@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/attrs.xml -->
-    <eat-comment/>
     <attr format="dimension" name="borderRadius"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <attr format="reference" name="drawerArrowStyle"/>
     <attr format="dimension" name="height"/>
     <attr format="boolean" name="isLightTheme"/>
     <attr format="string" name="title"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/attrs.xml -->
-    <eat-comment/>
     <attr name="type">
         <enum name="circle" value="0"/>
         <enum name="round" value="1"/>
     </attr>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <bool name="abc_action_bar_embed_tabs">true</bool>
     <bool name="abc_action_bar_embed_tabs_pre_jb">false</bool>
     <bool name="abc_action_bar_expanded_action_views_exclusive">true</bool>
@@ -29,8 +21,6 @@
     <color name="abc_search_url_text_normal">#7fa87f</color>
     <color name="abc_search_url_text_pressed">@android:color/black</color>
     <color name="abc_search_url_text_selected">@android:color/black</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <color name="about_libraries_accent">@color/theme_accent</color>
     <color name="about_libraries_card">#FAFAFA</color>
     <color name="about_libraries_card_dark">#666666</color>
@@ -48,30 +38,18 @@
     <color name="about_libraries_title_openSource_dark">#ffffffff</color>
     <color name="about_libraries_window_background">#ECECEC</color>
     <color name="about_libraries_window_background_dark">#303030</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialize/0.5.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="accent">@color/colorAccent</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="accent_material_dark">@color/material_deep_teal_200</color>
     <color name="accent_material_light">@color/material_deep_teal_500</color>
     <color name="background_floating_material_dark">@color/material_grey_800</color>
     <color name="background_floating_material_light">@android:color/white</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/colors.xml -->
-    <eat-comment/>
     <color name="background_material_dark">#fdfafa</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="background_material_light">@color/material_grey_50</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/colors.xml -->
-    <eat-comment/>
     <color name="base_func_color">#FFFFFFFF</color>
     <color name="bg1">#CCCCCC</color>
     <color name="bg_blue">#FF1BA1E2</color>
     <color name="bkg_cake_srdz">#a1000000</color>
     <color name="bkg_color_msg_reply">#ece9e7</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
     <color name="bright_foreground_disabled_material_light">#80000000</color>
     <color name="bright_foreground_inverse_material_dark">@color/bright_foreground_material_light</color>
@@ -80,14 +58,10 @@
     <color name="bright_foreground_material_light">@android:color/black</color>
     <color name="button_material_dark">#ff5a595b</color>
     <color name="button_material_light">#ffd6d7d7</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="cardview_dark_background">#FF202020</color>
     <color name="cardview_light_background">#FFFAFAFA</color>
     <color name="cardview_shadow_end_color">#03000000</color>
     <color name="cardview_shadow_start_color">#37000000</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/colors.xml -->
-    <eat-comment/>
     <color name="chat_target">#FF8000</color>
     <color name="colorAccent">#ff4f20</color>
     <color name="colorPrimary">#ff4f20</color>
@@ -98,8 +72,6 @@
     <color name="color_sc_text_color">#FFFFFF</color>
     <color name="color_txt_toobar">@color/md_white_1000</color>
     <color name="dancen">#CCCC33</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="design_fab_shadow_end_color">@android:color/transparent</color>
     <color name="design_fab_shadow_mid_color">#14000000</color>
     <color name="design_fab_shadow_start_color">#44000000</color>
@@ -109,38 +81,26 @@
     <color name="design_fab_stroke_top_outer_color">#2EFFFFFF</color>
     <color name="design_snackbar_background_color">#323232</color>
     <color name="design_textinput_error_color">#FFDD2C00</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="dim_foreground_disabled_material_dark">#80bebebe</color>
     <color name="dim_foreground_disabled_material_light">#80323232</color>
     <color name="dim_foreground_material_dark">#ffbebebe</color>
     <color name="dim_foreground_material_light">#ff323232</color>
     <color name="foreground_material_dark">@android:color/white</color>
     <color name="foreground_material_light">@android:color/black</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/colors.xml -->
-    <eat-comment/>
     <color name="hall_b_e">#00D9AF6D</color>
     <color name="hall_b_s">#00F6D9AF</color>
     <color name="hall_top_s">#5A555A</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
     <color name="hint_foreground_material_dark">@color/bright_foreground_disabled_material_dark</color>
     <color name="hint_foreground_material_light">@color/bright_foreground_disabled_material_light</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/colors.xml -->
-    <eat-comment/>
     <color name="icon_base_color">#80E3E2E0</color>
     <color name="list_divider_meetingcreate">#999999</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="material_blue_grey_800">#ff37474f</color>
     <color name="material_blue_grey_900">#ff263238</color>
     <color name="material_blue_grey_950">#ff21272b</color>
     <color name="material_deep_teal_200">#ff80cbc4</color>
     <color name="material_deep_teal_500">#ff009688</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/res/values/values.xml -->
-    <eat-comment/>
     <color name="material_drawer_accent">@color/materialize_accent</color>
     <color name="material_drawer_background">@color/md_light_background</color>
     <color name="material_drawer_dark_background">@color/md_dark_background</color>
@@ -165,8 +125,6 @@
     <color name="material_drawer_secondary_text">@color/md_light_secondary</color>
     <color name="material_drawer_selected">#E8E8E8</color>
     <color name="material_drawer_selected_text">@color/material_drawer_primary</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="material_grey_100">#fff5f5f5</color>
     <color name="material_grey_300">#ffe0e0e0</color>
     <color name="material_grey_50">#fffafafa</color>
@@ -174,8 +132,6 @@
     <color name="material_grey_800">#ff424242</color>
     <color name="material_grey_850">#ff303030</color>
     <color name="material_grey_900">#ff212121</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialize/0.5.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="materialize_accent">@color/accent</color>
     <color name="materialize_primary">@color/primary</color>
     <color name="materialize_primary_dark">@color/primary_dark</color>
@@ -457,27 +413,17 @@
     <color name="md_yellow_A200">#FFFF00</color>
     <color name="md_yellow_A400">#FFEA00</color>
     <color name="md_yellow_A700">#FFD600</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/colors.xml -->
-    <eat-comment/>
     <color name="menu_bg">#ff54acea</color>
     <color name="menu_select">#ffffff</color>
     <color name="myaccount_icon">#808F8D8E</color>
     <color name="myorder_toolbbar_color">#FFFFFF</color>
     <color name="navigation_bg_color">@color/md_white_1000</color>
     <color name="navigation_txt_color">#FF999999</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialize/0.5.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="primary">@color/colorPrimary</color>
     <color name="primary_dark">@color/colorPrimaryDark</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="primary_dark_material_dark">@android:color/black</color>
     <color name="primary_dark_material_light">@color/material_grey_600</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialize/0.5.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="primary_light">@color/colorPrimaryLight</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="primary_material_dark">@color/material_grey_900</color>
     <color name="primary_material_light">@color/material_grey_100</color>
     <color name="primary_text_default_material_dark">#ffffffff</color>
@@ -490,8 +436,6 @@
     <color name="secondary_text_default_material_light">#8a000000</color>
     <color name="secondary_text_disabled_material_dark">#36ffffff</color>
     <color name="secondary_text_disabled_material_light">#24000000</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/colors.xml -->
-    <eat-comment/>
     <color name="shishiwuye_big_txt_color">#242424</color>
     <color name="shishiwuye_sm_txt_color">#5b5858</color>
     <color name="solid_black">#ff000000</color>
@@ -500,22 +444,14 @@
     <color name="solid_red">#f00</color>
     <color name="solid_white">#ffffffff</color>
     <color name="solid_yellow">#ffffff00</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="switch_thumb_disabled_material_dark">#ff616161</color>
     <color name="switch_thumb_disabled_material_light">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/colors.xml -->
-    <eat-comment/>
     <color name="t_bg1">#333333</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <color name="theme_accent">@color/colorAccent</color>
     <color name="theme_default_primary">@color/colorPrimary</color>
     <color name="theme_default_primary_dark">@color/colorPrimaryDark</color>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/colors.xml -->
-    <eat-comment/>
     <color name="toolbox_bg">#99aaaaaa</color>
     <color name="transparent100">#00FFFFFF</color>
     <color name="transparent50">#80FFFFFF</color>
@@ -577,11 +513,7 @@
     <declare-styleable name="View"><attr format="dimension" name="paddingStart"/><attr format="dimension" name="paddingEnd"/><attr name="android:focusable"/><attr format="reference" name="theme"/><attr name="android:theme"/></declare-styleable>
     <declare-styleable name="ViewBackgroundHelper"><attr name="android:background"/><attr format="color" name="backgroundTint"/><attr name="backgroundTintMode"><enum name="src_over" value="3"/><enum name="src_in" value="5"/><enum name="src_atop" value="9"/><enum name="multiply" value="14"/><enum name="screen" value="15"/></attr></declare-styleable>
     <declare-styleable name="ViewStubCompat"><attr name="android:layout"/><attr name="android:inflatedId"/><attr name="android:id"/></declare-styleable>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/dimens.xml -->
-    <eat-comment/>
     <dimen name="CommitOrder_txt_ordernum">16sp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <dimen name="abc_action_bar_content_inset_material">16dp</dimen>
     <dimen name="abc_action_bar_default_height_material">56dp</dimen>
     <dimen name="abc_action_bar_default_padding_end_material">0dp</dimen>
@@ -649,28 +581,16 @@
     <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
     <dimen name="abc_text_size_title_material">20sp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <dimen name="aboutImage_openSource">72dp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/dimens.xml -->
-    <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_main_option_margin">20dp</dimen>
     <dimen name="activity_main_option_padding">5dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <dimen name="card_padding_openSource">12dp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <dimen name="cardview_compat_inset_shadow">1dp</dimen>
     <dimen name="cardview_default_elevation">2dp</dimen>
     <dimen name="cardview_default_radius">2dp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/dimens.xml -->
-    <eat-comment/>
     <dimen name="content_toolbar_margin">10dp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <dimen name="design_appbar_elevation">4dp</dimen>
     <dimen name="design_fab_border_width">0.5dp</dimen>
     <dimen name="design_fab_content_size">24dp</dimen>
@@ -699,22 +619,14 @@
     <dimen name="design_tab_scrollable_min_width">72dp</dimen>
     <dimen name="design_tab_text_size">14sp</dimen>
     <dimen name="design_tab_text_size_2line">12sp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/dimens.xml -->
-    <eat-comment/>
     <dimen name="edittext_height">40dp</dimen>
     <dimen name="front_ads_height">200dp</dimen>
     <dimen name="header_size">100dp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <item format="float" name="highlight_alpha_material_colored" type="dimen">0.26</item>
     <item format="float" name="highlight_alpha_material_dark" type="dimen">0.20</item>
     <item format="float" name="highlight_alpha_material_light" type="dimen">0.12</item>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/dimens.xml -->
-    <eat-comment/>
     <dimen name="househ_option_back_layout_margin">20dp</dimen>
     <dimen name="househ_option_back_layout_size">100dp</dimen>
     <dimen name="househ_option_icon_size">80dp</dimen>
@@ -727,11 +639,7 @@
     <dimen name="item_evaluation_text_size">12sp</dimen>
     <dimen name="item_grd_sample_size">140dp</dimen>
     <dimen name="item_lst_sample_size">100dp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <dimen name="item_touch_helper_max_drag_scroll_per_frame">20dp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/res/values/values.xml -->
-    <eat-comment/>
     <dimen name="material_drawer_account_header_compact">56dp</dimen>
     <dimen name="material_drawer_account_header_dropdown">22dp</dimen>
     <dimen name="material_drawer_account_header_dropdown_margin_bottom">14dp</dimen>
@@ -775,8 +683,6 @@
     <dimen name="material_mini_drawer_item_icon">56dp</dimen>
     <dimen name="material_mini_drawer_item_icon_padding">16dp</dimen>
     <dimen name="material_mini_drawer_item_padding">4dp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialize/0.5.1/res/values/values.xml -->
-    <eat-comment/>
     <dimen name="materialize_avatar">40dp</dimen>
     <dimen name="materialize_baseline_grid">8dp</dimen>
     <dimen name="materialize_baseline_grid_small">4dp</dimen>
@@ -806,8 +712,6 @@
     <dimen name="materialize_typography_headline">24sp</dimen>
     <dimen name="materialize_typography_subheading">16sp</dimen>
     <dimen name="materialize_typography_title">20sp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/dimens.xml -->
-    <eat-comment/>
     <dimen name="mine_bg_height">100dp</dimen>
     <dimen name="myaccount_header_Height">200dp</dimen>
     <dimen name="myaccount_txt_size">20sp</dimen>
@@ -816,110 +720,56 @@
     <dimen name="navigation_height">60dp</dimen>
     <dimen name="navigation_icon_size">30dp</dimen>
     <dimen name="navigation_txt_size">15sp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <dimen name="notification_large_icon_height">64dp</dimen>
     <dimen name="notification_large_icon_width">64dp</dimen>
     <dimen name="notification_subtext_size">12dp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/dimens.xml -->
-    <eat-comment/>
     <dimen name="order_sheet_height">160dp</dimen>
     <dimen name="order_text_size">18sp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <dimen name="textSizeLarge_openSource">20sp</dimen>
     <dimen name="textSizeSmall_openSource">14sp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialize/0.5.1/res/values/values.xml -->
-    <eat-comment/>
     <dimen name="tool_bar_top_padding">0dp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/dimens.xml -->
-    <eat-comment/>
     <dimen name="toolbar_height">80dp</dimen>
     <dimen name="toolbar_option_size">20sp</dimen>
     <dimen name="toolbar_title_size">20sp</dimen>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/colors.xml -->
-    <eat-comment/>
     <drawable name="main_head">#6699CC</drawable>
     <drawable name="meeting_tab_normal">#B3DBF8</drawable>
     <drawable name="meeting_tab_pressed">#FF9933</drawable>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <drawable name="notification_template_icon_bg">#3333B5E5</drawable>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/colors.xml -->
-    <eat-comment/>
     <drawable name="user_addiontion_normal">#00000000</drawable>
     <drawable name="user_moble_click">#E099CCFF</drawable>
     <drawable name="user_moble_normal">#E0efefef</drawable>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <item name="action_bar_activity_content" type="id"/>
     <item name="action_bar_spinner" type="id"/>
     <item name="action_menu_divider" type="id"/>
     <item name="action_menu_presenter" type="id"/>
     <item name="home" type="id"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/iconics-core/2.5.2/res/values/values.xml -->
-    <eat-comment/>
     <item name="iconics_tag_id" type="id"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/ids.xml -->
-    <eat-comment/>
     <item name="imageloader_uri" type="id"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <item name="item_touch_helper_previous_elevation" type="id"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/res/values/values.xml -->
-    <eat-comment/>
     <item name="material_drawer_animation" type="id"/>
     <item name="material_drawer_menu_default_group" type="id"/>
     <item name="material_drawer_profile_header" type="id"/>
     <item name="material_drawer_slider_layout" type="id"/>
     <item name="material_drawer_sticky_footer" type="id"/>
     <item name="material_drawer_sticky_header" type="id"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialize/0.5.1/res/values/values.xml -->
-    <eat-comment/>
     <item name="materialize_root" type="id"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <item name="progress_circular" type="id"/>
     <item name="progress_horizontal" type="id"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <item name="rippleForegroundListenerView" type="id"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <item name="split_action_bar" type="id"/>
     <item name="up" type="id"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <item name="view_offset_helper" type="id"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <integer name="abc_config_activityDefaultDur">220</integer>
     <integer name="abc_config_activityShortDur">150</integer>
     <integer name="abc_max_action_buttons">2</integer>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/integers.xml -->
-    <eat-comment/>
     <integer name="cake_select_count_size">20</integer>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <integer name="cancel_button_image_alpha">127</integer>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <integer name="design_snackbar_text_max_lines">2</integer>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/integers.xml -->
-    <eat-comment/>
     <integer name="front_item_marginTop">10</integer>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <integer name="status_bar_notification_info_maxnum">999</integer>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/integers.xml -->
-    <eat-comment/>
     <integer name="supermarket_img_height">500</integer>
     <integer name="vegetable_select_count_size">20</integer>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/strings.xml -->
-    <eat-comment/>
     <string name="BACKING_RUNING">AnyChatCallCenter正在后台运行</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <string name="abc_action_bar_home_description">Navigate home</string>
     <string name="abc_action_bar_home_description_format">%1$s, %2$s</string>
     <string name="abc_action_bar_home_subtitle_description_format">%1$s, %2$s, %3$s</string>
@@ -939,8 +789,6 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/strings.xml -->
-    <eat-comment/>
     <string name="about">关于一家一店</string>
     <string name="about_shebeivartxt">设备版本：一家一店已离线</string>
     <string name="about_vartxt">一家一店版本：</string>
@@ -962,11 +810,7 @@
     <string name="already">已</string>
     <string name="already_download">已下载</string>
     <string name="app_name">一家一店</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/strings.xml -->
-    <eat-comment/>
     <string name="at">,于</string>
     <string name="at_home">回家</string>
     <string name="auth_code">验证码</string>
@@ -995,11 +839,7 @@
     <string name="change_device_OK">地址切换成功</string>
     <string name="change_device_failed">地址切换失败</string>
     <string name="change_failed">修改失败</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/strings.xml -->
-    <eat-comment/>
     <string name="chose_wifi">选择WIFI : </string>
     <string name="clear_all_cache">缓存已全部清除</string>
     <string name="clear_cache_failure">清除失败</string>
@@ -1038,26 +878,12 @@
     <string name="defence_open">布防已开启</string>
     <string name="defence_open_failure">布防开启失败</string>
     <string name="defence_records">安防记录</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <string name="define_AboutLibraries">year;owner</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/iconics-core/2.5.2/res/values/values.xml -->
-    <eat-comment/>
     <string name="define_AndroidIconics">year;owner</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/crossfader/1.1.3/res/values/values.xml -->
-    <eat-comment/>
     <string name="define_crossfader">year;owner</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/fontawesome-typeface/4.4.0.1/res/values/values.xml -->
-    <eat-comment/>
     <string name="define_font_fontawesome">com.mikepenz.fontawesome_typeface_library.FontAwesome</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/google-material-typeface/1.2.0.1/res/values/values.xml -->
-    <eat-comment/>
     <string name="define_font_googlematerial">com.mikepenz.google_material_typeface_library.GoogleMaterial</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/octicons-typeface/3.0.0.1/res/values/values.xml -->
-    <eat-comment/>
     <string name="define_font_octicons">com.mikepenz.octicons_typeface_library.Octicons</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <string name="define_int_ActionBarPullToRefresh">year;owner</string>
     <string name="define_int_ActionBarSherlock">year;owner</string>
     <string name="define_int_ActiveAndroid">year;owner</string>
@@ -1186,14 +1012,8 @@
     <string name="define_license_cc30"/>
     <string name="define_license_lgpl_3_0"/>
     <string name="define_license_mit"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/res/values/values.xml -->
-    <eat-comment/>
     <string name="define_materialdrawer">year;owner</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialize/0.5.1/res/values/values.xml -->
-    <eat-comment/>
     <string name="define_materialize">year;owner</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/strings.xml -->
-    <eat-comment/>
     <string name="delete_address">删除地址:</string>
     <string name="delete_member">删除成员:</string>
     <string name="deleting_member">正在删除</string>
@@ -1287,17 +1107,15 @@
     <string name="item_description_addition">三星SSD特惠风暴，新品好评返现金！</string>
     <string name="just_now">刚才</string>
     <string name="keep_in_voice">语音通话中………</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <string name="library_AboutLibraries_author">Mike Penz</string>
     <string name="library_AboutLibraries_authorWebsite">http://mikepenz.com/</string>
     <string name="library_AboutLibraries_isOpenSource">true</string>
     <string name="library_AboutLibraries_libraryDescription">
-        <![CDATA[
-        <b>AboutLibraries</b> is a library to offer you all the information you need of your libraries!
-        <br /><br />
+        
+        &lt;b>AboutLibraries&lt;/b> is a library to offer you all the information you need of your libraries!
+        &lt;br />&lt;br />
         Most modern apps feature an "Used Library"-Section and for this some information of those libs is required. As it gets annoying to copy those strings always to your app I have developed this small helper library to provide the required information.
-        ]]>
+        
     </string>
     <string name="library_AboutLibraries_libraryName">AboutLibraries</string>
     <string name="library_AboutLibraries_libraryVersion">5.2.5</string>
@@ -1356,8 +1174,6 @@
     <string name="library_AdjustableImageView_libraryWebsite">http://inthecheesefactory.com/blog/correct-imageview-adjustviewbounds-with-adjustable-imageview/en</string>
     <string name="library_AdjustableImageView_licenseId">apache_2_0</string>
     <string name="library_AdjustableImageView_repositoryLink">https://github.com/nuuneoi/AdjustableImageView</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/iconics-core/2.5.2/res/values/values.xml -->
-    <eat-comment/>
     <string name="library_AndroidIconics_author">Mike Penz</string>
     <string name="library_AndroidIconics_authorWebsite">http://mikepenz.com/</string>
     <string name="library_AndroidIconics_isOpenSource">true</string>
@@ -1373,8 +1189,6 @@
     <string name="library_AndroidIconics_owner">Mike Penz</string>
     <string name="library_AndroidIconics_repositoryLink">https://github.com/mikepenz/Android-Iconics</string>
     <string name="library_AndroidIconics_year">2015</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <string name="library_AndroidRandomColor_author">Bruce Lee</string>
     <string name="library_AndroidRandomColor_authorWebsite">https://github.com/lzyzsd</string>
     <string name="library_AndroidRandomColor_classPath">com.github.lzyzsd.randomcolor.RandomColor</string>
@@ -2134,9 +1948,9 @@
     <string name="library_colorpickercollection_authorWebsite">http://gmariotti.blogspot.it/</string>
     <string name="library_colorpickercollection_classPath">it.gmariotti.android.example.colorpicker</string>
     <string name="library_colorpickercollection_isOpenSource">true</string>
-    <string name="library_colorpickercollection_libraryDescription"><![CDATA[This repository provides a simple collection of Color Picker.<br>
-	&#8226; Color Picker from Stock Calendar<br>
-	&#8226; Color Picker from Dashclock]]></string>
+    <string name="library_colorpickercollection_libraryDescription">This repository provides a simple collection of Color Picker.&lt;br>
+	&amp;#8226; Color Picker from Stock Calendar&lt;br>
+	&amp;#8226; Color Picker from Dashclock</string>
     <string name="library_colorpickercollection_libraryName">ColorPickerCollection</string>
     <string name="library_colorpickercollection_libraryVersion">1.1.0</string>
     <string name="library_colorpickercollection_libraryWebsite">https://github.com/gabrielemariotti/colorpickercollection</string>
@@ -2152,15 +1966,13 @@
     <string name="library_commonsio_libraryWebsite">http://commons.apache.org/proper/commons-io/</string>
     <string name="library_commonsio_licenseId">apache_2_0</string>
     <string name="library_commonsio_repositoryLink">http://svn.apache.org/viewvc/commons/proper/io/trunk</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/crossfader/1.1.3/res/values/values.xml -->
-    <eat-comment/>
     <string name="library_crossfader_author">Mike Penz</string>
     <string name="library_crossfader_authorWebsite">http://mikepenz.com/</string>
     <string name="library_crossfader_isOpenSource">true</string>
     <string name="library_crossfader_libraryDescription">
-        <![CDATA[
-        <b>Crossfader</b>
-        ]]>
+        
+        &lt;b>Crossfader&lt;/b>
+        
     </string>
     <string name="library_crossfader_libraryName">Crossfader</string>
     <string name="library_crossfader_libraryVersion">1.1.3</string>
@@ -2169,17 +1981,15 @@
     <string name="library_crossfader_owner">Mike Penz</string>
     <string name="library_crossfader_repositoryLink">https://github.com/mikepenz/Crossfader</string>
     <string name="library_crossfader_year">2015</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <string name="library_ddplist_author">Daniel Dreibrodt</string>
     <string name="library_ddplist_classPath">com.dd.plist.NSNumber</string>
     <string name="library_ddplist_isOpenSource">true</string>
     <string name="library_ddplist_libraryDescription">
-        <![CDATA[
+        
         This library enables your Java application to handle property lists of various formats.
-        <br><br>
+        &lt;br>&lt;br>
         Property lists are files used to store user settings and serialized objects. They originate from the NeXSTEP programming environment and are now a basic part of the Cocoa framework (OS X and iOS) as well as the GNUstep framework.
-        ]]>
+        
     </string>
     <string name="library_ddplist_libraryName">dd-plist</string>
     <string name="library_ddplist_libraryVersion">1.3</string>
@@ -2409,8 +2219,6 @@
     <string name="library_materialdialogs_libraryWebsite">https://github.com/afollestad/material-dialogs</string>
     <string name="library_materialdialogs_licenseId">apache_2_0</string>
     <string name="library_materialdialogs_repositoryLink">https://github.com/afollestad/material-dialogs</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/res/values/values.xml -->
-    <eat-comment/>
     <string name="library_materialdrawer_author">Mike Penz</string>
     <string name="library_materialdrawer_authorWebsite">http://mikepenz.com/</string>
     <string name="library_materialdrawer_isOpenSource">true</string>
@@ -2426,8 +2234,6 @@
     <string name="library_materialdrawer_owner">Mike Penz</string>
     <string name="library_materialdrawer_repositoryLink">https://github.com/mikepenz/MaterialDrawer</string>
     <string name="library_materialdrawer_year">2015</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <string name="library_materialedittext_author">Kai Zhu</string>
     <string name="library_materialedittext_authorWebsite"/>
     <string name="library_materialedittext_classPath">com.rengwuxian.materialedittext.MaterialEditText</string>
@@ -2453,8 +2259,6 @@
     <string name="library_materialicons_libraryWebsite"/>
     <string name="library_materialicons_licenseId">apache_2_0</string>
     <string name="library_materialicons_repositoryLink">https://github.com/Malinskiy/android-material-icons</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialize/0.5.1/res/values/values.xml -->
-    <eat-comment/>
     <string name="library_materialize_author">Mike Penz</string>
     <string name="library_materialize_authorWebsite">http://mikepenz.com/</string>
     <string name="library_materialize_isOpenSource">true</string>
@@ -2470,8 +2274,6 @@
     <string name="library_materialize_owner">Mike Penz</string>
     <string name="library_materialize_repositoryLink">https://github.com/mikepenz/Materialize</string>
     <string name="library_materialize_year">2015</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <string name="library_materialmenu_author">Balys Valentukevicius</string>
     <string name="library_materialmenu_authorWebsite">https://github.com/balysv</string>
     <string name="library_materialmenu_classPath">com.balysv.materialmenu. MaterialMenu</string>
@@ -2616,7 +2418,7 @@
     <string name="library_rxandroid_authorWebsite">http://reactivex.io/</string>
     <string name="library_rxandroid_classPath">rx.android.schedulers.AndroidSchedulers</string>
     <string name="library_rxandroid_isOpenSource">true</string>
-    <string name="library_rxandroid_libraryDescription"><![CDATA[Android specific bindings for <b>RxJava</b>.<br /><br />This module adds the minimum classes to RxJava that make writing reactive components in Android applications easy and hassle-free. More specifically, it provides a Scheduler that schedules on the main UI thread or any given Handler.]]></string>
+    <string name="library_rxandroid_libraryDescription">Android specific bindings for &lt;b>RxJava&lt;/b>.&lt;br />&lt;br />This module adds the minimum classes to RxJava that make writing reactive components in Android applications easy and hassle-free. More specifically, it provides a Scheduler that schedules on the main UI thread or any given Handler.</string>
     <string name="library_rxandroid_libraryName">RxAndroid</string>
     <string name="library_rxandroid_libraryVersion">1.0.1</string>
     <string name="library_rxandroid_libraryWebsite">https://github.com/ReactiveX/RxAndroid</string>
@@ -2626,7 +2428,7 @@
     <string name="library_rxjava_authorWebsite">http://reactivex.io/</string>
     <string name="library_rxjava_classPath">rx.observers. Observers</string>
     <string name="library_rxjava_isOpenSource">true</string>
-    <string name="library_rxjava_libraryDescription"><![CDATA[<b>RxJava</b> is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences.<br /><br />It extends the observer pattern to support sequences of data/events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety and concurrent data structures.]]></string>
+    <string name="library_rxjava_libraryDescription">&lt;b>RxJava&lt;/b> is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences.&lt;br />&lt;br />It extends the observer pattern to support sequences of data/events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety and concurrent data structures.</string>
     <string name="library_rxjava_libraryName">RxJava</string>
     <string name="library_rxjava_libraryVersion">1.0.12</string>
     <string name="library_rxjava_libraryWebsite">https://github.com/ReactiveX/RxJava</string>
@@ -2881,65 +2683,65 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 </string>
     <string name="license_Apache_2_0_licenseDescription">
-        <![CDATA[
-        Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
-        <br />
+        
+        Copyright &amp;#169; &lt;&lt;&lt;YEAR>>>, &lt;&lt;&lt;OWNER>>>
+        &lt;br />
         All rights reserved.
-        <br /><br />
-        <b>TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION</b>
-        <br /><br />
-        <b>1. Definitions.</b>
-        <br /><br />
+        &lt;br />&lt;br />
+        &lt;b>TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION&lt;/b>
+        &lt;br />&lt;br />
+        &lt;b>1. Definitions.&lt;/b>
+        &lt;br />&lt;br />
         "License" shall mean the terms and conditions for use, reproduction, and distribution as defined by Sections 1 through 9 of this document.
-        <br /><br />
+        &lt;br />&lt;br />
         "Licensor" shall mean the copyright owner or entity authorized by the copyright owner that is granting the License.
-        <br /><br />
+        &lt;br />&lt;br />
         "Legal Entity" shall mean the union of the acting entity and all other entities that control, are controlled by, or are under common control with that
         entity. For the purposes of this definition, "control" means (i) the power, direct or indirect, to cause the direction or management of such entity,
         whether by contract or otherwise, or (ii) ownership of fifty percent (50%) or more of the outstanding shares, or (iii) beneficial ownership of such
         entity.
-        <br /><br />
+        &lt;br />&lt;br />
         "You" (or "Your") shall mean an individual or Legal Entity exercising permissions granted by this License.
-        <br /><br />
+        &lt;br />&lt;br />
         "Source" form shall mean the preferred form for making modifications, including but not limited to software source code, documentation source, and
         configuration files.
-        <br /><br />
+        &lt;br />&lt;br />
         "Object" form shall mean any form resulting from mechanical transformation or translation of a Source form, including but not limited to compiled object
         code, generated documentation, and conversions to other media types.
-        <br /><br />
+        &lt;br />&lt;br />
         "Work" shall mean the work of authorship, whether in Source or Object form, made available under the License, as indicated by a copyright notice that is
         included in or attached to the work (an example is provided in the Appendix below).
-        <br /><br />
+        &lt;br />&lt;br />
         "Derivative Works" shall mean any work, whether in Source or Object form, that is based on (or derived from) the Work and for which the editorial
         revisions, annotations, elaborations, or other modifications represent, as a whole, an original work of authorship. For the purposes of this License,
         Derivative Works shall not include works that remain separable from, or merely link (or bind by name) to the interfaces of, the Work and Derivative
         Works thereof.
-        <br /><br />
+        &lt;br />&lt;br />
         "Contribution" shall mean any work of authorship, including the original version of the Work and any modifications or additions to that Work or
         Derivative Works thereof, that is intentionally submitted to Licensor for inclusion in the Work by the copyright owner or by an individual or Legal
         Entity authorized to submit on behalf of the copyright owner. For the purposes of this definition, "submitted" means any form of electronic, verbal, or
         written communication sent to the Licensor or its representatives, including but not limited to communication on electronic mailing lists, source code
         control systems, and issue tracking systems that are managed by, or on behalf of, the Licensor for the purpose of discussing and improving the Work, but
         excluding communication that is conspicuously marked or otherwise designated in writing by the copyright owner as "Not a Contribution."
-        <br /><br />
+        &lt;br />&lt;br />
         "Contributor" shall mean Licensor and any individual or Legal Entity on behalf of whom a Contribution has been received by Licensor and subsequently
         incorporated within the Work.
-        <br /><br />
-        <b>2. Grant of Copyright License.</b> Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide,
+        &lt;br />&lt;br />
+        &lt;b>2. Grant of Copyright License.&lt;/b> Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide,
         non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare Derivative Works of, publicly display, publicly perform,
         sublicense, and distribute the Work and such Derivative Works in Source or Object form.
-        <br /><br />
-        <b>3. Grant of Patent License.</b> Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide,
+        &lt;br />&lt;br />
+        &lt;b>3. Grant of Patent License.&lt;/b> Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide,
         non-exclusive, no-charge, royalty-free, irrevocable (except as stated in this section) patent license to make, have made, use, offer to sell, sell,
         import, and otherwise transfer the Work, where such license applies only to those patent claims licensable by such Contributor that are necessarily
         infringed by their Contribution(s) alone or by combination of their Contribution(s) with the Work to which such Contribution(s) was submitted. If You
         institute patent litigation against any entity (including a cross-claim or counterclaim in a lawsuit) alleging that the Work or a Contribution
         incorporated within the Work constitutes direct or contributory patent infringement, then any patent licenses granted to You under this License for that
         Work shall terminate as of the date such litigation is filed.
-        <br /><br />
-        <b>4. Redistribution.</b> You may reproduce and distribute copies of the Work or Derivative Works thereof in any medium, with or without modifications, and in
+        &lt;br />&lt;br />
+        &lt;b>4. Redistribution.&lt;/b> You may reproduce and distribute copies of the Work or Derivative Works thereof in any medium, with or without modifications, and in
         Source or Object form, provided that You meet the following conditions:
-        <br /><br />
+        &lt;br />&lt;br />
         You must give any other recipients of the Work or Derivative Works a copy of this License; and
         You must cause any modified files to carry prominent notices stating that You changed the files; and
         You must retain, in the Source form of any Derivative Works that You distribute, all copyright, patent, trademark, and attribution notices from the
@@ -2951,213 +2753,213 @@ THE SOFTWARE.
         contents of the NOTICE file are for informational purposes only and do not modify the License. You may add Your own attribution notices within
         Derivative Works that You distribute, alongside or as an addendum to the NOTICE text from the Work, provided that such additional attribution notices
         cannot be construed as modifying the License.
-        <br />
+        &lt;br />
         You may add Your own copyright statement to Your modifications and may provide additional or different license terms and conditions for use,
         reproduction, or distribution of Your modifications, or for any such Derivative Works as a whole, provided Your use, reproduction, and distribution of
         the Work otherwise complies with the conditions stated in this License.
-        <br /><br />
-        <b>5. Submission of Contributions.</b> Unless You explicitly state otherwise, any Contribution intentionally submitted for inclusion in the Work by You to the
+        &lt;br />&lt;br />
+        &lt;b>5. Submission of Contributions.&lt;/b> Unless You explicitly state otherwise, any Contribution intentionally submitted for inclusion in the Work by You to the
         Licensor shall be under the terms and conditions of this License, without any additional terms or conditions. Notwithstanding the above, nothing herein
         shall supersede or modify the terms of any separate license agreement you may have executed with Licensor regarding such Contributions.
-        <br /><br />
-        <b>6. Trademarks.</b> This License does not grant permission to use the trade names, trademarks, service marks, or product names of the Licensor, except as
+        &lt;br />&lt;br />
+        &lt;b>6. Trademarks.&lt;/b> This License does not grant permission to use the trade names, trademarks, service marks, or product names of the Licensor, except as
         required for reasonable and customary use in describing the origin of the Work and reproducing the content of the NOTICE file.
-        <br /><br />
-        <b>7. Disclaimer of Warranty.</b> Unless required by applicable law or agreed to in writing, Licensor provides the Work (and each Contributor provides its
+        &lt;br />&lt;br />
+        &lt;b>7. Disclaimer of Warranty.&lt;/b> Unless required by applicable law or agreed to in writing, Licensor provides the Work (and each Contributor provides its
         Contributions) on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied, including, without limitation, any
         warranties or conditions of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE. You are solely responsible for determining
         the appropriateness of using or redistributing the Work and assume any risks associated with Your exercise of permissions under this License.
-        <br /><br />
-        <b>8. Limitation of Liability.</b> In no event and under no legal theory, whether in tort (including negligence), contract, or otherwise, unless required by
+        &lt;br />&lt;br />
+        &lt;b>8. Limitation of Liability.&lt;/b> In no event and under no legal theory, whether in tort (including negligence), contract, or otherwise, unless required by
         applicable law (such as deliberate and grossly negligent acts) or agreed to in writing, shall any Contributor be liable to You for damages, including
         any direct, indirect, special, incidental, or consequential damages of any character arising as a result of this License or out of the use or inability
         to use the Work (including but not limited to damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all other
         commercial damages or losses), even if such Contributor has been advised of the possibility of such damages.
-        <br /><br />
-        <b>9. Accepting Warranty or Additional Liability.</b> While redistributing the Work or Derivative Works thereof, You may choose to offer, and charge a fee for,
+        &lt;br />&lt;br />
+        &lt;b>9. Accepting Warranty or Additional Liability.&lt;/b> While redistributing the Work or Derivative Works thereof, You may choose to offer, and charge a fee for,
         acceptance of support, warranty, indemnity, or other liability obligations and/or rights consistent with this License. However, in accepting such
         obligations, You may act only on Your own behalf and on Your sole responsibility, not on behalf of any other Contributor, and only if You agree to
         indemnify, defend, and hold each Contributor harmless for any liability incurred by, or claims asserted against, such Contributor by reason of your
         accepting any such warranty or additional liability.
-        <br /><br />
-        <b>END OF TERMS AND CONDITIONS</b>
-        ]]>
+        &lt;br />&lt;br />
+        &lt;b>END OF TERMS AND CONDITIONS&lt;/b>
+        
     </string>
     <string name="license_Apache_2_0_licenseName">Apache Version 2.0</string>
     <string name="license_Apache_2_0_licenseShortDescription">
-        <![CDATA[
-        Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
-        <br />
+        
+        Copyright &amp;#169; &lt;&lt;&lt;YEAR>>>, &lt;&lt;&lt;OWNER>>>
+        &lt;br />
         All rights reserved.
-        <br /><br />
+        &lt;br />&lt;br />
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
         You may obtain a copy of the License at
-        <br /><br />
+        &lt;br />&lt;br />
         http://www.apache.org/licenses/LICENSE-2.0
-        <br /><br />
+        &lt;br />&lt;br />
         Unless required by applicable law or agreed to in writing, software
         distributed under the License is distributed on an "AS IS" BASIS,
         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
         See the License for the specific language governing permissions and
         limitations under the License.
-        ]]>
+        
     </string>
     <string name="license_Apache_2_0_licenseWebsite">http://www.apache.org/licenses/LICENSE-2.0.html</string>
     <string name="license_bsd_2_licenseDescription">
-        <![CDATA[
+        
         In the original BSD license, both occurrences of the phrase "COPYRIGHT HOLDERS AND CONTRIBUTORS" in the disclaimer read "REGENTS AND CONTRIBUTORS".
-        <br /><br />
+        &lt;br />&lt;br />
         Here is the license template:
-        <br /><br />
-        Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
-        <br />
+        &lt;br />&lt;br />
+        Copyright &amp;#169; &lt;&lt;&lt;YEAR>>>, &lt;&lt;&lt;OWNER>>>
+        &lt;br />
         All rights reserved.
-        <br /><br />
+        &lt;br />&lt;br />
         Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-        <br /><br />
+        &lt;br />&lt;br />
         1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-        <br /><br />
+        &lt;br />&lt;br />
         2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation
         and/or other materials provided with the distribution.
-        <br /><br />
+        &lt;br />&lt;br />
         THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
         IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
         LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
         GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
         LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
         DAMAGE.
-        ]]>
+        
     </string>
     <string name="license_bsd_2_licenseName">BSD 2-Clause License</string>
     <string name="license_bsd_2_licenseShortDescription">
-        <![CDATA[
-        Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
-        <br />
+        
+        Copyright &amp;#169; &lt;&lt;&lt;YEAR>>>, &lt;&lt;&lt;OWNER>>>
+        &lt;br />
         All rights reserved.
-        <br /><br />
+        &lt;br />&lt;br />
         Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-        <br /><br />
+        &lt;br />&lt;br />
          1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-        <br /><br />
+        &lt;br />&lt;br />
         2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation
         and/or other materials provided with the distribution.
-        ]]>
+        
     </string>
     <string name="license_bsd_2_licenseWebsite">http://opensource.org/licenses/BSD-2-Clause</string>
     <string name="license_bsd_3_licenseDescription">
-        <![CDATA[
-        Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
-        <br />
+        
+        Copyright &amp;#169; &lt;&lt;&lt;YEAR>>>, &lt;&lt;&lt;OWNER>>>
+        &lt;br />
         All rights reserved.
-        <br /><br />
+        &lt;br />&lt;br />
         Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-        <br /><br />
+        &lt;br />&lt;br />
         1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-        <br /><br />
+        &lt;br />&lt;br />
         2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation
         and/or other materials provided with the distribution.
-        <br /><br />
+        &lt;br />&lt;br />
         3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software
         without specific prior written permission.
-        <br /><br />
+        &lt;br />&lt;br />
         THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
         IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
         LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
         GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
         LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
         DAMAGE.
-        ]]>
+        
     </string>
     <string name="license_bsd_3_licenseName">BSD 3-Clause License</string>
     <string name="license_bsd_3_licenseShortDescription">
-        <![CDATA[
-        Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
-        <br />
+        
+        Copyright &amp;#169; &lt;&lt;&lt;YEAR>>>, &lt;&lt;&lt;OWNER>>>
+        &lt;br />
         All rights reserved.
-        <br /><br />
+        &lt;br />&lt;br />
         Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-        <br /><br />
+        &lt;br />&lt;br />
         1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-        <br /><br />
+        &lt;br />&lt;br />
         2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation
         and/or other materials provided with the distribution.
-        <br /><br />
+        &lt;br />&lt;br />
         3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software
         without specific prior written permission.
-        ]]>
+        
     </string>
     <string name="license_bsd_3_licenseWebsite">http://opensource.org/licenses/BSD-3-Clause</string>
     <string name="license_cc30_licenseDescription">
-        <![CDATA[<p><strong>3. License Grant.</strong> Subject to the terms
+        &lt;p>&lt;strong>3. License Grant.&lt;/strong> Subject to the terms
         and conditions of this License, Licensor hereby grants You
         a worldwide, royalty-free, non-exclusive, perpetual (for
         the duration of the applicable copyright) license to
-        exercise the rights in the Work as stated below:</p>
+        exercise the rights in the Work as stated below:&lt;/p>
 
-        <ol type=\"a\">
-          <li>to Reproduce the Work, to incorporate the Work into
+        &lt;ol type=\"a\">
+          &lt;li>to Reproduce the Work, to incorporate the Work into
           one or more Collections, and to Reproduce the Work as
-          incorporated in the Collections;</li>
+          incorporated in the Collections;&lt;/li>
 
-          <li>to create and Reproduce Adaptations provided that any
+          &lt;li>to create and Reproduce Adaptations provided that any
           such Adaptation, including any translation in any medium,
           takes reasonable steps to clearly label, demarcate or
           otherwise identify that changes were made to the original
           Work. For example, a translation could be marked \"The
           original work was translated from English to Spanish,\" or
           a modification could indicate \"The original work has been
-          modified.\";</li>
+          modified.\";&lt;/li>
 
-          <li>to Distribute and Publicly Perform the Work including
-          as incorporated in Collections; and,</li>
+          &lt;li>to Distribute and Publicly Perform the Work including
+          as incorporated in Collections; and,&lt;/li>
 
-          <li>to Distribute and Publicly Perform Adaptations.</li>
+          &lt;li>to Distribute and Publicly Perform Adaptations.&lt;/li>
 
-          <li>
-            <p>For the avoidance of doubt:</p>
+          &lt;li>
+            &lt;p>For the avoidance of doubt:&lt;/p>
 
-            <ol type=\"i\">
-              <li><strong>Non-waivable Compulsory License
-              Schemes</strong>. In those jurisdictions in which the
+            &lt;ol type=\"i\">
+              &lt;li>&lt;strong>Non-waivable Compulsory License
+              Schemes&lt;/strong>. In those jurisdictions in which the
               right to collect royalties through any statutory or
               compulsory licensing scheme cannot be waived, the
               Licensor reserves the exclusive right to collect such
               royalties for any exercise by You of the rights
-              granted under this License;</li>
+              granted under this License;&lt;/li>
 
-              <li><strong>Waivable Compulsory License
-              Schemes</strong>. In those jurisdictions in which the
+              &lt;li>&lt;strong>Waivable Compulsory License
+              Schemes&lt;/strong>. In those jurisdictions in which the
               right to collect royalties through any statutory or
               compulsory licensing scheme can be waived, the
               Licensor waives the exclusive right to collect such
               royalties for any exercise by You of the rights
-              granted under this License; and,</li>
+              granted under this License; and,&lt;/li>
 
-              <li><strong>Voluntary License Schemes</strong>. The
+              &lt;li>&lt;strong>Voluntary License Schemes&lt;/strong>. The
               Licensor waives the right to collect royalties,
               whether individually or, in the event that the
               Licensor is a member of a collecting society that
               administers voluntary licensing schemes, via that
               society, from any exercise by You of the rights
-              granted under this License.</li>
-            </ol>
-          </li>
-        </ol>
+              granted under this License.&lt;/li>
+            &lt;/ol>
+          &lt;/li>
+        &lt;/ol>
 
-        <p>The above rights may be exercised in all media and
+        &lt;p>The above rights may be exercised in all media and
         formats whether now known or hereafter devised. The above
         rights include the right to make such modifications as are
         technically necessary to exercise the rights in other media
         and formats. Subject to Section 8(f), all rights not
-        expressly granted by Licensor are hereby reserved.</p>
+        expressly granted by Licensor are hereby reserved.&lt;/p>
 
-        <p><strong>4. Restrictions.</strong> The license granted in
+        &lt;p>&lt;strong>4. Restrictions.&lt;/strong> The license granted in
         Section 3 above is expressly made subject to and limited by
-        the following restrictions:</p>
+        the following restrictions:&lt;/p>
 
-        <ol type=\"a\">
-          <li>You may Distribute or Publicly Perform the Work only
+        &lt;ol type=\"a\">
+          &lt;li>You may Distribute or Publicly Perform the Work only
           under the terms of this License. You must include a copy
           of, or the Uniform Resource Identifier (URI) for, this
           License with every copy of the Work You Distribute or
@@ -3183,9 +2985,9 @@ THE SOFTWARE.
           requested. If You create an Adaptation, upon notice from
           any Licensor You must, to the extent practicable, remove
           from the Adaptation any credit as required by Section
-          4(b), as requested.</li>
+          4(b), as requested.&lt;/li>
 
-          <li>If You Distribute, or Publicly Perform the Work or
+          &lt;li>If You Distribute, or Publicly Perform the Work or
           any Adaptations or Collections, You must, unless a
           request has been made pursuant to Section 4(a), keep
           intact all copyright notices for the Work and provide,
@@ -3222,9 +3024,9 @@ THE SOFTWARE.
           Parties, as appropriate, of You or Your use of the Work,
           without the separate, express prior written permission of
           the Original Author, Licensor and/or Attribution
-          Parties.</li>
+          Parties.&lt;/li>
 
-          <li>Except as otherwise agreed in writing by the Licensor
+          &lt;li>Except as otherwise agreed in writing by the Licensor
           or as may be otherwise permitted by applicable law, if
           You Reproduce, Distribute or Publicly Perform the Work
           either by itself or as part of any Adaptations or
@@ -3242,13 +3044,13 @@ THE SOFTWARE.
           permitted by the applicable national law, to enable You
           to reasonably exercise Your right under Section 3(b) of
           this License (right to make Adaptations) but not
-          otherwise.</li>
-        </ol>
+          otherwise.&lt;/li>
+        &lt;/ol>
 
-        <p><strong>5. Representations, Warranties and
-        Disclaimer</strong></p>
+        &lt;p>&lt;strong>5. Representations, Warranties and
+        Disclaimer&lt;/strong>&lt;/p>
 
-        <p>UNLESS OTHERWISE MUTUALLY AGREED TO BY THE PARTIES IN
+        &lt;p>UNLESS OTHERWISE MUTUALLY AGREED TO BY THE PARTIES IN
         WRITING, LICENSOR OFFERS THE WORK AS-IS AND MAKES NO
         REPRESENTATIONS OR WARRANTIES OF ANY KIND CONCERNING THE
         WORK, EXPRESS, IMPLIED, STATUTORY OR OTHERWISE, INCLUDING,
@@ -3257,29 +3059,29 @@ THE SOFTWARE.
         ABSENCE OF LATENT OR OTHER DEFECTS, ACCURACY, OR THE
         PRESENCE OF ABSENCE OF ERRORS, WHETHER OR NOT DISCOVERABLE.
         SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED
-        WARRANTIES, SO SUCH EXCLUSION MAY NOT APPLY TO YOU.</p>
+        WARRANTIES, SO SUCH EXCLUSION MAY NOT APPLY TO YOU.&lt;/p>
 
-        <p><strong>6. Limitation on Liability.</strong> EXCEPT TO
+        &lt;p>&lt;strong>6. Limitation on Liability.&lt;/strong> EXCEPT TO
         THE EXTENT REQUIRED BY APPLICABLE LAW, IN NO EVENT WILL
         LICENSOR BE LIABLE TO YOU ON ANY LEGAL THEORY FOR ANY
         SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR EXEMPLARY
         DAMAGES ARISING OUT OF THIS LICENSE OR THE USE OF THE WORK,
         EVEN IF LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF
-        SUCH DAMAGES.</p>
+        SUCH DAMAGES.&lt;/p>
 
-        <p><strong>7. Termination</strong></p>
+        &lt;p>&lt;strong>7. Termination&lt;/strong>&lt;/p>
 
-        <ol type=\"a\">
-          <li>This License and the rights granted hereunder will
+        &lt;ol type=\"a\">
+          &lt;li>This License and the rights granted hereunder will
           terminate automatically upon any breach by You of the
           terms of this License. Individuals or entities who have
           received Adaptations or Collections from You under this
           License, however, will not have their licenses terminated
           provided such individuals or entities remain in full
           compliance with those licenses. Sections 1, 2, 5, 6, 7,
-          and 8 will survive any termination of this License.</li>
+          and 8 will survive any termination of this License.&lt;/li>
 
-          <li>Subject to the above terms and conditions, the
+          &lt;li>Subject to the above terms and conditions, the
           license granted here is perpetual (for the duration of
           the applicable copyright in the Work). Notwithstanding
           the above, Licensor reserves the right to release the
@@ -3289,45 +3091,45 @@ THE SOFTWARE.
           (or any other license that has been, or is required to
           be, granted under the terms of this License), and this
           License will continue in full force and effect unless
-          terminated as stated above.</li>
-        </ol>
+          terminated as stated above.&lt;/li>
+        &lt;/ol>
 
-        <p><strong>8. Miscellaneous</strong></p>
+        &lt;p>&lt;strong>8. Miscellaneous&lt;/strong>&lt;/p>
 
-        <ol type=\"a\">
-          <li>Each time You Distribute or Publicly Perform the Work
+        &lt;ol type=\"a\">
+          &lt;li>Each time You Distribute or Publicly Perform the Work
           or a Collection, the Licensor offers to the recipient a
           license to the Work on the same terms and conditions as
-          the license granted to You under this License.</li>
+          the license granted to You under this License.&lt;/li>
 
-          <li>Each time You Distribute or Publicly Perform an
+          &lt;li>Each time You Distribute or Publicly Perform an
           Adaptation, Licensor offers to the recipient a license to
           the original Work on the same terms and conditions as the
-          license granted to You under this License.</li>
+          license granted to You under this License.&lt;/li>
 
-          <li>If any provision of this License is invalid or
+          &lt;li>If any provision of this License is invalid or
           unenforceable under applicable law, it shall not affect
           the validity or enforceability of the remainder of the
           terms of this License, and without further action by the
           parties to this agreement, such provision shall be
           reformed to the minimum extent necessary to make such
-          provision valid and enforceable.</li>
+          provision valid and enforceable.&lt;/li>
 
-          <li>No term or provision of this License shall be deemed
+          &lt;li>No term or provision of this License shall be deemed
           waived and no breach consented to unless such waiver or
           consent shall be in writing and signed by the party to be
-          charged with such waiver or consent.</li>
+          charged with such waiver or consent.&lt;/li>
 
-          <li>This License constitutes the entire agreement between
+          &lt;li>This License constitutes the entire agreement between
           the parties with respect to the Work licensed here. There
           are no understandings, agreements or representations with
           respect to the Work not specified here. Licensor shall
           not be bound by any additional provisions that may appear
           in any communication from You. This License may not be
           modified without the mutual written agreement of the
-          Licensor and You.</li>
+          Licensor and You.&lt;/li>
 
-          <li>The rights granted under, and the subject matter
+          &lt;li>The rights granted under, and the subject matter
           referenced, in this License were drafted utilizing the
           terminology of the Berne Convention for the Protection of
           Literary and Artistic Works (as amended on September 28,
@@ -3344,176 +3146,176 @@ THE SOFTWARE.
           under this License, such additional rights are deemed to
           be included in the License; this License is not intended
           to restrict the license of any rights under applicable
-          law.</li>
-        </ol>
-]]>
+          law.&lt;/li>
+        &lt;/ol>
+
     </string>
     <string name="license_cc30_licenseName">Creative Commons 3.0 License</string>
     <string name="license_cc30_licenseShortDescription">
-        <![CDATA[THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE (\"CCPL\" OR \"LICENSE\"). THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.<br/><br/>
+        THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE (\"CCPL\" OR \"LICENSE\"). THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.&lt;br/>&lt;br/>
 
 BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE. TO THE EXTENT THIS LICENSE MAY BE CONSIDERED TO BE A CONTRACT, THE LICENSOR GRANTS YOU THE RIGHTS CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND CONDITIONS.
-]]>
+
     </string>
     <string name="license_cc30_licenseWebsite">http://creativecommons.org/licenses/by/3.0/legalcode</string>
     <string name="license_lgpl_3_0_licenseDescription">
-        <![CDATA[
-GNU LESSER GENERAL PUBLIC LICENSE<br />
-<br />
-Version 3, 29 June 2007<br />
-<br />
-Copyright © 2007 Free Software Foundation, Inc. <http://fsf.org/><br />
-<br />
-Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.<br />
-<br />
+        
+GNU LESSER GENERAL PUBLIC LICENSE&lt;br />
+&lt;br />
+Version 3, 29 June 2007&lt;br />
+&lt;br />
+Copyright © 2007 Free Software Foundation, Inc. &lt;http://fsf.org/>&lt;br />
+&lt;br />
+Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.&lt;br />
+&lt;br />
 This version of the GNU Lesser General Public License incorporates the terms and conditions of version 3 of the GNU General Public License, supplemented by the additional permissions listed below.
-0. Additional Definitions.<br />
-<br />
-As used herein, “this License” refers to version 3 of the GNU Lesser General Public License, and the “GNU GPL” refers to version 3 of the GNU General Public License.<br />
-<br />
-“The Library” refers to a covered work governed by this License, other than an Application or a Combined Work as defined below.<br />
-<br />
-An “Application” is any work that makes use of an interface provided by the Library, but which is not otherwise based on the Library. Defining a subclass of a class defined by the Library is deemed a mode of using an interface provided by the Library.<br />
-<br />
-A “Combined Work” is a work produced by combining or linking an Application with the Library. The particular version of the Library with which the Combined Work was made is also called the “Linked Version”.<br />
-<br />
-The “Minimal Corresponding Source” for a Combined Work means the Corresponding Source for the Combined Work, excluding any source code for portions of the Combined Work that, considered in isolation, are based on the Application, and not on the Linked Version.<br />
-<br />
-The “Corresponding Application Code” for a Combined Work means the object code and/or source code for the Application, including any data and utility programs needed for reproducing the Combined Work from the Application, but excluding the System Libraries of the Combined Work.<br />
-1. Exception to Section 3 of the GNU GPL.<br />
-<br />
-You may convey a covered work under sections 3 and 4 of this License without being bound by section 3 of the GNU GPL.<br />
-2. Conveying Modified Versions.<br />
-<br />
-If you modify a copy of the Library, and, in your modifications, a facility refers to a function or data to be supplied by an Application that uses the facility (other than as an argument passed when the facility is invoked), then you may convey a copy of the modified version:<br />
-<br />
-    a) under this License, provided that you make a good faith effort to ensure that, in the event an Application does not supply the function or data, the facility still operates, and performs whatever part of its purpose remains meaningful, or<br />
-    b) under the GNU GPL, with none of the additional permissions of this License applicable to that copy.<br />
-<br />
-3. Object Code Incorporating Material from Library Header Files.<br />
-<br />
-The object code form of an Application may incorporate material from a header file that is part of the Library. You may convey such object code under terms of your choice, provided that, if the incorporated material is not limited to numerical parameters, data structure layouts and accessors, or small macros, inline functions and templates (ten or fewer lines in length), you do both of the following:<br />
-<br />
-    a) Give prominent notice with each copy of the object code that the Library is used in it and that the Library and its use are covered by this License.<br />
-    b) Accompany the object code with a copy of the GNU GPL and this license document.<br /><br />
-<br />
-4. Combined Works.<br />
-<br />
-You may convey a Combined Work under terms of your choice that, taken together, effectively do not restrict modification of the portions of the Library contained in the Combined Work and reverse engineering for debugging such modifications, if you also do each of the following:<br />
-<br />
-    a) Give prominent notice with each copy of the Combined Work that the Library is used in it and that the Library and its use are covered by this License.<br />
-    b) Accompany the Combined Work with a copy of the GNU GPL and this license document.<br />
-    c) For a Combined Work that displays copyright notices during execution, include the copyright notice for the Library among these notices, as well as a reference directing the user to the copies of the GNU GPL and this license document.<br />
-    d) Do one of the following:<br />
-        0) Convey the Minimal Corresponding Source under the terms of this License, and the Corresponding Application Code in a form suitable for, and under terms that permit, the user to recombine or relink the Application with a modified version of the Linked Version to produce a modified Combined Work, in the manner specified by section 6 of the GNU GPL for conveying Corresponding Source.<br />
-        1) Use a suitable shared library mechanism for linking with the Library. A suitable mechanism is one that (a) uses at run time a copy of the Library already present on the user\'s computer system, and (b) will operate properly with a modified version of the Library that is interface-compatible with the Linked Version.<br />
-    e) Provide Installation Information, but only if you would otherwise be required to provide such information under section 6 of the GNU GPL, and only to the extent that such information is necessary to install and execute a modified version of the Combined Work produced by recombining or relinking the Application with a modified version of the Linked Version. (If you use option 4d0, the Installation Information must accompany the Minimal Corresponding Source and Corresponding Application Code. If you use option 4d1, you must provide the Installation Information in the manner specified by section 6 of the GNU GPL for conveying Corresponding Source.)<br />
-<br />
-5. Combined Libraries.<br />
-<br />
-You may place library facilities that are a work based on the Library side by side in a single library together with other library facilities that are not Applications and are not covered by this License, and convey such a combined library under terms of your choice, if you do both of the following:<br />
+0. Additional Definitions.&lt;br />
+&lt;br />
+As used herein, “this License” refers to version 3 of the GNU Lesser General Public License, and the “GNU GPL” refers to version 3 of the GNU General Public License.&lt;br />
+&lt;br />
+“The Library” refers to a covered work governed by this License, other than an Application or a Combined Work as defined below.&lt;br />
+&lt;br />
+An “Application” is any work that makes use of an interface provided by the Library, but which is not otherwise based on the Library. Defining a subclass of a class defined by the Library is deemed a mode of using an interface provided by the Library.&lt;br />
+&lt;br />
+A “Combined Work” is a work produced by combining or linking an Application with the Library. The particular version of the Library with which the Combined Work was made is also called the “Linked Version”.&lt;br />
+&lt;br />
+The “Minimal Corresponding Source” for a Combined Work means the Corresponding Source for the Combined Work, excluding any source code for portions of the Combined Work that, considered in isolation, are based on the Application, and not on the Linked Version.&lt;br />
+&lt;br />
+The “Corresponding Application Code” for a Combined Work means the object code and/or source code for the Application, including any data and utility programs needed for reproducing the Combined Work from the Application, but excluding the System Libraries of the Combined Work.&lt;br />
+1. Exception to Section 3 of the GNU GPL.&lt;br />
+&lt;br />
+You may convey a covered work under sections 3 and 4 of this License without being bound by section 3 of the GNU GPL.&lt;br />
+2. Conveying Modified Versions.&lt;br />
+&lt;br />
+If you modify a copy of the Library, and, in your modifications, a facility refers to a function or data to be supplied by an Application that uses the facility (other than as an argument passed when the facility is invoked), then you may convey a copy of the modified version:&lt;br />
+&lt;br />
+    a) under this License, provided that you make a good faith effort to ensure that, in the event an Application does not supply the function or data, the facility still operates, and performs whatever part of its purpose remains meaningful, or&lt;br />
+    b) under the GNU GPL, with none of the additional permissions of this License applicable to that copy.&lt;br />
+&lt;br />
+3. Object Code Incorporating Material from Library Header Files.&lt;br />
+&lt;br />
+The object code form of an Application may incorporate material from a header file that is part of the Library. You may convey such object code under terms of your choice, provided that, if the incorporated material is not limited to numerical parameters, data structure layouts and accessors, or small macros, inline functions and templates (ten or fewer lines in length), you do both of the following:&lt;br />
+&lt;br />
+    a) Give prominent notice with each copy of the object code that the Library is used in it and that the Library and its use are covered by this License.&lt;br />
+    b) Accompany the object code with a copy of the GNU GPL and this license document.&lt;br />&lt;br />
+&lt;br />
+4. Combined Works.&lt;br />
+&lt;br />
+You may convey a Combined Work under terms of your choice that, taken together, effectively do not restrict modification of the portions of the Library contained in the Combined Work and reverse engineering for debugging such modifications, if you also do each of the following:&lt;br />
+&lt;br />
+    a) Give prominent notice with each copy of the Combined Work that the Library is used in it and that the Library and its use are covered by this License.&lt;br />
+    b) Accompany the Combined Work with a copy of the GNU GPL and this license document.&lt;br />
+    c) For a Combined Work that displays copyright notices during execution, include the copyright notice for the Library among these notices, as well as a reference directing the user to the copies of the GNU GPL and this license document.&lt;br />
+    d) Do one of the following:&lt;br />
+        0) Convey the Minimal Corresponding Source under the terms of this License, and the Corresponding Application Code in a form suitable for, and under terms that permit, the user to recombine or relink the Application with a modified version of the Linked Version to produce a modified Combined Work, in the manner specified by section 6 of the GNU GPL for conveying Corresponding Source.&lt;br />
+        1) Use a suitable shared library mechanism for linking with the Library. A suitable mechanism is one that (a) uses at run time a copy of the Library already present on the user\'s computer system, and (b) will operate properly with a modified version of the Library that is interface-compatible with the Linked Version.&lt;br />
+    e) Provide Installation Information, but only if you would otherwise be required to provide such information under section 6 of the GNU GPL, and only to the extent that such information is necessary to install and execute a modified version of the Combined Work produced by recombining or relinking the Application with a modified version of the Linked Version. (If you use option 4d0, the Installation Information must accompany the Minimal Corresponding Source and Corresponding Application Code. If you use option 4d1, you must provide the Installation Information in the manner specified by section 6 of the GNU GPL for conveying Corresponding Source.)&lt;br />
+&lt;br />
+5. Combined Libraries.&lt;br />
+&lt;br />
+You may place library facilities that are a work based on the Library side by side in a single library together with other library facilities that are not Applications and are not covered by this License, and convey such a combined library under terms of your choice, if you do both of the following:&lt;br />
 
-    a) Accompany the combined library with a copy of the same work based on the Library, uncombined with any other library facilities, conveyed under the terms of this License.<br />
-    b) Give prominent notice with the combined library that part of it is a work based on the Library, and explaining where to find the accompanying uncombined form of the same work.<br />
-<br />
-6. Revised Versions of the GNU Lesser General Public License.<br />
-<br />
-The Free Software Foundation may publish revised and/or new versions of the GNU Lesser General Public License from time to time. Such new versions will be similar in spirit to the present version, but may differ in detail to address new problems or concerns.<br />
-<br />
-Each version is given a distinguishing version number. If the Library as you received it specifies that a certain numbered version of the GNU Lesser General Public License “or any later version” applies to it, you have the option of following the terms and conditions either of that published version or of any later version published by the Free Software Foundation. If the Library as you received it does not specify a version number of the GNU Lesser General Public License, you may choose any version of the GNU Lesser General Public License ever published by the Free Software Foundation.<br />
-<br />
-If the Library as you received it specifies that a proxy can decide whether future versions of the GNU Lesser General Public License shall apply, that proxy\'s public statement of acceptance of any version is permanent authorization for you to choose that version for the Library.<br />
-        ]]>
+    a) Accompany the combined library with a copy of the same work based on the Library, uncombined with any other library facilities, conveyed under the terms of this License.&lt;br />
+    b) Give prominent notice with the combined library that part of it is a work based on the Library, and explaining where to find the accompanying uncombined form of the same work.&lt;br />
+&lt;br />
+6. Revised Versions of the GNU Lesser General Public License.&lt;br />
+&lt;br />
+The Free Software Foundation may publish revised and/or new versions of the GNU Lesser General Public License from time to time. Such new versions will be similar in spirit to the present version, but may differ in detail to address new problems or concerns.&lt;br />
+&lt;br />
+Each version is given a distinguishing version number. If the Library as you received it specifies that a certain numbered version of the GNU Lesser General Public License “or any later version” applies to it, you have the option of following the terms and conditions either of that published version or of any later version published by the Free Software Foundation. If the Library as you received it does not specify a version number of the GNU Lesser General Public License, you may choose any version of the GNU Lesser General Public License ever published by the Free Software Foundation.&lt;br />
+&lt;br />
+If the Library as you received it specifies that a proxy can decide whether future versions of the GNU Lesser General Public License shall apply, that proxy\'s public statement of acceptance of any version is permanent authorization for you to choose that version for the Library.&lt;br />
+        
     </string>
     <string name="license_lgpl_3_0_licenseName">GNU LESSER GENERAL PUBLIC LICENSE 3.0</string>
     <string name="license_lgpl_3_0_licenseShortDescription">
-        <![CDATA[
-GNU LESSER GENERAL PUBLIC LICENSE<br />
-<br />
-Version 3, 29 June 2007<br />
-<br />
-Copyright © 2007 Free Software Foundation, Inc. <http://fsf.org/><br />
-<br />
-Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.<br />
-<br />
+        
+GNU LESSER GENERAL PUBLIC LICENSE&lt;br />
+&lt;br />
+Version 3, 29 June 2007&lt;br />
+&lt;br />
+Copyright © 2007 Free Software Foundation, Inc. &lt;http://fsf.org/>&lt;br />
+&lt;br />
+Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.&lt;br />
+&lt;br />
 This version of the GNU Lesser General Public License incorporates the terms and conditions of version 3 of the GNU General Public License, supplemented by the additional permissions listed below.
-0. Additional Definitions.<br />
-<br />
-As used herein, “this License” refers to version 3 of the GNU Lesser General Public License, and the “GNU GPL” refers to version 3 of the GNU General Public License.<br />
-<br />
-“The Library” refers to a covered work governed by this License, other than an Application or a Combined Work as defined below.<br />
-<br />
-An “Application” is any work that makes use of an interface provided by the Library, but which is not otherwise based on the Library. Defining a subclass of a class defined by the Library is deemed a mode of using an interface provided by the Library.<br />
-<br />
-A “Combined Work” is a work produced by combining or linking an Application with the Library. The particular version of the Library with which the Combined Work was made is also called the “Linked Version”.<br />
-<br />
-The “Minimal Corresponding Source” for a Combined Work means the Corresponding Source for the Combined Work, excluding any source code for portions of the Combined Work that, considered in isolation, are based on the Application, and not on the Linked Version.<br />
-<br />
-The “Corresponding Application Code” for a Combined Work means the object code and/or source code for the Application, including any data and utility programs needed for reproducing the Combined Work from the Application, but excluding the System Libraries of the Combined Work.<br />
-1. Exception to Section 3 of the GNU GPL.<br />
-<br />
-You may convey a covered work under sections 3 and 4 of this License without being bound by section 3 of the GNU GPL.<br />
-2. Conveying Modified Versions.<br />
-<br />
-If you modify a copy of the Library, and, in your modifications, a facility refers to a function or data to be supplied by an Application that uses the facility (other than as an argument passed when the facility is invoked), then you may convey a copy of the modified version:<br />
-<br />
-    a) under this License, provided that you make a good faith effort to ensure that, in the event an Application does not supply the function or data, the facility still operates, and performs whatever part of its purpose remains meaningful, or<br />
-    b) under the GNU GPL, with none of the additional permissions of this License applicable to that copy.<br />
-<br />
-3. Object Code Incorporating Material from Library Header Files.<br />
-<br />
-The object code form of an Application may incorporate material from a header file that is part of the Library. You may convey such object code under terms of your choice, provided that, if the incorporated material is not limited to numerical parameters, data structure layouts and accessors, or small macros, inline functions and templates (ten or fewer lines in length), you do both of the following:<br />
-<br />
-    a) Give prominent notice with each copy of the object code that the Library is used in it and that the Library and its use are covered by this License.<br />
-    b) Accompany the object code with a copy of the GNU GPL and this license document.<br /><br />
-<br />
-4. Combined Works.<br />
-<br />
-You may convey a Combined Work under terms of your choice that, taken together, effectively do not restrict modification of the portions of the Library contained in the Combined Work and reverse engineering for debugging such modifications, if you also do each of the following:<br />
-<br />
-    a) Give prominent notice with each copy of the Combined Work that the Library is used in it and that the Library and its use are covered by this License.<br />
-    b) Accompany the Combined Work with a copy of the GNU GPL and this license document.<br />
-    c) For a Combined Work that displays copyright notices during execution, include the copyright notice for the Library among these notices, as well as a reference directing the user to the copies of the GNU GPL and this license document.<br />
-    d) Do one of the following:<br />
-        0) Convey the Minimal Corresponding Source under the terms of this License, and the Corresponding Application Code in a form suitable for, and under terms that permit, the user to recombine or relink the Application with a modified version of the Linked Version to produce a modified Combined Work, in the manner specified by section 6 of the GNU GPL for conveying Corresponding Source.<br />
-        1) Use a suitable shared library mechanism for linking with the Library. A suitable mechanism is one that (a) uses at run time a copy of the Library already present on the user\'s computer system, and (b) will operate properly with a modified version of the Library that is interface-compatible with the Linked Version.<br />
-    e) Provide Installation Information, but only if you would otherwise be required to provide such information under section 6 of the GNU GPL, and only to the extent that such information is necessary to install and execute a modified version of the Combined Work produced by recombining or relinking the Application with a modified version of the Linked Version. (If you use option 4d0, the Installation Information must accompany the Minimal Corresponding Source and Corresponding Application Code. If you use option 4d1, you must provide the Installation Information in the manner specified by section 6 of the GNU GPL for conveying Corresponding Source.)<br />
-<br />
-5. Combined Libraries.<br />
-<br />
-You may place library facilities that are a work based on the Library side by side in a single library together with other library facilities that are not Applications and are not covered by this License, and convey such a combined library under terms of your choice, if you do both of the following:<br />
+0. Additional Definitions.&lt;br />
+&lt;br />
+As used herein, “this License” refers to version 3 of the GNU Lesser General Public License, and the “GNU GPL” refers to version 3 of the GNU General Public License.&lt;br />
+&lt;br />
+“The Library” refers to a covered work governed by this License, other than an Application or a Combined Work as defined below.&lt;br />
+&lt;br />
+An “Application” is any work that makes use of an interface provided by the Library, but which is not otherwise based on the Library. Defining a subclass of a class defined by the Library is deemed a mode of using an interface provided by the Library.&lt;br />
+&lt;br />
+A “Combined Work” is a work produced by combining or linking an Application with the Library. The particular version of the Library with which the Combined Work was made is also called the “Linked Version”.&lt;br />
+&lt;br />
+The “Minimal Corresponding Source” for a Combined Work means the Corresponding Source for the Combined Work, excluding any source code for portions of the Combined Work that, considered in isolation, are based on the Application, and not on the Linked Version.&lt;br />
+&lt;br />
+The “Corresponding Application Code” for a Combined Work means the object code and/or source code for the Application, including any data and utility programs needed for reproducing the Combined Work from the Application, but excluding the System Libraries of the Combined Work.&lt;br />
+1. Exception to Section 3 of the GNU GPL.&lt;br />
+&lt;br />
+You may convey a covered work under sections 3 and 4 of this License without being bound by section 3 of the GNU GPL.&lt;br />
+2. Conveying Modified Versions.&lt;br />
+&lt;br />
+If you modify a copy of the Library, and, in your modifications, a facility refers to a function or data to be supplied by an Application that uses the facility (other than as an argument passed when the facility is invoked), then you may convey a copy of the modified version:&lt;br />
+&lt;br />
+    a) under this License, provided that you make a good faith effort to ensure that, in the event an Application does not supply the function or data, the facility still operates, and performs whatever part of its purpose remains meaningful, or&lt;br />
+    b) under the GNU GPL, with none of the additional permissions of this License applicable to that copy.&lt;br />
+&lt;br />
+3. Object Code Incorporating Material from Library Header Files.&lt;br />
+&lt;br />
+The object code form of an Application may incorporate material from a header file that is part of the Library. You may convey such object code under terms of your choice, provided that, if the incorporated material is not limited to numerical parameters, data structure layouts and accessors, or small macros, inline functions and templates (ten or fewer lines in length), you do both of the following:&lt;br />
+&lt;br />
+    a) Give prominent notice with each copy of the object code that the Library is used in it and that the Library and its use are covered by this License.&lt;br />
+    b) Accompany the object code with a copy of the GNU GPL and this license document.&lt;br />&lt;br />
+&lt;br />
+4. Combined Works.&lt;br />
+&lt;br />
+You may convey a Combined Work under terms of your choice that, taken together, effectively do not restrict modification of the portions of the Library contained in the Combined Work and reverse engineering for debugging such modifications, if you also do each of the following:&lt;br />
+&lt;br />
+    a) Give prominent notice with each copy of the Combined Work that the Library is used in it and that the Library and its use are covered by this License.&lt;br />
+    b) Accompany the Combined Work with a copy of the GNU GPL and this license document.&lt;br />
+    c) For a Combined Work that displays copyright notices during execution, include the copyright notice for the Library among these notices, as well as a reference directing the user to the copies of the GNU GPL and this license document.&lt;br />
+    d) Do one of the following:&lt;br />
+        0) Convey the Minimal Corresponding Source under the terms of this License, and the Corresponding Application Code in a form suitable for, and under terms that permit, the user to recombine or relink the Application with a modified version of the Linked Version to produce a modified Combined Work, in the manner specified by section 6 of the GNU GPL for conveying Corresponding Source.&lt;br />
+        1) Use a suitable shared library mechanism for linking with the Library. A suitable mechanism is one that (a) uses at run time a copy of the Library already present on the user\'s computer system, and (b) will operate properly with a modified version of the Library that is interface-compatible with the Linked Version.&lt;br />
+    e) Provide Installation Information, but only if you would otherwise be required to provide such information under section 6 of the GNU GPL, and only to the extent that such information is necessary to install and execute a modified version of the Combined Work produced by recombining or relinking the Application with a modified version of the Linked Version. (If you use option 4d0, the Installation Information must accompany the Minimal Corresponding Source and Corresponding Application Code. If you use option 4d1, you must provide the Installation Information in the manner specified by section 6 of the GNU GPL for conveying Corresponding Source.)&lt;br />
+&lt;br />
+5. Combined Libraries.&lt;br />
+&lt;br />
+You may place library facilities that are a work based on the Library side by side in a single library together with other library facilities that are not Applications and are not covered by this License, and convey such a combined library under terms of your choice, if you do both of the following:&lt;br />
 
-    a) Accompany the combined library with a copy of the same work based on the Library, uncombined with any other library facilities, conveyed under the terms of this License.<br />
-    b) Give prominent notice with the combined library that part of it is a work based on the Library, and explaining where to find the accompanying uncombined form of the same work.<br />
-<br />
-6. Revised Versions of the GNU Lesser General Public License.<br />
-<br />
-The Free Software Foundation may publish revised and/or new versions of the GNU Lesser General Public License from time to time. Such new versions will be similar in spirit to the present version, but may differ in detail to address new problems or concerns.<br />
-<br />
-Each version is given a distinguishing version number. If the Library as you received it specifies that a certain numbered version of the GNU Lesser General Public License “or any later version” applies to it, you have the option of following the terms and conditions either of that published version or of any later version published by the Free Software Foundation. If the Library as you received it does not specify a version number of the GNU Lesser General Public License, you may choose any version of the GNU Lesser General Public License ever published by the Free Software Foundation.<br />
-<br />
-If the Library as you received it specifies that a proxy can decide whether future versions of the GNU Lesser General Public License shall apply, that proxy\'s public statement of acceptance of any version is permanent authorization for you to choose that version for the Library.<br />
-        ]]>
+    a) Accompany the combined library with a copy of the same work based on the Library, uncombined with any other library facilities, conveyed under the terms of this License.&lt;br />
+    b) Give prominent notice with the combined library that part of it is a work based on the Library, and explaining where to find the accompanying uncombined form of the same work.&lt;br />
+&lt;br />
+6. Revised Versions of the GNU Lesser General Public License.&lt;br />
+&lt;br />
+The Free Software Foundation may publish revised and/or new versions of the GNU Lesser General Public License from time to time. Such new versions will be similar in spirit to the present version, but may differ in detail to address new problems or concerns.&lt;br />
+&lt;br />
+Each version is given a distinguishing version number. If the Library as you received it specifies that a certain numbered version of the GNU Lesser General Public License “or any later version” applies to it, you have the option of following the terms and conditions either of that published version or of any later version published by the Free Software Foundation. If the Library as you received it does not specify a version number of the GNU Lesser General Public License, you may choose any version of the GNU Lesser General Public License ever published by the Free Software Foundation.&lt;br />
+&lt;br />
+If the Library as you received it specifies that a proxy can decide whether future versions of the GNU Lesser General Public License shall apply, that proxy\'s public statement of acceptance of any version is permanent authorization for you to choose that version for the Library.&lt;br />
+        
     </string>
     <string name="license_lgpl_3_0_licenseWebsite">http://www.gnu.org/licenses/lgpl-3.0.en.html</string>
     <string name="license_mit_licenseDescription">
-        <![CDATA[
+        
         The MIT License (MIT)
-        <br /><br />
-        Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
-        <br />
+        &lt;br />&lt;br />
+        Copyright &amp;#169; &lt;&lt;&lt;YEAR>>>, &lt;&lt;&lt;OWNER>>>
+        &lt;br />
         All rights reserved.
-        <br /><br />
+        &lt;br />&lt;br />
         Permission is hereby granted, free of charge, to any person obtaining a copy
         of this software and associated documentation files (the "Software"), to deal
         in the Software without restriction, including without limitation the rights
         to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
         copies of the Software, and to permit persons to whom the Software is
         furnished to do so, subject to the following conditions:
-        <br /><br />
+        &lt;br />&lt;br />
         The above copyright notice and this permission notice shall be included in
         all copies or substantial portions of the Software.
-        <br /><br />
+        &lt;br />&lt;br />
         THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
         IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
         FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -3521,29 +3323,27 @@ If the Library as you received it specifies that a proxy can decide whether futu
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
         THE SOFTWARE.
-        ]]>
+        
     </string>
     <string name="license_mit_licenseName">MIT License</string>
     <string name="license_mit_licenseShortDescription">
-        <![CDATA[
-        Copyright &#169; <<<YEAR>>>, <<<OWNER>>>
-        <br />
+        
+        Copyright &amp;#169; &lt;&lt;&lt;YEAR>>>, &lt;&lt;&lt;OWNER>>>
+        &lt;br />
         All rights reserved.
-        <br /><br />
+        &lt;br />&lt;br />
         Permission is hereby granted, free of charge, to any person obtaining a copy
         of this software and associated documentation files (the "Software"), to deal
         in the Software without restriction, including without limitation the rights
         to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
         copies of the Software, and to permit persons to whom the Software is
         furnished to do so, subject to the following conditions:
-        <br /><br />
+        &lt;br />&lt;br />
         The above copyright notice and this permission notice shall be included in
         all copies or substantial portions of the Software.
-        ]]>
+        
     </string>
     <string name="license_mit_licenseWebsite">http://opensource.org/licenses/MIT</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/strings.xml -->
-    <eat-comment/>
     <string name="loading">加载中...</string>
     <string name="local_photos">本地图片</string>
     <string name="login_failed">登录失败:</string>
@@ -3558,12 +3358,8 @@ If the Library as you received it specifies that a proxy can decide whether futu
     <string name="maintain_rfid_card">随身保管理</string>
     <string name="manage_address">地址管理</string>
     <string name="manage_rfid_card">随身保管理</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/res/values/values.xml -->
-    <eat-comment/>
     <string name="material_drawer_close">Close</string>
     <string name="material_drawer_open">Open</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/strings.xml -->
-    <eat-comment/>
     <string name="menu_settings">Settings</string>
     <string name="mistake_type">客户端数据格式错误,请联系客服人员</string>
     <string name="modify_msg_failure">信息修改失败</string>
@@ -3694,11 +3490,7 @@ If the Library as you received it specifies that a proxy can decide whether futu
     <string name="son">儿子</string>
     <string name="spaceholder">--</string>
     <string name="start_app">启动</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <string name="status_bar_notification_info_overflow">999+</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/strings.xml -->
-    <eat-comment/>
     <string name="str_accept">接受</string>
     <string name="str_account">账          号:</string>
     <string name="str_account_input_hint">请输入账号！</string>
@@ -3804,11 +3596,7 @@ If the Library as you received it specifies that a proxy can decide whether futu
     <string name="user_auth_fail">认证失败</string>
     <string name="user_auth_suceess">认证成功</string>
     <string name="user_auth_time_out">身份认证超时</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <string name="version">Version</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/strings.xml -->
-    <eat-comment/>
     <string name="version_updat">版本更新</string>
     <string name="video_quality">视频质量</string>
     <string name="video_quality_rank">标清</string>
@@ -3825,8 +3613,6 @@ If the Library as you received it specifies that a proxy can decide whether futu
     <string name="xiaoquming">金易•伯爵世家</string>
     <string name="your_family">您的家人</string>
     <string name="your_family_number">您家人:</string>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/values/values.xml -->
-    <eat-comment/>
     <style name="AboutLibrariesTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Here we setting appcompat’s actionBarStyle -->
         <item name="drawerArrowStyle">@style/AboutLibrariesTheme.DrawerArrowStyle</item>
@@ -3889,14 +3675,10 @@ If the Library as you received it specifies that a proxy can decide whether futu
         <item name="spinBars">false</item>
         <item name="color">@android:color/black</item>
     </style>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
     <style name="Animation.AppCompat.Dialog" parent="Base.Animation.AppCompat.Dialog"/>
     <style name="Animation.AppCompat.DropDownUp" parent="Base.Animation.AppCompat.DropDownUp"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/styles.xml -->
-    <eat-comment/>
     <style name="AppTheme" parent="MaterialDrawerTheme.TranslucentStatus">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -3926,8 +3708,6 @@ If the Library as you received it specifies that a proxy can decide whether futu
         <!-- CAB :D -->
         <item name="windowActionModeOverlay">true</item>
     </style>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <style name="Base.AlertDialog.AppCompat" parent="android:Widget">
         <item name="android:layout">@layout/abc_alert_dialog_material</item>
         <item name="listLayout">@layout/abc_select_dialog_material</item>
@@ -4863,8 +4643,6 @@ If the Library as you received it specifies that a proxy can decide whether futu
         <item name="android:minWidth">56dp</item>
         <item name="android:scaleType">center</item>
     </style>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
         <item name="tabMaxWidth">@dimen/design_tab_max_width</item>
         <item name="tabIndicatorColor">?attr/colorAccent</item>
@@ -4875,15 +4653,11 @@ If the Library as you received it specifies that a proxy can decide whether futu
         <item name="tabTextAppearance">@style/TextAppearance.Design.Tab</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
     </style>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/res/values/values.xml -->
-    <eat-comment/>
     <style name="BezelImageView">
         <item name="biv_maskDrawable">@drawable/material_drawer_circle_mask</item>
         <item name="biv_drawCircularShadow">true</item>
         <item name="biv_selectorOnPress">@color/material_drawer_primary</item>
     </style>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <style name="CardView">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
         <item name="cardCornerRadius">@dimen/cardview_default_radius</item>
@@ -4898,8 +4672,6 @@ If the Library as you received it specifies that a proxy can decide whether futu
     <style name="CardView.Light">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
     </style>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/styles.xml -->
-    <eat-comment/>
     <style name="CommonDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowFrame">@null</item>
@@ -4914,8 +4686,6 @@ If the Library as you received it specifies that a proxy can decide whether futu
         <item name="android:textColor">@android:color/black</item>
     </style>
     <style name="FullscreenTheme" parent="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialize/0.5.1/res/values/values.xml -->
-    <eat-comment/>
     <style name="Material.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">false</item>
         <item name="color">@android:color/white</item>
@@ -4964,8 +4734,6 @@ If the Library as you received it specifies that a proxy can decide whether futu
     <style name="MaterialBaseTheme" parent="MaterialBaseBaseTheme"/>
     <style name="MaterialBaseTheme.Light" parent="MaterialBaseBaseTheme.Light"/>
     <style name="MaterialBaseTheme.Light.DarkToolbar" parent="MaterialBaseBaseTheme.Light.DarkToolbar"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/res/values/values.xml -->
-    <eat-comment/>
     <style name="MaterialDrawer.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">false</item>
         <item name="color">@android:color/white</item>
@@ -5254,8 +5022,6 @@ If the Library as you received it specifies that a proxy can decide whether futu
             @color/material_drawer_header_selection_text
         </item>
     </style>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialize/0.5.1/res/values/values.xml -->
-    <eat-comment/>
     <style name="MaterialTheme" parent="MaterialBaseTheme"/>
     <style name="MaterialTheme.ActionBar" parent="MaterialTheme">
         <item name="windowActionBar">true</item>
@@ -5280,8 +5046,6 @@ If the Library as you received it specifies that a proxy can decide whether futu
     <style name="MaterialTheme.Light.DarkToolbar.TranslucentStatus" parent="MaterialTheme.Light.DarkToolbar"/>
     <style name="MaterialTheme.Light.TranslucentStatus" parent="MaterialTheme.Light"/>
     <style name="MaterialTheme.TranslucentStatus" parent="MaterialTheme"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
 
@@ -5482,8 +5246,6 @@ If the Library as you received it specifies that a proxy can decide whether futu
     </style>
     <style name="TextAppearance.AppCompat.Widget.Switch" parent="Base.TextAppearance.AppCompat.Widget.Switch"/>
     <style name="TextAppearance.AppCompat.Widget.TextView.SpinnerItem" parent="Base.TextAppearance.AppCompat.Widget.TextView.SpinnerItem"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <style name="TextAppearance.Design.CollapsingToolbar.Expanded" parent="TextAppearance.AppCompat.Display1">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
@@ -5506,8 +5268,6 @@ If the Library as you received it specifies that a proxy can decide whether futu
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="textAllCaps">true</item>
     </style>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <style name="TextAppearance.StatusBar.EventContent" parent=""/>
     <style name="TextAppearance.StatusBar.EventContent.Info" parent=""/>
     <style name="TextAppearance.StatusBar.EventContent.Line2" parent=""/>
@@ -5639,8 +5399,6 @@ If the Library as you received it specifies that a proxy can decide whether futu
     <style name="Widget.AppCompat.TextView.SpinnerItem" parent="Base.Widget.AppCompat.TextView.SpinnerItem"/>
     <style name="Widget.AppCompat.Toolbar" parent="Base.Widget.AppCompat.Toolbar"/>
     <style name="Widget.AppCompat.Toolbar.Button.Navigation" parent="Base.Widget.AppCompat.Toolbar.Button.Navigation"/>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/values/values.xml -->
-    <eat-comment/>
     <style name="Widget.Design.AppBarLayout" parent="android:Widget">
         <item name="elevation">@dimen/design_appbar_elevation</item>
         <item name="android:background">?attr/colorPrimary</item>
@@ -5690,8 +5448,6 @@ If the Library as you received it specifies that a proxy can decide whether futu
         <item name="counterTextAppearance">@style/TextAppearance.Design.Counter</item>
         <item name="counterOverflowTextAppearance">@style/TextAppearance.Design.Counter.Overflow</item>
     </style>
-    <!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/values/styles.xml -->
-    <eat-comment/>
     <style name="call_resume_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowFrame">@null</item>

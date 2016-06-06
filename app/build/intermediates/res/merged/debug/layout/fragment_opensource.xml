@@ -10,4 +10,4 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_horizontal_margin"
     android:scrollbarStyle="outsideInset"
-    android:scrollbars="vertical" /><!-- From: file:/Users/mikepenz/Drive/Development/AndroidLibraries/AboutLibraries/library/src/main/res/layout/fragment_opensource.xml --><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/res/layout/fragment_opensource.xml -->
+    android:scrollbars="vertical" /><!-- From: file:/Users/mikepenz/Drive/Development/AndroidLibraries/AboutLibraries/library/src/main/res/layout/fragment_opensource.xml -->

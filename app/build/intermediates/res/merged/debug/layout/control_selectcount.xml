@@ -32,4 +32,4 @@
         android:layout_marginLeft="-1px"
         app:iiv_color="@color/solid_black"
         app:iiv_icon="gmd-add" />
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/control_selectcount.xml -->
+</LinearLayout>

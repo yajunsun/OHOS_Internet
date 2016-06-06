@@ -63,4 +63,4 @@
         android:layout_height="fill_parent"
         android:layout_below="@id/toolbar"
         android:layout_marginTop="10dp" />
-</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_event_list.xml -->
+</RelativeLayout>

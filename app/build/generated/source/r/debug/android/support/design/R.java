@@ -389,10 +389,10 @@ public final class R {
 		public static final int switch_thumb_normal_material_light = 0x7f0d01ae;
 	}
 	public static final class dimen {
-		public static final int abc_action_bar_content_inset_material = 0x7f0a0060;
+		public static final int abc_action_bar_content_inset_material = 0x7f0a005e;
 		public static final int abc_action_bar_default_height_material = 0x7f0a0052;
-		public static final int abc_action_bar_default_padding_end_material = 0x7f0a0061;
-		public static final int abc_action_bar_default_padding_start_material = 0x7f0a0062;
+		public static final int abc_action_bar_default_padding_end_material = 0x7f0a005f;
+		public static final int abc_action_bar_default_padding_start_material = 0x7f0a0060;
 		public static final int abc_action_bar_icon_vertical_padding_material = 0x7f0a0079;
 		public static final int abc_action_bar_overflow_padding_end_material = 0x7f0a007a;
 		public static final int abc_action_bar_overflow_padding_start_material = 0x7f0a007b;
@@ -470,18 +470,18 @@ public final class R {
 		public static final int design_navigation_padding_bottom = 0x7f0a00bb;
 		public static final int design_navigation_padding_top_default = 0x7f0a006c;
 		public static final int design_navigation_separator_vertical_padding = 0x7f0a00bc;
-		public static final int design_snackbar_action_inline_max_width = 0x7f0a0063;
-		public static final int design_snackbar_background_corner_radius = 0x7f0a0064;
+		public static final int design_snackbar_action_inline_max_width = 0x7f0a0061;
+		public static final int design_snackbar_background_corner_radius = 0x7f0a0062;
 		public static final int design_snackbar_elevation = 0x7f0a00bd;
-		public static final int design_snackbar_extra_spacing_horizontal = 0x7f0a0065;
-		public static final int design_snackbar_max_width = 0x7f0a0066;
-		public static final int design_snackbar_min_width = 0x7f0a0067;
+		public static final int design_snackbar_extra_spacing_horizontal = 0x7f0a0063;
+		public static final int design_snackbar_max_width = 0x7f0a0064;
+		public static final int design_snackbar_min_width = 0x7f0a0065;
 		public static final int design_snackbar_padding_horizontal = 0x7f0a00be;
 		public static final int design_snackbar_padding_vertical = 0x7f0a00bf;
-		public static final int design_snackbar_padding_vertical_2lines = 0x7f0a0068;
+		public static final int design_snackbar_padding_vertical_2lines = 0x7f0a0066;
 		public static final int design_snackbar_text_size = 0x7f0a00c0;
 		public static final int design_tab_max_width = 0x7f0a00c1;
-		public static final int design_tab_scrollable_min_width = 0x7f0a0069;
+		public static final int design_tab_scrollable_min_width = 0x7f0a0067;
 		public static final int design_tab_text_size = 0x7f0a00c2;
 		public static final int design_tab_text_size_2line = 0x7f0a00c3;
 		public static final int disabled_alpha_material_dark = 0x7f0a00c4;

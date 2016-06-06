@@ -12,4 +12,4 @@
             <corners android:radius="5dp" />
         </shape>
     </item>
-</selector><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/drawable/login_done.xml -->
+</selector>

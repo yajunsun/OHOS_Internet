@@ -60,4 +60,3 @@
         android:layout_below="@id/toolbar"
         android:layout="@layout/lo_device_binded"></ViewStub>
 </RelativeLayout>
-<!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/activity_bind_device.xml -->

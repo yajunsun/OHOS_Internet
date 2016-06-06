@@ -31,4 +31,4 @@
         android:singleLine="true"
         android:textSize="@dimen/material_drawer_item_profile_text"
         tools:text="Some drawer text" />
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/res/layout/material_drawer_item_profile_setting.xml -->
+</LinearLayout>

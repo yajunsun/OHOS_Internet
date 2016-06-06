@@ -59,4 +59,4 @@
             android:layout_height="fill_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_activity_message.xml -->
+</LinearLayout>

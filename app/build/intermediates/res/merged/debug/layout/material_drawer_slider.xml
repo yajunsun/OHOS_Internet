@@ -26,4 +26,4 @@
         android:layout_alignParentStart="false"
         android:background="@drawable/material_drawer_shadow_left"
         android:visibility="gone" />
-</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/res/layout/material_drawer_slider.xml -->
+</RelativeLayout>

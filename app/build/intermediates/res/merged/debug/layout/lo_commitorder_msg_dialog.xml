@@ -93,4 +93,4 @@
         android:textColor="@color/solid_black"
         android:id="@+id/txt_toorder"
         android:layout_height="wrap_content" />
-</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_commitorder_msg_dialog.xml -->
+</RelativeLayout>

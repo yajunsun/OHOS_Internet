@@ -40,4 +40,4 @@
         android:layout_marginTop="5dp"
         android:layout_below="@id/iv_sample"
         android:background="@color/icon_base_color"></LinearLayout>
-</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_event_lst_item.xml -->
+</RelativeLayout>

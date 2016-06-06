@@ -75,4 +75,4 @@
         android:layout_marginTop="20dp"
         app:minValue="0"
         app:size="@integer/vegetable_select_count_size" />
-</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_vegetable_item.xml -->
+</RelativeLayout>

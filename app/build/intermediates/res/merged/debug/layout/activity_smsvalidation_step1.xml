@@ -82,4 +82,3 @@
         android:onClick="ViewClick"
         android:text="下一步" />
 </RelativeLayout>
-<!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/activity_smsvalidation_step1.xml -->

@@ -8,4 +8,4 @@
         android:duration="350"
         android:fromXDelta="0"
         android:toXDelta="100%p" />
-</set><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/animator/exit.xml -->
+</set>

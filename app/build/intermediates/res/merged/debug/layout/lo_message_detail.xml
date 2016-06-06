@@ -69,4 +69,4 @@
         <include layout="@layout/lo_yangguangyubei_item" />
 
     </ScrollView>
-</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_message_detail.xml -->
+</RelativeLayout>

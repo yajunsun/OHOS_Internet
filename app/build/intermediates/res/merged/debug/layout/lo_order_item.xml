@@ -96,4 +96,4 @@
             android:background="@drawable/bg_rect_border"
             android:layout_height="40dp" />
     </LinearLayout>
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_order_item.xml -->
+</LinearLayout>

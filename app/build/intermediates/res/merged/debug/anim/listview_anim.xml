@@ -2,4 +2,4 @@
 <layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
     android:animation="@anim/enter"
     android:animationOrder="normal"
-    android:delay="0.3"></layoutAnimation><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/anim/listview_anim.xml -->
+    android:delay="0.3"></layoutAnimation>

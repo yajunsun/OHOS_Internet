@@ -3,4 +3,4 @@
 <corners android:radius="10dp"/>
     <gradient android:gradientRadius="45"
         android:startColor="@color/primary" android:endColor="@color/primary_dark" />
-</shape><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/drawable/bg_color_orange.xml -->
+</shape>

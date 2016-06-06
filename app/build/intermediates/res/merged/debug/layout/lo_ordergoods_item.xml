@@ -44,4 +44,4 @@
         android:layout_below="@id/txt_price"
         android:layout_marginTop="10dp"
         android:textSize="@dimen/front_text_size" />
-</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_ordergoods_item.xml -->
+</RelativeLayout>

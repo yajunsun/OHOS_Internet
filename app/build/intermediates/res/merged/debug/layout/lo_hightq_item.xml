@@ -44,4 +44,4 @@
         android:layout_height="wrap_content"
         android:textColor="@color/primary"
         android:textSize="@dimen/front_text_size" />
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_hightq_item.xml -->
+</LinearLayout>

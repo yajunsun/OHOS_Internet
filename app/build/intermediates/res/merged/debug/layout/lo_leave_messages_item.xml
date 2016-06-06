@@ -59,4 +59,4 @@
         android:textSize="@dimen/front_text_size"
         android:layout_marginLeft="10dp"
         android:layout_height="wrap_content" />
-</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_leave_messages_item.xml -->
+</RelativeLayout>

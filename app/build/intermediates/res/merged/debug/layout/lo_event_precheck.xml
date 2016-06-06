@@ -93,4 +93,4 @@
         android:layout_above="@id/btn_order"
         android:textColor="@color/md_red_900"
         android:visibility="gone" />
-</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_event_precheck.xml -->
+</RelativeLayout>

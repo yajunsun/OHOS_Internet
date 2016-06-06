@@ -67,4 +67,4 @@
         android:textOn=""
         android:textSize="@dimen/material_drawer_item_secondary_extra_text"
         app:showText="false" />
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/res/layout/material_drawer_item_secondary_switch.xml -->
+</LinearLayout>

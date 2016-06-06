@@ -15,4 +15,4 @@
             <solid android:color="@color/colorPrimary" />
         </shape>
     </item>
-</selector><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/drawable/bg_button.xml -->
+</selector>

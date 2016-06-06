@@ -43,4 +43,4 @@
         android:text="取消"
         android:textSize="16sp" />
 
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/photo_choose_dialog.xml -->
+</LinearLayout>

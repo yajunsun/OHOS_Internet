@@ -8,4 +8,4 @@
         android:toXDelta="0"
         android:toYDelta="1000" />
 
-</set><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/animator/photo_dialog_out_anim.xml -->
+</set>

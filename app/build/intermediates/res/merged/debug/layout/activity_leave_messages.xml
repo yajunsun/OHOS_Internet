@@ -85,4 +85,3 @@
             android:layout_height="fill_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>
-<!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/activity_leave_messages.xml -->

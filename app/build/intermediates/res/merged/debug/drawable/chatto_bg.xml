@@ -5,4 +5,4 @@
     <item android:state_pressed="true" android:drawable="@drawable/messagebkg" />
     <item android:state_selected="true" android:drawable="@drawable/messagebkg" />
     <item android:drawable="@drawable/messagebkg" />
-</selector><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/drawable/chatto_bg.xml -->
+</selector>

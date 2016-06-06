@@ -7,4 +7,4 @@
     <target
         android:name="line2"
         android:animation="@animator/animator_line2" />
-</animated-vector><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/drawable/animatedforvector.xml -->
+</animated-vector>

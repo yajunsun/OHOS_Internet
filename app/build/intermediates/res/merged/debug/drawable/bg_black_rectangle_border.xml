@@ -6,4 +6,4 @@
         android:width="1px"
         android:color="@color/md_black_1000" />
     <solid android:color="@color/solid_white" />
-</shape><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/drawable/bg_black_rectangle_border.xml -->
+</shape>

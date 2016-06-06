@@ -31,4 +31,3 @@
         android:background="@color/transparent50"
         android:text="跳过" />
 </RelativeLayout>
-<!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/activity_guide_index.xml -->

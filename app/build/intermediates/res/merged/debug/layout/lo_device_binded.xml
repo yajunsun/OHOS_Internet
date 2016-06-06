@@ -18,4 +18,4 @@
         android:id="@+id/txt_deviceSid"
         android:textSize="18sp"
         android:layout_height="wrap_content" />
-</LinearLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_device_binded.xml -->
+</LinearLayout>

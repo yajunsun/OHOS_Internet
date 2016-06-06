@@ -34,4 +34,4 @@
         android:text="预定"
         android:textSize="@dimen/front_text_size"
         android:textColor="@color/color_txt_toobar" />
-</RelativeLayout><!-- From: file:/G:/AndroidDev/AndroidSourceCode/OHOS/app/src/main/res/layout/lo_goods_check.xml -->
+</RelativeLayout>
