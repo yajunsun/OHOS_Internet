@@ -12,5 +12,5 @@ public class speexprocess {
 
     public  native int Speex_exit();
 
-    public  native int Speex_process(byte[] net_buf, byte[] mic_buf, byte[] out_buf);
+    public  native int Speex_process(byte[] net_buf, byte[] mic_buf, byte[] out_buf,byte[] m_noise);
 }

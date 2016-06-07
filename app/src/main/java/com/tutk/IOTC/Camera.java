@@ -1111,7 +1111,7 @@ public class Camera {
             AudioRecord recorder = null;
             //AudioTrack audioTrack = null;
             mSpeex = new speexprocess();
-            int speexinit= mSpeex.Speex_init(960, 960 * 4, 16000);
+            int speexinit = mSpeex.Speex_init(960, 960 * 4, 16000);
             recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_CONFIGURATION_MONO, AudioFormat.ENCODING_PCM_16BIT, nMinBufSize);
             recorder.startRecording();
             while (m_bIsRunning) {
@@ -1126,15 +1126,14 @@ public class Camera {
                         TimBytes timBytes = latestNetVoice.pop();
                         long current = System.currentTimeMillis();
                         if (Math.abs(timBytes.getTimstamp() - current) < 10) {
-                          int re=  mSpeex.Speex_process(timBytes.getData(), inPCMBuf, srcProcess);
+                            byte[] m_noise = new byte[8000];
+                            int re = mSpeex.Speex_process(timBytes.getData(), inPCMBuf, srcProcess, m_noise);
                             Log.i("IOTCamera", "已降噪");
                         } else
                             srcProcess = inPCMBuf;
                         Log.i("IOTCamera", "usetime:" + timBytes.getTimstamp());
                     }
-                }
-                catch (Exception ex)
-                {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                     srcProcess = inPCMBuf;
                 }
