@@ -60,7 +60,7 @@ JNIEXPORT jint JNICALL Java_com_speex_speexprocess_Speex_1process
 	(*env)->ReleaseByteArrayElements(env,temp,outBuffer,0) ;
 	(*env)->ReleaseByteArrayElements(env,m_noise,nosBuffer,0) ;
 
-	return 3;
+	return 6;
 }
 
 

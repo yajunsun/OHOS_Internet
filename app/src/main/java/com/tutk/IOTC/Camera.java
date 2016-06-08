@@ -16,16 +16,12 @@ import com.decoder.util.DecMpeg4;
 import com.decoder.util.DecSpeex;
 import com.speex.speexprocess;
 
-import net.iwebrtc.audioprocess.sdk.AudioProcess;
-
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 import java.util.Vector;
+import java.util.concurrent.ExecutorService;
 
 import zgan.ohos.utils.RDTFrame;
 
@@ -61,8 +57,11 @@ public class Camera {
 
     private boolean mInitAudio = false;
     private AudioTrack mAudioTrack = null;
-    private Stack<TimBytes> latestNetVoice;
+    private VoiceIndust voiceIndust = null;
+    private LinkedList<byte[]> latestNetVoice;
+    private LinkedList<byte[]> micvoice;
     private speexprocess mSpeex = null;
+    ExecutorService executorService = null;
     //AudioProcess mAudioProcess = null;
     private int mCamIndex = 0;
 
@@ -233,6 +232,12 @@ public class Camera {
                 ch.VideoFrameQueue.removeAll();
                 ch.VideoFrameQueue = null;
 
+                micvoice.clear();
+                micvoice = null;
+
+                latestNetVoice.clear();
+                latestNetVoice = null;
+
                 ch.IOCtrlQueue.removeAll();
                 ch.IOCtrlQueue = null;
             }
@@ -364,6 +369,17 @@ public class Camera {
                         ch.threadRecvVideo = null;
                     }
 
+                    if (voiceIndust != null) {
+                        voiceIndust.StopThread();
+
+                        try {
+                            voiceIndust.interrupt();
+                            voiceIndust.join();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        voiceIndust = null;
+                    }
                     ch.VideoFrameQueue.removeAll();
                     Log.i("suntest", "stop show");
                     break;
@@ -796,15 +812,17 @@ public class Camera {
                 mAVChannel.AudioBPS += rdtFrame.mLen;
                 //960 4*960,16000
                 if (latestNetVoice == null)
-                    latestNetVoice = new Stack<>();
+                    latestNetVoice = new LinkedList<>();
                 else {
-                    if (latestNetVoice.size() > 0)
-                        latestNetVoice.clear();
-                    latestNetVoice.push(new TimBytes(System.currentTimeMillis(), frameData));
-
+                    if (micvoice == null) {
+                        //MIC未启动时直接播放
+                        audioTraceWrite(frameData, 0, frameData.length);
+                        Log.i("IOTCamera", "voice play0");
+                    } else {
+                        latestNetVoice.addLast(frameData);
+                        Log.i("IOTCamera", "voice in, latestNetVoice.size()=" + latestNetVoice.size());
+                    }
                 }
-                mAudioTrack.write(frameData, 0, frameData.length);
-
             } catch (Exception e) {
                 e.printStackTrace();
                 //Log.i("suntest", "voice error:" + e.getMessage());
@@ -923,7 +941,6 @@ public class Camera {
                         out_size[0] = 0;
                         out_width[0] = 0;
                         out_height[0] = 0;
-                        Log.i("IOTCamera", "avFrame.getCodecId()=" + avFrame.getCodecId());
                         if (avFrame.getCodecId() == AVFrame.MEDIA_CODEC_VIDEO_H264) {
 
                             t1 = System.currentTimeMillis();
@@ -932,10 +949,8 @@ public class Camera {
                                 DecH264.InitDecoder();
                                 bInitH264 = true;
                             } // else {
-                            Log.i("IOTCamera", "before decode: " + (avFrame.isIFrame() ? "i" : "p"));
                             // FFMPEG - DecH264.Decode(avFrame.frmData, avFrameSize, bufOut, out_size, out_width, out_height);
                             DecH264.DecoderNal(avFrame.frmData, avFrameSize, framePara, bufOut);
-                            Log.i("IOTCamera", "after decode");
                             // }
 
                         } else if (avFrame.getCodecId() == AVFrame.MEDIA_CODEC_VIDEO_MPEG4) {
@@ -1027,7 +1042,6 @@ public class Camera {
                                 }
                             }
                             mAVChannel.LastFrame = bmp;
-                            Log.i("IOTCamera", String.format("decoded width=%s and height=%s", bmp.getWidth(), bmp.getHeight()));
 
                         } else {
                             // Log.i("IOTCamera", "decoded size, width and height = 0");
@@ -1110,49 +1124,26 @@ public class Camera {
 			/* init mic of phone */
             AudioRecord recorder = null;
             //AudioTrack audioTrack = null;
-            mSpeex = new speexprocess();
-            int speexinit = mSpeex.Speex_init(960, 960 * 4, 16000);
             recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_CONFIGURATION_MONO, AudioFormat.ENCODING_PCM_16BIT, nMinBufSize);
             recorder.startRecording();
+            mSpeex = new speexprocess();
+            int speexinit = mSpeex.Speex_init(960, 960 * 4, 16000);
+
+            Log.i("IOTCamera", "recorder begin work");
             while (m_bIsRunning) {
                 byte[] inPCMBuf = new byte[960];
-                nReadBytes = recorder.read(inPCMBuf, 0, inPCMBuf.length);
-                byte[] srcProcess = new byte[960];
-                try {
-                    if (latestNetVoice == null || latestNetVoice.size() == 0) {
-                        srcProcess = inPCMBuf;
-                        Log.i("IOTCamera", "没有降噪");
-                    } else {
-                        TimBytes timBytes = latestNetVoice.pop();
-                        long current = System.currentTimeMillis();
-                        if (Math.abs(timBytes.getTimstamp() - current) < 10) {
-                            byte[] m_noise = new byte[8000];
-                            int re = mSpeex.Speex_process(timBytes.getData(), inPCMBuf, srcProcess, m_noise);
-                            Log.i("IOTCamera", "已降噪");
-                        } else
-                            srcProcess = inPCMBuf;
-                        Log.i("IOTCamera", "usetime:" + timBytes.getTimstamp());
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    srcProcess = inPCMBuf;
-                }
-                byte d = (byte) (nReadBytes + 12 & 0x000000ff);
-                byte c = (byte) ((nReadBytes + 12 & 0x0000ff00) >> 8);
-                byte b = (byte) ((nReadBytes + 12 & 0x00ff0000) >> 16);
-                byte a = (byte) ((nReadBytes + 12 & 0xff000000) >> 24);
-                if (nReadBytes > 0) {
-                    byte[] head = new byte[]{36, 83, 88, 38, a, b, c, d, 2, 0, 0, 0};
-                    byte[] Buf_processed = new byte[nReadBytes + 12];
-                    System.arraycopy(srcProcess, 0, Buf_processed, 12, nReadBytes); // setp
-                    System.arraycopy(head, 0, Buf_processed, 0, 12);
-                    RDTAPIs.RDT_Write(nRDT_ID, Buf_processed, nReadBytes + 12);
+                recorder.read(inPCMBuf, 0, inPCMBuf.length);
+                if (micvoice == null)
+                    micvoice = new LinkedList<>();
+                micvoice.addLast(inPCMBuf);
+                if (voiceIndust == null) {
+                    voiceIndust = new VoiceIndust();
+                    voiceIndust.start();
                 }
             }
             recorder.stop();
             mSpeex.Speex_exit();
             mSpeex = null;
-
             avIndexForSendAudio = -1;
             chIndexForSendAudio = -1;
 
@@ -1160,6 +1151,85 @@ public class Camera {
         }
     }
 
+    private class VoiceIndust extends Thread {
+        private boolean isRunning = false;
+
+        public VoiceIndust() {
+            isRunning = true;
+            //executorService = Executors.newFixedThreadPool(5);
+        }
+
+        public void StopThread() {
+            isRunning = false;
+            if (executorService != null)
+                executorService.shutdown();
+            Log.i("IOTCamera", "VoiceIndust stoped 1");
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            while (isRunning) {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (latestNetVoice != null && micvoice != null) {
+                    if (latestNetVoice.size() > 0 && micvoice.size() > 0) {
+                        Log.i("IOTCamera", "voice play1, latestNetVoice.size()=" + latestNetVoice.size());
+                        Log.i("IOTCamera", "voice send1, micvoice.size()=" + micvoice.size());
+                        final byte[] voice_in = latestNetVoice.removeFirst();
+                        final byte[] voice_out = micvoice.removeFirst();
+                        byte[] srcProcess = new byte[960];
+                        audioTraceWrite(voice_in, 0, voice_in.length);
+                        byte[] m_noise = new byte[960];
+                        int re = mSpeex.Speex_process(voice_in, voice_out, srcProcess, m_noise);
+                        int nReadBytes = 960;
+                        byte d = (byte) (nReadBytes + 12 & 0x000000ff);
+                        byte c = (byte) ((nReadBytes + 12 & 0x0000ff00) >> 8);
+                        byte b = (byte) ((nReadBytes + 12 & 0x00ff0000) >> 16);
+                        byte a = (byte) ((nReadBytes + 12 & 0xff000000) >> 24);
+                        byte[] head = new byte[]{36, 83, 88, 38, a, b, c, d, 2, 0, 0, 0};
+                        byte[] Buf_processed = new byte[nReadBytes + 12];
+                        System.arraycopy(srcProcess, 0, Buf_processed, 12, nReadBytes); // setp
+                        System.arraycopy(head, 0, Buf_processed, 0, 12);
+                        rdtWrite(nRDT_ID, Buf_processed, nReadBytes + 12);
+                        latestNetVoice.clear();
+                        micvoice.clear();
+                        System.gc();
+                    } else if (latestNetVoice.size() > 0) {
+                        Log.i("IOTCamera", "voice play2, latestNetVoice.size()=" + latestNetVoice.size());
+                        final byte[] voice_in = latestNetVoice.removeFirst();
+                        audioTraceWrite(voice_in, 0, voice_in.length);
+                    } else if (micvoice.size() > 0) {
+                        Log.i("IOTCamera", "voice send2, micvoice.size()=" + micvoice.size());
+                        final byte[] voice_out = micvoice.removeFirst();
+                        int nReadBytes = 960;
+                        byte d = (byte) (nReadBytes + 12 & 0x000000ff);
+                        byte c = (byte) ((nReadBytes + 12 & 0x0000ff00) >> 8);
+                        byte b = (byte) ((nReadBytes + 12 & 0x00ff0000) >> 16);
+                        byte a = (byte) ((nReadBytes + 12 & 0xff000000) >> 24);
+                        byte[] head = new byte[]{36, 83, 88, 38, a, b, c, d, 2, 0, 0, 0};
+                        byte[] Buf_processed = new byte[nReadBytes + 12];
+                        System.arraycopy(voice_out, 0, Buf_processed, 12, nReadBytes); // setp
+                        System.arraycopy(head, 0, Buf_processed, 0, 12);
+                        rdtWrite(nRDT_ID, Buf_processed, nReadBytes + 12);
+                        System.gc();
+                    }
+                }
+            }
+            Log.i("IOTCamera", "VoiceIndust stoped 0");
+        }
+    }
+
+    public synchronized void audioTraceWrite(byte[] source, int offset, int length) {
+        mAudioTrack.write(source, offset, length);
+    }
+
+    public synchronized void rdtWrite(int rdtID, byte[] source, int length) {
+        RDTAPIs.RDT_Write(rdtID, source, length);
+    }
 
     private class AVChannel {
 

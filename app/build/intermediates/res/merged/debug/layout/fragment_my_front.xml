@@ -104,7 +104,7 @@
                         android:id="@+id/title_yangguangyubei"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="阳光渝北"
+                        android:text="政务进家"
                         android:textSize="@dimen/front_text_size" />
                 </LinearLayout>
 
@@ -128,7 +128,7 @@
                         android:id="@+id/title_wuyeliuyan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="物业留言"
+                        android:text="投诉物业"
                         android:textSize="@dimen/front_text_size" />
                 </LinearLayout>
 
@@ -204,13 +204,13 @@
                         android:layout_height="50dp"
                         android:layout_marginBottom="1px"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/yunyan" />
+                        android:src="@drawable/shenxingkuaidi" />
 
                     <TextView
                         android:id="@+id/title_yunyan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="云眼"
+                        android:text="神行快递"
                         android:textSize="@dimen/front_text_size" />
                 </LinearLayout>
 
@@ -228,13 +228,13 @@
                         android:layout_height="50dp"
                         android:layout_marginBottom="1px"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/yunkong" />
+                        android:src="@drawable/shangmenqujian" />
 
                     <TextView
                         android:id="@+id/title_yunkong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="云控"
+                        android:text="上门取件"
                         android:textSize="@dimen/front_text_size" />
                 </LinearLayout>
 

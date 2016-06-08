@@ -164,27 +164,30 @@
                             android:gravity="center_vertical"
                             android:text="姓名：" />
                     </LinearLayout>
+
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <ImageView
-                        android:id="@+id/iv2"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/call_shipingtonghua" />
+                    <!--<ImageView-->
+                        <!--android:id="@+id/iv2"-->
+                        <!--android:layout_width="30dp"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:scaleType="fitCenter"-->
+                        <!--android:src="@drawable/call_shipingtonghua" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="11栋20-5视频进行中..."
-                        android:textSize="20sp" />
-                </LinearLayout>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="11栋20-5视频进行中..."-->
+                        <!--android:textSize="20sp" />-->
+                    <!---->
+                <!--</LinearLayout>-->
+
                 <!--<Button-->
                 <!--android:layout_width="120dp"-->
                 <!--android:layout_gravity="center_horizontal"-->

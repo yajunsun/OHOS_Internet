@@ -73,7 +73,7 @@
     <dimen name="front_base_func_icon_size">30dp</dimen>
     <dimen name="front_eventaction_layout_margin_top">-20dp</dimen>
     <dimen name="item_margin_top">-20dp</dimen>
-    <dimen name="front_msg_layout_height">160dp</dimen>
+    <dimen name="front_msg_layout_height">180dp</dimen>
     <dimen name="front_msg_xqgg_img_size">120dp</dimen>
     <dimen name="front_msg_text_margin">5dp</dimen>
     <dimen name="adv_pager_height">108dp</dimen>
