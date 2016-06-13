@@ -111,11 +111,11 @@ public final class resultCodes {
     /***
      * 云眼
      */
-    public final static int YUNYAN=10026;
+    public final static int EXPRESSIN=10026;
     /***
      * 云控
      */
-    public final static int YUNKONG=10027;
+    public final static int EXPRESSOUT=10027;
     /***
      * 室内机
      */

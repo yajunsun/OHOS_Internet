@@ -191,7 +191,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/l_yunyan"
+                    android:id="@+id/l_expressin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -215,7 +215,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/l_yunkong"
+                    android:id="@+id/l_expressout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

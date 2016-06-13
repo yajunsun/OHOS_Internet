@@ -231,6 +231,8 @@
         </activity>
         <activity android:name="zgan.ohos.Activities.CreditsRule" />
         <activity android:name="zgan.ohos.Activities.CreditsDetail" />
+        <activity android:name="zgan.ohos.Activities.Express_out" />
+        <activity android:name="zgan.ohos.Activities.Express_in" />
         <activity android:name="com.mikepenz.aboutlibraries.ui.LibsActivity" />
     </application>
 

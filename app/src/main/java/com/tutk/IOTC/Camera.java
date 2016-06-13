@@ -232,11 +232,14 @@ public class Camera {
                 ch.VideoFrameQueue.removeAll();
                 ch.VideoFrameQueue = null;
 
-                micvoice.clear();
-                micvoice = null;
-
-                latestNetVoice.clear();
-                latestNetVoice = null;
+                if (micvoice != null) {
+                    micvoice.clear();
+                    micvoice = null;
+                }
+                if (latestNetVoice != null) {
+                    latestNetVoice.clear();
+                    latestNetVoice = null;
+                }
 
                 ch.IOCtrlQueue.removeAll();
                 ch.IOCtrlQueue = null;
@@ -1170,19 +1173,19 @@ public class Camera {
         public void run() {
             super.run();
             while (isRunning) {
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Thread.sleep(10);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
                 if (latestNetVoice != null && micvoice != null) {
                     if (latestNetVoice.size() > 0 && micvoice.size() > 0) {
-                        Log.i("IOTCamera", "voice play1, latestNetVoice.size()=" + latestNetVoice.size());
-                        Log.i("IOTCamera", "voice send1, micvoice.size()=" + micvoice.size());
                         final byte[] voice_in = latestNetVoice.removeFirst();
                         final byte[] voice_out = micvoice.removeFirst();
                         byte[] srcProcess = new byte[960];
+                        Log.i("IOTCamera", "voice play1, latestNetVoice.size()=" + latestNetVoice.size());
                         audioTraceWrite(voice_in, 0, voice_in.length);
+                        Log.i("IOTCamera", "voice has played1");
                         byte[] m_noise = new byte[960];
                         int re = mSpeex.Speex_process(voice_in, voice_out, srcProcess, m_noise);
                         int nReadBytes = 960;
@@ -1194,16 +1197,18 @@ public class Camera {
                         byte[] Buf_processed = new byte[nReadBytes + 12];
                         System.arraycopy(srcProcess, 0, Buf_processed, 12, nReadBytes); // setp
                         System.arraycopy(head, 0, Buf_processed, 0, 12);
+                        Log.i("IOTCamera", "voice send1, micvoice.size()=" + micvoice.size());
                         rdtWrite(nRDT_ID, Buf_processed, nReadBytes + 12);
-                        latestNetVoice.clear();
-                        micvoice.clear();
+                        Log.i("IOTCamera", "voice has sent1");
+//                        latestNetVoice.clear();
+//                        micvoice.clear();
                         System.gc();
                     } else if (latestNetVoice.size() > 0) {
-                        Log.i("IOTCamera", "voice play2, latestNetVoice.size()=" + latestNetVoice.size());
                         final byte[] voice_in = latestNetVoice.removeFirst();
+                        Log.i("IOTCamera", "voice play2, latestNetVoice.size()=" + latestNetVoice.size());
                         audioTraceWrite(voice_in, 0, voice_in.length);
+                        Log.i("IOTCamera", "voice has played2");
                     } else if (micvoice.size() > 0) {
-                        Log.i("IOTCamera", "voice send2, micvoice.size()=" + micvoice.size());
                         final byte[] voice_out = micvoice.removeFirst();
                         int nReadBytes = 960;
                         byte d = (byte) (nReadBytes + 12 & 0x000000ff);
@@ -1214,7 +1219,9 @@ public class Camera {
                         byte[] Buf_processed = new byte[nReadBytes + 12];
                         System.arraycopy(voice_out, 0, Buf_processed, 12, nReadBytes); // setp
                         System.arraycopy(head, 0, Buf_processed, 0, 12);
+                        Log.i("IOTCamera", "voice send2, micvoice.size()=" + micvoice.size());
                         rdtWrite(nRDT_ID, Buf_processed, nReadBytes + 12);
+                        Log.i("IOTCamera", "voice has sent2");
                         System.gc();
                     }
                 }

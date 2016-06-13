@@ -268,7 +268,6 @@ public class ZganSocketClient {
 
                                     //判断是否是心跳包
                                     if (resultByte[7] == 0 && resultByte[8] == 0) {
-                                        Log.i("suntest", "ZganSocketClient心跳 1");
                                         PingTime = Calendar.getInstance();
                                         PingSendTime = null;
                                     } else {

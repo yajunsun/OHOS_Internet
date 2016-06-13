@@ -93,20 +93,6 @@ public class HightQualityDetail extends myBaseActivity implements View.OnClickLi
 
                 Intent intent = new Intent(this, CommitOrder.class);
                 MyOrder m1 = new MyOrder();
-//                m1.setOrder_sn("2016041500245");
-//                m1.setHouse_holder("徐鹏");
-//                m1.setHouser_name("金易伯爵世家4栋3单元6-2");
-//                m1.setOrder_status("已确认");
-//                m1.setShipping_status(0);
-//                m1.setPay_status(0);
-//                m1.setBest_time(generalhelper.getStringFromDate(bestshippingdate.getTime()));
-//                m1.setOrder_type("预定");
-//                m1.setShipping_id("送货上门");
-//                m1.setGoods_amount(hqs.getprice());
-//                m1.setPay_fee(hqs.getprice());
-//                m1.setMoney_paid(0);
-//                m1.setOrder_amount(hqs.getprice());
-//                m1.setAdd_time(generalhelper.getStringFromDate(calendar.getTime()));
                 m1.setorder_id(m1.generateOrderId());
                 m1.setaccount(PreferenceUtil.getUserName());
                 m1.setdiliver_time("0");

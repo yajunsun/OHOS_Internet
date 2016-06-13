@@ -43,6 +43,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import zgan.ohos.Activities.AdvertiseDetail;
 import zgan.ohos.Activities.BindDevice;
 import zgan.ohos.Activities.CallOut;
+import zgan.ohos.Activities.Express_in;
+import zgan.ohos.Activities.Express_out;
 import zgan.ohos.Activities.LeaveMessages;
 import zgan.ohos.Activities.Login;
 import zgan.ohos.Activities.MessageActivity;
@@ -65,7 +67,7 @@ import zgan.ohos.utils.resultCodes;
  * Created by yajunsun on 16-2-24.
  */
 public class fg_myfront extends myBaseFragment implements View.OnClickListener {
-    View l_shequgonggao, l_yangguangyubei, l_remoteopen, l_call_mall, l_hujiaowuye, l_wuyeliuyan, l_yunyan, l_yunkong;
+    View l_shequgonggao, l_yangguangyubei, l_remoteopen, l_call_mall, l_hujiaowuye, l_wuyeliuyan, l_expressin, l_expressout;
     LinearLayout ll_shequhuodong;
     IconicsImageView iv_location;
     AlertDialog opendialog, telDialog;
@@ -227,15 +229,13 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                 intent = new Intent(getActivity(), LeaveMessages.class);
                 startActivityIfLogin(intent, resultCodes.HOUSEHOLDING_LEAVEMSG);
                 break;
-            case R.id.l_yunkong:
-//                intent=new Intent(getActivity(),ServeTrace.class);
-//                startActivityIfLogin(intent,resultCodes.YUNKONG);
-                generalhelper.ToastShow(getActivity(), "即将上线~");
+            case R.id.l_expressin:
+                intent=new Intent(getActivity(),Express_in.class);
+                startActivityIfLogin(intent,resultCodes.EXPRESSIN);
                 break;
-            case R.id.l_yunyan:
-//                intent=new Intent(getActivity(),ServeTrace.class);
-//                startActivityIfLogin(intent,resultCodes.YUNYAN);
-                generalhelper.ToastShow(getActivity(), "即将上线~");
+            case R.id.l_expressout:
+                intent=new Intent(getActivity(),Express_out.class);
+                startActivityIfLogin(intent,resultCodes.EXPRESSOUT);
                 break;
         }
     }
@@ -277,8 +277,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         l_hujiaowuye = v.findViewById(R.id.l_hujiaowuye);
         l_wuyeliuyan = v.findViewById(R.id.l_wuyeliuyan);
         ll_shequhuodong = (LinearLayout) v.findViewById(R.id.ll_shequhuodong);
-        l_yunyan = v.findViewById(R.id.l_yunyan);
-        l_yunkong = v.findViewById(R.id.l_yunkong);
+        l_expressin = v.findViewById(R.id.l_expressin);
+        l_expressout = v.findViewById(R.id.l_expressout);
 
         l_call_mall.setOnClickListener(this);
         l_remoteopen.setOnClickListener(this);
@@ -286,8 +286,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         l_yangguangyubei.setOnClickListener(this);
         l_hujiaowuye.setOnClickListener(this);
         l_wuyeliuyan.setOnClickListener(this);
-        l_yunyan.setOnClickListener(this);
-        l_yunkong.setOnClickListener(this);
+        l_expressin.setOnClickListener(this);
+        l_expressout.setOnClickListener(this);
         //iv_shequhuodong = (ImageView) v.findViewById(R.id.iv_shequhuodong);
         adv_pager = (ViewPager) v.findViewById(R.id.adv_pager);
         pager_ind = (LinearLayout) v.findViewById(R.id.pager_ind);
@@ -609,14 +609,14 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 //                        intent = new Intent(getActivity(), ServeTrace.class);
 //                        startActivityIfLogin(intent, resultCodes.YIKATONG);
 //                        break;
-//                    case resultCodes.YUNYAN:
-//                        intent = new Intent(getActivity(), ServeTrace.class);
-//                        startActivityIfLogin(intent, resultCodes.YUNYAN);
-//                        break;
-//                    case resultCodes.YUNKONG:
-//                        intent = new Intent(getActivity(), ServeTrace.class);
-//                        startActivityIfLogin(intent, resultCodes.YUNKONG);
-//                        break;
+                    case resultCodes.EXPRESSIN:
+                        intent = new Intent(getActivity(), Express_in.class);
+                        startActivityIfLogin(intent, resultCodes.EXPRESSIN);
+                        break;
+                    case resultCodes.EXPRESSOUT:
+                        intent = new Intent(getActivity(), Express_out.class);
+                        startActivityIfLogin(intent, resultCodes.EXPRESSOUT);
+                        break;
                     default:
                         generalhelper.ToastShow(getActivity(), "暂未开通");
                         break;
