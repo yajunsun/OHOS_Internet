@@ -64,7 +64,14 @@
         <activity
             android:name=".Activities.MessageActivity"
             android:label="@string/news_option_name"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="Page.2001"></action>
+                <action android:name="Page.2002"></action>
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.MainActivity"
             android:launchMode="singleTask"
@@ -89,7 +96,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.MessageDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="Page.2003"></action>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.EventFrontPage"
             android:screenOrientation="portrait" />
@@ -107,16 +119,25 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="Page.1010" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".Activities.BindDevice" />
-        <activity android:name=".Activities.LeaveMessages" />
+        <activity android:name=".Activities.LeaveMessages">
+            <intent-filter>
+                <action android:name="Page.2004"></action>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.ReplyMessages"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="Page.2006"></action>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.CakeList"
             android:screenOrientation="portrait">
@@ -199,7 +220,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.CallOut"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="Page.2010"></action>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.bitmaptshow"
             android:screenOrientation="portrait" />
@@ -225,8 +251,18 @@
         </activity>
         <activity android:name=".Activities.CreditsRule" />
         <activity android:name=".Activities.CreditsDetail" />
-        <activity android:name=".Activities.Express_out" />
-        <activity android:name=".Activities.Express_in"></activity>
+        <activity android:name=".Activities.Express_out">
+            <intent-filter>
+                <action android:name="Page.2008"></action>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.Express_in">
+            <intent-filter>
+                <action android:name="Page.2009"></action>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

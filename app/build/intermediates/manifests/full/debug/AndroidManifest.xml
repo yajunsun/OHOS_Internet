@@ -70,7 +70,14 @@
         <activity
             android:name="zgan.ohos.Activities.MessageActivity"
             android:label="@string/news_option_name"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="Page.2001" />
+                <action android:name="Page.2002" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="zgan.ohos.Activities.MainActivity"
             android:launchMode="singleTask"
@@ -95,7 +102,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="zgan.ohos.Activities.MessageDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="Page.2003" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="zgan.ohos.Activities.EventFrontPage"
             android:screenOrientation="portrait" />
@@ -118,11 +131,23 @@
             </intent-filter>
         </activity>
         <activity android:name="zgan.ohos.Activities.BindDevice" />
-        <activity android:name="zgan.ohos.Activities.LeaveMessages" />
+        <activity android:name="zgan.ohos.Activities.LeaveMessages" >
+            <intent-filter>
+                <action android:name="Page.2004" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="zgan.ohos.Activities.ReplyMessages"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+            <intent-filter>
+                <action android:name="Page.2006" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="zgan.ohos.Activities.CakeList"
             android:screenOrientation="portrait" >
@@ -205,7 +230,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="zgan.ohos.Activities.CallOut"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="Page.2010" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="zgan.ohos.Activities.bitmaptshow"
             android:screenOrientation="portrait" />
@@ -231,8 +262,20 @@
         </activity>
         <activity android:name="zgan.ohos.Activities.CreditsRule" />
         <activity android:name="zgan.ohos.Activities.CreditsDetail" />
-        <activity android:name="zgan.ohos.Activities.Express_out" />
-        <activity android:name="zgan.ohos.Activities.Express_in" />
+        <activity android:name="zgan.ohos.Activities.Express_out" >
+            <intent-filter>
+                <action android:name="Page.2008" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="zgan.ohos.Activities.Express_in" >
+            <intent-filter>
+                <action android:name="Page.2009" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name="com.mikepenz.aboutlibraries.ui.LibsActivity" />
     </application>
 

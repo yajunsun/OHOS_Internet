@@ -16,6 +16,8 @@ import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -51,8 +53,10 @@ import zgan.ohos.Activities.MessageActivity;
 import zgan.ohos.ConstomControls.ScrollViewWithCallBack;
 import zgan.ohos.Dals.AdvertiseDal;
 import zgan.ohos.Dals.FrontItemDal;
+import zgan.ohos.Dals.FuncPageDal;
 import zgan.ohos.Models.Advertise;
 import zgan.ohos.Models.FrontItem;
+import zgan.ohos.Models.FuncPage;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.utils.AppUtils;
@@ -69,17 +73,19 @@ import zgan.ohos.utils.resultCodes;
 public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     View l_shequgonggao, l_yangguangyubei, l_remoteopen, l_call_mall, l_hujiaowuye, l_wuyeliuyan, l_expressin, l_expressout;
     LinearLayout ll_shequhuodong;
-    IconicsImageView iv_location;
-    AlertDialog opendialog, telDialog;
+    AlertDialog opendialog;
     ScrollViewWithCallBack sscontent;
-    ViewPager adv_pager;
-    LinearLayout pager_ind;
+    ViewPager adv_pager, func_pager;
+    LinearLayout pager_ind, func_ind;
     static final int ADSINDEX = 0;
     boolean isContinue = true;
     List<ImageView> imageViews = new ArrayList<>();
+    List<ImageView> funcimageViews = new ArrayList<>();
     private AtomicInteger what = new AtomicInteger(0);
+    List<FuncPage> funcPages;
     List<FrontItem> frontItems;
     List<Advertise> advertises;
+    FuncPageDal funcPageDal;
     AdvertiseDal advertiseDal;
     FrontItemDal frontItemDal;
     Calendar lastOpent;
@@ -92,11 +98,14 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     boolean LOAD_SUCCESS = false;
     private Handler handler;
     Timer timer;
+    LayoutInflater mLayoutInflater;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mLayoutInflater = inflater;
         View view = inflater.inflate(R.layout.fragment_my_front, container, false);
         frontItems = new ArrayList<>();
+        funcPageDal = new FuncPageDal();
         frontItemDal = new FrontItemDal();
         advertiseDal = new AdvertiseDal();
         iniHandler();
@@ -129,12 +138,6 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
     }
 
-//    @Override
-//    public void onDestroyView() {
-//        playadsTask.interrupt();
-//        super.onDestroyView();
-//    }
-
     private void initNetData() {
         new Thread(new Runnable() {
             @Override
@@ -148,6 +151,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                         }
                     }
                     if (SystemUtils.getIsCommunityLogin()) {
+                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 100102, "@id=22", "22"), handler);
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1020, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), handler);
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1002, "@id=22", "22"), handler);
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1001, "@id=22", "22"), handler);
@@ -160,84 +164,84 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
     public void ViewClick(View v) {
         Intent intent;
-        switch (v.getId()) {
-            case R.id.l_shequgonggao:
-                intent = new Intent(getActivity(), MessageActivity.class);
-                intent.putExtra("msgtype", 0);
-                //startActivityWithAnim(getActivity(), intent);
-                startActivityIfLogin(intent, resultCodes.SOCIALPOST);
-                break;
-            case R.id.l_yangguangyubei:
-                intent = new Intent(getActivity(), MessageActivity.class);
-                intent.putExtra("msgtype", 3);
-                //startActivityWithAnim(getActivity(), intent);
-                startActivityIfLogin(intent, resultCodes.COUNCILPOST);
-                break;
-            case R.id.l_remoteopen:
-                if (SystemUtils.getIsLogin())
-                    //第一次开门
-                    if (lastOpent == null) {
-                        communityOpt(20, String.format("%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID()));
-                        lastOpent = Calendar.getInstance();
-                    } else {
-                        thisOpen = Calendar.getInstance();
-                        long span = thisOpen.getTimeInMillis() - lastOpent.getTimeInMillis();
-                        //判断上次点击开门和本次点击开门时间间隔是否大于5秒钟
-                        if (span > 5000) {
-                            communityOpt(20, String.format("%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID()));
-                            lastOpent = Calendar.getInstance();
-                        } else {
-                            generalhelper.ToastShow(getActivity(), "请在" + ((5000 - span) / 1000 + 1) + "秒后操作");
-                        }
-                    }
-                else {
-                    startActivityIfLogin(null, resultCodes.REMOTEOPEN);
-                }
-                break;
-            case R.id.l_call_mall:
-                //intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:02367176359"));
-                //communityOpt(37, String.format("%s\t%s", PreferenceUtil.getUserName(), 3));
-                if (SystemUtils.getIsLogin())
-                    //第一次开门
-                    if (lastCall == null) {
-                        lastCall = Calendar.getInstance();
-                        intent = new Intent(getActivity(), CallOut.class);
-                        startActivityWithAnim(getActivity(), intent);
-                    } else {
-                        thisCall = Calendar.getInstance();
-                        long span = thisCall.getTimeInMillis() - lastCall.getTimeInMillis();
-                        //判断上次点击开门和本次点击开门时间间隔是否大于5秒钟
-                        if (span > 5000) {
-                            lastCall = Calendar.getInstance();
-                            //communityOpt(37, String.format("%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID()));
-                            intent = new Intent(getActivity(), CallOut.class);
-                            startActivityWithAnim(getActivity(), intent);
-                        } else {
-                            generalhelper.ToastShow(getActivity(), "请在" + ((5000 - span) / 1000 + 1) + "秒后操作");
-                        }
-                    }
-                else {
-                    startActivityIfLogin(null, resultCodes.REMOTEOPEN);
-                }
-                break;
-            case R.id.l_hujiaowuye:
-                //intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:02367288312"));
-                intent = new Intent(getActivity(), CallOut.class);
-                startActivityIfLogin(intent, resultCodes.DIRECTCALL);
-                break;
-            case R.id.l_wuyeliuyan:
-                intent = new Intent(getActivity(), LeaveMessages.class);
-                startActivityIfLogin(intent, resultCodes.HOUSEHOLDING_LEAVEMSG);
-                break;
-            case R.id.l_expressin:
-                intent=new Intent(getActivity(),Express_in.class);
-                startActivityIfLogin(intent,resultCodes.EXPRESSIN);
-                break;
-            case R.id.l_expressout:
-                intent=new Intent(getActivity(),Express_out.class);
-                startActivityIfLogin(intent,resultCodes.EXPRESSOUT);
-                break;
-        }
+//        switch (v.getId()) {
+//            case R.id.l_shequgonggao:
+//                intent = new Intent(getActivity(), MessageActivity.class);
+//                intent.putExtra("msgtype", 0);
+//                //startActivityWithAnim(getActivity(), intent);
+//                startActivityIfLogin(intent, resultCodes.SOCIALPOST);
+//                break;
+//            case R.id.l_yangguangyubei:
+//                intent = new Intent(getActivity(), MessageActivity.class);
+//                intent.putExtra("msgtype", 3);
+//                //startActivityWithAnim(getActivity(), intent);
+//                startActivityIfLogin(intent, resultCodes.COUNCILPOST);
+//                break;
+//            case R.id.l_remoteopen:
+//                if (SystemUtils.getIsLogin())
+//                    //第一次开门
+//                    if (lastOpent == null) {
+//                        communityOpt(20, String.format("%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID()));
+//                        lastOpent = Calendar.getInstance();
+//                    } else {
+//                        thisOpen = Calendar.getInstance();
+//                        long span = thisOpen.getTimeInMillis() - lastOpent.getTimeInMillis();
+//                        //判断上次点击开门和本次点击开门时间间隔是否大于5秒钟
+//                        if (span > 5000) {
+//                            communityOpt(20, String.format("%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID()));
+//                            lastOpent = Calendar.getInstance();
+//                        } else {
+//                            generalhelper.ToastShow(getActivity(), "请在" + ((5000 - span) / 1000 + 1) + "秒后操作");
+//                        }
+//                    }
+//                else {
+//                    startActivityIfLogin(null, resultCodes.REMOTEOPEN);
+//                }
+//                break;
+//            case R.id.l_call_mall:
+//                //intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:02367176359"));
+//                //communityOpt(37, String.format("%s\t%s", PreferenceUtil.getUserName(), 3));
+//                if (SystemUtils.getIsLogin())
+//                    //第一次开门
+//                    if (lastCall == null) {
+//                        lastCall = Calendar.getInstance();
+//                        intent = new Intent(getActivity(), CallOut.class);
+//                        startActivityWithAnim(getActivity(), intent);
+//                    } else {
+//                        thisCall = Calendar.getInstance();
+//                        long span = thisCall.getTimeInMillis() - lastCall.getTimeInMillis();
+//                        //判断上次点击开门和本次点击开门时间间隔是否大于5秒钟
+//                        if (span > 5000) {
+//                            lastCall = Calendar.getInstance();
+//                            //communityOpt(37, String.format("%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID()));
+//                            intent = new Intent(getActivity(), CallOut.class);
+//                            startActivityWithAnim(getActivity(), intent);
+//                        } else {
+//                            generalhelper.ToastShow(getActivity(), "请在" + ((5000 - span) / 1000 + 1) + "秒后操作");
+//                        }
+//                    }
+//                else {
+//                    startActivityIfLogin(null, resultCodes.REMOTEOPEN);
+//                }
+//                break;
+//            case R.id.l_hujiaowuye:
+//                //intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:02367288312"));
+//                intent = new Intent(getActivity(), CallOut.class);
+//                startActivityIfLogin(intent, resultCodes.DIRECTCALL);
+//                break;
+//            case R.id.l_wuyeliuyan:
+//                intent = new Intent(getActivity(), LeaveMessages.class);
+//                startActivityIfLogin(intent, resultCodes.HOUSEHOLDING_LEAVEMSG);
+//                break;
+//            case R.id.l_expressin:
+//                intent = new Intent(getActivity(), Express_in.class);
+//                startActivityIfLogin(intent, resultCodes.EXPRESSIN);
+//                break;
+//            case R.id.l_expressout:
+//                intent = new Intent(getActivity(), Express_out.class);
+//                startActivityIfLogin(intent, resultCodes.EXPRESSOUT);
+//                break;
+//        }
     }
 
     private void initDialog() {
@@ -264,30 +268,27 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
     private void initView(View v) {
         p = AppUtils.getWindowSize(getActivity());
-//        toolbar = (Toolbar) v.findViewById(R.id.toolbar);
-//        toolbar.setTitle(getResources().getString(R.string.app_name));
-//        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         txt_xiaoqu = (TextView) v.findViewById(R.id.txt_xiaoqu);
         sscontent = (ScrollViewWithCallBack) v.findViewById(R.id.ll_content);
-        l_shequgonggao = v.findViewById(R.id.l_shequgonggao);
-        l_yangguangyubei = v.findViewById(R.id.l_yangguangyubei);
-        iv_zhihuishequ = (ImageView) v.findViewById(R.id.iv_zhihuishequ);
-        l_remoteopen = v.findViewById(R.id.l_remoteopen);
-        l_call_mall = v.findViewById(R.id.l_call_mall);
-        l_hujiaowuye = v.findViewById(R.id.l_hujiaowuye);
-        l_wuyeliuyan = v.findViewById(R.id.l_wuyeliuyan);
+//        l_shequgonggao = v.findViewById(R.id.l_shequgonggao);
+//        l_yangguangyubei = v.findViewById(R.id.l_yangguangyubei);
+//        iv_zhihuishequ = (ImageView) v.findViewById(R.id.iv_zhihuishequ);
+//        l_remoteopen = v.findViewById(R.id.l_remoteopen);
+        //       l_call_mall = v.findViewById(R.id.l_call_mall);
+//        l_hujiaowuye = v.findViewById(R.id.l_hujiaowuye);
+//        l_wuyeliuyan = v.findViewById(R.id.l_wuyeliuyan);
         ll_shequhuodong = (LinearLayout) v.findViewById(R.id.ll_shequhuodong);
-        l_expressin = v.findViewById(R.id.l_expressin);
-        l_expressout = v.findViewById(R.id.l_expressout);
+//        l_expressin = v.findViewById(R.id.l_expressin);
+//        l_expressout = v.findViewById(R.id.l_expressout);
 
-        l_call_mall.setOnClickListener(this);
-        l_remoteopen.setOnClickListener(this);
-        l_shequgonggao.setOnClickListener(this);
-        l_yangguangyubei.setOnClickListener(this);
-        l_hujiaowuye.setOnClickListener(this);
-        l_wuyeliuyan.setOnClickListener(this);
-        l_expressin.setOnClickListener(this);
-        l_expressout.setOnClickListener(this);
+//        l_call_mall.setOnClickListener(this);
+//        l_remoteopen.setOnClickListener(this);
+//        l_shequgonggao.setOnClickListener(this);
+//        l_yangguangyubei.setOnClickListener(this);
+//        l_hujiaowuye.setOnClickListener(this);
+//        l_wuyeliuyan.setOnClickListener(this);
+//        l_expressin.setOnClickListener(this);
+//        l_expressout.setOnClickListener(this);
         //iv_shequhuodong = (ImageView) v.findViewById(R.id.iv_shequhuodong);
         adv_pager = (ViewPager) v.findViewById(R.id.adv_pager);
         pager_ind = (LinearLayout) v.findViewById(R.id.pager_ind);
@@ -296,17 +297,114 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         iv_bottom3 = (ImageView) v.findViewById(R.id.iv_bottom3);
         iv_shequfuwu = (ImageView) v.findViewById(R.id.iv_shequfuwu);
 
-//        sscontent.setScrollViewListener(new ScrollViewWithCallBack.OnScrollListener() {
-//            @Override
-//            public void OnScroll(ScrollViewWithCallBack scrollView, int x, int y, int oldx, int oldy) {
-//                if (y > 20 && y > oldy) {
-//                    iv_zhihuishequ.setAlpha(1 / y);
-//                }
-//                if (y < 20 && y < oldy) {
-//                    iv_zhihuishequ.setAlpha(0xff);
-//                }
-//            }
-//        });
+        //功能区
+        func_pager = (ViewPager) v.findViewById(R.id.func_pager);
+        func_ind = (LinearLayout) v.findViewById(R.id.func_ind);
+    }
+
+    private void loadFuncData() {
+        List<View> views = new ArrayList<>();
+        int funcCount = funcPages.size();
+
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        RecyclerView funcV = new RecyclerView(getActivity());
+        funcV.setLayoutParams(params);
+        funcV.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        views.add(funcV);
+        List<FuncPage> list = new ArrayList<>();
+        if (funcCount > 0)
+            for (int i = 1; i <= funcCount; i++) {
+                list.add(funcPages.get(i - 1));
+                if (funcCount <= 8 && i == funcCount) {
+                    funcV.setAdapter(new funcAdapter(list));
+                    ImageView simg = new ImageView(getActivity());
+                    simg.setLayoutParams(new ViewGroup.LayoutParams(20, 20));
+                    simg.setPadding(5, 5, 5, 5);
+                        simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.RED).sizeDp(30));
+                    funcimageViews.add(simg);
+                    func_ind.addView(simg);
+                } else if (i > 1 && i % 8 == 0) {
+                    funcV = new RecyclerView(getActivity());
+                    funcV.setLayoutParams(params);
+                    funcV.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+                    views.add(funcV);
+                    funcV.setAdapter(new funcAdapter(list));
+                    list.clear();
+                    ImageView simg = new ImageView(getActivity());
+                    simg.setLayoutParams(new ViewGroup.LayoutParams(20, 20));
+                    simg.setPadding(5, 5, 5, 5);
+                    simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.WHITE).sizeDp(30));
+                    funcimageViews.add(simg);
+                    func_ind.addView(simg);
+                }
+            }
+        func_pager.setAdapter(new AdvAdapter(views));
+        func_pager.setOnPageChangeListener(new GuidePageChangeListener());
+        adv_pager.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_MOVE:
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        return false;
+                    default:
+                        return false;
+                }
+            }
+        });
+    }
+
+    class funcClick implements View.OnClickListener {
+        FuncPage func;
+
+        public funcClick(FuncPage _func) {
+            func = _func;
+        }
+
+        @Override
+        public void onClick(View v) {
+            try {
+                if (func.gettype_id().equals("2011")) {
+                    if (SystemUtils.getIsLogin())
+                        //第一次开门
+                        if (lastOpent == null) {
+                            communityOpt(20, String.format("%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID()));
+                            lastOpent = Calendar.getInstance();
+                        } else {
+                            thisOpen = Calendar.getInstance();
+                            long span = thisOpen.getTimeInMillis() - lastOpent.getTimeInMillis();
+                            //判断上次点击开门和本次点击开门时间间隔是否大于5秒钟
+                            if (span > 5000) {
+                                communityOpt(20, String.format("%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID()));
+                                lastOpent = Calendar.getInstance();
+                            } else {
+                                generalhelper.ToastShow(getActivity(), "请在" + ((5000 - span) / 1000 + 1) + "秒后操作");
+                            }
+                        }
+                    else {
+                        startActivityIfLogin(null, resultCodes.REMOTEOPEN);
+                    }
+                } else {
+                    Intent intent = new Intent();
+                    intent.setAction("Page." + func.gettype_id());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("func", func);
+                    intent.putExtras(bundle);
+                    if (isActionInstalled(intent))
+                        startActivityIfLogin(intent, 0);
+                    else
+                        generalhelper.ToastShow(getActivity(), "即将上线~");
+                }
+            } catch (ActivityNotFoundException anfe) {
+                generalhelper.ToastShow(getActivity(), "即将上线~");
+                return;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void loadSqhdData() {
@@ -495,22 +593,28 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                         if (results[0].equals("0")) {
                             LOAD_SUCCESS = true;
                             String datastr = results[2];
-                            if (results[1].equals("1001")) {
+                            if (results[1].equals("100102")) {
+                                if (datastr.length() > 0) {
+                                    funcPages = funcPageDal.getList(datastr);
+                                    loadFuncData();
+                                    if (frame.platform != 0) {
+                                        addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 100102, "@id=22", "22"), frame.strData);
+                                    }
+                                }
+                            } else if (results[1].equals("1001")) {
                                 if (datastr.length() > 0) {
                                     frontItems = frontItemDal.getList(datastr);
                                     loadSqhdData();
-                                    if (frame.platform!=0)
-                                    {
-                                        addCache("40"+ String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1001, "@id=22", "22"),frame.strData);
+                                    if (frame.platform != 0) {
+                                        addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1001, "@id=22", "22"), frame.strData);
                                     }
                                 }
                             } else if (results[1].equals("1002")) {
                                 if (datastr.length() > 0) {
                                     advertises = advertiseDal.getList(results[2]);
                                     loadGuanggaoData();
-                                    if (frame.platform!=0)
-                                    {
-                                        addCache("40"+ String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1002, "@id=22", "22"),frame.strData);
+                                    if (frame.platform != 0) {
+                                        addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1002, "@id=22", "22"), frame.strData);
                                     }
                                 }
                             } else if (results[1].equals("1020")) {
@@ -531,7 +635,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         SystemUtils.setProperty(property);
                                         SystemUtils.setFname(Fname);
                                         txt_xiaoqu.setText(village);
-                                        if (frame.platform!=0) {
+                                        if (frame.platform != 0) {
                                             addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1020, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), frame.strData);
                                         }
                                     } catch (JSONException e) {
@@ -541,8 +645,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                     }
                                 }
                             }
-                            if (frame.platform != 0&&datastr!=null&&datastr.length()>0) {
-                                addCache(results[1] ,datastr);
+                            if (frame.platform != 0 && datastr != null && datastr.length() > 0) {
+                                addCache(results[1], datastr);
                             }
                         }
                     }
@@ -689,9 +793,35 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                 .setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.LTGRAY).sizeDp(20));
                     }
                 }
-                what.getAndSet(arg0);
+               // what.getAndSet(arg0);
             }
 
+        }
+
+    }
+
+    private final class funcPageChangeListener implements ViewPager.OnPageChangeListener {
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+        }
+
+        @Override
+        public void onPageSelected(int arg0) {
+                for (int i = 0; i < funcimageViews.size(); i++) {
+                    funcimageViews.get(arg0).setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.RED).sizeDp(20));
+                    if (arg0 != i) {
+                        funcimageViews.get(i)
+                                .setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.LTGRAY).sizeDp(20));
+                    }
+                }
+                what.getAndSet(arg0);
         }
 
     }
@@ -743,5 +873,45 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         public void startUpdate(View arg0) {
 
         }
+    }
+
+    private class funcAdapter extends RecyclerView.Adapter<funcAdapter.ViewHolder> {
+
+        List<FuncPage> list;
+
+        public funcAdapter(List<FuncPage> _lst) {
+            list = _lst;
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ViewHolder(mLayoutInflater.inflate(R.layout.front_func_view, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, final int position) {
+            FuncPage funcPage = list.get(position);
+            ImageLoader.bindBitmap(funcPage.geticon_url(), holder.funcicon);
+            holder.functxt.setText(funcPage.getview_title());
+            //holder.itemView.setOnClickListener(new funcClick(funcPage));
+            holder.funcicon.setOnClickListener(new funcClick(funcPage));
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            ImageView funcicon;
+            TextView functxt;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                funcicon = (ImageView) itemView.findViewById(R.id.func_icon);
+                functxt = (TextView) itemView.findViewById(R.id.func_txt);
+            }
+        }
+
     }
 }

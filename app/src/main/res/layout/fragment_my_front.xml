@@ -75,220 +75,25 @@
             android:layout_height="@dimen/front_msg_layout_height"
             android:layout_below="@id/ll_guanggao"
             android:layout_marginTop="@dimen/front_item_margin_top"
+            android:gravity="center"
             android:background="@color/solid_white"
             android:orientation="vertical">
 
-            <LinearLayout
+            <android.support.v4.view.ViewPager
+                android:layout_marginTop="-10dp"
+                android:id="@+id/func_pager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/l_yangguangyubei"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="1px"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/yangguangyubei" />
-
-                    <TextView
-                        android:id="@+id/title_yangguangyubei"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="政务进家"
-                        android:textSize="@dimen/front_text_size" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/l_wuyeliuyan"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="1px"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/wuyeliuyan" />
-
-                    <TextView
-                        android:id="@+id/title_wuyeliuyan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="投诉物业"
-                        android:textSize="@dimen/front_text_size" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/l_shequgonggao"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="1px"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/shequgonggao" />
-
-                    <TextView
-                        android:id="@+id/title_shequgonggao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="社区公告"
-                        android:textSize="@dimen/front_text_size" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/l_remoteopen"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="1px"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/yuanchengkaimen" />
-
-                    <TextView
-                        android:id="@+id/title_yuanchengkaimen"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="手机钥匙"
-                        android:textSize="@dimen/front_text_size" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+                android:layout_height="match_parent" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/l_expressin"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="1px"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/shenxingkuaidi" />
-
-                    <TextView
-                        android:id="@+id/title_yunyan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="神行快递"
-                        android:textSize="@dimen/front_text_size" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/l_expressout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="1px"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/shangmenqujian" />
-
-                    <TextView
-                        android:id="@+id/title_yunkong"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="上门取件"
-                        android:textSize="@dimen/front_text_size" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/l_hujiaowuye"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="1px"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/hujiaowuye" />
-
-                    <TextView
-                        android:id="@+id/title_hujiaowuye"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="呼叫物业"
-                        android:textSize="@dimen/front_text_size" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/l_call_mall"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="1px"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/twentyminarraiv" />
-
-                    <TextView
-                        android:id="@+id/title_yijianhujiao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="20分钟速达"
-                        android:textSize="@dimen/front_text_size" />
-                </LinearLayout>
-
-
-            </LinearLayout>
+                android:id="@+id/func_ind"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/func_pager"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="-25px"
+                android:gravity="right"
+                android:orientation="horizontal" />
 
         </LinearLayout>
 

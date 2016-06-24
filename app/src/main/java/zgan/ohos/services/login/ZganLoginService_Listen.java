@@ -36,12 +36,12 @@ public class ZganLoginService_Listen implements Runnable {
                 if (frame.subCmd == 1 && results[0].equals("0")) {
                     SystemUtils.setIsLogin(true);
                     ZganLoginService.toGetServerData(3, 0, PreferenceUtil.getUserName(), myhandler);
-                    Log.v("TAG", "ZganLoginService自动重新登录成功");
+                    Log.i(TAG, "ZganLoginService自动重新登录成功");
                 } else if (frame.subCmd == 3) {
                     String communityIP = PreferenceUtil.getCommunityIP();
                     int communityPort = PreferenceUtil.getCommunityPORT();
                     if (results.length == 3 && results[0].equals("0")) {
-                        Log.v("TAG", "ZganLoginService小区ID：" + results[1]);
+                        Log.i(TAG, "ZganLoginService小区ID：" + results[1]);
                         //String[] ipport = results[1].split(":");
                         if (!communityIP.equals(NetUtils.getIp(results[1])) || communityPort != Integer.parseInt(results[2])) {
                             PreferenceUtil.setCommunityIP(NetUtils.getIp(results[1]));

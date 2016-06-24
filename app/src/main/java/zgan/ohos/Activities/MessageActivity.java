@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import zgan.ohos.Dals.MessageDal;
+import zgan.ohos.Models.FuncPage;
 import zgan.ohos.Models.Message;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
@@ -34,6 +35,7 @@ public class MessageActivity extends myBaseActivity {
     int pageindex = 0;
     //int pagesize = 20;
     int msgtype = 0;
+    FuncPage funcPage;
     myAdapter adapter;
     //boolean[] isopen;
     LinearLayoutManager mLayoutManager;
@@ -70,7 +72,11 @@ public class MessageActivity extends myBaseActivity {
 
     @Override
     protected void initView() {
-        msgtype = getIntent().getIntExtra("msgtype", 0);
+        funcPage = (FuncPage) getIntent().getSerializableExtra("func");
+        if (funcPage.getpage_id().equals("1"))
+            msgtype = 0;
+        else if (funcPage.getpage_id().equals("4"))
+            msgtype = 3;
         messageDal = new MessageDal();
         mLayoutManager = new LinearLayoutManager(this);
         setContentView(R.layout.lo_activity_message);
@@ -114,7 +120,7 @@ public class MessageActivity extends myBaseActivity {
                     int totalItemCount = mLayoutManager.getItemCount();
                     //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
                     // dy>0 表示向下滑动
-                    if (lastVisibleItem == totalItemCount - 1&&isLoadingMore==false) {
+                    if (lastVisibleItem == totalItemCount - 1 && isLoadingMore == false) {
                         loadMoreData();//这里多线程也要手动控制isLoadingMore
                         isLoadingMore = true;
                     }
@@ -164,14 +170,13 @@ public class MessageActivity extends myBaseActivity {
                     if (f.subCmd == 26) {
                         if (results.length == 2 && results[0].equals("0")) {
                             try {
-                                if (pageindex==0)
-                                {
-                                    msglst=new ArrayList<>();
+                                if (pageindex == 0) {
+                                    msglst = new ArrayList<>();
                                 }
                                 if (f.platform != 0) {
                                     addCache("26" + String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex), f.strData);
                                 }
-                                List<Message> msgs=messageDal.GetMessages(results[1]);
+                                List<Message> msgs = messageDal.GetMessages(results[1]);
                                 msglst.addAll(msgs);
                                 handler.post(new Runnable() {
                                     @Override
@@ -197,13 +202,13 @@ public class MessageActivity extends myBaseActivity {
 
     void bindData() {
         date = new Date();
-        if (adapter==null) {
+        if (adapter == null) {
             adapter = new myAdapter();
             rvmsg.setAdapter(adapter);
             rvmsg.setLayoutManager(mLayoutManager);
         } else
             adapter.notifyDataSetChanged();
-        isLoadingMore=false;
+        isLoadingMore = false;
 //        Animation animation = AnimationUtils.loadAnimation(this, R.anim.enter);
 //
 //        //得到一个LayoutAnimationController对象；

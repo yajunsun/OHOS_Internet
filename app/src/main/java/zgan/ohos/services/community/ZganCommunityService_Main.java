@@ -406,7 +406,7 @@ public class ZganCommunityService_Main implements Runnable {
 
                             toStopMainData();
 
-                            Log.i("ZganJTWSService_Main", "接收超时");
+                            Log.i(TAG, "接收超时");
                         } else {
                             intTime++;
                         }

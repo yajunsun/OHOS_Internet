@@ -74,14 +74,6 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 finish();
             }
         });
-        expresses = (RecyclerView) findViewById(R.id.expresses);
-        txt_time = (TextView) findViewById(R.id.txt_time);
-        btn_immediate = (TextView) findViewById(R.id.btn_immediate);
-        btn_immediate.setOnClickListener(this);
-        btn_time_select = findViewById(R.id.btn_time_select);
-        btn_time_select.setOnClickListener(this);
-        btncheck = (Button) findViewById(R.id.btncheck);
-        btncheck.setOnClickListener(this);
     }
 
     protected void loadData() {
