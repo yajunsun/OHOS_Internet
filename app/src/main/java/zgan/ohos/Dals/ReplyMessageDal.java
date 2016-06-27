@@ -10,9 +10,9 @@ import zgan.ohos.Models.ReplyMessage;
 public class ReplyMessageDal extends ZGbaseDal<ReplyMessage> {
     public List<ReplyMessage> getReplyMessages(String xmlString)
     {
-        return getModelListfromXML(xmlString,new ReplyMessage());
+        return getModelList(xmlString,new ReplyMessage());
     }
     public  ReplyMessage getSingleReplyMessage(String xmlString) {
-        return  GetSingleModelfromXML(xmlString, new ReplyMessage());
+        return  GetSingleModel(xmlString, new ReplyMessage());
     }
 }

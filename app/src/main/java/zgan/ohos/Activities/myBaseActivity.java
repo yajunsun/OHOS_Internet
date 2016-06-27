@@ -61,11 +61,11 @@ public abstract class myBaseActivity extends AppCompatActivity {
                 || Integer.parseInt(Build.VERSION.SDK) == 14) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                     .detectDiskReads().detectDiskWrites().detectNetwork() // or
-                            // .detectAll()
-                            // for
-                            // all
-                            // detectable
-                            // problems
+                    // .detectAll()
+                    // for
+                    // all
+                    // detectable
+                    // problems
                     .penaltyLog().build());
             StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                     .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
@@ -144,4 +144,41 @@ public abstract class myBaseActivity extends AppCompatActivity {
         unregisterReceiver(serviceReceiver);
         Log.v(TAG, "服务错误监听注销");
     }
+
+    protected final static String P_FRONT = "1001";
+    protected final static String P_ADVER = "1002";
+    protected final static String P_CAKELIST = "1003";
+    protected final static String P_CAKEDETAIL = "1004";
+    protected final static String P_VIGTABLE ="1005";
+    protected final static String P_HOMESPECAIL ="1006";
+    protected final static String P_HIGHTSPECAIL ="1007";
+    protected final static String P_LUANDRY ="1008";
+    protected final static String P_SUPERMARKAT ="1009";
+    protected final static String P_HOUSEHOLD ="1010";
+    protected final static String P_CLEAN ="1011";
+    // protected final static String       1012";
+    protected final static String P_CAKEBOOK ="1013";
+    protected final static String P_COMMITORDER ="1015";
+    protected final static String P_ORDERLIST ="1016";
+    //    protected final static String   P_ORDERDETAIL     1017";
+//    protected final static String        1018";
+//    protected final static String       1019";
+//    protected final static String       1020";
+    protected final static String P_ICECREAM ="1021";
+    protected final static String P_INTEGERINFO ="1022";
+    protected final static String P_INTEGERUSEINFO ="1023";
+    protected final static String P_INTEGER ="1024";
+
+    protected final static String P_FUNCPAGE ="100102";
+    protected final static String P_GVNEWS ="2001";
+    protected final static String P_ZONENEWS ="2002";
+    protected final static String P_NEWDETAIL ="2003";
+    protected final static String P_LEAVEMSGLIST ="2004";
+    protected final static String P_LEAVEMSGDETAIL ="2005";
+    protected final static String P_REPLYMSG ="2006";
+    protected final static String P_LEAVEMSG ="2007";
+    protected final static String P_EXPRESSOUT ="2008";
+    protected final static String P_EXPRESSIN ="2009";
+    protected final static String P_CALLOUT ="2010";
+
 }

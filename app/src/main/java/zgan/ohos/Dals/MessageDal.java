@@ -10,10 +10,10 @@ import zgan.ohos.Models.Message;
 public class MessageDal extends ZGbaseDal<Message>{
 
     public List<Message> GetMessages(String xmlString) {
-        return getModelListfromXML(xmlString,new Message());
+        return getModelList(xmlString,new Message());
     }
 
     public Message GetMessage(String xmlString) {
-        return  GetSingleModelfromXML(xmlString,new Message());
+        return  GetSingleModel(xmlString,new Message());
     }
 }

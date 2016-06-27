@@ -305,56 +305,67 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     private void loadFuncData() {
         List<View> views = new ArrayList<>();
         int funcCount = funcPages.size();
-
+        int pageCount = 0;
+        if (funcCount % 8 != 0)
+            pageCount = funcCount / 8 + 1;
+        else pageCount = funcCount / 8;
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        RecyclerView funcV = new RecyclerView(getActivity());
-        funcV.setLayoutParams(params);
-        funcV.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-        views.add(funcV);
-        List<FuncPage> list = new ArrayList<>();
-        if (funcCount > 0)
-            for (int i = 1; i <= funcCount; i++) {
-                list.add(funcPages.get(i - 1));
-                if (funcCount <= 8 && i == funcCount) {
-                    funcV.setAdapter(new funcAdapter(list));
-                    ImageView simg = new ImageView(getActivity());
-                    simg.setLayoutParams(new ViewGroup.LayoutParams(20, 20));
-                    simg.setPadding(5, 5, 5, 5);
-                        simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.RED).sizeDp(30));
-                    funcimageViews.add(simg);
-                    func_ind.addView(simg);
-                } else if (i > 1 && i % 8 == 0) {
-                    funcV = new RecyclerView(getActivity());
-                    funcV.setLayoutParams(params);
-                    funcV.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-                    views.add(funcV);
-                    funcV.setAdapter(new funcAdapter(list));
-                    list.clear();
-                    ImageView simg = new ImageView(getActivity());
-                    simg.setLayoutParams(new ViewGroup.LayoutParams(20, 20));
-                    simg.setPadding(5, 5, 5, 5);
-                    simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.WHITE).sizeDp(30));
-                    funcimageViews.add(simg);
-                    func_ind.addView(simg);
+        for (int i = 0; i < pageCount; i++) {
+            List<FuncPage> fps = new ArrayList<>();
+            if (funcCount > 8 && i < pageCount - 1) {
+                int b = i * 8;
+                int e = (i + 1) * 8;
+                for (int j = b; j < e; j++) {
+                    fps.add(funcPages.get(j));
+                }
+            } else if (funcCount <= 8) {
+                for (int j = 0; j < funcCount; j++) {
+                    fps.add(funcPages.get(j));
+                }
+            } else if (i == pageCount - 1) {
+                int l = funcCount % 8;
+                for (int j = funcCount - l; j < funcCount; j++) {
+                    fps.add(funcPages.get(j));
                 }
             }
-        func_pager.setAdapter(new AdvAdapter(views));
-        func_pager.setOnPageChangeListener(new GuidePageChangeListener());
-        adv_pager.setOnTouchListener(new View.OnTouchListener() {
+            RecyclerView funcV = new RecyclerView(getActivity());
+            funcV.setLayoutParams(params);
+            funcV.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+            funcV.setAdapter(new funcAdapter(fps));
+            views.add(funcV);
+            ImageView simg = new ImageView(getActivity());
+            simg.setLayoutParams(new ViewGroup.LayoutParams(20, 20));
+            simg.setPadding(5, 5, 5, 5);
+            simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.RED).sizeDp(30));
+            funcimageViews.add(simg);
+            func_ind.addView(simg);
+        }
+        func_pager.setAdapter(new
 
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                    case MotionEvent.ACTION_MOVE:
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        return false;
-                    default:
-                        return false;
-                }
-            }
-        });
+                AdvAdapter(views)
+
+        );
+        func_pager.setOnPageChangeListener(new
+
+                funcPageChangeListener()
+
+        );
+        adv_pager.setOnTouchListener(new View.OnTouchListener()
+                                     {
+                                         @Override
+                                         public boolean onTouch(View v, MotionEvent event) {
+                                             switch (event.getAction()) {
+                                                 case MotionEvent.ACTION_DOWN:
+                                                 case MotionEvent.ACTION_MOVE:
+                                                     return true;
+                                                 case MotionEvent.ACTION_UP:
+                                                     return false;
+                                                 default:
+                                                     return false;
+                                             }
+                                         }
+                                     }
+        );
     }
 
     class funcClick implements View.OnClickListener {
@@ -793,7 +804,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                 .setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.LTGRAY).sizeDp(20));
                     }
                 }
-               // what.getAndSet(arg0);
+                // what.getAndSet(arg0);
             }
 
         }
@@ -814,14 +825,14 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
         @Override
         public void onPageSelected(int arg0) {
-                for (int i = 0; i < funcimageViews.size(); i++) {
-                    funcimageViews.get(arg0).setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.RED).sizeDp(20));
-                    if (arg0 != i) {
-                        funcimageViews.get(i)
-                                .setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.LTGRAY).sizeDp(20));
-                    }
+            for (int i = 0; i < funcimageViews.size(); i++) {
+                funcimageViews.get(arg0).setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.RED).sizeDp(20));
+                if (arg0 != i) {
+                    funcimageViews.get(i)
+                            .setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.LTGRAY).sizeDp(20));
                 }
-                what.getAndSet(arg0);
+            }
+            what.getAndSet(arg0);
         }
 
     }

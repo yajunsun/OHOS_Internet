@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import zgan.ohos.Dals.LeaveMessageDal;
+import zgan.ohos.Models.FuncPage;
 import zgan.ohos.Models.LeaveMessage;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
@@ -46,6 +47,7 @@ public class LeaveMessages extends myBaseActivity {
     EditText et_input;
     Button btn_commit;
     Button btn_cancel;
+    FuncPage funcPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class LeaveMessages extends myBaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_leave_messages);
+        funcPage=(FuncPage)getIntent().getSerializableExtra("func");
         leavemsgDal = new LeaveMessageDal();
         mLayoutManager = new LinearLayoutManager(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -113,7 +116,8 @@ public class LeaveMessages extends myBaseActivity {
                 } else {
                     btn_commit.setEnabled(false);
                     PreferenceUtil.getSID();
-                    ZganCommunityService.toGetServerData(29, 0, String.format("%s\t%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID(), input), handler);
+                    //ZganCommunityService.toGetServerData(29, 0, String.format("%s\t%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID(), input), handler);
+                    ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_LEAVEMSG, String.format("@id=22,@account=%s,@q_type=1,@q_content=%s",PreferenceUtil.getUserName(),input), "22"), handler);
                 }
             }
         });
@@ -143,7 +147,8 @@ public class LeaveMessages extends myBaseActivity {
             refreshview.setRefreshing(true);
             et_input.setText("");
             pageindex++;
-            ZganCommunityService.toGetServerData(31, 0, String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex), handler);
+            //ZganCommunityService.toGetServerData(31, 0, String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@page_id=%s,@account,@page=%s",funcPage.getpage_id(),PreferenceUtil.getUserName(), pageindex), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -153,7 +158,8 @@ public class LeaveMessages extends myBaseActivity {
         refreshview.setRefreshing(true);
         //isLoadingMore = false;
         //小区ID\t帐号\t消息类型ID\t开始时间\t结束时间
-        ZganCommunityService.toGetServerData(31, 0, String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex), handler);
+        //ZganCommunityService.toGetServerData(31, 0, String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@page_id=%s,@account,@page=%s",funcPage.getpage_id(),PreferenceUtil.getUserName(),pageindex), "22"), handler);
     }
 
     Handler handler = new Handler() {
@@ -168,22 +174,23 @@ public class LeaveMessages extends myBaseActivity {
                     Frame f = (Frame) msg.obj;
                     //String result = f.strData;
                     String[] results = f.strData.split("\t");
-                    if (f.subCmd == 29) {
-                        addDialog.dismiss();
-                        loadData();
-                        btn_commit.setEnabled(true);
-                    }
-                    if (f.subCmd == 31) {
-                        if (results.length == 2 && results[0].equals("0")) {
+                    if (f.subCmd == 40) {
+                        if (results[0].equals("0") && results[1].equals(P_LEAVEMSG)&&results.length>2) {
+                            addDialog.dismiss();
+                            loadData();
+                            btn_commit.setEnabled(true);
+                        }
+                        else if ( results[0].equals("0") && results[1].equals(funcPage.gettype_id())&&results.length>2) {
                             try {
-                                String xmlstr = results[1].substring(results[1].indexOf("<li>"), results[1].length());
+                                //String xmlstr = results[1].substring(results[1].indexOf("<li>"), results[1].length());
                                 if (pageindex == 0) {
                                     msglst = new ArrayList<>();
                                 }
                                 if (f.platform != 0) {
-                                    addCache("31" + String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex), f.strData);
+                                    //addCache("31" + String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex), f.strData);
+                                    addCache("40"+ String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@page_id=%s,@account,@page=%s",funcPage.getpage_id(),PreferenceUtil.getUserName(),pageindex), "22"),f.strData);
                                 }
-                                List<LeaveMessage> msgs=leavemsgDal.getLeaveMessages(xmlstr);
+                                List<LeaveMessage> msgs=leavemsgDal.getLeaveMessages(results[2]);
                                 msglst.addAll(msgs);
                                 handler.post(new Runnable() {
                                     @Override

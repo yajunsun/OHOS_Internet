@@ -11,9 +11,9 @@ import zgan.ohos.Models.Message;
 public class LeaveMessageDal extends ZGbaseDal<LeaveMessage>{
      public List<LeaveMessage>getLeaveMessages(String xmlString)
      {
-         return getModelListfromXML(xmlString,new LeaveMessage());
+         return getModelList(xmlString,new LeaveMessage());
      }
     public  LeaveMessage getSingleLeaveMessage(String xmlString) {
-        return  GetSingleModelfromXML(xmlString, new LeaveMessage());
+        return  GetSingleModel(xmlString, new LeaveMessage());
     }
 }

@@ -55,18 +55,19 @@ public class ReplyMessages extends myBaseActivity {
                 case 1:
                     Frame f = (Frame) msg.obj;
                     String result = f.strData;
-                    Log.i(TAG,result);
+                    Log.i(TAG, result);
                     String[] results = result.split("\t");
-                    if (f.subCmd == 32) {
-                        if (results.length == 2 && results[0].equals("0")) {
-                            String xmlstr = results[1].substring(results[1].indexOf("<li>"), results[1].length());
+                    if (f.subCmd == 40) {
+                        if (results.length > 2 && results[1].equals(P_LEAVEMSGDETAIL)) {
+                            //String xmlstr = results[1].substring(results[1].indexOf("<li>"), results[1].length());
                             if (pageindex == 0) {
                                 messagelist = new ArrayList<>();
                             }
                             if (f.platform != 0) {
-                                addCache("32" + String.format("%s\t%d\t%d", PreferenceUtil.getUserName(), sessionId, pageindex), f.strData);
+                                //addCache("32" + String.format("%s\t%d\t%d", PreferenceUtil.getUserName(), sessionId, pageindex), f.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 2005, String.format("@id=22,@msg_id", sessionId), "22"), f.strData);
                             }
-                            List<ReplyMessage> msgs=replyMsgDal.getReplyMessages(xmlstr);
+                            List<ReplyMessage> msgs = replyMsgDal.getReplyMessages(results[2]);
                             messagelist.addAll(msgs);
                             handler.post(new Runnable() {
                                 @Override
@@ -77,13 +78,13 @@ public class ReplyMessages extends myBaseActivity {
                                 }
                             });
                         }
-                    }
-                    if (f.subCmd == 30) {
-                        if (results[0].equals("0")) {
-                            loadData();
+                        else if (results.length > 2 && results[1].equals(P_REPLYMSG))
+                        {
+                            if (results[0].equals("0")) {
+                                loadData();
+                            }
                         }
                     }
-
                     break;
                 case newitem:
                     //adapter.addNewsItem(message);
@@ -172,7 +173,8 @@ public class ReplyMessages extends myBaseActivity {
             refreshview.setRefreshing(true);
             pageindex++;
             //isLoadingMore = true;
-            ZganCommunityService.toGetServerData(32, 0, String.format("%s\t%d\t%d", PreferenceUtil.getUserName(), sessionId, pageindex), handler);
+            //ZganCommunityService.toGetServerData(32, 0, String.format("%s\t%d\t%d", PreferenceUtil.getUserName(), sessionId, pageindex), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 2005, String.format("@id=22,@msg_id", sessionId), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -181,7 +183,8 @@ public class ReplyMessages extends myBaseActivity {
     private void loadData() {
         pageindex = 0;
         refreshview.setRefreshing(true);
-        ZganCommunityService.toGetServerData(32, 0, String.format("%s\t%d\t%d", PreferenceUtil.getUserName(), sessionId, pageindex), handler);
+        //ZganCommunityService.toGetServerData(32, 0, String.format("%s\t%d\t%d", PreferenceUtil.getUserName(), sessionId, pageindex), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 2005, String.format("@id=22,@msg_id", sessionId), "22"), handler);
     }
 
     @Override
@@ -189,7 +192,8 @@ public class ReplyMessages extends myBaseActivity {
         if (v.getId() == R.id.btnsend) {
             String input = txtinputText.getText().toString().trim();
             if (!input.equals(""))
-                ZganCommunityService.toGetServerData(30, 0, String.format("%s\t%d\t%d\t%s", PreferenceUtil.getUserName(), sessionId, 1, input), handler);
+                //ZganCommunityService.toGetServerData(30, 0, String.format("%s\t%d\t%d\t%s", PreferenceUtil.getUserName(), sessionId, 1, input), handler);
+                ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 2005, String.format("@id=22,@msg_id,@q_type=1,@q_content=%s", sessionId, input), "22"), handler);
         }
     }
 

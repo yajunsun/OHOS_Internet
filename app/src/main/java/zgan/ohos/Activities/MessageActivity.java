@@ -136,7 +136,8 @@ public class MessageActivity extends myBaseActivity {
             refreshview.setRefreshing(true);
             pageindex++;
             //isLoadingMore = true;
-            ZganCommunityService.toGetServerData(26, 0, 2, String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@page_id=%s,@page=%s",funcPage.getpage_id(),pageindex), "22"), handler);
+            //ZganCommunityService.toGetServerData(26, 0, 2, String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex), handler);
             //msglst.addAll(messageDal.GetMessages(pagesize, pageindex, msgtype));
             //adapter.notifyDataSetChanged();
         } catch (Exception ex) {
@@ -151,7 +152,8 @@ public class MessageActivity extends myBaseActivity {
         refreshview.setRefreshing(true);
         //小区ID\t帐号\t消息类型ID\t开始时间\t结束时间
         // ZganLoginService.toGetServerData(26, 0, 2, String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex), handler);
-        ZganCommunityService.toGetServerData(26, 0, 2, String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex), handler);
+        //ZganCommunityService.toGetServerData(26, 0, 2, String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@page_id=%s,@page=%s",funcPage.getpage_id(),pageindex), "22"), handler);
     }
 
     Handler handler = new Handler() {
@@ -167,16 +169,17 @@ public class MessageActivity extends myBaseActivity {
                     Frame f = (Frame) msg.obj;
                     //String result = f.strData;
                     String[] results = f.strData.split("\t");
-                    if (f.subCmd == 26) {
-                        if (results.length == 2 && results[0].equals("0")) {
+                    if (f.subCmd == 40) {
+                        if (results.length >2 && results[0].equals("0")) {
                             try {
                                 if (pageindex == 0) {
                                     msglst = new ArrayList<>();
                                 }
                                 if (f.platform != 0) {
-                                    addCache("26" + String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex), f.strData);
+                                    //addCache("26" + String.format("%s\t%s\t%s\t%s\t%d", PreferenceUtil.getUserName(), msgtype, "2015-01-01", nowdate, pageindex), f.strData);
+                                    addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@page_id=%s,@page=%s",funcPage.getpage_id(),pageindex), "22"),f.strData);
                                 }
-                                List<Message> msgs = messageDal.GetMessages(results[1]);
+                                List<Message> msgs = messageDal.GetMessages(results[2]);
                                 msglst.addAll(msgs);
                                 handler.post(new Runnable() {
                                     @Override
@@ -259,6 +262,11 @@ public class MessageActivity extends myBaseActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(MessageActivity.this, MessageDetailActivity.class);
                     intent.putExtra("msg_id", holder.msg_id);
+                    if (msgtype == 3) {
+                        intent.putExtra("msg_type", holder.txt_msg_type.getText().toString());
+                        intent.putExtra("pub_time", holder.txt_pub_time.getText().toString());
+                    }
+                    intent.putExtra("title",holder.txt_title.getText().toString());
 //                    Bundle bundle=new Bundle();
 //                    bundle.putSerializable("message",msg);
 //                    intent.putExtras(bundle);
