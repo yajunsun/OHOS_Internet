@@ -25,19 +25,19 @@ public class LeaveMessage extends BaseModel implements Serializable {
         return Date;
     }
 
-    public void setq_id(Object value) {
+    public void setmsg_id(Object value) {
         if (value != null) {
             Id = SystemUtils.getIntValue(value.toString());
         }
     }
 
-    public void setq_content(Object value) {
+    public void setcontent(Object value) {
         if (value != null) {
             Content = value.toString();
         }
     }
 
-    public void setdate(Object value) {
+    public void setupdatetime(Object value) {
         if (value != null) {
             Date = value.toString();
         }

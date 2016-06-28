@@ -159,7 +159,7 @@ public class LeaveMessages extends myBaseActivity {
         //isLoadingMore = false;
         //小区ID\t帐号\t消息类型ID\t开始时间\t结束时间
         //ZganCommunityService.toGetServerData(31, 0, String.format("%s\t%d", PreferenceUtil.getUserName(), pageindex), handler);
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@page_id=%s,@account,@page=%s",funcPage.getpage_id(),PreferenceUtil.getUserName(),pageindex), "22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@page_id=%s,@account=%s,@page=%s",funcPage.getpage_id(),PreferenceUtil.getUserName(),pageindex), "22"), handler);
     }
 
     Handler handler = new Handler() {
