@@ -62,6 +62,22 @@
         android:layout_height="match_parent"
         android:layout_above="@id/iv_preview"
         android:layout_below="@id/toolbar"></android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:id="@+id/emptyview"
+        android:background="@color/solid_white"
+        android:layout_width="match_parent"
+        android:layout_above="@id/iv_preview"
+        android:layout_below="@id/toolbar"
+        android:gravity="center"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="没有您的快递哟~"
+            android:textSize="20sp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/iv_expressin"

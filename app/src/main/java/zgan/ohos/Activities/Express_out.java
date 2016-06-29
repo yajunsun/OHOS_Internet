@@ -27,6 +27,7 @@ import java.util.List;
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.HouseHolderServiceDal;
 import zgan.ohos.Models.BaseGoods;
+import zgan.ohos.Models.FuncPage;
 import zgan.ohos.Models.HouseHolderServiceM;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.R;
@@ -57,6 +58,7 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
 
     Dialog bookSelectDialog;
     Dialog paymentSelectDialog;
+    FuncPage funcPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_express_out);
+        funcPage=(FuncPage)getIntent().getSerializableExtra("func");
         iv_prebook = (ImageView) findViewById(R.id.iv_prebook);
         iv_prebook.setOnClickListener(this);
         iv_preview = (ImageView) findViewById(R.id.iv_preview);
@@ -81,20 +84,20 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
         }, 500, 800);
     }
 
-    protected void loadData() {
-        //isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1011, "@id=22", "@22"), handler);
-    }
-
-    public void loadMoreData() {
-        try {
-            //pageindex++;
-            //isLoadingMore = true;
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1011, "@id int", "@22"), handler);
-        } catch (Exception ex) {
-            generalhelper.ToastShow(this, ex.getMessage());
-        }
-    }
+//    protected void loadData() {
+//        //isLoadingMore = false;
+//        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1011, "@id=22", "@22"), handler);
+//    }
+//
+//    public void loadMoreData() {
+//        try {
+//            //pageindex++;
+//            //isLoadingMore = true;
+//            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1011, "@id int", "@22"), handler);
+//        } catch (Exception ex) {
+//            generalhelper.ToastShow(this, ex.getMessage());
+//        }
+//    }
 
     void bindData() {
 //        if (!isLoadingMore) {
@@ -103,13 +106,13 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
 //            rv_cakes.setLayoutManager(mLayoutManager);
 //        } else
 //            adapter.notifyDataSetChanged();
-        if (m != null) {
-            int maxwidth = AppUtils.getWindowSize(this).x;
-            int maxheight = 5 * maxwidth;
-            ivpreview.setMaxWidth(maxwidth);
-            ivpreview.setMaxHeight(maxheight);
-            ImageLoader.bindBitmap(m.getpic_url(), ivpreview, 800, 1000);
-        }
+//        if (m != null) {
+//            int maxwidth = AppUtils.getWindowSize(this).x;
+//            int maxheight = 5 * maxwidth;
+//            ivpreview.setMaxWidth(maxwidth);
+//            ivpreview.setMaxHeight(maxheight);
+//            ImageLoader.bindBitmap(m.getpic_url(), ivpreview, 800, 1000);
+//        }
     }
 
     private Handler handler = new Handler() {
@@ -146,7 +149,7 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
                             handler.sendMessage(msg1);
                         }
                     } else if (results[0].equals("0") && results[1].equals("1015")) {
-                        Toast.makeText(Express_out.this, "订单已提交，工作人员将在20分钟内上门服务~", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Express_out.this, "订单已提交，工作人员将在20分钟内上门取件~", Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }
@@ -248,7 +251,7 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
         ivprebookno = (ImageView) view.findViewById(R.id.ivprebook_no);
         txt_servicetype = (TextView) view.findViewById(R.id.txt_servicetype);
         txt_servicetime = (TextView) view.findViewById(R.id.txt_servicetime);
-        txt_servicetype.setText("服务类型：清洁维修");
+        txt_servicetype.setText("服务类型：上门取件");
         if (order.getdiliver_time() == null || order.getdiliver_time().equals(""))
             txt_servicetime.setText("上门时间：即时上门");
         else
@@ -292,14 +295,14 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
                 break;
             case R.id.ivprebook_ok:
                 List<BaseGoods> goodess = new ArrayList<>();
-                if (m.getspecs().trim().equals(""))
-                    m.setspecs("无");
+                m = new HouseHolderServiceM();
+                m.setspecs("无");
                 goodess.add(m);
                 order.SetGoods(goodess);
                 order.setorder_id(order.generateOrderId());
                 order.setaccount(PreferenceUtil.getUserName());
                 order.settotal(m.getprice());
-                order.setgoods_type(MyOrder.ELECMAINTENANCE);
+                order.setgoods_type(MyOrder.EXPRESSOUT);
                 order.setpay_type(1);
                 order.setstate(1);
 

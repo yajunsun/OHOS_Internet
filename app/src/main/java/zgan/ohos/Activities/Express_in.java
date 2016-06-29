@@ -28,6 +28,7 @@ import java.util.List;
 
 import zgan.ohos.Dals.HouseHolderServiceDal;
 import zgan.ohos.Models.BaseGoods;
+import zgan.ohos.Models.FuncPage;
 import zgan.ohos.Models.HouseHolderServiceM;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.R;
@@ -39,8 +40,8 @@ import zgan.ohos.utils.generalhelper;
 public class Express_in extends myBaseActivity implements View.OnClickListener {
 
     int pageindex = 0;
-    ImageView ivpreview;
-    SwipeRefreshLayout refreshview;
+    ImageView iv_expressin;
+    //SwipeRefreshLayout refreshview;
     HouseHolderServiceM m;
     List<HouseHolderServiceM> list;
     HouseHolderServiceDal dal;
@@ -48,7 +49,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
     RecyclerView expresses;
     GridLayoutManager mLayoutManager;
     myAdapter adapter;
-
+    View emptyview;
     TextView txt_time, btn_immediate;
     View btn_time_select;
     Button btncheck;
@@ -57,7 +58,8 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
     String scheduldate;
     MyOrder order;
 
-    Dialog paymentSelectDialog;
+    Dialog paymentSelectDialog, bookSelectDialog;
+    FuncPage funcPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,11 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_express_in);
+        funcPage=(FuncPage)getIntent().getSerializableExtra("func");
+        iv_expressin = (ImageView) findViewById(R.id.iv_expressin);
+        iv_expressin.setOnClickListener(this);
+        expresses = (RecyclerView) findViewById(R.id.expresses);
+        emptyview = findViewById(R.id.emptyview);
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,24 +81,35 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 finish();
             }
         });
+        dal=new HouseHolderServiceDal();
+        loadData();
     }
 
     protected void loadData() {
         isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1011, "@id=22", "@22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s",PreferenceUtil.getUserName()), "@22"), handler);
     }
 
     public void loadMoreData() {
         try {
             //pageindex++;
             isLoadingMore = true;
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1011, "@id int", "@22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(),  funcPage.gettype_id(), String.format("@id=22,@account=%s",PreferenceUtil.getUserName()), "@22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
     }
 
     void bindData() {
+        if (list == null || list.size() == 0) {
+            iv_expressin.setEnabled(false);
+            iv_expressin.setClickable(false);
+            emptyview.setVisibility(View.VISIBLE);
+        } else {
+            iv_expressin.setEnabled(true);
+            iv_expressin.setClickable(true);
+            emptyview.setVisibility(View.GONE);
+        }
         if (adapter == null) {
             adapter = new myAdapter();
             expresses.setAdapter(adapter);
@@ -112,7 +130,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1011")) {
+                    if (results[0].equals("0") && results[1].equals(P_EXPRESSIN)) {
 
                         try {
                             if (pageindex == 0) {
@@ -120,7 +138,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                             }
                             if (frame.platform != 0) {
 
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1011, "@id=22", "@22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_EXPRESSIN, String.format("@id=22,@account=%s",PreferenceUtil.getUserName()), "@22"), frame.strData);
                             }
                             List<HouseHolderServiceM> hightQualityServiceMs = dal.getList(results[2]);
                             list.addAll(hightQualityServiceMs);
@@ -137,9 +155,9 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                             handler.sendMessage(msg1);
                         }
 
-                        refreshview.setRefreshing(false);
+                        //refreshview.setRefreshing(false);
                     } else if (results[0].equals("0") && results[1].equals("1015")) {
-                        Toast.makeText(Express_in.this, "订单已提交，工作人员将在20分钟内上门服务~", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Express_in.this, "订单已提交，工作人员将在20分钟内上门送件~", Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }
@@ -202,7 +220,34 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
 //                    + ":00");
         }
     };
+    private void buildBookSelection() {
+        bookSelectDialog = new Dialog(this, R.style.transparentFrameWindowStyle);
+        View view = getLayoutInflater().inflate(R.layout.lo_prebook, null, false);
+        txt_time = (TextView) view.findViewById(R.id.txt_time);
+        btn_immediate = (TextView) view.findViewById(R.id.btn_immediate);
+        btn_immediate.setOnClickListener(this);
+        btn_time_select = view.findViewById(R.id.btn_time_select);
+        btn_time_select.setOnClickListener(this);
+        btncheck = (Button) view.findViewById(R.id.btncheck);
+        btncheck.setOnClickListener(this);
+        bookSelectDialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        Window window = bookSelectDialog.getWindow();
+        // 设置显示动画
+        window.setWindowAnimations(R.style.main_menu_animstyle);
+        WindowManager.LayoutParams wl = window.getAttributes();
+        wl.x = 0;
+        wl.y = getWindowManager().getDefaultDisplay().getHeight();
+        // 以下这两句是为了保证按钮可以水平满屏
+        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 
+        // bookSelectDialog
+        bookSelectDialog.onWindowAttributesChanged(wl);
+        // 设置点击外围解散
+        bookSelectDialog.setCanceledOnTouchOutside(true);
+        bookSelectDialog.show();
+    }
     private void buildPaySelection() {
         ImageView ivprebookok, ivprebookno;
         TextView txt_servicetype, txt_servicetime;
@@ -257,14 +302,14 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 break;
             case R.id.ivprebook_ok:
                 List<BaseGoods> goodess = new ArrayList<>();
-                m=new HouseHolderServiceM();
-                    m.setspecs("无");
+                m = new HouseHolderServiceM();
+                m.setspecs("无");
                 goodess.add(m);
                 order.SetGoods(goodess);
                 order.setorder_id(order.generateOrderId());
                 order.setaccount(PreferenceUtil.getUserName());
                 order.settotal(m.getprice());
-                order.setgoods_type(MyOrder.ELECMAINTENANCE);
+                order.setgoods_type(MyOrder.EXPRESSIN);
                 order.setpay_type(1);
                 order.setstate(1);
 
@@ -293,6 +338,10 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 break;
             case R.id.ivprebook_no:
                 paymentSelectDialog.dismiss();
+                break;
+            case R.id.iv_expressin:
+                order=new MyOrder();
+                buildBookSelection();
                 break;
         }
     }

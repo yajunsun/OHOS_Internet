@@ -437,6 +437,8 @@ public class MyOrder extends BaseModel implements Serializable {
     public static final int ELECMAINTENANCE=3;
     public static final int HOUSEHOLDERSERVICE=4;
     public static final int COOKIES=5;
+    public static final int EXPRESSIN=80;
+    public static final int EXPRESSOUT=81;
     @Override
     public MyOrder getnewinstance() {
         return new MyOrder();
