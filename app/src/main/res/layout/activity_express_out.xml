@@ -71,7 +71,7 @@
                 android:layout_height="60dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="-140dp"
+                android:layout_marginTop="@dimen/expressout_button_margintop"
                 android:clickable="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/img_expressout" />

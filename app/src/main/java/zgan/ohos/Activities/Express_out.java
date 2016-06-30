@@ -7,17 +7,20 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.CompoundButtonCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,8 +51,8 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
 //    GridLayoutManager mLayoutManager;
 //    myAdapter adapter;
 
-    TextView txt_time, btn_immediate;
-    View btn_time_select;
+    TextView txt_time, btn_immediate, txt_title;
+    View btn_time_select, llexpresstype;
     Button btncheck;
     private static final int DATE_PICKER_ID = 1;// 日期静态常量
     private static final int TIME_PICKER_ID = 2;// 时间
@@ -59,6 +62,10 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
     Dialog bookSelectDialog;
     Dialog paymentSelectDialog;
     FuncPage funcPage;
+    ToggleButton tbnormal, tboverweight, tboversize;
+
+    final static String TYPE_NORMAL = "普通", TYPE_OVERWEIGHT = "超重", TYPE_OVERSIZE = "超大";
+    ArrayList<String> mExpressType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +75,12 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_express_out);
-        funcPage=(FuncPage)getIntent().getSerializableExtra("func");
+        funcPage = (FuncPage) getIntent().getSerializableExtra("func");
         iv_prebook = (ImageView) findViewById(R.id.iv_prebook);
         iv_prebook.setOnClickListener(this);
         iv_preview = (ImageView) findViewById(R.id.iv_preview);
+        txt_title = (TextView) findViewById(R.id.txt_title);
+        txt_title.setText(funcPage.getview_title());
         int maxw = AppUtils.getWindowSize(this).x;
         int maxh = 2 * maxw;
         iv_preview.setMaxWidth(maxw);
@@ -82,6 +91,13 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
                 ((ImageView) imageView).setImageBitmap(bitmap);
             }
         }, 500, 800);
+        View back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 //    protected void loadData() {
@@ -149,7 +165,7 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
                             handler.sendMessage(msg1);
                         }
                     } else if (results[0].equals("0") && results[1].equals("1015")) {
-                        Toast.makeText(Express_out.this, "订单已提交，工作人员将在20分钟内上门取件~", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Express_out.this, String.format("订单已提交，工作人员将在%s上门取件~", order.getTimeticked()), Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }
@@ -216,6 +232,15 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
     private void buildBookSelection() {
         bookSelectDialog = new Dialog(this, R.style.transparentFrameWindowStyle);
         View view = getLayoutInflater().inflate(R.layout.lo_prebook, null, false);
+        llexpresstype = view.findViewById(R.id.llexpresstype);
+        llexpresstype.setVisibility(View.VISIBLE);
+        tbnormal = (ToggleButton) view.findViewById(R.id.tb_normal);
+        tboverweight = (ToggleButton) view.findViewById(R.id.tb_overweight);
+        tboversize = (ToggleButton) view.findViewById(R.id.tb_oversize);
+
+        tbnormal.setOnCheckedChangeListener(new typeToggle());
+        tboverweight.setOnCheckedChangeListener(new typeToggle());
+        tboversize.setOnCheckedChangeListener(new typeToggle());
         txt_time = (TextView) view.findViewById(R.id.txt_time);
         btn_immediate = (TextView) view.findViewById(R.id.btn_immediate);
         btn_immediate.setOnClickListener(this);
@@ -278,6 +303,36 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
         paymentSelectDialog.show();
     }
 
+    class typeToggle implements CompoundButton.OnCheckedChangeListener {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            switch (buttonView.getId()) {
+                case R.id.tb_normal:
+                    if (tbnormal.isChecked()) {
+                        tboverweight.setChecked(false);
+                        tboversize.setChecked(false);
+                        mExpressType.add(TYPE_NORMAL);
+                    } else
+                        mExpressType.remove(TYPE_NORMAL);
+                    break;
+                case R.id.tb_overweight:
+                    if (tboverweight.isChecked()) {
+                        tbnormal.setChecked(false);
+                        mExpressType.add(TYPE_OVERWEIGHT);
+                    } else
+                        mExpressType.remove(TYPE_OVERWEIGHT);
+                    break;
+                case R.id.tb_oversize:
+                    if (tboversize.isChecked()) {
+                        tbnormal.setChecked(false);
+                        mExpressType.add(TYPE_OVERSIZE);
+                    } else
+                        mExpressType.remove(TYPE_OVERWEIGHT);
+                    break;
+            }
+        }
+    }
+
     @Override
     public void ViewClick(View v) {
         switch (v.getId()) {
@@ -294,15 +349,25 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
                 txt_time.setText("选择时间");
                 break;
             case R.id.ivprebook_ok:
+                if (mExpressType.size() == 0) {
+                    generalhelper.ToastShow(Express_out.this, "请选择货物类型~");
+                    break;
+                }
                 List<BaseGoods> goodess = new ArrayList<>();
                 m = new HouseHolderServiceM();
-                m.setspecs("无");
+                m.setproduct_id(MyOrder.EXPRESSOUT);
+                String spec = "";
+                for (String str : mExpressType
+                        ) {
+                    spec += str + ",";
+                }
+                m.setspecs(spec.substring(0, spec.length() - 1));
                 goodess.add(m);
                 order.SetGoods(goodess);
                 order.setorder_id(order.generateOrderId());
                 order.setaccount(PreferenceUtil.getUserName());
                 order.settotal(m.getprice());
-                order.setgoods_type(MyOrder.EXPRESSOUT);
+                order.setgoods_type(MyOrder.GOODS);
                 order.setpay_type(1);
                 order.setstate(1);
 
@@ -333,8 +398,10 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
                 paymentSelectDialog.dismiss();
                 break;
             case R.id.iv_prebook:
-                order=new MyOrder();
+                order = new MyOrder();
                 buildBookSelection();
+                mExpressType = new ArrayList<>();
+                mExpressType.add(TYPE_NORMAL);
                 break;
         }
     }

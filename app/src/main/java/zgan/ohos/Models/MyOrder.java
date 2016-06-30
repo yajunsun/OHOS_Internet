@@ -431,6 +431,16 @@ public class MyOrder extends BaseModel implements Serializable {
         return builder.toString();
     }
 
+    public String getTimeticked()
+    {
+        if (diliver_time.equals("0"))
+            return "20分钟内";
+        else
+        {
+            return  diliver_time;
+        }
+    }
+
     public static final int GOODS=0;
     public static final int PROLAUNDRY=1;
     public static final int CAKE=2;

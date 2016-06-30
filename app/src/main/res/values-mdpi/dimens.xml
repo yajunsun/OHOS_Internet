@@ -93,4 +93,6 @@
     <!--高端特供、土特产-->
     <dimen name="HightQualityDetail_preview_height">300dp</dimen>
     <dimen name="HightQualityDetail_imgdesc_height">300dp</dimen>
+    <!--上门取件-->
+    <dimen name="expressout_button_margintop">-120dp</dimen>
 </resources>

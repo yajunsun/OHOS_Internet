@@ -3,6 +3,7 @@ package zgan.ohos.Activities;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -50,7 +51,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
     GridLayoutManager mLayoutManager;
     myAdapter adapter;
     View emptyview;
-    TextView txt_time, btn_immediate;
+    TextView txt_time, btn_immediate,txt_title,btn_expressin;
     View btn_time_select;
     Button btncheck;
     private static final int DATE_PICKER_ID = 1;// 日期静态常量
@@ -64,6 +65,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadData();
     }
 
     @Override
@@ -74,6 +76,10 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
         iv_expressin.setOnClickListener(this);
         expresses = (RecyclerView) findViewById(R.id.expresses);
         emptyview = findViewById(R.id.emptyview);
+        txt_title=(TextView)findViewById(R.id.txt_title);
+        txt_title.setText(funcPage.getview_title());
+        btn_expressin=(TextView)findViewById(R.id.btn_expressin);
+        btn_expressin.setOnClickListener(this);
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +88,6 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
             }
         });
         dal=new HouseHolderServiceDal();
-        loadData();
     }
 
     protected void loadData() {
@@ -157,7 +162,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
 
                         //refreshview.setRefreshing(false);
                     } else if (results[0].equals("0") && results[1].equals("1015")) {
-                        Toast.makeText(Express_in.this, "订单已提交，工作人员将在20分钟内上门送件~", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Express_in.this, String.format("订单已提交，工作人员将在%s上门送件~",order.getTimeticked()), Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }
@@ -248,6 +253,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
         bookSelectDialog.setCanceledOnTouchOutside(true);
         bookSelectDialog.show();
     }
+
     private void buildPaySelection() {
         ImageView ivprebookok, ivprebookno;
         TextView txt_servicetype, txt_servicetime;
@@ -303,13 +309,14 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
             case R.id.ivprebook_ok:
                 List<BaseGoods> goodess = new ArrayList<>();
                 m = new HouseHolderServiceM();
+                m.setproduct_id(MyOrder.EXPRESSIN);
                 m.setspecs("无");
                 goodess.add(m);
                 order.SetGoods(goodess);
                 order.setorder_id(order.generateOrderId());
                 order.setaccount(PreferenceUtil.getUserName());
                 order.settotal(m.getprice());
-                order.setgoods_type(MyOrder.EXPRESSIN);
+                order.setgoods_type(MyOrder.GOODS);
                 order.setpay_type(1);
                 order.setstate(1);
 
@@ -342,6 +349,18 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
             case R.id.iv_expressin:
                 order=new MyOrder();
                 buildBookSelection();
+                break;
+            case R.id.btn_expressin:
+                FuncPage msgfp=new FuncPage();
+                msgfp.setview_title("取件留言");
+                msgfp.setpage_id("3");
+                msgfp.settype_id("2004");
+                Intent intent=new Intent();
+                intent.setAction("Page.2004");
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("func",msgfp);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
         }
     }

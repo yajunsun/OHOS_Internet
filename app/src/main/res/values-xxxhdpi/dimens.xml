@@ -90,4 +90,6 @@
     <dimen name="HightQualityDetail_imgdesc_height">400dp</dimen>
     <!--MessageActivity字号-->
     <dimen name="MessageActivity_item_textSize">16sp</dimen>
+    <!--上门取件-->
+    <dimen name="expressout_button_margintop">-140dp</dimen>
 </resources>

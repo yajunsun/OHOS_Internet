@@ -183,7 +183,7 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
                             handler.sendMessage(msg1);
                         }
                     } else if (results[0].equals("0") && results[1].equals("1015")) {
-                        Toast.makeText(ProLaundry.this, "订单已提交，工作人员将在20分钟内上门服务~", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProLaundry.this, String.format("订单已提交，工作人员将在%s上门取衣~",order.getTimeticked()), Toast.LENGTH_LONG).show();
                         finish();
                     }
                     refreshview.setRefreshing(false);

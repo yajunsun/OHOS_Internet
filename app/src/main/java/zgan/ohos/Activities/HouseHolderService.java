@@ -148,7 +148,7 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
                             handler.sendMessage(msg1);
                         }
                     } else if (results[0].equals("0") && results[1].equals("1015")) {
-                        Toast.makeText(HouseHolderService.this, "订单已提交，工作人员将在20分钟内上门服务~", Toast.LENGTH_LONG).show();
+                        Toast.makeText(HouseHolderService.this, String.format("订单已提交，工作人员将在%s上门服务~",order.getTimeticked()), Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }

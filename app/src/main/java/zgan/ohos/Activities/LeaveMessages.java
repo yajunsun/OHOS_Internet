@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -73,6 +74,7 @@ public class LeaveMessages extends myBaseActivity {
             }
         });
         txt_title = (TextView) findViewById(R.id.txt_title);
+        txt_title.setText(funcPage.getview_title());
         rvmsg = (RecyclerView) findViewById(R.id.rv_msg);
         refreshview = (SwipeRefreshLayout) findViewById(R.id.refreshview);
         refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -117,7 +119,7 @@ public class LeaveMessages extends myBaseActivity {
                     btn_commit.setEnabled(false);
                     PreferenceUtil.getSID();
                     //ZganCommunityService.toGetServerData(29, 0, String.format("%s\t%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID(), input), handler);
-                    ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_LEAVEMSG, String.format("@id=22,@account=%s,@q_type=1,@q_content=%s",PreferenceUtil.getUserName(),input), "22"), handler);
+                    ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_LEAVEMSG, String.format("@id=22,@account=%s,@q_type=%s,@q_content=\"%s\"",PreferenceUtil.getUserName(),funcPage.getpage_id(),input), "22"), handler);
                 }
             }
         });
@@ -173,6 +175,7 @@ public class LeaveMessages extends myBaseActivity {
                 case 1:
                     Frame f = (Frame) msg.obj;
                     //String result = f.strData;
+                    Log.i(TAG, f.strData);
                     String[] results = f.strData.split("\t");
                     if (f.subCmd == 40) {
                         if (results[0].equals("0") && results[1].equals(P_LEAVEMSG)&&results.length>2) {

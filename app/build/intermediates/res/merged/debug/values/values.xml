@@ -622,6 +622,7 @@
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
     <dimen name="edittext_height">40dp</dimen>
+    <dimen name="expressout_button_margintop">-120dp</dimen>
     <dimen name="front_ads_height">200dp</dimen>
     <dimen name="header_size">100dp</dimen>
     <item format="float" name="highlight_alpha_material_colored" type="dimen">0.26</item>

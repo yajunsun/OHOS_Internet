@@ -40,5 +40,7 @@
 
     <dimen name="CommitOrder_txt_ordernum">16sp</dimen>
     <dimen name="front_ads_height">200dp</dimen>
+    <!--上门取件-->
+    <dimen name="expressout_button_margintop">-120dp</dimen>
 
 </resources>

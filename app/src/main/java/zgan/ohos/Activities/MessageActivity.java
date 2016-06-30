@@ -90,14 +90,7 @@ public class MessageActivity extends myBaseActivity {
             }
         });
         txt_title = (TextView) findViewById(R.id.txt_title);
-        switch (msgtype) {
-            case 0:
-                txt_title.setText(SHEQUGONGGAO);
-                break;
-            case 3:
-                txt_title.setText(YANGGUANGYUBEI);
-                break;
-        }
+        txt_title.setText(funcPage.getview_title());
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         rvmsg = (RecyclerView) findViewById(R.id.rv_msg);
         refreshview = (SwipeRefreshLayout) findViewById(R.id.refreshview);

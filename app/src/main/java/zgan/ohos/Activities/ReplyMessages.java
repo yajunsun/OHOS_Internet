@@ -193,7 +193,7 @@ public class ReplyMessages extends myBaseActivity {
             String input = txtinputText.getText().toString().trim();
             if (!input.equals(""))
                 //ZganCommunityService.toGetServerData(30, 0, String.format("%s\t%d\t%d\t%s", PreferenceUtil.getUserName(), sessionId, 1, input), handler);
-                ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_REPLYMSG, String.format("@id=22,@msg_id=%s,@q_type=1,@q_content=%s", sessionId, input), "22"), handler);
+                ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_REPLYMSG, String.format("@id=22,@msg_id=%s,@q_type=1,@q_content=\"%s\"", sessionId, input), "22"), handler);
         }
     }
 

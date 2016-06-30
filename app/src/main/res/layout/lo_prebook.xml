@@ -6,8 +6,63 @@
     android:layout_alignParentBottom="true"
     android:gravity="bottom"
     android:orientation="vertical"
+    android:background="@drawable/bg_rect_border"
     android:padding="5dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/llexpresstype"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_rect_border">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|left"
+            android:layout_marginLeft="10dp"
+            android:text="货物类型(务必正确选择)"
+            android:textSize="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <ToggleButton
+                android:id="@+id/tb_normal"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/bg_expresstype"
+                android:checked="true"
+                android:gravity="center"
+                android:textOff="普通"
+                android:textOn="普通" />
+
+            <ToggleButton
+                android:id="@+id/tb_overweight"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/bg_expresstype"
+                android:gravity="center"
+                android:textOff="超重"
+                android:textOn="超重" />
+
+            <ToggleButton
+                android:id="@+id/tb_oversize"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/bg_expresstype"
+                android:gravity="center"
+                android:textOff="超大"
+                android:textOn="超大" />
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,6 +112,7 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/calender" />
         </RelativeLayout>
+
     </LinearLayout>
 
     <Button
