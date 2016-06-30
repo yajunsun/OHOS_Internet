@@ -362,6 +362,8 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
                     spec += str + ",";
                 }
                 m.setspecs(spec.substring(0, spec.length() - 1));
+                m.settitle(funcPage.getview_title());
+                m.setdesc(funcPage.getview_title());
                 goodess.add(m);
                 order.SetGoods(goodess);
                 order.setorder_id(order.generateOrderId());

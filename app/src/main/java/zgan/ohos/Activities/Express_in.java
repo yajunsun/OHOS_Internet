@@ -311,6 +311,8 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 m = new HouseHolderServiceM();
                 m.setproduct_id(MyOrder.EXPRESSIN);
                 m.setspecs("无");
+                m.settitle(funcPage.getview_title());
+                m.setdesc(funcPage.getview_title());
                 goodess.add(m);
                 order.SetGoods(goodess);
                 order.setorder_id(order.generateOrderId());
