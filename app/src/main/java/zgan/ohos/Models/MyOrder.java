@@ -449,6 +449,8 @@ public class MyOrder extends BaseModel implements Serializable {
     public static final int COOKIES=5;
     public static final int EXPRESSIN=80;
     public static final int EXPRESSOUT=81;
+    public static final int GTYPEEXPIN=-1;
+    public static final int GTYPEEXPOUT=-2;
     @Override
     public MyOrder getnewinstance() {
         return new MyOrder();

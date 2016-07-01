@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -27,12 +28,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import zgan.ohos.Dals.ExpressInDal;
 import zgan.ohos.Dals.HouseHolderServiceDal;
 import zgan.ohos.Models.BaseGoods;
+import zgan.ohos.Models.ExpressIn;
 import zgan.ohos.Models.FuncPage;
+import zgan.ohos.Models.HightQualityServiceM;
 import zgan.ohos.Models.HouseHolderServiceM;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.R;
+import zgan.ohos.adapters.RecyclerViewItemSpace;
 import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
@@ -44,14 +49,14 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
     ImageView iv_expressin;
     //SwipeRefreshLayout refreshview;
     HouseHolderServiceM m;
-    List<HouseHolderServiceM> list;
-    HouseHolderServiceDal dal;
+    List<ExpressIn> list;
+    ExpressInDal dal;
     boolean isLoadingMore = false;
     RecyclerView expresses;
-    GridLayoutManager mLayoutManager;
+    LinearLayoutManager mLayoutManager;
     myAdapter adapter;
     View emptyview;
-    TextView txt_time, btn_immediate,txt_title,btn_expressin;
+    TextView txt_time, btn_immediate, txt_title, btn_expressin;
     View btn_time_select;
     Button btncheck;
     private static final int DATE_PICKER_ID = 1;// 日期静态常量
@@ -71,14 +76,15 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_express_in);
-        funcPage=(FuncPage)getIntent().getSerializableExtra("func");
+        funcPage = (FuncPage) getIntent().getSerializableExtra("func");
+        mLayoutManager=new LinearLayoutManager(this);
         iv_expressin = (ImageView) findViewById(R.id.iv_expressin);
         iv_expressin.setOnClickListener(this);
         expresses = (RecyclerView) findViewById(R.id.expresses);
         emptyview = findViewById(R.id.emptyview);
-        txt_title=(TextView)findViewById(R.id.txt_title);
+        txt_title = (TextView) findViewById(R.id.txt_title);
         txt_title.setText(funcPage.getview_title());
-        btn_expressin=(TextView)findViewById(R.id.btn_expressin);
+        btn_expressin = (TextView) findViewById(R.id.btn_expressin);
         btn_expressin.setOnClickListener(this);
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -87,19 +93,19 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 finish();
             }
         });
-        dal=new HouseHolderServiceDal();
+        dal = new ExpressInDal();
     }
 
     protected void loadData() {
         isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s",PreferenceUtil.getUserName()), "@22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "@22"), handler);
     }
 
     public void loadMoreData() {
         try {
             //pageindex++;
             isLoadingMore = true;
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(),  funcPage.gettype_id(), String.format("@id=22,@account=%s",PreferenceUtil.getUserName()), "@22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "@22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -143,10 +149,10 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                             }
                             if (frame.platform != 0) {
 
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_EXPRESSIN, String.format("@id=22,@account=%s",PreferenceUtil.getUserName()), "@22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_EXPRESSIN, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "@22"), frame.strData);
                             }
-                            List<HouseHolderServiceM> hightQualityServiceMs = dal.getList(results[2]);
-                            list.addAll(hightQualityServiceMs);
+                            List<ExpressIn> expressIns = dal.Getlist(results[2]);
+                            list.addAll(expressIns);
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -162,7 +168,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
 
                         //refreshview.setRefreshing(false);
                     } else if (results[0].equals("0") && results[1].equals("1015")) {
-                        Toast.makeText(Express_in.this, String.format("订单已提交，工作人员将在%s上门送件~",order.getTimeticked()), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Express_in.this, String.format("订单已提交，工作人员将在%s上门送件~", order.getTimeticked()), Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }
@@ -225,6 +231,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
 //                    + ":00");
         }
     };
+
     private void buildBookSelection() {
         bookSelectDialog = new Dialog(this, R.style.transparentFrameWindowStyle);
         View view = getLayoutInflater().inflate(R.layout.lo_prebook, null, false);
@@ -263,7 +270,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
         ivprebookno = (ImageView) view.findViewById(R.id.ivprebook_no);
         txt_servicetype = (TextView) view.findViewById(R.id.txt_servicetype);
         txt_servicetime = (TextView) view.findViewById(R.id.txt_servicetime);
-        txt_servicetype.setText("服务类型：清洁维修");
+        txt_servicetype.setText("服务类型："+funcPage.getview_title());
         if (order.getdiliver_time() == null || order.getdiliver_time().equals(""))
             txt_servicetime.setText("上门时间：即时上门");
         else
@@ -318,7 +325,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 order.setorder_id(order.generateOrderId());
                 order.setaccount(PreferenceUtil.getUserName());
                 order.settotal(m.getprice());
-                order.setgoods_type(MyOrder.GOODS);
+                order.setgoods_type(MyOrder.GTYPEEXPIN);
                 order.setpay_type(1);
                 order.setstate(1);
 
@@ -349,18 +356,18 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 paymentSelectDialog.dismiss();
                 break;
             case R.id.iv_expressin:
-                order=new MyOrder();
+                order = new MyOrder();
                 buildBookSelection();
                 break;
             case R.id.btn_expressin:
-                FuncPage msgfp=new FuncPage();
+                FuncPage msgfp = new FuncPage();
                 msgfp.setview_title("取件留言");
                 msgfp.setpage_id("3");
                 msgfp.settype_id("2004");
-                Intent intent=new Intent();
+                Intent intent = new Intent();
                 intent.setAction("Page.2004");
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("func",msgfp);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("func", msgfp);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -376,22 +383,29 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return null;
+            return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_express_in, parent, false));
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-
+            holder.txt_expressname.setText(list.get(position).getkuaidi());
+            holder.txt_expressnum.setText("运单号："+list.get(position).getorder_num());
+            holder.txt_expressintime.setText("到店时间："+list.get(position).gettime());
         }
 
         @Override
         public int getItemCount() {
-            return 0;
+            return list.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
+            TextView txt_expressname, txt_expressnum, txt_expressintime;
+
             public ViewHolder(View itemView) {
                 super(itemView);
+                txt_expressname = (TextView) itemView.findViewById(R.id.txt_expressname);
+                txt_expressnum = (TextView) itemView.findViewById(R.id.txt_expressnum);
+                txt_expressintime = (TextView) itemView.findViewById(R.id.txt_expressintime);
             }
         }
     }

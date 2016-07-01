@@ -276,7 +276,7 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
         ivprebookno = (ImageView) view.findViewById(R.id.ivprebook_no);
         txt_servicetype = (TextView) view.findViewById(R.id.txt_servicetype);
         txt_servicetime = (TextView) view.findViewById(R.id.txt_servicetime);
-        txt_servicetype.setText("服务类型：上门取件");
+        txt_servicetype.setText("服务类型："+funcPage.getview_title());
         if (order.getdiliver_time() == null || order.getdiliver_time().equals(""))
             txt_servicetime.setText("上门时间：即时上门");
         else
@@ -369,7 +369,7 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
                 order.setorder_id(order.generateOrderId());
                 order.setaccount(PreferenceUtil.getUserName());
                 order.settotal(m.getprice());
-                order.setgoods_type(MyOrder.GOODS);
+                order.setgoods_type(MyOrder.GTYPEEXPOUT);
                 order.setpay_type(1);
                 order.setstate(1);
 
