@@ -8,23 +8,28 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ActionMenuView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -37,6 +42,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -71,19 +77,23 @@ import zgan.ohos.utils.resultCodes;
  * Created by yajunsun on 16-2-24.
  */
 public class fg_myfront extends myBaseFragment implements View.OnClickListener {
-    View l_shequgonggao, l_yangguangyubei, l_remoteopen, l_call_mall, l_hujiaowuye, l_wuyeliuyan, l_expressin, l_expressout;
+    LinearLayout ll_shequgrid;
+    RecyclerView rv_grid;
     LinearLayout ll_shequhuodong;
     AlertDialog opendialog;
     ScrollViewWithCallBack sscontent;
     ViewPager adv_pager, func_pager;
     LinearLayout pager_ind, func_ind;
+    LinearLayoutManager gridItemLayoutmanger;
     static final int ADSINDEX = 0;
     boolean isContinue = true;
     List<ImageView> imageViews = new ArrayList<>();
     List<ImageView> funcimageViews = new ArrayList<>();
     private AtomicInteger what = new AtomicInteger(0);
     List<FuncPage> funcPages;
-    List<FrontItem> frontItems;
+    ImageView iv_gridtitle;
+    List<FrontItem> frontItems1;
+    List<FrontItem> frontItems2;
     List<Advertise> advertises;
     FuncPageDal funcPageDal;
     AdvertiseDal advertiseDal;
@@ -92,7 +102,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     Calendar thisOpen;
     Calendar lastCall;
     Calendar thisCall;
-    ImageView iv_zhihuishequ, iv_bottom1, iv_bottom2, iv_bottom3, iv_shequfuwu;
+    ImageView iv_bottom1, iv_bottom2, iv_bottom3;
     Point p;
     TextView txt_xiaoqu;
     boolean LOAD_SUCCESS = false;
@@ -104,7 +114,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mLayoutInflater = inflater;
         View view = inflater.inflate(R.layout.fragment_my_front, container, false);
-        frontItems = new ArrayList<>();
+        frontItems1 = new ArrayList<>();
+        frontItems2 = new ArrayList<>();
         funcPageDal = new FuncPageDal();
         frontItemDal = new FrontItemDal();
         advertiseDal = new AdvertiseDal();
@@ -151,97 +162,21 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                         }
                     }
                     if (SystemUtils.getIsCommunityLogin()) {
-                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 100102, "@id=22", "22"), handler);
-                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1020, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), handler);
-                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1002, "@id=22", "22"), handler);
-                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1001, "@id=22", "22"), handler);
+                        //功能区
+                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FUNCPAGE, "@id=22", "22"), handler);
+                        //用户信息（地址、积分等）
+                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_USERINFO, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), handler);
+                        //顶部滚动广告
+                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_ADVER, "@id=22", "22"), handler);
+                        //专题内容1
+                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES1, "@id=22", "22"), handler);
+                        //专题内容2
+                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES2, "@id=22", "22"), handler);
                     }
                 }
 
             }
         }).start();
-    }
-
-    public void ViewClick(View v) {
-        Intent intent;
-//        switch (v.getId()) {
-//            case R.id.l_shequgonggao:
-//                intent = new Intent(getActivity(), MessageActivity.class);
-//                intent.putExtra("msgtype", 0);
-//                //startActivityWithAnim(getActivity(), intent);
-//                startActivityIfLogin(intent, resultCodes.SOCIALPOST);
-//                break;
-//            case R.id.l_yangguangyubei:
-//                intent = new Intent(getActivity(), MessageActivity.class);
-//                intent.putExtra("msgtype", 3);
-//                //startActivityWithAnim(getActivity(), intent);
-//                startActivityIfLogin(intent, resultCodes.COUNCILPOST);
-//                break;
-//            case R.id.l_remoteopen:
-//                if (SystemUtils.getIsLogin())
-//                    //第一次开门
-//                    if (lastOpent == null) {
-//                        communityOpt(20, String.format("%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID()));
-//                        lastOpent = Calendar.getInstance();
-//                    } else {
-//                        thisOpen = Calendar.getInstance();
-//                        long span = thisOpen.getTimeInMillis() - lastOpent.getTimeInMillis();
-//                        //判断上次点击开门和本次点击开门时间间隔是否大于5秒钟
-//                        if (span > 5000) {
-//                            communityOpt(20, String.format("%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID()));
-//                            lastOpent = Calendar.getInstance();
-//                        } else {
-//                            generalhelper.ToastShow(getActivity(), "请在" + ((5000 - span) / 1000 + 1) + "秒后操作");
-//                        }
-//                    }
-//                else {
-//                    startActivityIfLogin(null, resultCodes.REMOTEOPEN);
-//                }
-//                break;
-//            case R.id.l_call_mall:
-//                //intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:02367176359"));
-//                //communityOpt(37, String.format("%s\t%s", PreferenceUtil.getUserName(), 3));
-//                if (SystemUtils.getIsLogin())
-//                    //第一次开门
-//                    if (lastCall == null) {
-//                        lastCall = Calendar.getInstance();
-//                        intent = new Intent(getActivity(), CallOut.class);
-//                        startActivityWithAnim(getActivity(), intent);
-//                    } else {
-//                        thisCall = Calendar.getInstance();
-//                        long span = thisCall.getTimeInMillis() - lastCall.getTimeInMillis();
-//                        //判断上次点击开门和本次点击开门时间间隔是否大于5秒钟
-//                        if (span > 5000) {
-//                            lastCall = Calendar.getInstance();
-//                            //communityOpt(37, String.format("%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID()));
-//                            intent = new Intent(getActivity(), CallOut.class);
-//                            startActivityWithAnim(getActivity(), intent);
-//                        } else {
-//                            generalhelper.ToastShow(getActivity(), "请在" + ((5000 - span) / 1000 + 1) + "秒后操作");
-//                        }
-//                    }
-//                else {
-//                    startActivityIfLogin(null, resultCodes.REMOTEOPEN);
-//                }
-//                break;
-//            case R.id.l_hujiaowuye:
-//                //intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:02367288312"));
-//                intent = new Intent(getActivity(), CallOut.class);
-//                startActivityIfLogin(intent, resultCodes.DIRECTCALL);
-//                break;
-//            case R.id.l_wuyeliuyan:
-//                intent = new Intent(getActivity(), LeaveMessages.class);
-//                startActivityIfLogin(intent, resultCodes.HOUSEHOLDING_LEAVEMSG);
-//                break;
-//            case R.id.l_expressin:
-//                intent = new Intent(getActivity(), Express_in.class);
-//                startActivityIfLogin(intent, resultCodes.EXPRESSIN);
-//                break;
-//            case R.id.l_expressout:
-//                intent = new Intent(getActivity(), Express_out.class);
-//                startActivityIfLogin(intent, resultCodes.EXPRESSOUT);
-//                break;
-//        }
     }
 
     private void initDialog() {
@@ -270,36 +205,20 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         p = AppUtils.getWindowSize(getActivity());
         txt_xiaoqu = (TextView) v.findViewById(R.id.txt_xiaoqu);
         sscontent = (ScrollViewWithCallBack) v.findViewById(R.id.ll_content);
-//        l_shequgonggao = v.findViewById(R.id.l_shequgonggao);
-//        l_yangguangyubei = v.findViewById(R.id.l_yangguangyubei);
-//        iv_zhihuishequ = (ImageView) v.findViewById(R.id.iv_zhihuishequ);
-//        l_remoteopen = v.findViewById(R.id.l_remoteopen);
-        //       l_call_mall = v.findViewById(R.id.l_call_mall);
-//        l_hujiaowuye = v.findViewById(R.id.l_hujiaowuye);
-//        l_wuyeliuyan = v.findViewById(R.id.l_wuyeliuyan);
         ll_shequhuodong = (LinearLayout) v.findViewById(R.id.ll_shequhuodong);
-//        l_expressin = v.findViewById(R.id.l_expressin);
-//        l_expressout = v.findViewById(R.id.l_expressout);
-
-//        l_call_mall.setOnClickListener(this);
-//        l_remoteopen.setOnClickListener(this);
-//        l_shequgonggao.setOnClickListener(this);
-//        l_yangguangyubei.setOnClickListener(this);
-//        l_hujiaowuye.setOnClickListener(this);
-//        l_wuyeliuyan.setOnClickListener(this);
-//        l_expressin.setOnClickListener(this);
-//        l_expressout.setOnClickListener(this);
-        //iv_shequhuodong = (ImageView) v.findViewById(R.id.iv_shequhuodong);
         adv_pager = (ViewPager) v.findViewById(R.id.adv_pager);
         pager_ind = (LinearLayout) v.findViewById(R.id.pager_ind);
         iv_bottom1 = (ImageView) v.findViewById(R.id.iv_bottom1);
         iv_bottom2 = (ImageView) v.findViewById(R.id.iv_bottom2);
         iv_bottom3 = (ImageView) v.findViewById(R.id.iv_bottom3);
-        iv_shequfuwu = (ImageView) v.findViewById(R.id.iv_shequfuwu);
 
         //功能区
         func_pager = (ViewPager) v.findViewById(R.id.func_pager);
         func_ind = (LinearLayout) v.findViewById(R.id.func_ind);
+        //3+1表格功能区
+        iv_gridtitle = (ImageView) v.findViewById(R.id.iv_gridtitle);
+        ll_shequgrid = (LinearLayout) v.findViewById(R.id.ll_shequgrid);
+        rv_grid = (RecyclerView) v.findViewById(R.id.rv_grid);
     }
 
     private void loadFuncData() {
@@ -350,8 +269,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                 funcPageChangeListener()
 
         );
-        adv_pager.setOnTouchListener(new View.OnTouchListener()
-                                     {
+        adv_pager.setOnTouchListener(new View.OnTouchListener() {
                                          @Override
                                          public boolean onTouch(View v, MotionEvent event) {
                                              switch (event.getAction()) {
@@ -418,29 +336,37 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
     }
 
+    private void loadGridItems() {
+        List<List<FrontItem>> set = new ArrayList<>();
+        gridItemLayoutmanger = new LinearLayoutManager(getActivity());
+        rv_grid.setLayoutManager(gridItemLayoutmanger);
+        int itemcount = frontItems1.size();
+        int lines = itemcount / 3;
+        if (itemcount == lines * 3 + 1) {
+            for (int i = 0; i < lines; i++) {
+                List<FrontItem> frontItems = new ArrayList<>();
+                frontItems.add(frontItems1.get(i * 3 + 1));
+                frontItems.add(frontItems1.get(i * 3 + 2));
+                frontItems.add(frontItems1.get(i * 3 + 3));
+                set.add(frontItems);
+            }
+            ImageLoader.bindBitmap(frontItems1.get(0).getimage_url(), iv_gridtitle);
+
+        }
+        rv_grid.setAdapter(new gridItemAdapter(set));
+        int defaultheight = (int) (AppUtils.getDensity(getActivity()) * 200);
+        int height=Math.max(defaultheight,frontItems1.get(1).getheight());
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        params.addRule(RelativeLayout.BELOW,R.id.ll_messages);
+        ll_shequgrid.setLayoutParams(params);
+    }
+
     private void loadSqhdData() {
         int int_marginTop = getResources().getInteger(R.integer.front_item_marginTop);
         int marginTop = (int) (AppUtils.getDensity(getActivity()) * int_marginTop);
-        final List<FrontItem> bottoms = new ArrayList<>();
-        int count = frontItems.size();
-        if (count > 3) {
-            bottoms.add(frontItems.get(count - 1));
-            bottoms.add(frontItems.get(count - 2));
-            bottoms.add(frontItems.get(count - 3));
-            frontItems.remove(count - 1);
-            frontItems.remove(count - 2);
-            frontItems.remove(count - 3);
-            ImageLoader.bindBitmap(bottoms.get(2).getpic_url(), iv_bottom1, 200, 200);
-            iv_bottom1.setOnClickListener(new goodsClick(bottoms.get(2)));
-            ImageLoader.bindBitmap(bottoms.get(1).getpic_url(), iv_bottom2, 200, 200);
-            iv_bottom2.setOnClickListener(new goodsClick(bottoms.get(1)));
-            ImageLoader.bindBitmap(bottoms.get(0).getpic_url(), iv_bottom3, 200, 200);
-            iv_bottom3.setOnClickListener(new goodsClick(bottoms.get(0)));
-        }
-
         int height = 5 * p.x;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        for (final FrontItem item : frontItems) {
+        for (final FrontItem item : frontItems2) {
             ImageView iv = new ImageView(getActivity());
             iv.setLayoutParams(params);
             iv.setPadding(0, 0, 0, marginTop);
@@ -448,10 +374,9 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             iv.setAdjustViewBounds(true);
             iv.setMaxWidth(p.x);
             iv.setMaxHeight(height);
-            ImageLoader.bindBitmap(item.getpic_url(), iv, p.x, p.x);
+            ImageLoader.bindBitmap(item.getimage_url(), iv, p.x, p.x);
             iv.setOnClickListener(new goodsClick(item));
             ll_shequhuodong.addView(iv);
-            iv_shequfuwu.setVisibility(View.VISIBLE);
         }
         ll_shequhuodong.setMinimumHeight(0);
     }
@@ -467,8 +392,10 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         public void onClick(View v) {
             try {
                 Intent intent = new Intent();
-                intent.setAction("Page." + item.getview_id());
-                intent.putExtra("pageid", item.getview_id());
+                intent.setAction("Page." + item.gettype_id());
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("item",item);
+                intent.putExtras(bundle);
                 if (isActionInstalled(intent))
                     startActivityIfLogin(intent, 0);
                 else
@@ -580,7 +507,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         if (!SystemUtils.getIsCommunityLogin()) {
             opendialog.show();
         } else {
-            ViewClick(view);
+//            ViewClick(view);
         }
     }
 
@@ -604,31 +531,39 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                         if (results[0].equals("0")) {
                             LOAD_SUCCESS = true;
                             String datastr = results[2];
-                            if (results[1].equals("100102")) {
+                            if (results[1].equals(AppUtils.P_FUNCPAGE)) {
                                 if (datastr.length() > 0) {
                                     funcPages = funcPageDal.getList(datastr);
                                     loadFuncData();
                                     if (frame.platform != 0) {
-                                        addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 100102, "@id=22", "22"), frame.strData);
+                                        addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FUNCPAGE, "@id=22", "22"), frame.strData);
                                     }
                                 }
-                            } else if (results[1].equals("1001")) {
+                            } else if (results[1].equals(AppUtils.P_FRONTITMES1)) {
                                 if (datastr.length() > 0) {
-                                    frontItems = frontItemDal.getList(datastr);
+                                    frontItems1 = frontItemDal.getList(datastr);
+                                    loadGridItems();
+                                    if (frame.platform != 0) {
+                                        addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES1, "@id=22", "22"), frame.strData);
+                                    }
+                                }
+                            } else if (results[1].equals(AppUtils.P_FRONTITMES2)) {
+                                if (datastr.length() > 0) {
+                                    frontItems2 = frontItemDal.getList(datastr);
                                     loadSqhdData();
                                     if (frame.platform != 0) {
-                                        addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1001, "@id=22", "22"), frame.strData);
+                                        addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES2, "@id=22", "22"), frame.strData);
                                     }
                                 }
-                            } else if (results[1].equals("1002")) {
+                            } else if (results[1].equals(AppUtils.P_ADVER)) {
                                 if (datastr.length() > 0) {
                                     advertises = advertiseDal.getList(results[2]);
                                     loadGuanggaoData();
                                     if (frame.platform != 0) {
-                                        addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1002, "@id=22", "22"), frame.strData);
+                                        addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_ADVER, "@id=22", "22"), frame.strData);
                                     }
                                 }
-                            } else if (results[1].equals("1020")) {
+                            } else if (results[1].equals(AppUtils.P_USERINFO)) {
                                 if (datastr.length() > 0) {
                                     try {
                                         JSONArray jsonArray = new JSONObject(datastr)
@@ -647,7 +582,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         SystemUtils.setFname(Fname);
                                         txt_xiaoqu.setText(village);
                                         if (frame.platform != 0) {
-                                            addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1020, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), frame.strData);
+                                            addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_USERINFO, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), frame.strData);
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -924,5 +859,42 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             }
         }
 
+    }
+
+    private class gridItemAdapter extends RecyclerView.Adapter<gridItemAdapter.ViewHolder> {
+        List<List<FrontItem>> set;
+
+        public gridItemAdapter(List<List<FrontItem>> _set) {
+            set = _set;
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ViewHolder(mLayoutInflater.inflate(R.layout.lo_front_items1, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            List<FrontItem> frontItems = set.get(position);
+            ImageLoader.bindBitmap(frontItems.get(0).getimage_url(), holder.iv_bottom1, frontItems.get(0).getwidth(), frontItems.get(0).getheight());
+            ImageLoader.bindBitmap(frontItems.get(1).getimage_url(), holder.iv_bottom2, frontItems.get(1).getwidth(), frontItems.get(1).getheight());
+            ImageLoader.bindBitmap(frontItems.get(2).getimage_url(), holder.iv_bottom3, frontItems.get(2).getwidth(), frontItems.get(2).getheight());
+        }
+
+        @Override
+        public int getItemCount() {
+            return set.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            ImageView iv_bottom1, iv_bottom2, iv_bottom3;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                iv_bottom1 = (ImageView) itemView.findViewById(R.id.iv_bottom1);
+                iv_bottom2 = (ImageView) itemView.findViewById(R.id.iv_bottom2);
+                iv_bottom3 = (ImageView) itemView.findViewById(R.id.iv_bottom3);
+            }
+        }
     }
 }

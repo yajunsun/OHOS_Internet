@@ -12,6 +12,7 @@ import zgan.ohos.Dals.MessageDal;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.services.login.ZganLoginService;
+import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
 
@@ -38,7 +39,7 @@ public class MessageDetailActivity extends myBaseActivity {
         toSetProgressText(getResources().getString(R.string.loading));
         toShowProgress();
         //ZganCommunityService.toGetServerData(25, 0,2, String.format("%s\t%s", PreferenceUtil.getUserName(), msg_id), handler);
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_NEWDETAIL, String.format("@id=22,@msg_id=%s", msg_id), "22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_NEWDETAIL, String.format("@id=22,@msg_id=%s", msg_id), "22"), handler);
 //        message=(zgan.ohos.Models.Message)intent.getSerializableExtra("message");
 //        bindData();
     }
@@ -93,7 +94,7 @@ public class MessageDetailActivity extends myBaseActivity {
                                 message = msgdal.GetMessage(results[2]);
                                 if (f.platform != 0) {
                                     //addCache("40"+String.format("%s\t%s", PreferenceUtil.getUserName(), msg_id),f.strData);
-                                    addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_NEWDETAIL, String.format("@id=22,@msg_id=%s", msg_id), "22"), f.strData);
+                                    addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_NEWDETAIL, String.format("@id=22,@msg_id=%s", msg_id), "22"), f.strData);
                                 }
                                 handler.post(new Runnable() {
                                     @Override

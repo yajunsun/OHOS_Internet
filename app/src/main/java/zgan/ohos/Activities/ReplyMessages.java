@@ -26,6 +26,7 @@ import zgan.ohos.Dals.ReplyMessageDal;
 import zgan.ohos.Models.ReplyMessage;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
+import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
@@ -58,14 +59,14 @@ public class ReplyMessages extends myBaseActivity {
                     Log.i(TAG, result);
                     String[] results = result.split("\t");
                     if (f.subCmd == 40) {
-                        if (results.length > 2 && results[1].equals(P_LEAVEMSGDETAIL)) {
+                        if (results.length > 2 && results[1].equals(AppUtils.P_LEAVEMSGDETAIL)) {
                             //String xmlstr = results[1].substring(results[1].indexOf("<li>"), results[1].length());
                             if (pageindex == 0) {
                                 messagelist = new ArrayList<>();
                             }
                             if (f.platform != 0) {
                                 //addCache("32" + String.format("%s\t%d\t%d", PreferenceUtil.getUserName(), sessionId, pageindex), f.strData);
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_LEAVEMSGDETAIL, String.format("@id=22,@msg_id", sessionId), "22"), f.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_LEAVEMSGDETAIL, String.format("@id=22,@msg_id", sessionId), "22"), f.strData);
                             }
                             List<ReplyMessage> msgs = replyMsgDal.getReplyMessages(results[2]);
                             messagelist.addAll(msgs);
@@ -78,7 +79,7 @@ public class ReplyMessages extends myBaseActivity {
                                 }
                             });
                         }
-                        else if (results.length > 2 && results[1].equals(P_REPLYMSG))
+                        else if (results.length > 2 && results[1].equals(AppUtils.P_REPLYMSG))
                         {
                             if (results[0].equals("0")) {
                                 loadData();
@@ -184,7 +185,7 @@ public class ReplyMessages extends myBaseActivity {
         pageindex = 0;
         refreshview.setRefreshing(true);
         //ZganCommunityService.toGetServerData(32, 0, String.format("%s\t%d\t%d", PreferenceUtil.getUserName(), sessionId, pageindex), handler);
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_LEAVEMSGDETAIL, String.format("@id=22,@msg_id=%s", sessionId), "22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_LEAVEMSGDETAIL, String.format("@id=22,@msg_id=%s", sessionId), "22"), handler);
     }
 
     @Override
@@ -193,7 +194,7 @@ public class ReplyMessages extends myBaseActivity {
             String input = txtinputText.getText().toString().trim();
             if (!input.equals(""))
                 //ZganCommunityService.toGetServerData(30, 0, String.format("%s\t%d\t%d\t%s", PreferenceUtil.getUserName(), sessionId, 1, input), handler);
-                ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_REPLYMSG, String.format("@id=22,@msg_id=%s,@q_type=1,@q_content=\"%s\"", sessionId, input), "22"), handler);
+                ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_REPLYMSG, String.format("@id=22,@msg_id=%s,@q_type=1,@q_content=\"%s\"", sessionId, input), "22"), handler);
         }
     }
 

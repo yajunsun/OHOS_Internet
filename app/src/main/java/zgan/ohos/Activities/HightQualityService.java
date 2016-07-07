@@ -22,6 +22,7 @@ import java.util.List;
 
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.HightQualityDal;
+import zgan.ohos.Models.FrontItem;
 import zgan.ohos.Models.HightQualityServiceM;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
@@ -42,20 +43,22 @@ public class HightQualityService extends myBaseActivity {
     List<HightQualityServiceM> list;
     HightQualityDal dal;
     ImageLoader imageLoader;
-    String pageid = "1006";
+    FrontItem item;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_hight_quality_service);
-        pageid = getIntent().getStringExtra("pageid");
-        if (pageid.equals("1006")) {
+        item =(FrontItem) getIntent().getSerializableExtra("item");
+//        if (item.getpage_id().equals("2")) {
+//            TextView t = (TextView) findViewById(R.id.txt_title);
+//            t.setText("土特产");
+//        }
+//        if (item.getpage_id().equals("3")) {
+//            TextView t = (TextView) findViewById(R.id.txt_title);
+//            t.setText("高端特供");
+//        }
             TextView t = (TextView) findViewById(R.id.txt_title);
-            t.setText("土特产");
-        }
-        if (pageid.equals("1007")) {
-            TextView t = (TextView) findViewById(R.id.txt_title);
-            t.setText("高端特供");
-        }
+            t.setText(item.getview_title());
         mLayoutManager = new LinearLayoutManager(HightQualityService.this);
         rc_items = (RecyclerView) findViewById(R.id.rv_items);
         dal = new HightQualityDal();
@@ -103,7 +106,7 @@ public class HightQualityService extends myBaseActivity {
     protected void loadData() {
         //isLoadingMore = false;
         refreshview.setRefreshing(true);
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, "@id=22,@page=0", "22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), "@id=22,@page=0", "22"), handler);
     }
 
     public void loadMoreData() {
@@ -111,7 +114,7 @@ public class HightQualityService extends myBaseActivity {
             pageindex++;
             //isLoadingMore = true;
             refreshview.setRefreshing(true);
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, String.format("@id=22,@page=%s", pageindex), "22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page=%s", pageindex), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -138,14 +141,14 @@ public class HightQualityService extends myBaseActivity {
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals(pageid)&&results.length>2) {
+                    if (results[0].equals("0") && results[1].equals(item.gettype_id())&&results.length>2) {
                         try {
                             if (pageindex == 0) {
                                 list = new ArrayList<>();
                             }
                             if (frame.platform != 0) {
 
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), pageid, String.format("@id=22,@page=%s", pageindex), "22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page=%s", pageindex), "22"), frame.strData);
                             }
                             List<HightQualityServiceM>hightQualityServiceMs = dal.getList(results[2]);
                             list.addAll(hightQualityServiceMs);
@@ -202,7 +205,7 @@ public class HightQualityService extends myBaseActivity {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("hqs", m);
                     intent.putExtras(bundle);
-                    intent.putExtra("pageid", pageid);
+                    intent.putExtra("pageid", item.gettype_id());
                     startActivityWithAnim(intent);
                 }
             });

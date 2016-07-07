@@ -75,8 +75,8 @@
             android:layout_height="@dimen/front_msg_layout_height"
             android:layout_below="@id/ll_guanggao"
             android:layout_marginTop="@dimen/front_item_margin_top"
-            android:gravity="center"
             android:background="@color/solid_white"
+            android:gravity="center"
             android:orientation="vertical">
 
             <android.support.v4.view.ViewPager
@@ -96,84 +96,40 @@
 
         </LinearLayout>
 
+
+        <LinearLayout
+            android:id="@+id/ll_shequgrid"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/ll_messages"
+            android:background="@color/transparent80"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_gridtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2px"
+                android:adjustViewBounds="true" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_shequhuodong"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/ll_messages"
+            android:layout_below="@id/ll_shequgrid"
             android:layout_marginTop="@dimen/front_item_margin_top"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_shequfuwu"
-            android:layout_width="@dimen/front_shequicon_width"
-            android:layout_height="@dimen/front_shequicon_height"
-            android:layout_above="@id/ll_shequhuodong"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/front_shequicon_marginbotton"
-            android:elevation="4dp"
-            android:src="@drawable/shequfuwu"
-            android:visibility="gone" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/front_bottom_item_height"
-            android:layout_below="@id/ll_shequhuodong"
-            android:background="@color/transparent80"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/iv_bottom1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="2px"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:clickable="true"
-                android:scaleType="fitXY" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/iv_bottom2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="2px"
-                    android:layout_marginLeft="2px"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:clickable="true"
-                    android:scaleType="fitXY" />
-
-                <ImageView
-                    android:id="@+id/iv_bottom3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="2px"
-                    android:layout_marginLeft="2px"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:clickable="true"
-                    android:scaleType="fitXY" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/iv_zhihuishequ"
-            android:layout_width="@dimen/front_shequicon_width"
-            android:layout_height="@dimen/front_shequicon_height"
-            android:layout_below="@id/ll_guanggao"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/front_shequicon_margintop"
-            android:elevation="5dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/zhihuishequ" />
-
+           </LinearLayout>
     </RelativeLayout>
 </zgan.ohos.ConstomControls.ScrollViewWithCallBack>
 

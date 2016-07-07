@@ -39,6 +39,7 @@ import zgan.ohos.Models.MyOrder;
 import zgan.ohos.R;
 import zgan.ohos.adapters.RecyclerViewItemSpace;
 import zgan.ohos.services.community.ZganCommunityService;
+import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
@@ -141,7 +142,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals(P_EXPRESSIN)) {
+                    if (results[0].equals("0") && results[1].equals(AppUtils.P_EXPRESSIN)) {
 
                         try {
                             if (pageindex == 0) {
@@ -149,7 +150,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                             }
                             if (frame.platform != 0) {
 
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_EXPRESSIN, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "@22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_EXPRESSIN, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "@22"), frame.strData);
                             }
                             List<ExpressIn> expressIns = dal.Getlist(results[2]);
                             list.addAll(expressIns);

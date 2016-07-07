@@ -96,4 +96,42 @@ public class AppUtils {
         if (mainActivity != null)
             mainActivity.finish();
     }
+    public final static String P_FRONT = "1001";//专题内容（旧）
+    public final static String P_ADVER = "1002";//广告
+    public final static String P_CAKELIST = "1003";
+    public final static String P_CAKEDETAIL = "1004";
+    public final static String P_VIGTABLE ="1005";
+    public final static String P_HOMESPECAIL ="1006";
+    public final static String P_HIGHTSPECAIL ="1007";
+    public final static String P_LUANDRY ="1008";
+    public final static String P_SUPERMARKAT ="1009";
+    public final static String P_HOUSEHOLD ="1010";
+    public final static String P_CLEAN ="1011";
+    // public final static String       1012";
+    public final static String P_CAKEBOOK ="1013";
+    public final static String P_COMMITORDER ="1015";
+    public final static String P_ORDERLIST ="1016";
+    //    public final static String   P_ORDERDETAIL     1017";
+//    public final static String        1018";
+//    public final static String       1019";
+    public final static String P_USERINFO=      "1020";//用户信息（地址、积分等）
+    public final static String P_ICECREAM ="1021";
+    public final static String P_INTEGERINFO ="1022";
+    public final static String P_INTEGERUSEINFO ="1023";
+    public final static String P_INTEGER ="1024";
+    //功能区
+    public final static String P_FUNCPAGE ="100102";
+    public final static String P_GVNEWS ="2001";
+    public final static String P_ZONENEWS ="2002";
+    public final static String P_NEWDETAIL ="2003";
+    public final static String P_LEAVEMSGLIST ="2004";
+    public final static String P_LEAVEMSGDETAIL ="2005";
+    public final static String P_REPLYMSG ="2006";
+    public final static String P_LEAVEMSG ="2007";
+    public final static String P_EXPRESSOUT ="2008";
+    public final static String P_EXPRESSIN ="2009";
+    public final static String P_CALLOUT ="2010";
+
+    public  final static String P_FRONTITMES1="100103";
+    public final static String P_FRONTITMES2="100104";
 }

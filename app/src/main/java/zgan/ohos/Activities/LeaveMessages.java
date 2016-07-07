@@ -26,6 +26,7 @@ import zgan.ohos.Models.LeaveMessage;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.services.login.ZganLoginService;
+import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
@@ -119,7 +120,7 @@ public class LeaveMessages extends myBaseActivity {
                     btn_commit.setEnabled(false);
                     PreferenceUtil.getSID();
                     //ZganCommunityService.toGetServerData(29, 0, String.format("%s\t%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID(), input), handler);
-                    ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), P_LEAVEMSG, String.format("@id=22,@account=%s,@q_type=%s,@q_content=\"%s\"",PreferenceUtil.getUserName(),funcPage.getpage_id(),input), "22"), handler);
+                    ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_LEAVEMSG, String.format("@id=22,@account=%s,@q_type=%s,@q_content=\"%s\"",PreferenceUtil.getUserName(),funcPage.getpage_id(),input), "22"), handler);
                 }
             }
         });
@@ -178,7 +179,7 @@ public class LeaveMessages extends myBaseActivity {
                     Log.i(TAG, f.strData);
                     String[] results = f.strData.split("\t");
                     if (f.subCmd == 40) {
-                        if (results[0].equals("0") && results[1].equals(P_LEAVEMSG)&&results.length>2) {
+                        if (results[0].equals("0") && results[1].equals(AppUtils.P_LEAVEMSG)&&results.length>2) {
                             addDialog.dismiss();
                             loadData();
                             btn_commit.setEnabled(true);

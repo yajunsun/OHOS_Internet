@@ -7,5 +7,5 @@
     <!--超市购每张图片的高度-->
     <integer name="supermarket_img_height">200</integer>
     <!--首页图片间距-->
-    <integer name="front_item_marginTop">10</integer>
+    <integer name="front_item_marginTop">1</integer>
 </resources>
