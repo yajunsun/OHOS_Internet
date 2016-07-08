@@ -28,6 +28,7 @@ import java.util.List;
 import zgan.ohos.Dals.HightQualityDal;
 import zgan.ohos.Dals.HouseHolderServiceDal;
 import zgan.ohos.Models.BaseGoods;
+import zgan.ohos.Models.FuncBase;
 import zgan.ohos.Models.HightQualityServiceM;
 import zgan.ohos.Models.HouseHolderServiceM;
 import zgan.ohos.Models.MyOrder;
@@ -55,10 +56,12 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
     String scheduldate;
     MyOrder order;
     Dialog paymentSelectDialog;
+    FuncBase item;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_house_holder_service);
+        item=(FuncBase)getIntent().getSerializableExtra("item");
         ivpreview = (ImageView) findViewById(R.id.iv_preview);
         dal = new HouseHolderServiceDal();
 

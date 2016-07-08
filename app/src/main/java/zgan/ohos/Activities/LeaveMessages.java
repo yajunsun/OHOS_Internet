@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 import zgan.ohos.Dals.LeaveMessageDal;
+import zgan.ohos.Models.FuncBase;
 import zgan.ohos.Models.FuncPage;
 import zgan.ohos.Models.LeaveMessage;
 import zgan.ohos.R;
@@ -49,7 +50,7 @@ public class LeaveMessages extends myBaseActivity {
     EditText et_input;
     Button btn_commit;
     Button btn_cancel;
-    FuncPage funcPage;
+    FuncBase funcPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class LeaveMessages extends myBaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_leave_messages);
-        funcPage=(FuncPage)getIntent().getSerializableExtra("func");
+        funcPage=(FuncPage)getIntent().getSerializableExtra("item");
         leavemsgDal = new LeaveMessageDal();
         mLayoutManager = new LinearLayoutManager(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -120,7 +121,7 @@ public class LeaveMessages extends myBaseActivity {
                     btn_commit.setEnabled(false);
                     PreferenceUtil.getSID();
                     //ZganCommunityService.toGetServerData(29, 0, String.format("%s\t%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID(), input), handler);
-                    ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_LEAVEMSG, String.format("@id=22,@account=%s,@q_type=%s,@q_content=\"%s\"",PreferenceUtil.getUserName(),funcPage.getpage_id(),input), "22"), handler);
+                    ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(),funcPage.gettype_id(), String.format("@id=22,@account=%s,@q_type=%s,@q_content=\"%s\"",PreferenceUtil.getUserName(),funcPage.getpage_id(),input), "22"), handler);
                 }
             }
         });

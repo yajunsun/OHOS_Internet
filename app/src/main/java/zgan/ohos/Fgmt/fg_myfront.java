@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.media.Image;
@@ -26,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ActionMenuView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,6 +59,7 @@ import zgan.ohos.Activities.LeaveMessages;
 import zgan.ohos.Activities.Login;
 import zgan.ohos.Activities.MessageActivity;
 import zgan.ohos.ConstomControls.ScrollViewWithCallBack;
+import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.AdvertiseDal;
 import zgan.ohos.Dals.FrontItemDal;
 import zgan.ohos.Dals.FuncPageDal;
@@ -110,6 +113,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     Timer timer;
     LayoutInflater mLayoutInflater;
 
+    int mItemHeight = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mLayoutInflater = inflater;
@@ -121,7 +126,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         advertiseDal = new AdvertiseDal();
         iniHandler();
         initView(view);
-        //initNetData();
+        initNetData();
         initDialog();
         Log.i(TAG, "fg_myfront view created");
         return view;
@@ -130,10 +135,11 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        if (handler == null)
+        if (handler == null) {
             iniHandler();
+        }
         isStoped = false;
-        initNetData();
+        //initNetData();
     }
 
     boolean isStoped = false;
@@ -320,7 +326,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                     Intent intent = new Intent();
                     intent.setAction("Page." + func.gettype_id());
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("func", func);
+                    bundle.putSerializable("item", func);
                     intent.putExtras(bundle);
                     if (isActionInstalled(intent))
                         startActivityIfLogin(intent, 0);
@@ -351,14 +357,14 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                 set.add(frontItems);
             }
             ImageLoader.bindBitmap(frontItems1.get(0).getimage_url(), iv_gridtitle);
-
         }
         rv_grid.setAdapter(new gridItemAdapter(set));
-        int defaultheight = (int) (AppUtils.getDensity(getActivity()) * 200);
-        int height=Math.max(defaultheight,frontItems1.get(1).getheight());
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
-        params.addRule(RelativeLayout.BELOW,R.id.ll_messages);
-        ll_shequgrid.setLayoutParams(params);
+//        int defaultheight = (int) (AppUtils.getDensity(getActivity()) * 100);
+//        int height=Math.max(defaultheight,frontItems1.get(1).getheight())*lines;
+        //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        //params.addRule(RelativeLayout.BELOW,R.id.ll_messages);
+        ll_shequgrid.setMinimumHeight(120);
+        rv_grid.setMinimumHeight(100);
     }
 
     private void loadSqhdData() {
@@ -393,8 +399,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             try {
                 Intent intent = new Intent();
                 intent.setAction("Page." + item.gettype_id());
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("item",item);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("item", item);
                 intent.putExtras(bundle);
                 if (isActionInstalled(intent))
                     startActivityIfLogin(intent, 0);
@@ -876,9 +882,25 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             List<FrontItem> frontItems = set.get(position);
-            ImageLoader.bindBitmap(frontItems.get(0).getimage_url(), holder.iv_bottom1, frontItems.get(0).getwidth(), frontItems.get(0).getheight());
+            ImageLoader.bindBitmap(frontItems.get(0).getimage_url(), holder.iv_bottom1, frontItems.get(0).getwidth(), frontItems.get(0).getheight(), new IImageloader() {
+                @Override
+                public void onDownloadSucc(Bitmap bitmap, String c_url, View imageView, int w, int h) {
+                    mItemHeight += imageView.getHeight();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, mItemHeight + iv_gridtitle.getHeight());
+                            params1.addRule(RelativeLayout.BELOW, R.id.ll_messages);
+                            ll_shequgrid.setLayoutParams(params1);
+                        }
+                    });
+                }
+            });
             ImageLoader.bindBitmap(frontItems.get(1).getimage_url(), holder.iv_bottom2, frontItems.get(1).getwidth(), frontItems.get(1).getheight());
             ImageLoader.bindBitmap(frontItems.get(2).getimage_url(), holder.iv_bottom3, frontItems.get(2).getwidth(), frontItems.get(2).getheight());
+            holder.iv_bottom1.setOnClickListener(new goodsClick(frontItems.get(0)));
+            holder.iv_bottom2.setOnClickListener(new goodsClick(frontItems.get(1)));
+            holder.iv_bottom3.setOnClickListener(new goodsClick(frontItems.get(2)));
         }
 
         @Override

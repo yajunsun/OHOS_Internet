@@ -165,8 +165,7 @@
             android:name="zgan.ohos.Activities.HightQualityService"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="Page.1007" />
-                <action android:name="Page.1006" />
+                <action android:name="Page.2015" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -178,16 +177,17 @@
             android:name="zgan.ohos.Activities.VegetableMart"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="Page.1005" />
+                <action android:name="Page.2014" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <!-- 洗衣 -->
         <activity
             android:name="zgan.ohos.Activities.ProLaundry"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="Page.1008" />
+                <action android:name="Page.2012" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

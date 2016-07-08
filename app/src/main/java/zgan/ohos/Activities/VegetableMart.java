@@ -27,6 +27,7 @@ import zgan.ohos.ConstomControls.MySelectCount;
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.VegetableDal;
 import zgan.ohos.Models.BaseGoods;
+import zgan.ohos.Models.FrontItem;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.Models.Vegetable;
 import zgan.ohos.R;
@@ -56,10 +57,12 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
     //商品价格
     double goodssum = 0;
     DecimalFormat decimalFormat = new DecimalFormat("###.0");
+    FrontItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        item=(FrontItem)getIntent().getSerializableExtra("item");
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey("goodscount")) {
                 goodscount = savedInstanceState.getInt("goodscount", 0);
@@ -139,7 +142,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
     protected void loadData() {
         refreshview.setRefreshing(true);
         //isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1005, "@id=22,@page=0", "22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=0",item.getpage_id()), "22"), handler);
     }
 
     public void loadMoreData() {
@@ -147,7 +150,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
             pageindex++;
             //isLoadingMore = true;
             refreshview.setRefreshing(true);
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1005, String.format("@id=22,@page=%d", pageindex), "22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%d",item.getpage_id(), pageindex), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -173,13 +176,13 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1005")&&results.length>2) {
+                    if (results[0].equals("0") && results[1].equals(item.getpage_id())&&results.length>2) {
                         try {
                             if (pageindex == 0) {
                                 list = new ArrayList<>();
                             }
                             if (frame.platform != 0) {
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1005, String.format("@id=22,@page=%d", pageindex), "22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1005, String.format("@id=22,@page_id=%s,@page=%d",item.getpage_id(), pageindex), "22"), frame.strData);
                             }
                             List<Vegetable> vegetables=dal.getList(results[2]);
                             list.addAll(vegetables);

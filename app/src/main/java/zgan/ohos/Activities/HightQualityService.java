@@ -23,6 +23,7 @@ import java.util.List;
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.HightQualityDal;
 import zgan.ohos.Models.FrontItem;
+import zgan.ohos.Models.FuncBase;
 import zgan.ohos.Models.HightQualityServiceM;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
@@ -43,12 +44,12 @@ public class HightQualityService extends myBaseActivity {
     List<HightQualityServiceM> list;
     HightQualityDal dal;
     ImageLoader imageLoader;
-    FrontItem item;
+    FuncBase item;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_hight_quality_service);
-        item =(FrontItem) getIntent().getSerializableExtra("item");
+        item =(FuncBase) getIntent().getSerializableExtra("item");
 //        if (item.getpage_id().equals("2")) {
 //            TextView t = (TextView) findViewById(R.id.txt_title);
 //            t.setText("土特产");
@@ -106,7 +107,7 @@ public class HightQualityService extends myBaseActivity {
     protected void loadData() {
         //isLoadingMore = false;
         refreshview.setRefreshing(true);
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), "@id=22,@page=0", "22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(),String.format("@id=22,@page_id=%s,@page=0",item.getpage_id()), "22"), handler);
     }
 
     public void loadMoreData() {
@@ -114,7 +115,7 @@ public class HightQualityService extends myBaseActivity {
             pageindex++;
             //isLoadingMore = true;
             refreshview.setRefreshing(true);
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page=%s", pageindex), "22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%s",item.getpage_id(), pageindex), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -148,7 +149,7 @@ public class HightQualityService extends myBaseActivity {
                             }
                             if (frame.platform != 0) {
 
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page=%s", pageindex), "22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%s",item.getpage_id(), pageindex), "22"), frame.strData);
                             }
                             List<HightQualityServiceM>hightQualityServiceMs = dal.getList(results[2]);
                             list.addAll(hightQualityServiceMs);

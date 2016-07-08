@@ -118,7 +118,7 @@
             android:name=".Activities.HouseHolderService"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="Page.1010" />
+                <action android:name="Page.2013" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -186,7 +186,7 @@
             android:name=".Activities.SuperMarket"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="Page.1009" />
+                <action android:name="Page.2016" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -195,7 +195,7 @@
             android:name=".Activities.ElectricalMaintenance"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="Page.1011" />
+                <action android:name="Page.2013" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -244,7 +244,7 @@
             android:name=".Activities.IcecreamList"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="Page.1021" />
+                <action android:name="Page.2014" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

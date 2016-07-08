@@ -320,48 +320,44 @@ ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml
 	android:name
 		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:151:13-50
 activity#zgan.ohos.Activities.HightQualityService
-ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:154:9-163:20
+ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:154:9-162:20
 	android:screenOrientation
 		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:156:13-49
 	android:name
 		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:155:13-59
-intent-filter#Page.1006+Page.1007+android.intent.category.DEFAULT
-ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:157:13-162:29
-action#Page.1007
+intent-filter#Page.2015+android.intent.category.DEFAULT
+ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:157:13-161:29
+action#Page.2015
 ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:158:17-52
 	android:name
 		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:158:25-49
-action#Page.1006
-ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:159:17-52
-	android:name
-		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:159:25-49
 activity#zgan.ohos.Activities.HightQualityDetail
-ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:164:9-166:52
+ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:163:9-165:52
 	android:screenOrientation
-		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:166:13-49
+		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:165:13-49
 	android:name
-		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:165:13-58
+		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:164:13-58
 activity#zgan.ohos.Activities.VegetableMart
-ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:167:9-175:20
+ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:166:9-174:20
 	android:screenOrientation
-		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:169:13-49
+		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:168:13-49
 	android:name
-		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:168:13-53
-intent-filter#Page.1005+android.intent.category.DEFAULT
-ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:170:13-174:29
-action#Page.1005
-ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:171:17-52
+		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:167:13-53
+intent-filter#Page.2014+android.intent.category.DEFAULT
+ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:169:13-173:29
+action#Page.2014
+ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:170:17-52
 	android:name
-		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:171:25-49
+		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:170:25-49
 activity#zgan.ohos.Activities.ProLaundry
 ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:176:9-184:20
 	android:screenOrientation
 		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:178:13-49
 	android:name
 		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:177:13-50
-intent-filter#Page.1008+android.intent.category.DEFAULT
+intent-filter#Page.2012+android.intent.category.DEFAULT
 ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:179:13-183:29
-action#Page.1008
+action#Page.2012
 ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:180:17-52
 	android:name
 		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:180:25-49
