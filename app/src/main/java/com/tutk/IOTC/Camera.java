@@ -1188,8 +1188,7 @@ public class Camera {
                         Log.i("IOTCamera", "voice play1, latestNetVoice.size()=" + latestNetVoice.size());
                         audioTraceWrite(voice_in, 0, voice_in.length);
                         Log.i("IOTCamera", "voice has played1");
-                        //byte[] m_noise = new byte[960];
-                        int re = mSpeex.Speex_process(voice_in, voice_out, srcProcess);
+                        //int re = mSpeex.Speex_process(voice_in, voice_out, srcProcess);
                         int nReadBytes = 960;
                         byte d = (byte) (nReadBytes + 12 & 0x000000ff);
                         byte c = (byte) ((nReadBytes + 12 & 0x0000ff00) >> 8);
@@ -1197,7 +1196,7 @@ public class Camera {
                         byte a = (byte) ((nReadBytes + 12 & 0xff000000) >> 24);
                         byte[] head = new byte[]{36, 83, 88, 38, a, b, c, d, 2, 0, 0, 0};
                         byte[] Buf_processed = new byte[nReadBytes + 12];
-                        System.arraycopy(srcProcess, 0, Buf_processed, 12, nReadBytes); // setp
+                        System.arraycopy(voice_out, 0, Buf_processed, 12, nReadBytes); // setp
                         System.arraycopy(head, 0, Buf_processed, 0, 12);
                         Log.i("IOTCamera", "voice send1, micvoice.size()=" + micvoice.size());
                         rdtWrite(nRDT_ID, Buf_processed, nReadBytes + 12);
@@ -1234,7 +1233,8 @@ public class Camera {
     }
 
     public synchronized void audioTraceWrite(byte[] source, int offset, int length) {
-        mAudioTrack.write(source, offset, length);
+        if (mAudioTrack != null)
+            mAudioTrack.write(source, offset, length);
     }
 
     public synchronized void rdtWrite(int rdtID, byte[] source, int length) {

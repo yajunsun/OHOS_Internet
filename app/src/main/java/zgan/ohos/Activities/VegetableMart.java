@@ -51,7 +51,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
     VegetableDal dal;
     RecyclerView rv_vegetable;
     Button btncheck;
-    TextView gdcount, totalpay;
+    TextView gdcount, totalpay,txt_title;
     //商品数量
     int goodscount = 0;
     //商品价格
@@ -62,7 +62,6 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        item=(FrontItem)getIntent().getSerializableExtra("item");
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey("goodscount")) {
                 goodscount = savedInstanceState.getInt("goodscount", 0);
@@ -88,8 +87,11 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
     @Override
     protected void initView() {
         setContentView(R.layout.activity_vegetable_mart);
+        item=(FrontItem)getIntent().getSerializableExtra("item");
         rv_vegetable = (RecyclerView) findViewById(R.id.rv_vegetable);
         mLayoutManager = new LinearLayoutManager(VegetableMart.this);
+        txt_title=(TextView)findViewById(R.id.txt_title) ;
+        txt_title.setText(item.getview_title());
         rv_vegetable.setLayoutManager(mLayoutManager);
         dal = new VegetableDal();
         //list = dal.getList();
@@ -176,13 +178,13 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals(item.getpage_id())&&results.length>2) {
+                    if (results[0].equals("0") && results[1].equals(item.gettype_id())&&results.length>2) {
                         try {
                             if (pageindex == 0) {
                                 list = new ArrayList<>();
                             }
                             if (frame.platform != 0) {
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1005, String.format("@id=22,@page_id=%s,@page=%d",item.getpage_id(), pageindex), "22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%d",item.getpage_id(), pageindex), "22"), frame.strData);
                             }
                             List<Vegetable> vegetables=dal.getList(results[2]);
                             list.addAll(vegetables);
@@ -211,7 +213,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
         switch (v.getId()) {
             case R.id.btncheck:
                 if (goodscount < 1) {
-                    generalhelper.ToastShow(this, "还没有选择任何蔬菜哟~");
+                    generalhelper.ToastShow(this, "还没有选择任何商品哟~");
                     return;
                 }
                 Calendar calendar = Calendar.getInstance();

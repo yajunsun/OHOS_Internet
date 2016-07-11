@@ -48,7 +48,7 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
     GridLayoutManager mLayoutManager;
     //myAdapter adapter;
 
-    TextView txt_time, btn_immediate;
+    TextView txt_time, btn_immediate, txt_title;
     View btn_time_select;
     Button btncheck;
     private static final int DATE_PICKER_ID = 1;// 日期静态常量
@@ -61,10 +61,12 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
     @Override
     protected void initView() {
         setContentView(R.layout.activity_house_holder_service);
-        item=(FuncBase)getIntent().getSerializableExtra("item");
+        item = (FuncBase) getIntent().getSerializableExtra("item");
         ivpreview = (ImageView) findViewById(R.id.iv_preview);
         dal = new HouseHolderServiceDal();
 
+        txt_title = (TextView) findViewById(R.id.txt_title);
+        txt_title.setText(item.getview_title());
         txt_time = (TextView) findViewById(R.id.txt_time);
         btn_immediate = (TextView) findViewById(R.id.btn_immediate);
         btn_immediate.setOnClickListener(this);
@@ -88,14 +90,14 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
 
     protected void loadData() {
         isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1010, "@id=22", "@22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s", item.getpage_id()), "@22"), handler);
     }
 
     public void loadMoreData() {
         try {
             //pageindex++;
             isLoadingMore = true;
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1010, "@id=22", "@22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s", item.getpage_id()), "@22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -128,12 +130,12 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1010")) {
+                    if (results[0].equals("0") && results[1].equals(item.gettype_id())) {
                         try {
                             if (!isLoadingMore) {
                                 m = dal.getItem(results[2]);
-                                if (frame.platform!=0) {
-                                    addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1010, "@id=22", "@22"),frame.strData);
+                                if (frame.platform != 0) {
+                                    addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s", item.getpage_id()),"@22"), frame.strData);
                                 }
                             } else {
                             }
@@ -151,7 +153,7 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
                             handler.sendMessage(msg1);
                         }
                     } else if (results[0].equals("0") && results[1].equals("1015")) {
-                        Toast.makeText(HouseHolderService.this, String.format("订单已提交，工作人员将在%s上门服务~",order.getTimeticked()), Toast.LENGTH_LONG).show();
+                        Toast.makeText(HouseHolderService.this, String.format("订单已提交，工作人员将在%s上门服务~", order.getTimeticked()), Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }

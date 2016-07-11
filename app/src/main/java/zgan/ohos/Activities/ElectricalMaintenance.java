@@ -128,7 +128,7 @@ public class ElectricalMaintenance extends myBaseActivity implements View.OnClic
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1011")) {
+                    if (results[0].equals("0") && results[1].equals(item.gettype_id())) {
                         try {
                             if (!isLoadingMore) {
                                 m = dal.getItem(results[2]);

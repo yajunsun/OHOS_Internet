@@ -261,7 +261,12 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             ImageView simg = new ImageView(getActivity());
             simg.setLayoutParams(new ViewGroup.LayoutParams(20, 20));
             simg.setPadding(5, 5, 5, 5);
+            if (i==0)
             simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.RED).sizeDp(30));
+            else
+            {
+                simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.LTGRAY).sizeDp(30));
+            }
             funcimageViews.add(simg);
             func_ind.addView(simg);
         }
@@ -432,7 +437,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                 if (i == 0)
                     simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.RED).sizeDp(30));
                 else
-                    simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.WHITE).sizeDp(30));
+                    simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.LTGRAY).sizeDp(30));
                 imageViews.add(simg);
                 pager_ind.addView(simg);
             }

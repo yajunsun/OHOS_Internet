@@ -167,7 +167,7 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
                 String ret = generalhelper.getSocketeStringResult(frame.strData);
                 Log.i(TAG, frame.subCmd + "  " + ret);
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1008")) {
+                    if (results[0].equals("0") && results[1].equals(item.gettype_id())) {
                         try {
                             list = dal.getList(results[2]);
                             if (frame.platform != 0) {

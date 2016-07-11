@@ -28,6 +28,7 @@ import com.tutk.IOTC.Camera;
 import com.tutk.IOTC.IRegisterIOTCListener;
 import com.tutk.IOTC.Monitor;
 
+import zgan.ohos.Models.FuncBase;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.utils.Frame;
@@ -55,11 +56,13 @@ public class CallOut extends myBaseActivity implements IRegisterIOTCListener, Vi
 
     View l_connected, l_waite;
     Dialog dialog;
+    FuncBase item;
 
     @Override
     protected void initView() {
 
         setContentView(R.layout.activity_call_out);
+        item = (FuncBase) getIntent().getSerializableExtra("item");
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +72,10 @@ public class CallOut extends myBaseActivity implements IRegisterIOTCListener, Vi
                 iniDialog("提示", "确定退出视频通话");
             }
         });
+        if (item != null) {
+            TextView txt_title = (TextView) findViewById(R.id.txt_title);
+            txt_title.setText(item.getview_title());
+        }
         btn_hangup = (ImageView) findViewById(R.id.btn_hangup);
         btn_hangup.setOnClickListener(this);
         l_connected = findViewById(R.id.l_connected);
@@ -234,38 +241,43 @@ public class CallOut extends myBaseActivity implements IRegisterIOTCListener, Vi
                     break;
 
                 case Camera.CONNECTION_STATE_DISCONNECTED:
-
                     mConnStatus = "连接已断开";
+                    communityService.hangup();
                     toQuitVideo();
                     iniDialog("提示", "连接已断开");
+                    Log.i(TAG,"CONNECTION_STATE_DISCONNECTED");
                     break;
 
                 case Camera.CONNECTION_STATE_UNKNOWN_DEVICE:
+                    communityService.hangup();
                     toQuitVideo();
                     iniDialog("提示", "连接失败");
+                    Log.i(TAG,"CONNECTION_STATE_UNKNOWN_DEVICE");
                     break;
 
                 case Camera.CONNECTION_STATE_TIMEOUT:
-
                     if (mCamera != null) {
+                        communityService.hangup();
                         toQuitVideo();
                         iniDialog("提示", "连接超时");
+                        Log.i(TAG,"CONNECTION_STATE_TIMEOUT");
                     }
                     break;
 
                 case Camera.CONNECTION_STATE_CONNECT_FAILED:
+                    communityService.hangup();
                     toQuitVideo();
                     iniDialog("提示", "连接失败");
+                    Log.i(TAG,"CONNECTION_STATE_CONNECT_FAILED");
                     break;
             }
-
             super.handleMessage(msg);
         }
     };
 
     @Override
     protected void onDestroy() {
-        Log.i(TAG,"CallOut onDestroy");
+        Log.i(TAG, "CallOut onDestroy");
         super.onDestroy();
         toQuitVideo();
         unbindService(mconnection);
@@ -303,22 +315,21 @@ public class CallOut extends myBaseActivity implements IRegisterIOTCListener, Vi
     @Override
     public void NotOnLine() {
         //设备不在线
-        iniDialog("提示","设备不在线");
+        iniDialog("提示", "设备不在线");
     }
 
     @Override
     public void InBusy() {
         //设备不在线
-        iniDialog("提示","忙碌中，请稍后再拨");
+        iniDialog("提示", "忙碌中，请稍后再拨");
     }
 
-    void iniDialog(String title,String msg)
-    {
-        View v=getLayoutInflater().inflate(R.layout.dialog_call_not_sucecess,null,false);
-        TextView dialog_title,dialog_msg,dialog_button;
-        dialog_title=(TextView)v.findViewById(R.id.dialog_title);
-        dialog_msg=(TextView)v.findViewById(R.id.dialog_msg);
-        dialog_button=(TextView)v.findViewById(R.id.dialog_button);
+    void iniDialog(String title, String msg) {
+        View v = getLayoutInflater().inflate(R.layout.dialog_call_not_sucecess, null, false);
+        TextView dialog_title, dialog_msg, dialog_button;
+        dialog_title = (TextView) v.findViewById(R.id.dialog_title);
+        dialog_msg = (TextView) v.findViewById(R.id.dialog_msg);
+        dialog_button = (TextView) v.findViewById(R.id.dialog_button);
         dialog_button.setText("关闭");
         dialog_title.setText(title);
         dialog_msg.setText(msg);
