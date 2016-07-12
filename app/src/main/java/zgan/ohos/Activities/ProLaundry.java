@@ -324,11 +324,12 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
                 order.setaccount(PreferenceUtil.getUserName());
                 order.setdiliver_time("0");//(generalhelper.getStringFromDate(bestshippingdate.getTime()));
                 order.settotal(goods.getprice());
-                if (goods.getprice() > 0) {
-                    order.setgoods_type(0);
-                } else {
-                    order.setgoods_type(MyOrder.PROLAUNDRY);
-                }
+//                if (goods.getprice() > 0) {
+//                    order.setgoods_type(0);
+//                } else {
+//                    order.setgoods_type(MyOrder.PROLAUNDRY);
+//                }
+                order.setgoods_type(goods.getgoods_type());
                 StringBuilder builder = new StringBuilder();
                 String bstr = "";
                 builder.append("'");
@@ -367,7 +368,7 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
                 order.setorder_id(order.generateOrderId());
                 order.setaccount(PreferenceUtil.getUserName());
                 order.settotal(goods1.getprice());
-                order.setgoods_type(MyOrder.PROLAUNDRY);
+                order.setgoods_type(goods1.getgoods_type());
                 order.setpay_type(1);
                 order.setstate(1);
                 StringBuilder builder1 = new StringBuilder();

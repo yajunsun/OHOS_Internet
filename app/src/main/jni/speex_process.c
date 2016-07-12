@@ -12,14 +12,25 @@ spx_int32_t *m_noise;
 
 JNIEXPORT jint JNICALL Java_com_speex_speexprocess_Speex_1init(JNIEnv *env, jobject obj, jint frame_size,
                                                 jint filter_length, jint sample_rate) {
+//    int tmp = sample_rate;
+//    m_pSET = speex_echo_state_init(frame_size, filter_length);
+//    m_pSPS = speex_preprocess_state_init(frame_size, tmp);
+//    speex_echo_ctl(m_pSET, SPEEX_ECHO_SET_SAMPLING_RATE, &tmp);
+    //m_noise = (spx_int32_t *) malloc(frame_size * 4 + 1);
+    //m_noise = (spx_int32_t *) malloc(frame_size+ 1);
+
+
+
     int tmp = sample_rate;
     m_pSET = speex_echo_state_init(frame_size, filter_length);
     m_pSPS = speex_preprocess_state_init(frame_size, tmp);
     speex_echo_ctl(m_pSET, SPEEX_ECHO_SET_SAMPLING_RATE, &tmp);
-    m_noise = (spx_int32_t *) malloc(frame_size * 4 + 1);
-    //m_noise = (spx_int32_t *) malloc(frame_size+ 1);
+    int denoise = 0;
+    speex_preprocess_ctl(m_pSPS, SPEEX_PREPROCESS_SET_DENOISE, &denoise);
+
+    m_noise = (spx_int32_t*) malloc(frame_size*50/3+1);
     if (m_noise) {
-        memset(m_noise, 0, frame_size * 4);
+        //memset(m_noise, 0, frame_size * 4);
     }
     return 0;
 }
@@ -59,7 +70,7 @@ JNIEXPORT jint JNICALL Java_com_speex_speexprocess_Speex_1process
                       (const spx_int16_t*) micBuffer,
                       (spx_int16_t*) outBuffer,
                       (spx_int32_t*) m_noise);
-    speex_preprocess(m_pSPS, (spx_int16_t *) outBuffer, m_noise);
+    //speex_preprocess(m_pSPS, (spx_int16_t *) outBuffer, m_noise);
 
 //	//convert native output to java layer output
     (*env)->SetByteArrayRegion(env, out_buf, 0, length, outBuffer);

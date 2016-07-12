@@ -242,6 +242,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                 //m1.setpay_type(3);
                 m1.settotal(goodssum);
                 m1.SetGoods(buylist);
+                m1.setgoods_type(buylist.get(0).getgoods_type());
                 StringBuilder builder = new StringBuilder();
                 String bstr = "";
                 builder.append("'");
@@ -280,6 +281,8 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
             holder.name.setText(vegetable.gettitle());
             holder.price.setText("￥" + String.valueOf(vegetable.getprice()));
             holder.size.setText(vegetable.getitemSize());
+            holder.stock.setText("库存："+vegetable.getstock());
+            holder.selectCount.setMaxValue(vegetable.getstock());
             holder.selectCount.setOnchangeListener(new MySelectCount.IonChanged() {
                 @Override
                 public void onAddition(int count) {
@@ -338,7 +341,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
 
         class ViewHolder extends RecyclerView.ViewHolder {
             ImageView iv_preview;
-            TextView name, price, size;
+            TextView name, price, size,stock;
             MySelectCount selectCount;
 
             public ViewHolder(View itemView) {
@@ -347,6 +350,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                 name = (TextView) itemView.findViewById(R.id.txt_name);
                 price = (TextView) itemView.findViewById(R.id.txt_price);
                 size = (TextView) itemView.findViewById(R.id.txt_size);
+                stock=(TextView)itemView.findViewById(R.id.txt_stock);
                 selectCount = (MySelectCount) itemView.findViewById(R.id.selectcount);
             }
         }

@@ -275,7 +275,8 @@ public class ElectricalMaintenance extends myBaseActivity implements View.OnClic
                 order.setorder_id(order.generateOrderId());
                 order.setaccount(PreferenceUtil.getUserName());
                 order.settotal(m.getprice());
-                order.setgoods_type(MyOrder.ELECMAINTENANCE);
+                //order.setgoods_type(MyOrder.ELECMAINTENANCE);
+                order.setgoods_type(m.getgoods_type());
                 order.setpay_type(1);
                 order.setstate(1);
 
