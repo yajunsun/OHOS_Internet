@@ -483,7 +483,7 @@ public final class R {
 		public static final int checkbox = 0x7f0e005e;
 		public static final int chronometer = 0x7f0e01ed;
 		public static final int collapseActionView = 0x7f0e003f;
-		public static final int content = 0x7f0e00d6;
+		public static final int content = 0x7f0e00d7;
 		public static final int contentPanel = 0x7f0e0056;
 		public static final int custom = 0x7f0e005c;
 		public static final int customPanel = 0x7f0e005b;
@@ -495,7 +495,7 @@ public final class R {
 		public static final int end_padder = 0x7f0e01f2;
 		public static final int expand_activities_button = 0x7f0e004a;
 		public static final int expanded_menu = 0x7f0e005d;
-		public static final int first = 0x7f0e0114;
+		public static final int first = 0x7f0e0115;
 		public static final int home = 0x7f0e0004;
 		public static final int homeAsUp = 0x7f0e001b;
 		public static final int icon = 0x7f0e004e;
@@ -512,8 +512,8 @@ public final class R {
 		public static final int never = 0x7f0e0041;
 		public static final int none = 0x7f0e001c;
 		public static final int normal = 0x7f0e0018;
-		public static final int pane = 0x7f0e0112;
-		public static final int panel = 0x7f0e0113;
+		public static final int pane = 0x7f0e0113;
+		public static final int panel = 0x7f0e0114;
 		public static final int parentPanel = 0x7f0e0052;
 		public static final int progress_circular = 0x7f0e000f;
 		public static final int progress_horizontal = 0x7f0e0010;
@@ -532,7 +532,7 @@ public final class R {
 		public static final int search_plate = 0x7f0e006e;
 		public static final int search_src_text = 0x7f0e006f;
 		public static final int search_voice_btn = 0x7f0e0073;
-		public static final int second = 0x7f0e0115;
+		public static final int second = 0x7f0e0116;
 		public static final int select_dialog_listview = 0x7f0e0074;
 		public static final int shortcut = 0x7f0e005f;
 		public static final int showCustom = 0x7f0e001d;

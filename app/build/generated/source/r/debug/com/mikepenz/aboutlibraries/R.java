@@ -520,15 +520,15 @@ public final class R {
 		public static final int notification_template_icon_bg = 0x7f0200af;
 	}
 	public static final class id {
-		public static final int aboutDescription = 0x7f0e0155;
-		public static final int aboutDivider = 0x7f0e0154;
-		public static final int aboutIcon = 0x7f0e014d;
-		public static final int aboutName = 0x7f0e014e;
-		public static final int aboutSpecial1 = 0x7f0e0151;
-		public static final int aboutSpecial2 = 0x7f0e0152;
-		public static final int aboutSpecial3 = 0x7f0e0153;
-		public static final int aboutSpecialContainer = 0x7f0e0150;
-		public static final int aboutVersion = 0x7f0e014f;
+		public static final int aboutDescription = 0x7f0e0156;
+		public static final int aboutDivider = 0x7f0e0155;
+		public static final int aboutIcon = 0x7f0e014e;
+		public static final int aboutName = 0x7f0e014f;
+		public static final int aboutSpecial1 = 0x7f0e0152;
+		public static final int aboutSpecial2 = 0x7f0e0153;
+		public static final int aboutSpecial3 = 0x7f0e0154;
+		public static final int aboutSpecialContainer = 0x7f0e0151;
+		public static final int aboutVersion = 0x7f0e0150;
 		public static final int action0 = 0x7f0e01e6;
 		public static final int action_bar = 0x7f0e0066;
 		public static final int action_bar_activity_content = 0x7f0e0000;
@@ -550,7 +550,7 @@ public final class R {
 		public static final int beginning = 0x7f0e003c;
 		public static final int buttonPanel = 0x7f0e0050;
 		public static final int cancel_action = 0x7f0e01e7;
-		public static final int cardListView = 0x7f0e014a;
+		public static final int cardListView = 0x7f0e014b;
 		public static final int checkbox = 0x7f0e005e;
 		public static final int chronometer = 0x7f0e01ed;
 		public static final int collapseActionView = 0x7f0e003f;
@@ -565,7 +565,7 @@ public final class R {
 		public static final int end_padder = 0x7f0e01f2;
 		public static final int expand_activities_button = 0x7f0e004a;
 		public static final int expanded_menu = 0x7f0e005d;
-		public static final int frame_container = 0x7f0e00d8;
+		public static final int frame_container = 0x7f0e00d9;
 		public static final int home = 0x7f0e0004;
 		public static final int homeAsUp = 0x7f0e001b;
 		public static final int icon = 0x7f0e004e;
@@ -573,14 +573,14 @@ public final class R {
 		public static final int image = 0x7f0e004b;
 		public static final int info = 0x7f0e01f1;
 		public static final int item_touch_helper_previous_elevation = 0x7f0e0007;
-		public static final int libraryBottomContainer = 0x7f0e015b;
-		public static final int libraryBottomDivider = 0x7f0e015a;
-		public static final int libraryCreator = 0x7f0e0157;
-		public static final int libraryDescription = 0x7f0e0159;
-		public static final int libraryDescriptionDivider = 0x7f0e0158;
-		public static final int libraryLicense = 0x7f0e015d;
-		public static final int libraryName = 0x7f0e0156;
-		public static final int libraryVersion = 0x7f0e015c;
+		public static final int libraryBottomContainer = 0x7f0e015c;
+		public static final int libraryBottomDivider = 0x7f0e015b;
+		public static final int libraryCreator = 0x7f0e0158;
+		public static final int libraryDescription = 0x7f0e015a;
+		public static final int libraryDescriptionDivider = 0x7f0e0159;
+		public static final int libraryLicense = 0x7f0e015e;
+		public static final int libraryName = 0x7f0e0157;
+		public static final int libraryVersion = 0x7f0e015d;
 		public static final int line1 = 0x7f0e01eb;
 		public static final int line3 = 0x7f0e01ef;
 		public static final int listMode = 0x7f0e0017;

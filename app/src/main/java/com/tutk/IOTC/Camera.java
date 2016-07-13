@@ -806,7 +806,9 @@ public class Camera {
             AVFrame frame = new AVFrame(pFrmNo, AVFrame.FRM_STATE_COMPLETE, frameData, frameData.length);
             nCodecId = (int) frame.getCodecId();
             if (nCodecId == AVFrame.MEDIA_CODEC_VIDEO_H264) {
-                mAVChannel.VideoFrameQueue.addLast(frame);
+                //保持图像队列的容量为10
+                if (mAVChannel.VideoFrameQueue.getCount() < 11)
+                    mAVChannel.VideoFrameQueue.addLast(frame);
                 //Log.i("IOTCamera", "Enqueue AVFrameQueue left " + mAVChannel.VideoFrameQueue.getCount());
             }
         }
@@ -822,6 +824,7 @@ public class Camera {
                         audioTraceWrite(frameData, 0, frameData.length);
                         Log.i("IOTCamera", "voice play0");
                     } else {
+                        //保持音频队列的容量为10
                         if (latestNetVoice.size() < 11)
                             latestNetVoice.addLast(frameData);
                         Log.i("IOTCamera", "voice in, latestNetVoice.size()=" + latestNetVoice.size());
@@ -1132,7 +1135,7 @@ public class Camera {
             recorder.startRecording();
             mSpeex = new speexprocess();
             //int speexinit = mSpeex.Speex_init(960, 960 * 4, 16000);
-            int speexinit = mSpeex.Speex_init(960, 960 * 50/3, 8000);
+            int speexinit = mSpeex.Speex_init(960, 960 * 50 / 3, 8000);
 
             Log.i("IOTCamera", "recorder begin work");
             while (m_bIsRunning) {
@@ -1140,6 +1143,7 @@ public class Camera {
                 recorder.read(inPCMBuf, 0, inPCMBuf.length);
                 if (micvoice == null)
                     micvoice = new LinkedList<>();
+                //保持发送音频队列的容量为10
                 if (micvoice.size() < 11)
                     micvoice.addLast(inPCMBuf);
                 if (voiceIndust == null) {

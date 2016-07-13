@@ -120,7 +120,8 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
             int maxheight = 10 * maxwidth;
             ivpreview.setMaxWidth(maxwidth);
             ivpreview.setMaxHeight(maxheight);
-            ImageLoader.bindBitmap(m.getpic_url(), ivpreview, 800, 1000);
+            //ImageLoader.bindBitmap(m.getpic_url(), ivpreview, 800, 1000);
+            ImageLoader.bindBitmap(m.getdetails_url(), ivpreview, 800, 1000);
         }
     }
 

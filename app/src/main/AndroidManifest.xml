@@ -263,6 +263,20 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".Activities.HotProvideSpecial">
+            <intent-filter>
+                <action android:name="Page.2017"></action>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Activities.HotProductSpecial">
+            <intent-filter>
+                <action android:name="Page.2018"></action>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

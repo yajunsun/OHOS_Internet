@@ -278,6 +278,20 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name="zgan.ohos.Activities.HotProvideSpecial" >
+            <intent-filter>
+                <action android:name="Page.2017" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="zgan.ohos.Activities.HotProductSpecial" >
+            <intent-filter>
+                <action android:name="Page.2018" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name="com.mikepenz.aboutlibraries.ui.LibsActivity" />
     </application>
 
