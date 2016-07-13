@@ -33,6 +33,11 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 特供类商品列表
+ * */
 public class HightQualityService extends myBaseActivity {
 
     int pageindex = 0;
@@ -198,6 +203,7 @@ public class HightQualityService extends myBaseActivity {
             ImageLoader.bindBitmap(m.getpic_url(), holder.ivpreview, 600, 600);
             holder.txtdesc.setText(m.gettitle());
             holder.txtprice.setText("￥" + m.getprice());
+            holder.txtstock.setText("库存："+m.getstock());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -205,8 +211,8 @@ public class HightQualityService extends myBaseActivity {
                     Intent intent = new Intent(HightQualityService.this, HightQualityDetail.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("hqs", m);
+                    bundle.putSerializable("func",item);
                     intent.putExtras(bundle);
-                    intent.putExtra("pageid", item.gettype_id());
                     startActivityWithAnim(intent);
                 }
             });
@@ -219,13 +225,14 @@ public class HightQualityService extends myBaseActivity {
 
         class ViewHoler extends RecyclerView.ViewHolder {
             ImageView ivpreview;
-            TextView txtdesc, txtprice;
+            TextView txtdesc, txtprice,txtstock;
 
             public ViewHoler(View itemView) {
                 super(itemView);
                 ivpreview = (ImageView) itemView.findViewById(R.id.iv_preview);
                 txtdesc = (TextView) itemView.findViewById(R.id.txt_desc);
                 txtprice = (TextView) itemView.findViewById(R.id.txt_price);
+                txtstock=(TextView)itemView.findViewById(R.id.txt_stock);
                 ivpreview.setMaxWidth(width);
                 ivpreview.setMaxHeight(height);
             }

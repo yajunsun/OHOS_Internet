@@ -18,6 +18,7 @@ import java.util.List;
 
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Models.BaseGoods;
+import zgan.ohos.Models.FuncBase;
 import zgan.ohos.Models.HightQualityServiceM;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.R;
@@ -26,34 +27,34 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 特供类商品详细页面，包括提交订单
+ * */
 public class HightQualityDetail extends myBaseActivity implements View.OnClickListener {
 
 
     ImageView ivpreview, ivimgdesc;
-    TextView txtdesc, txtprice;
+    TextView txtdesc, txtprice, txtstock;
     HightQualityServiceM hqs;
     ImageLoader imageLoader;
     TextView gdcount, totalpay;
     Button btncheck;
-    String pageid = "1006";
+    FuncBase func;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_hight_quality_detail);
         hqs = (HightQualityServiceM) getIntent().getSerializableExtra("hqs");
-        pageid = getIntent().getStringExtra("pageid");
-        if (pageid.equals("1006")) {
-            TextView t = (TextView) findViewById(R.id.txt_title);
-            t.setText("土特产");
-        }
-        if (pageid.equals("1007")) {
-            TextView t = (TextView) findViewById(R.id.txt_title);
-            t.setText("高端特供");
-        }
+        func = (FuncBase) getIntent().getSerializableExtra("func");
+        TextView t = (TextView) findViewById(R.id.txt_title);
+        t.setText(func.getview_title());
         ivpreview = (ImageView) findViewById(R.id.iv_preview);
         ivimgdesc = (ImageView) findViewById(R.id.iv_imgdesc);
         txtdesc = (TextView) findViewById(R.id.txt_desc);
         txtprice = (TextView) findViewById(R.id.txt_price);
+        txtstock = (TextView) findViewById(R.id.txt_stock);
 
         gdcount = (TextView) findViewById(R.id.gdcount);
         totalpay = (TextView) findViewById(R.id.totalpay);
@@ -69,7 +70,16 @@ public class HightQualityDetail extends myBaseActivity implements View.OnClickLi
         ImageLoader.bindBitmap(hqs.getdetails_url(), ivimgdesc, 800, 1000);
         txtdesc.setText(hqs.gettitle());
         txtprice.setText("￥" + String.valueOf(hqs.getprice()));
-
+        txtstock.setText("库存：" + hqs.getstock());
+        try {
+            if (hqs.getstock() == 0) {
+                btncheck.setEnabled(false);
+            }
+        }
+        catch (Exception e){
+            btncheck.setEnabled(false);
+            Log.i(TAG,"库存解析错误："+e.getMessage());
+        }
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +122,7 @@ public class HightQualityDetail extends myBaseActivity implements View.OnClickLi
                 bstr += "'";
                 m1.setorder_details(bstr);
                 m1.SetGoods(goods);
+                m1.setgoods_type(hqs.getgoods_type());
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("order", m1);
                 intent.putExtras(bundle);

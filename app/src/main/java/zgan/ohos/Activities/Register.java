@@ -21,6 +21,11 @@ import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.resultCodes;
 
+/**
+ * create by yajunsun
+ *
+ * 注册界面
+ * */
 public class Register extends myBaseActivity {
     TextInputLayout til_Phone;
     TextInputLayout til_pwd;

@@ -38,6 +38,11 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 常规商品选购界面
+ * */
 public class VegetableMart extends myBaseActivity implements View.OnClickListener {
 
     int pageindex = 0;

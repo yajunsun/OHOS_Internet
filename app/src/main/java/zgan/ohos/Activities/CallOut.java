@@ -36,6 +36,11 @@ import zgan.ohos.utils.MyCamera;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 音视频通话界面
+ * */
 public class CallOut extends myBaseActivity implements IRegisterIOTCListener, View.OnClickListener, ZganCommunityService.ICallOutListner {
 
 

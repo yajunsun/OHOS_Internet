@@ -45,6 +45,11 @@ import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 收取快递界面
+ * */
 public class Express_in extends myBaseActivity implements View.OnClickListener {
 
     int pageindex = 0;

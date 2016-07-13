@@ -78,6 +78,7 @@ import zgan.ohos.utils.resultCodes;
 
 /**
  * Created by yajunsun on 16-2-24.
+ * 首页fragment
  */
 public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     LinearLayout ll_shequgrid;
@@ -428,7 +429,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                 ImageView img = new ImageView(getActivity());
                 img.setLayoutParams(params);
                 img.setScaleType(ImageView.ScaleType.FIT_XY);
-                img.setOnClickListener(new adverClick(advertises.get(i)));
+                //取消点击功能
+                //img.setOnClickListener(new adverClick(advertises.get(i)));
                 ImageLoader.bindBitmap(advertises.get(i).getpic_url(), img, 500, 200);
                 advPics.add(img);
                 ImageView simg = new ImageView(getActivity());

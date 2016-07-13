@@ -61,7 +61,7 @@ public class FrontItem extends FuncBase implements Serializable {
     }
     @Override
     public String getpage_id() {
-        return page_id;
+        return "'"+page_id+"'";
     }
     @Override
     public void setpage_id(String page_id) {

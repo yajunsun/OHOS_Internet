@@ -32,6 +32,11 @@ import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.picturefile;
 
+/**
+ * create by yajunsun
+ *
+ * 消息回复列表和提交回复界面
+ * */
 public class ReplyMessages extends myBaseActivity {
     int sessionId;
     String lmsgContent;

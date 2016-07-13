@@ -64,7 +64,8 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
 
     boolean isCommited = false;
     private IWXAPI api;
-    String[] mPaytypeNames = new String[]{"微信支付", "支付宝支付", "钱包支付", "货到付款"};
+    String[] mPaytypeNames = new String[]{"","货到付款", "钱包支付", "支付宝支付","微信支付" };
+    String[] mVialiabelTypes;// order.GetGoods().get(0).getpayment().split(",");
     //int[] mPaytypeDraws = new int[]{R.drawable.pay_weixin, R.drawable.pay_zhifubao, R.drawable.pay_qianbao, R.drawable.pay_huodaofukuan};
 
     TextView txt_ordernum /**订单号**/
@@ -157,6 +158,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             list = order.GetGoods();
             initialPage();
         }
+       mVialiabelTypes= list.get(0).getpayment().split(",");
         initalShipping();
         btnshippingimediatly.setTextColor(getResources().getColor(R.color.primary));
         if (Build.VERSION.SDK_INT >= 16) {
@@ -212,7 +214,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
     private void buildPayView(int statu) {
         float density = AppUtils.getDensity(this);
         int i = 0;
-        for (String p : mPaytypeNames
+        for (String p : mVialiabelTypes
                 ) {
             LinearLayout l = new LinearLayout(this);
             ImageView v = new ImageView(this);
@@ -243,9 +245,9 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             ViewGroup.MarginLayoutParams tparams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
             t.setLayoutParams(tparams);
             t.setGravity(Gravity.CENTER_VERTICAL);
-            t.setText(p);
+            t.setText(mPaytypeNames[Integer.valueOf(p)]);
             //t.setTextSize(getResources().getDimension(R.dimen.front_text_size));
-            t.setTextSize(TypedValue.COMPLEX_UNIT_SP ,10);
+            t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
             l.addView(t);
             lpaytypes.addView(l);
             i++;
@@ -258,11 +260,23 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             TextView txt_paymount;
             View view = getLayoutInflater().inflate(R.layout.lo_paytype_choose_dialog,
                     null);
-
             iv_hdfk = (ImageView) view.findViewById(R.id.iv_hdfk);
-            iv_alipay = (ImageView) view.findViewById(R.id.iv_alipay);
             iv_wallite = (ImageView) view.findViewById(R.id.iv_wallite);
+            iv_alipay = (ImageView) view.findViewById(R.id.iv_alipay);
             iv_wxpay = (ImageView) view.findViewById(R.id.iv_wxpay);
+
+            for (String tp : mVialiabelTypes
+                    ) {
+                if (tp.equals("1"))
+                    iv_hdfk.setVisibility(View.VISIBLE);
+                if (tp.equals("2"))
+                    iv_wallite.setVisibility(View.VISIBLE);
+                if (tp.equals("3"))
+                    iv_alipay.setVisibility(View.VISIBLE);
+                if (tp.equals("4"))
+                    iv_wxpay.setVisibility(View.VISIBLE);
+            }
+
             txt_paymount = (TextView) view.findViewById(R.id.txt_paymount);
             txt_paymount.setText("￥" + fee);
             iv_hdfk.setOnClickListener(this);

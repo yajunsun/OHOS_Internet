@@ -22,6 +22,11 @@ import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.resultCodes;
 
+/**
+ * create by yajunsun
+ *
+ * 登陆界面
+ * */
 public class Login extends myBaseActivity {
 
     TextInputLayout til_Phone;

@@ -41,6 +41,11 @@ import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.resultCodes;
 
+/**
+ * create by yajunsun
+ *
+ * 订单列表activity
+ * */
 public class OrderList extends myBaseActivity implements View.OnClickListener {
 
     int pageindex = 1;

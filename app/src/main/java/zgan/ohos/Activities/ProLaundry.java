@@ -45,6 +45,11 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 洗衣服务套餐购买和洗衣预约界面
+ * */
 public class ProLaundry extends myBaseActivity implements View.OnClickListener {
 
     @Override

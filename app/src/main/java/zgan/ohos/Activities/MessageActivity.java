@@ -26,6 +26,11 @@ import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 各种消息界面
+ * */
 public class MessageActivity extends myBaseActivity {
     Toolbar toolbar;
     TextView txt_title;

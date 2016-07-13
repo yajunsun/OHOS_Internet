@@ -33,6 +33,11 @@ import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 用户留言列表和提交界面
+ * */
 public class LeaveMessages extends myBaseActivity {
 
     Toolbar toolbar;

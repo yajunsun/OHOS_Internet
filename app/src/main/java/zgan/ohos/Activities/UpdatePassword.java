@@ -15,6 +15,11 @@ import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 密码修改界面
+ * */
 public class UpdatePassword extends myBaseActivity {
 
     Toolbar toolbar;

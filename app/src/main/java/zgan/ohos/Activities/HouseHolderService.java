@@ -40,6 +40,11 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 服务预约界面
+ * */
 public class HouseHolderService extends myBaseActivity implements View.OnClickListener {
     ImageView ivpreview;
     HouseHolderServiceM m;

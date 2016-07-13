@@ -41,6 +41,11 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 快递投递页面
+ * */
 public class Express_out extends myBaseActivity implements View.OnClickListener {
 
     ImageView iv_preview, iv_prebook;

@@ -15,7 +15,11 @@ import zgan.ohos.Models.Advertise;
 import zgan.ohos.R;
 import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.ImageLoader;
-
+/**
+ * create by yajunsun
+ *
+ * 广告详细
+ * */
 public class AdvertiseDetail extends myBaseActivity {
 
     Advertise advertise;

@@ -53,6 +53,11 @@ import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.resultCodes;
 
+/**
+ * create by yajunsun
+ *
+ * 订单详情界面
+ * */
 public class OrderDetail extends myBaseActivity implements View.OnClickListener {
     private IWXAPI api;
     String[] mPaytypeNames = new String[]{"现金支付", "刷卡支付", "支付宝支付", "微信支付"};

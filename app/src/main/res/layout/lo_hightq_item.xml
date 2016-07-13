@@ -8,8 +8,8 @@
         android:id="@+id/iv_preview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
         android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
         android:scaleType="fitXY" />
 
     <LinearLayout
@@ -30,18 +30,31 @@
 
         <TextView
             android:id="@+id/txt_desc"
-            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:textSize="@dimen/front_text_size" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txt_price"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/primary"
-        android:textSize="@dimen/front_text_size" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txt_stock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/front_text_size" />
+
+        <TextView
+            android:id="@+id/txt_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/front_text_size" />
+    </LinearLayout>
 </LinearLayout>
