@@ -374,7 +374,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 Intent intent = new Intent();
                 intent.setAction("Page.2004");
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("func", msgfp);
+                bundle.putSerializable("item", msgfp);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;

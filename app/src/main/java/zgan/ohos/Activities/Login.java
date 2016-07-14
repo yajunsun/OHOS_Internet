@@ -24,9 +24,9 @@ import zgan.ohos.utils.resultCodes;
 
 /**
  * create by yajunsun
- *
+ * <p/>
  * 登陆界面
- * */
+ */
 public class Login extends myBaseActivity {
 
     TextInputLayout til_Phone;
@@ -98,6 +98,10 @@ public class Login extends myBaseActivity {
                 startActivityWithAnim(intent);
                 //finish();
                 break;
+            case R.id.btn_forgetpwd:
+                Intent pwdintent = new Intent(Login.this, SMSValidationStep1.class);
+                startActivityWithAnim(pwdintent);
+                break;
         }
     }
 
@@ -135,12 +139,11 @@ public class Login extends myBaseActivity {
                         }
                         ZganCommunityService.CommunityIp = communityIP;
                         ZganCommunityService.CommunityPort = communityPort;
-                        ZganCommunityService.toUserLogin(PhoneNum,et_pwd.getText().toString().trim(), communityHandler);
-                    }
-                    else {
+                        ZganCommunityService.toUserLogin(PhoneNum, et_pwd.getText().toString().trim(), communityHandler);
+                    } else {
                         Intent intent = new Intent(Login.this, BindDevice.class);
-                        intent.putExtra("username",PhoneNum);
-                        intent.putExtra("pwd",et_pwd.getText().toString().trim());
+                        intent.putExtra("username", PhoneNum);
+                        intent.putExtra("pwd", et_pwd.getText().toString().trim());
                         intent.putExtra("showcancel", true);
                         startActivityWithAnim(intent);
                         //finish();
@@ -164,12 +167,10 @@ public class Login extends myBaseActivity {
                         SystemUtils.setIsLogin(true);
                         SystemUtils.setIsCommunityLogin(true);
                         ZganLoginService.toGetServerData(28, 0, PhoneNum, communityHandler);
-                    }
-                    else
-                    {
+                    } else {
                         Intent intent = new Intent(Login.this, BindDevice.class);
-                        intent.putExtra("username",PhoneNum);
-                        intent.putExtra("pwd",et_pwd.getText().toString().trim());
+                        intent.putExtra("username", PhoneNum);
+                        intent.putExtra("pwd", et_pwd.getText().toString().trim());
                         intent.putExtra("showcancel", true);
                         startActivityWithAnim(intent);
                     }

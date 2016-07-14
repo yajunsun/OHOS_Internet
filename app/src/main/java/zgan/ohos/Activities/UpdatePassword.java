@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import zgan.ohos.R;
 import zgan.ohos.services.login.ZganLoginService;
@@ -26,6 +27,7 @@ public class UpdatePassword extends myBaseActivity {
     TextInputLayout til_oldpwd, til_newpwd;
     EditText et_oldpwd, et_newpwd;
     String oldpwd,newpwd;
+   // TextView btnforgetpwd;
 
 
     @Override
@@ -34,6 +36,8 @@ public class UpdatePassword extends myBaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        btnforgetpwd=(TextView)findViewById(R.id.btn_forgetpwd);
+//        btnforgetpwd.setOnClickListener();
         til_oldpwd = (TextInputLayout) findViewById(R.id.til_oldpwd);
         til_newpwd = (TextInputLayout) findViewById(R.id.til_newpwd);
         et_oldpwd = (EditText) findViewById(R.id.et_oldpwd);
@@ -97,7 +101,7 @@ public class UpdatePassword extends myBaseActivity {
                 {
                     til_oldpwd.setErrorEnabled(false);
                     til_newpwd.setErrorEnabled(false);
-                    ZganLoginService.toGetServerData(27, 0, String.format("%s\t%s\t%s", PreferenceUtil.getUserName(), newpwd, 0), handler);
+                    ZganLoginService.toGetServerData(5, 0, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(),oldpwd, newpwd, 0), handler);
                 }
 
                 break;

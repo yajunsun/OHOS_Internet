@@ -74,10 +74,10 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             ;
     TextView txt_addr /**收货地址**/
             , txt_phone /**收货人电话**/
-            , btnshippingimediatly/**立即送货**/
+           // , btnshippingimediatly/**立即送货**/
             ;
-    TextView btnshippingdelay/**选择送货时间**/
-            , txt_besttime/**预期送货时间**/
+    TextView //btnshippingdelay/**选择送货时间**/
+             txt_besttime/**预期送货时间**/
             , txt_shippingid/**配送方式**/
             ;
     TextView
@@ -113,6 +113,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
     private static final int TIME_PICKER_ID = 2;// 时间
     String scheduldate;
     DecimalFormat decimalFormat = new DecimalFormat("###.0");
+    int mShipping_span=20;
 
     @Override
     protected void initView() {
@@ -123,8 +124,8 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
         //txt_householder = (TextView) findViewById(R.id.txt_householder);
         txt_addr = (TextView) findViewById(R.id.txt_addr);
         txt_phone = (TextView) findViewById(R.id.txt_phone);
-        btnshippingimediatly = (TextView) findViewById(R.id.btnshippingimediatly);
-        btnshippingdelay = (TextView) findViewById(R.id.btnshippingdelay);
+//        btnshippingimediatly = (TextView) findViewById(R.id.btnshippingimediatly);
+//        btnshippingdelay = (TextView) findViewById(R.id.btnshippingdelay);
         txt_besttime = (TextView) findViewById(R.id.txt_besttime);
         txt_shippingid = (TextView) findViewById(R.id.txt_shippingid);
         txt_payfee = (TextView) findViewById(R.id.txt_payfee);
@@ -132,8 +133,8 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
         lpaytypes = (LinearLayout) findViewById(R.id.lpaytypes);
         lshippingtime = findViewById(R.id.lshippingtime);
         lshipping = findViewById(R.id.lshipping);
-        btnshippingimediatly = (TextView) findViewById(R.id.btnshippingimediatly);
-        btnshippingdelay = (TextView) findViewById(R.id.btnshippingdelay);
+//        btnshippingimediatly = (TextView) findViewById(R.id.btnshippingimediatly);
+//        btnshippingdelay = (TextView) findViewById(R.id.btnshippingdelay);
         check = findViewById(R.id.check);
         gdcount = (TextView) findViewById(R.id.gdcount);
         totalpay = (TextView) findViewById(R.id.totalpay);
@@ -147,23 +148,23 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
                 finish();
             }
         });
-        View ivshippingdelay = findViewById(R.id.ivshippingdelay);
-        ivshippingdelay.setOnClickListener(this);
+//        View ivshippingdelay = findViewById(R.id.ivshippingdelay);
+//        ivshippingdelay.setOnClickListener(this);
         btncheck.setText("提交订单");
         btncheck.setOnClickListener(this);
-        btnshippingimediatly.setOnClickListener(this);
-        btnshippingdelay.setOnClickListener(this);
+//        btnshippingimediatly.setOnClickListener(this);
+//        btnshippingdelay.setOnClickListener(this);
         order = (MyOrder) getIntent().getSerializableExtra("order");
         if (order != null) {
             list = order.GetGoods();
             initialPage();
         }
        mVialiabelTypes= list.get(0).getpayment().split(",");
-        initalShipping();
-        btnshippingimediatly.setTextColor(getResources().getColor(R.color.primary));
-        if (Build.VERSION.SDK_INT >= 16) {
-            btnshippingimediatly.setBackground(getResources().getDrawable(R.drawable.bg_shippingtime_selected));
-        }
+        //initalShipping();
+//        btnshippingimediatly.setTextColor(getResources().getColor(R.color.primary));
+//        if (Build.VERSION.SDK_INT >= 16) {
+//            btnshippingimediatly.setBackground(getResources().getDrawable(R.drawable.bg_shippingtime_selected));
+//        }
         //ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1020, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), handler);
         buildPayView(0);
         IntentFilter filter = new IntentFilter();
@@ -176,17 +177,33 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
         //txt_shipingstatus.setText(getShippingStatus(order.getShipping_status()));
         //txt_householder.setText("收货人：" + order.getHouse_holder());
         txt_phone.setText("收货人：" + PreferenceUtil.getUserName());
-        if (order.getdiliver_time().equals("0")) {
-            Calendar c = Calendar.getInstance();
-            c.add(Calendar.MINUTE, 20);
-            Date d = c.getTime();
-            txt_besttime.setText(generalhelper.getStringFromDate(d));
-        } else
-            txt_besttime.setText(order.getdiliver_time());
+
         for (BaseGoods g : order.GetGoods()) {
             fee += g.getprice() * g.getSelectedcount();
             count += g.getSelectedcount();
+
+            if(g.gettime()!=null&&!g.gettime().equals(""))
+            {
+                int span=0;
+                try
+                {
+                    span=Integer.valueOf(g.gettime());
+                    if (span>mShipping_span)
+                    {
+                        mShipping_span=span;
+                    }
+                }
+                catch (Exception e){
+                    Log.i(TAG,"CommitOrder  Line 607 exception:"+e.getMessage());
+                }
+            }
         }
+
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MINUTE, mShipping_span);
+        Date d = c.getTime();
+        txt_besttime.setText("预计"+generalhelper.getStringFromDate(d,"yyyy-MM-dd HH:mm")+"送达");
+        order.setdiliver_time(generalhelper.getStringFromDate(d,"yyyyMMddHHmm"));
         gdcount.setText("商品：" + count);
         totalpay.setText("合计：" + decimalFormat.format(fee));
         txt_payfee.setText("￥" + decimalFormat.format(fee));
@@ -375,14 +392,14 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
         paypwdInputDialog.show();
     }
 
-    private void initalShipping() {
-        if (Build.VERSION.SDK_INT >= 16) {
-            btnshippingimediatly.setBackground(getResources().getDrawable(R.drawable.bg_rect_border));
-            btnshippingdelay.setBackground(getResources().getDrawable(R.drawable.bg_rect_border));
-        }
-        btnshippingimediatly.setTextColor(getResources().getColor(R.color.solid_black));
-        btnshippingdelay.setTextColor(getResources().getColor(R.color.solid_black));
-    }
+//    private void initalShipping() {
+//        if (Build.VERSION.SDK_INT >= 16) {
+//            btnshippingimediatly.setBackground(getResources().getDrawable(R.drawable.bg_rect_border));
+//            btnshippingdelay.setBackground(getResources().getDrawable(R.drawable.bg_rect_border));
+//        }
+//        btnshippingimediatly.setTextColor(getResources().getColor(R.color.solid_black));
+//        btnshippingdelay.setTextColor(getResources().getColor(R.color.solid_black));
+//    }
 
     private void commit() {
         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1015,
@@ -399,27 +416,27 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             case R.id.btncheck:
                 buildPaySelection();
                 break;
-            case R.id.btnshippingimediatly:
-                initalShipping();
-                btnshippingimediatly.setTextColor(getResources().getColor(R.color.primary));
-                if (Build.VERSION.SDK_INT >= 16) {
-                    btnshippingimediatly.setBackground(getResources().getDrawable(R.drawable.bg_shippingtime_selected));
-                }
-                Calendar calendar = Calendar.getInstance();
-                Calendar bestshippingdate = calendar;
-                bestshippingdate.add(Calendar.MINUTE, 20);
-                txt_besttime.setText(generalhelper.getStringFromDate(bestshippingdate.getTime()));
-                order.setdiliver_time(generalhelper.getStringFromDate(bestshippingdate.getTime()));
-                break;
-            case R.id.btnshippingdelay:
-            case R.id.ivshippingdelay:
-                initalShipping();
-                btnshippingdelay.setTextColor(getResources().getColor(R.color.primary));
-                if (Build.VERSION.SDK_INT >= 16) {
-                    btnshippingdelay.setBackground(getResources().getDrawable(R.drawable.bg_shippingtime_selected));
-                }
-                showDialog(DATE_PICKER_ID);
-                break;
+//            case R.id.btnshippingimediatly:
+//                initalShipping();
+//                btnshippingimediatly.setTextColor(getResources().getColor(R.color.primary));
+//                if (Build.VERSION.SDK_INT >= 16) {
+//                    btnshippingimediatly.setBackground(getResources().getDrawable(R.drawable.bg_shippingtime_selected));
+//                }
+//                Calendar calendar = Calendar.getInstance();
+//                Calendar bestshippingdate = calendar;
+//                bestshippingdate.add(Calendar.MINUTE, 20);
+//                txt_besttime.setText(generalhelper.getStringFromDate(bestshippingdate.getTime()));
+//                order.setdiliver_time(generalhelper.getStringFromDate(bestshippingdate.getTime()));
+//                break;
+//            case R.id.btnshippingdelay:
+//            case R.id.ivshippingdelay:
+//                initalShipping();
+//                btnshippingdelay.setTextColor(getResources().getColor(R.color.primary));
+//                if (Build.VERSION.SDK_INT >= 16) {
+//                    btnshippingdelay.setBackground(getResources().getDrawable(R.drawable.bg_shippingtime_selected));
+//                }
+//                showDialog(DATE_PICKER_ID);
+//                break;
             case R.id.iv_hdfk:
                 if (!isCommited) {
                     isCommited = true;
