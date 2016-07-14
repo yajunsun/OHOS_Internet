@@ -214,11 +214,11 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/front_text_size"
                     android:textColor="@color/solid_black"
-                    android:text="上门时间" />
+                    android:text="送货时间" />
 
                 <TextView
                     android:id="@+id/txt_besttime"
-                    android:textColor="@color/solid_black"
+                    android:textColor="@color/md_red_400"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="@dimen/front_text_size"
@@ -226,7 +226,16 @@
                     android:layout_below="@id/txtshippingtime"
                      />
 
-
+                <TextView
+                    android:id="@+id/txt_note"
+                    android:textColor="@color/md_red_400"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/front_text_size"
+                    android:text="进口商品周末暂不送货"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_besttime"
+                    />
                 <!--<ImageView-->
                     <!--android:layout_width="30dp"-->
                     <!--android:id="@+id/ivshippingdelay"-->

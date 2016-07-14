@@ -70,16 +70,17 @@ public class HightQualityDetail extends myBaseActivity implements View.OnClickLi
         ImageLoader.bindBitmap(hqs.getdetails_url(), ivimgdesc, 800, 1000);
         txtdesc.setText(hqs.gettitle());
         txtprice.setText("￥" + String.valueOf(hqs.getprice()));
-        txtstock.setText("库存：" + hqs.getstock());
-        try {
-            if (hqs.getstock() == 0) {
-                btncheck.setEnabled(false);
-            }
-        }
-        catch (Exception e){
-            btncheck.setEnabled(false);
-            Log.i(TAG,"库存解析错误："+e.getMessage());
-        }
+        //取消库存限制
+//        txtstock.setText("库存：" + hqs.getstock());
+//        try {
+//            if (hqs.getstock() == 0) {
+//                btncheck.setEnabled(false);
+//            }
+//        }
+//        catch (Exception e){
+//            btncheck.setEnabled(false);
+//            Log.i(TAG,"库存解析错误："+e.getMessage());
+//        }
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

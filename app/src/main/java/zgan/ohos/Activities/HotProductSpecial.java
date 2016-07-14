@@ -279,8 +279,9 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
             holder.name.setText(vegetable.gettitle());
             holder.price.setText("￥" + String.valueOf(vegetable.getprice()));
             holder.size.setText(vegetable.getitemSize());
-            holder.stock.setText("库存："+vegetable.getstock());
-            holder.selectCount.setMaxValue(vegetable.getstock());
+            //取消库存限制
+//            holder.stock.setText("库存："+vegetable.getstock());
+//            holder.selectCount.setMaxValue(vegetable.getstock());
             holder.selectCount.setOnchangeListener(new MySelectCount.IonChanged() {
                 @Override
                 public void onAddition(int count) {

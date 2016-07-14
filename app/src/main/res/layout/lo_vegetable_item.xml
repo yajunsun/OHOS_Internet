@@ -73,6 +73,7 @@
         android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="10dp"
+        android:visibility="invisible"
         android:layout_above="@id/txt_price"
         android:textColor="@color/primary"
         android:textSize="@dimen/front_text_size" />

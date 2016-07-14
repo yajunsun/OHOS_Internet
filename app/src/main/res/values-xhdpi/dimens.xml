@@ -89,7 +89,7 @@
 
     <dimen name="CommitOrder_txt_ordernum">14sp</dimen>
     <dimen name="CommitOrder_paytype_height">80sp</dimen>
-    <dimen name="CommitOrder_shipping_height">80dp</dimen>
+    <dimen name="CommitOrder_shipping_height">100dp</dimen>
     <dimen name="CommitOrder_dialog_txt1">18sp</dimen>
     <dimen name="CommitOrder_dialog_txt2">14sp</dimen>
     <dimen name="CommitOrder_dialog_txt3">15sp</dimen>
