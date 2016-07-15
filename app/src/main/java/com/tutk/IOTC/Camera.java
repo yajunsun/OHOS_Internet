@@ -420,16 +420,16 @@ public class Camera {
                 return false; // return----------------------------------------
             }
 
-            if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_SPEEX) {
-                DecSpeex.InitDecoder(sampleRateInHz);
-            } else if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_MP3) {
-                int bit = (dataBit == AVFrame.AUDIO_DATABITS_16) ? 16 : 8;
-                DecMp3.InitDecoder(sampleRateInHz, bit);
-            } else if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_ADPCM || codec_id == AVFrame.MEDIA_CODEC_AUDIO_PCM) {
-                DecADPCM.ResetDecoder();
-            } else if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_G726) {
-                DecG726.g726_dec_state_create((byte) DecG726.G726_16, (byte) DecG726.FORMAT_LINEAR);
-            }
+//            if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_SPEEX) {
+//                DecSpeex.InitDecoder(sampleRateInHz);
+//            } else if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_MP3) {
+//                int bit = (dataBit == AVFrame.AUDIO_DATABITS_16) ? 16 : 8;
+//                DecMp3.InitDecoder(sampleRateInHz, bit);
+//            } else if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_ADPCM || codec_id == AVFrame.MEDIA_CODEC_AUDIO_PCM) {
+//                DecADPCM.ResetDecoder();
+//            } else if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_G726) {
+//                DecG726.g726_dec_state_create((byte) DecG726.G726_16, (byte) DecG726.FORMAT_LINEAR);
+//            }
             Log.i("suntest", "play voice");
             //mAudioTrack.setStereoVolume(1.0f, 1.0f);
             mAudioTrack.play();
@@ -450,13 +450,13 @@ public class Camera {
                 mAudioTrack = null;
             }
 
-            if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_SPEEX) {
-                DecSpeex.UninitDecoder();
-            } else if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_MP3) {
-                DecMp3.UninitDecoder();
-            } else if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_G726) {
-                DecG726.g726_dec_state_destroy();
-            }
+//            if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_SPEEX) {
+//                DecSpeex.UninitDecoder();
+//            } else if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_MP3) {
+//                DecMp3.UninitDecoder();
+//            } else if (codec_id == AVFrame.MEDIA_CODEC_AUDIO_G726) {
+//                DecG726.g726_dec_state_destroy();
+//            }
 
             mInitAudio = false;
 
@@ -1135,7 +1135,7 @@ public class Camera {
             recorder.startRecording();
             mSpeex = new speexprocess();
             //int speexinit = mSpeex.Speex_init(960, 960 * 4, 16000);
-            int speexinit = mSpeex.Speex_init(960, 960 * 50 / 3, 8000);
+            int speexinit = mSpeex.Speex_init(960, 960 * 4, 8000);
 
             Log.i("IOTCamera", "recorder begin work");
             while (m_bIsRunning) {
@@ -1201,6 +1201,7 @@ public class Camera {
                             audioTraceWrite(voice_in, 0, voice_in.length);
                             Log.i("IOTCamera", "voice has played1");
                             int re = mSpeex.Speex_process(voice_in, voice_out, srcProcess);
+                            Log.i("suntest","result of speex:"+re);
                             int nReadBytes = 960;
                             byte d = (byte) (nReadBytes + 12 & 0x000000ff);
                             byte c = (byte) ((nReadBytes + 12 & 0x0000ff00) >> 8);

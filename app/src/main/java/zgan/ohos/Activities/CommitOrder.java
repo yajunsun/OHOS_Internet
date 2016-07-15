@@ -64,7 +64,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
 
     boolean isCommited = false;
     private IWXAPI api;
-    String[] mPaytypeNames = new String[]{"","货到付款", "钱包支付", "支付宝支付","微信支付" };
+    String[] mPaytypeNames = new String[]{"", "货到付款", "钱包支付", "支付宝支付", "微信支付"};
     String[] mVialiabelTypes;// order.GetGoods().get(0).getpayment().split(",");
     //int[] mPaytypeDraws = new int[]{R.drawable.pay_weixin, R.drawable.pay_zhifubao, R.drawable.pay_qianbao, R.drawable.pay_huodaofukuan};
 
@@ -74,12 +74,12 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             ;
     TextView txt_addr /**收货地址**/
             , txt_phone /**收货人电话**/
-           // , btnshippingimediatly/**立即送货**/
+            , btnshippingimediatly/**立即送货**/
             ;
-    TextView //btnshippingdelay/**选择送货时间**/
-             txt_besttime/**预期送货时间**/
+    TextView btnshippingdelay/**选择送货时间**/
+            , txt_besttime/**预期送货时间**/
             , txt_shippingid/**配送方式**/
-            ;
+            , txt_besttime2;
     TextView
 // txt_shippinger/**配送人**/
 //            , txt_shippingtime/**配送时间**/
@@ -91,7 +91,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
     RecyclerView rv_goods;
     LinearLayout lpaytypes;
     View lshippingtime /**配送时间选择**/
-            , lshipping/**配送过程**/
+            , lshippingtime2, lshipping/**配送过程**/
             , check/**提交行**/
             ;
     /***
@@ -113,7 +113,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
     private static final int TIME_PICKER_ID = 2;// 时间
     String scheduldate;
     DecimalFormat decimalFormat = new DecimalFormat("###.0");
-    int mShipping_span=20;
+    int mShipping_span = 20;
 
     @Override
     protected void initView() {
@@ -124,17 +124,18 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
         //txt_householder = (TextView) findViewById(R.id.txt_householder);
         txt_addr = (TextView) findViewById(R.id.txt_addr);
         txt_phone = (TextView) findViewById(R.id.txt_phone);
-//        btnshippingimediatly = (TextView) findViewById(R.id.btnshippingimediatly);
-//        btnshippingdelay = (TextView) findViewById(R.id.btnshippingdelay);
+        btnshippingimediatly = (TextView) findViewById(R.id.btnshippingimediatly);
+        btnshippingdelay = (TextView) findViewById(R.id.btnshippingdelay);
         txt_besttime = (TextView) findViewById(R.id.txt_besttime);
+        txt_besttime2=(TextView)findViewById(R.id.txt_besttime2);
         txt_shippingid = (TextView) findViewById(R.id.txt_shippingid);
         txt_payfee = (TextView) findViewById(R.id.txt_payfee);
         rv_goods = (RecyclerView) findViewById(R.id.rv_goods);
         lpaytypes = (LinearLayout) findViewById(R.id.lpaytypes);
         lshippingtime = findViewById(R.id.lshippingtime);
+        lshippingtime2=findViewById(R.id.lshippingtime2);
         lshipping = findViewById(R.id.lshipping);
-//        btnshippingimediatly = (TextView) findViewById(R.id.btnshippingimediatly);
-//        btnshippingdelay = (TextView) findViewById(R.id.btnshippingdelay);
+
         check = findViewById(R.id.check);
         gdcount = (TextView) findViewById(R.id.gdcount);
         totalpay = (TextView) findViewById(R.id.totalpay);
@@ -148,23 +149,23 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
                 finish();
             }
         });
-//        View ivshippingdelay = findViewById(R.id.ivshippingdelay);
-//        ivshippingdelay.setOnClickListener(this);
+        View ivshippingdelay = findViewById(R.id.ivshippingdelay);
+        ivshippingdelay.setOnClickListener(this);
         btncheck.setText("提交订单");
         btncheck.setOnClickListener(this);
-//        btnshippingimediatly.setOnClickListener(this);
-//        btnshippingdelay.setOnClickListener(this);
+        btnshippingimediatly.setOnClickListener(this);
+        btnshippingdelay.setOnClickListener(this);
         order = (MyOrder) getIntent().getSerializableExtra("order");
         if (order != null) {
             list = order.GetGoods();
             initialPage();
         }
-       mVialiabelTypes= list.get(0).getpayment().split(",");
-        //initalShipping();
-//        btnshippingimediatly.setTextColor(getResources().getColor(R.color.primary));
-//        if (Build.VERSION.SDK_INT >= 16) {
-//            btnshippingimediatly.setBackground(getResources().getDrawable(R.drawable.bg_shippingtime_selected));
-//        }
+        mVialiabelTypes = list.get(0).getpayment().split(",");
+        initalShipping();
+        btnshippingimediatly.setTextColor(getResources().getColor(R.color.primary));
+        if (Build.VERSION.SDK_INT >= 16) {
+            btnshippingimediatly.setBackground(getResources().getDrawable(R.drawable.bg_shippingtime_selected));
+        }
         //ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1020, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), handler);
         buildPayView(0);
         IntentFilter filter = new IntentFilter();
@@ -182,19 +183,15 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             fee += g.getprice() * g.getSelectedcount();
             count += g.getSelectedcount();
 
-            if(g.gettime()!=null&&!g.gettime().equals(""))
-            {
-                int span=0;
-                try
-                {
-                    span=Integer.valueOf(g.gettime());
-                    if (span>mShipping_span)
-                    {
-                        mShipping_span=span;
+            if (g.gettime() != null && !g.gettime().equals("")) {
+                int span = 0;
+                try {
+                    span = Integer.valueOf(g.gettime());
+                    if (span > mShipping_span) {
+                        mShipping_span = span;
                     }
-                }
-                catch (Exception e){
-                    Log.i(TAG,"CommitOrder  Line 607 exception:"+e.getMessage());
+                } catch (Exception e) {
+                    Log.i(TAG, "CommitOrder  Line 607 exception:" + e.getMessage());
                 }
             }
         }
@@ -202,8 +199,30 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
         Calendar c = Calendar.getInstance();
         c.add(Calendar.MINUTE, mShipping_span);
         Date d = c.getTime();
-        txt_besttime.setText("预计"+generalhelper.getStringFromDate(d,"yyyy-MM-dd HH:mm")+"送达");
-        order.setdiliver_time(generalhelper.getStringFromDate(d,"yyyyMMddHHmm"));
+
+        Date now=new Date();
+
+        //mShipping_span如果小于等于20分钟，用户可以选择送货上门时间
+        if (mShipping_span>20) {
+            lshippingtime.setVisibility(View.GONE);
+            lshippingtime2.setVisibility(View.VISIBLE);
+            //当下单时间在8点到16点之间
+            if (now.getHours() >= 8)
+            {}
+            //当下单时间在16点到24点之间
+
+            //当下单时间在0点到8点之间
+
+            txt_besttime2.setText("预计" + generalhelper.getStringFromDate(d, "yyyy-MM-dd HH:mm") + "送达");
+            order.setdiliver_time(generalhelper.getStringFromDate(d, "yyyyMMddHHmm"));
+        }
+        else
+        {
+            lshippingtime2.setVisibility(View.GONE);
+            lshippingtime.setVisibility(View.VISIBLE);
+        }
+
+
         gdcount.setText("商品：" + count);
         totalpay.setText("合计：" + decimalFormat.format(fee));
         txt_payfee.setText("￥" + decimalFormat.format(fee));
@@ -392,14 +411,14 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
         paypwdInputDialog.show();
     }
 
-//    private void initalShipping() {
-//        if (Build.VERSION.SDK_INT >= 16) {
-//            btnshippingimediatly.setBackground(getResources().getDrawable(R.drawable.bg_rect_border));
-//            btnshippingdelay.setBackground(getResources().getDrawable(R.drawable.bg_rect_border));
-//        }
-//        btnshippingimediatly.setTextColor(getResources().getColor(R.color.solid_black));
-//        btnshippingdelay.setTextColor(getResources().getColor(R.color.solid_black));
-//    }
+    private void initalShipping() {
+        if (Build.VERSION.SDK_INT >= 16) {
+            btnshippingimediatly.setBackground(getResources().getDrawable(R.drawable.bg_rect_border));
+            btnshippingdelay.setBackground(getResources().getDrawable(R.drawable.bg_rect_border));
+        }
+        btnshippingimediatly.setTextColor(getResources().getColor(R.color.solid_black));
+        btnshippingdelay.setTextColor(getResources().getColor(R.color.solid_black));
+    }
 
     private void commit() {
         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1015,
@@ -416,27 +435,27 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             case R.id.btncheck:
                 buildPaySelection();
                 break;
-//            case R.id.btnshippingimediatly:
-//                initalShipping();
-//                btnshippingimediatly.setTextColor(getResources().getColor(R.color.primary));
-//                if (Build.VERSION.SDK_INT >= 16) {
-//                    btnshippingimediatly.setBackground(getResources().getDrawable(R.drawable.bg_shippingtime_selected));
-//                }
-//                Calendar calendar = Calendar.getInstance();
-//                Calendar bestshippingdate = calendar;
-//                bestshippingdate.add(Calendar.MINUTE, 20);
-//                txt_besttime.setText(generalhelper.getStringFromDate(bestshippingdate.getTime()));
-//                order.setdiliver_time(generalhelper.getStringFromDate(bestshippingdate.getTime()));
-//                break;
-//            case R.id.btnshippingdelay:
-//            case R.id.ivshippingdelay:
-//                initalShipping();
-//                btnshippingdelay.setTextColor(getResources().getColor(R.color.primary));
-//                if (Build.VERSION.SDK_INT >= 16) {
-//                    btnshippingdelay.setBackground(getResources().getDrawable(R.drawable.bg_shippingtime_selected));
-//                }
-//                showDialog(DATE_PICKER_ID);
-//                break;
+            case R.id.btnshippingimediatly:
+                initalShipping();
+                btnshippingimediatly.setTextColor(getResources().getColor(R.color.primary));
+                if (Build.VERSION.SDK_INT >= 16) {
+                    btnshippingimediatly.setBackground(getResources().getDrawable(R.drawable.bg_shippingtime_selected));
+                }
+                Calendar calendar = Calendar.getInstance();
+                Calendar bestshippingdate = calendar;
+                bestshippingdate.add(Calendar.MINUTE, 20);
+                txt_besttime.setText(generalhelper.getStringFromDate(bestshippingdate.getTime()));
+                order.setdiliver_time(generalhelper.getStringFromDate(bestshippingdate.getTime()));
+                break;
+            case R.id.btnshippingdelay:
+            case R.id.ivshippingdelay:
+                initalShipping();
+                btnshippingdelay.setTextColor(getResources().getColor(R.color.primary));
+                if (Build.VERSION.SDK_INT >= 16) {
+                    btnshippingdelay.setBackground(getResources().getDrawable(R.drawable.bg_shippingtime_selected));
+                }
+                showDialog(DATE_PICKER_ID);
+                break;
             case R.id.iv_hdfk:
                 if (!isCommited) {
                     isCommited = true;

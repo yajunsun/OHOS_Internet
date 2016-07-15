@@ -43,6 +43,7 @@ public class SMSValidationStep2 extends myBaseActivity {
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
+                mTimeout--;
                 handler.sendEmptyMessage(TIME_TICK);
             }
         }, 0, 1000);
@@ -61,7 +62,7 @@ public class SMSValidationStep2 extends myBaseActivity {
                     } else if (mTimeout > 0)
                         btnredo.setText(mTimeout + "秒");
                     else
-                      mTimer.cancel();
+                        mTimer.cancel();
                     break;
                 case 1:
                     Frame frame = (Frame) msg.obj;
@@ -89,11 +90,12 @@ public class SMSValidationStep2 extends myBaseActivity {
                 } else {
                     //判断验证码是否输入正确
                     Intent intent = new Intent(this, UpdatePassword2.class);
-                    intent.putExtra("code",etcode.getText().toString().trim());
-                    intent.putExtra("phone",phone);
+                    intent.putExtra("code", etcode.getText().toString().trim());
+                    intent.putExtra("phone", phone);
                     startActivityWithAnim(intent);
                     finish();
                 }
+                break;
             case R.id.btn_redo:
                 ZganLoginService.toGetServerData(8, 0, phone, handler);
                 break;

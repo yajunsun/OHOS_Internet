@@ -282,10 +282,10 @@ public class CallOut extends myBaseActivity implements IRegisterIOTCListener, Vi
 
     @Override
     protected void onDestroy() {
-        Log.i(TAG, "CallOut onDestroy");
         super.onDestroy();
         toQuitVideo();
         unbindService(mconnection);
+        Log.i(TAG, "CallOut onDestroy");
     }
 
     ZganCommunityService.communityService communityService;
