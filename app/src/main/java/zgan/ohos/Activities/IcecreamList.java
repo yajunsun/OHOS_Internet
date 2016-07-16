@@ -22,6 +22,7 @@ import java.util.List;
 import zgan.ohos.ConstomControls.MySelectCount;
 import zgan.ohos.Dals.VegetableDal;
 import zgan.ohos.Models.BaseGoods;
+import zgan.ohos.Models.FuncBase;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.Models.Vegetable;
 import zgan.ohos.R;
@@ -50,10 +51,12 @@ public class IcecreamList extends myBaseActivity implements View.OnClickListener
     //商品价格
     double goodssum = 0;
     DecimalFormat decimalFormat = new DecimalFormat("###.0");
+    FuncBase item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        item=(FuncBase)getIntent().getSerializableExtra("item");
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey("goodscount")) {
                 goodscount = savedInstanceState.getInt("goodscount", 0);
@@ -131,7 +134,7 @@ public class IcecreamList extends myBaseActivity implements View.OnClickListener
     protected void loadData() {
         //isLoadingMore = false;
         refreshview.setRefreshing(true);
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1021, "@id=22,@page=0", "22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=0",item.getpage_id()), "22"), handler);
     }
 
     public void loadMoreData() {
@@ -139,7 +142,7 @@ public class IcecreamList extends myBaseActivity implements View.OnClickListener
             pageindex++;
             //isLoadingMore = true;
             refreshview.setRefreshing(true);
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1021, String.format("@id=22,@page=%d", pageindex), "22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%d",item.getpage_id(), pageindex), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -172,7 +175,7 @@ public class IcecreamList extends myBaseActivity implements View.OnClickListener
                                 list = new ArrayList<>();
                             }
                             if (frame.platform != 0) {
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1021, String.format("@id=22,@page=%d", pageindex), "22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%d",item.getpage_id(), pageindex), "22"), frame.strData);
                             }
                             List<Vegetable> vegetables = dal.getList(results[2]);
                             list.addAll(vegetables);

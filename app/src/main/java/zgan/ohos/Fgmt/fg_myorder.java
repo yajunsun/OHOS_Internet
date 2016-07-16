@@ -35,6 +35,11 @@ import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.resultCodes;
 
+/**
+ * create by yajunsun
+ *
+ * 首页订单fragment
+ * */
 public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     int pageindex = 1;
     boolean isLoadingMore = false;

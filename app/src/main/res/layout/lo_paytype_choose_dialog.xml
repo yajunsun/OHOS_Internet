@@ -21,48 +21,52 @@
             android:text="选择支付方式" />
 
         <TextView
+            android:id="@+id/txt_paymount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_weight="1"
-            android:id="@+id/txt_paymount"
             android:gravity="right"
             android:text="300" />
     </LinearLayout>
 
     <ImageView
-        android:clickable="true"
         android:id="@+id/iv_hdfk"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginTop="15dp"
+        android:clickable="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/pay_huodaofukuan" />
+        android:src="@drawable/pay_huodaofukuan"
+        android:visibility="gone" />
 
     <ImageView
-        android:clickable="true"
         android:id="@+id/iv_alipay"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="15dp"
+        android:clickable="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/pay_zhifubao" />
+        android:src="@drawable/pay_zhifubao"
+        android:visibility="gone" />
 
     <ImageView
-        android:clickable="true"
         android:id="@+id/iv_wallite"
-        android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/pay_qianbao" />
+        android:src="@drawable/pay_qianbao"
+        android:visibility="gone" />
 
     <ImageView
-        android:clickable="true"
         android:id="@+id/iv_wxpay"
         android:layout_width="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/pay_weixin" />
+        android:src="@drawable/pay_weixin"
+        android:visibility="gone" />
 </LinearLayout>

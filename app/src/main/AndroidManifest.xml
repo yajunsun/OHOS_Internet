@@ -118,7 +118,7 @@
             android:name=".Activities.HouseHolderService"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="Page.1010" />
+                <action android:name="Page.2013" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -186,20 +186,20 @@
             android:name=".Activities.SuperMarket"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="Page.1009" />
+                <action android:name="Page.2016" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activities.ElectricalMaintenance"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="Page.1011" />
+        <!--<activity-->
+            <!--android:name=".Activities.ElectricalMaintenance"-->
+            <!--android:screenOrientation="portrait">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="Page.2013" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
         <activity
             android:name=".Activities.CommitOrder"
             android:screenOrientation="portrait" />
@@ -240,15 +240,15 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activities.IcecreamList"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="Page.1021" />
+        <!--<activity-->
+            <!--android:name=".Activities.IcecreamList"-->
+            <!--android:screenOrientation="portrait">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="Page.2014" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
         <activity android:name=".Activities.CreditsRule" />
         <activity android:name=".Activities.CreditsDetail" />
         <activity android:name=".Activities.Express_out">
@@ -260,6 +260,20 @@
         <activity android:name=".Activities.Express_in">
             <intent-filter>
                 <action android:name="Page.2009"></action>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Activities.HotProvideSpecial">
+            <intent-filter>
+                <action android:name="Page.2017"></action>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Activities.HotProductSpecial">
+            <intent-filter>
+                <action android:name="Page.2018"></action>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

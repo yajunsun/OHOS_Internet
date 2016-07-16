@@ -34,6 +34,7 @@ import java.util.List;
 
 import zgan.ohos.Dals.MyPakageDal;
 import zgan.ohos.Models.BaseGoods;
+import zgan.ohos.Models.FuncBase;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.Models.MyPakage;
 import zgan.ohos.R;
@@ -44,6 +45,11 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ * <p/>
+ * 洗衣服务套餐购买和洗衣预约界面
+ */
 public class ProLaundry extends myBaseActivity implements View.OnClickListener {
 
     @Override
@@ -80,10 +86,12 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
     int index = 0;
 
     float density;
+    FuncBase item;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_pro_laundry);
+        item = (FuncBase) getIntent().getSerializableExtra("item");
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +139,7 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
 
     protected void loadData() {
         refreshview.setRefreshing(true);
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1008, "@id=22", "22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s", item.getpage_id()), "22"), handler);
     }
 
     void bindData() {
@@ -164,11 +172,11 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
                 String ret = generalhelper.getSocketeStringResult(frame.strData);
                 Log.i(TAG, frame.subCmd + "  " + ret);
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1008")) {
+                    if (results[0].equals("0") && results[1].equals(item.gettype_id())) {
                         try {
                             list = dal.getList(results[2]);
                             if (frame.platform != 0) {
-                                addCache("40" +  String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1008, "@id=22", "22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s", item.getpage_id()), "22"), frame.strData);
                             }
                             handler.post(new Runnable() {
                                 @Override
@@ -183,7 +191,7 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
                             handler.sendMessage(msg1);
                         }
                     } else if (results[0].equals("0") && results[1].equals("1015")) {
-                        Toast.makeText(ProLaundry.this, String.format("订单已提交，工作人员将在%s上门取衣~",order.getTimeticked()), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProLaundry.this, String.format("订单已提交，工作人员将在%s上门取衣~", order.getTimeticked()), Toast.LENGTH_LONG).show();
                         finish();
                     }
                     refreshview.setRefreshing(false);
@@ -258,7 +266,7 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
         txt_servicetype = (TextView) view.findViewById(R.id.txt_servicetype);
         txt_servicetime = (TextView) view.findViewById(R.id.txt_servicetime);
         BaseGoods goods = list.get(index);
-        txt_servicetype.setText("服务类型："+goods.gettitle());
+        txt_servicetype.setText("服务类型：" + goods.gettitle());
         if (order.getdiliver_time() == null || order.getdiliver_time().equals(""))
             txt_servicetime.setText("上门时间：即时上门");
         else
@@ -311,6 +319,8 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
         refreshview.setRefreshing(false);
         switch (v.getId()) {
             case R.id.btncheck:
+                if (list == null || list.size() < 1)
+                    return;
                 BaseGoods goods = list.get(index);
                 order = new MyOrder();
                 intent = new Intent(this, CommitOrder.class);
@@ -321,11 +331,12 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
                 order.setaccount(PreferenceUtil.getUserName());
                 order.setdiliver_time("0");//(generalhelper.getStringFromDate(bestshippingdate.getTime()));
                 order.settotal(goods.getprice());
-                if (goods.getprice() > 0) {
-                    order.setgoods_type(0);
-                } else {
-                    order.setgoods_type(MyOrder.PROLAUNDRY);
-                }
+//                if (goods.getprice() > 0) {
+//                    order.setgoods_type(0);
+//                } else {
+//                    order.setgoods_type(MyOrder.PROLAUNDRY);
+//                }
+                order.setgoods_type(goods.getgoods_type());
                 StringBuilder builder = new StringBuilder();
                 String bstr = "";
                 builder.append("'");
@@ -364,7 +375,7 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
                 order.setorder_id(order.generateOrderId());
                 order.setaccount(PreferenceUtil.getUserName());
                 order.settotal(goods1.getprice());
-                order.setgoods_type(MyOrder.PROLAUNDRY);
+                order.setgoods_type(goods1.getgoods_type());
                 order.setpay_type(1);
                 order.setstate(1);
                 StringBuilder builder1 = new StringBuilder();
@@ -455,11 +466,11 @@ public class ProLaundry extends myBaseActivity implements View.OnClickListener {
                 if (fee > 0) {
                     lcheck.setVisibility(View.GONE);
                     rcheck.setVisibility(View.VISIBLE);
-                    params.setMargins(0, toolbar.getHeight() + llpreview.getHeight(), 0, (int)(60*density));
+                    params.setMargins(0, toolbar.getHeight() + llpreview.getHeight(), 0, (int) (60 * density));
                 } else {
                     lcheck.setVisibility(View.VISIBLE);
                     rcheck.setVisibility(View.GONE);
-                    params.setMargins(0, toolbar.getHeight() + llpreview.getHeight(), 0, (int)(100*density));
+                    params.setMargins(0, toolbar.getHeight() + llpreview.getHeight(), 0, (int) (100 * density));
                 }
                 imgdetail.setLayoutParams(params);
                 current_option_index = _index;

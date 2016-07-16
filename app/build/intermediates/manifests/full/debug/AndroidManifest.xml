@@ -125,7 +125,7 @@
             android:name="zgan.ohos.Activities.HouseHolderService"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="Page.1010" />
+                <action android:name="Page.2013" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -165,8 +165,7 @@
             android:name="zgan.ohos.Activities.HightQualityService"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="Page.1007" />
-                <action android:name="Page.1006" />
+                <action android:name="Page.2015" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -178,16 +177,17 @@
             android:name="zgan.ohos.Activities.VegetableMart"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="Page.1005" />
+                <action android:name="Page.2014" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <!-- 洗衣 -->
         <activity
             android:name="zgan.ohos.Activities.ProLaundry"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="Page.1008" />
+                <action android:name="Page.2012" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -196,20 +196,21 @@
             android:name="zgan.ohos.Activities.SuperMarket"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="Page.1009" />
+                <action android:name="Page.2016" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="zgan.ohos.Activities.ElectricalMaintenance"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="Page.1011" />
+        <!-- <activity -->
+        <!-- android:name=".Activities.ElectricalMaintenance" -->
+        <!-- android:screenOrientation="portrait"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="Page.2013" /> -->
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name="zgan.ohos.Activities.CommitOrder"
             android:screenOrientation="portrait" />
@@ -251,15 +252,16 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="zgan.ohos.Activities.IcecreamList"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="Page.1021" />
+        <!-- <activity -->
+        <!-- android:name=".Activities.IcecreamList" -->
+        <!-- android:screenOrientation="portrait"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="Page.2014" /> -->
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity android:name="zgan.ohos.Activities.CreditsRule" />
         <activity android:name="zgan.ohos.Activities.CreditsDetail" />
         <activity android:name="zgan.ohos.Activities.Express_out" >
@@ -272,6 +274,20 @@
         <activity android:name="zgan.ohos.Activities.Express_in" >
             <intent-filter>
                 <action android:name="Page.2009" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="zgan.ohos.Activities.HotProvideSpecial" >
+            <intent-filter>
+                <action android:name="Page.2017" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="zgan.ohos.Activities.HotProductSpecial" >
+            <intent-filter>
+                <action android:name="Page.2018" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

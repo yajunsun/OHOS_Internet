@@ -16,6 +16,11 @@ import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
 
+/**
+ * create by yajunsun
+ *
+ * 消息详情界面
+ * */
 public class MessageDetailActivity extends myBaseActivity {
 
     int msg_id;

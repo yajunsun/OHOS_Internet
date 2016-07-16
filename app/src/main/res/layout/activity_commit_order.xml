@@ -76,20 +76,20 @@
                     android:id="@+id/txt_ordernum"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/CommitOrder_txt_ordernum"
-                    android:textColor="@color/solid_black"
                     android:layout_weight="1"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:textColor="@color/solid_black"
+                    android:textSize="@dimen/CommitOrder_txt_ordernum" />
 
                 <TextView
                     android:id="@+id/txt_shipingstatus"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
-                    android:textSize="@dimen/CommitOrder_txt_ordernum"
                     android:layout_height="match_parent"
-                    android:textColor="@color/primary"
                     android:layout_weight="4"
-                    android:gravity="center_vertical|right" />
+                    android:gravity="center_vertical|right"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/CommitOrder_txt_ordernum"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -116,15 +116,15 @@
                     android:id="@+id/txt_phone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/front_text_size"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textSize="@dimen/front_text_size" />
 
                 <TextView
                     android:id="@+id/txt_addr"
                     android:layout_width="match_parent"
-                    android:textSize="@dimen/front_text_size"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textSize="@dimen/front_text_size" />
 
 
             </LinearLayout>
@@ -149,17 +149,17 @@
                 <TextView
                     android:id="@+id/txt1"
                     android:layout_width="wrap_content"
-                    android:textColor="@color/solid_black"
-                    android:textSize="14sp"
                     android:layout_height="wrap_content"
-                    android:text="支付方式" />
+                    android:text="支付方式"
+                    android:textColor="@color/solid_black"
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:id="@+id/lpaytypes"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
                     android:layout_height="40dp"
                     android:layout_below="@id/txt1"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
 
@@ -175,74 +175,118 @@
                 android:background="@color/myaccount_icon"
                 android:orientation="horizontal" />
 
-
-            <RelativeLayout
-                android:id="@+id/lshippingtime"
+            <LinearLayout
+                android:id="@+id/llshipping"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/CommitOrder_shipping_height"
                 android:layout_below="@id/l2"
-                android:padding="10dp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/btnshippingimediatly"
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_rect_border"
-                    android:clickable="true"
-                    android:textSize="@dimen/front_text_size"
-                    android:gravity="center"
-                    android:textColor="@color/primary"
-                    android:text="立即上门"
-                    android:textIsSelectable="true" />
+                <RelativeLayout
+                    android:id="@+id/lshippingtime"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/CommitOrder_shipping_height"
+                    android:layout_below="@id/l2"
+                    android:padding="10dp"
+                    android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/btnshippingdelay"
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="@dimen/front_text_size"
-                    android:layout_toRightOf="@id/btnshippingimediatly"
-                    android:background="@drawable/bg_rect_border"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:text="选择时间"
-                    android:textIsSelectable="false" />
+                    <TextView
+                        android:id="@+id/btnshippingimediatly"
+                        android:layout_width="80dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bg_rect_border"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="立即上门"
+                        android:textColor="@color/primary"
+                        android:textIsSelectable="true"
+                        android:textSize="@dimen/front_text_size" />
 
-                <TextView
-                    android:id="@+id/txtshippingtime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:textSize="@dimen/front_text_size"
-                    android:textColor="@color/solid_black"
-                    android:layout_below="@id/btnshippingimediatly"
-                    android:text="上门时间" />
+                    <TextView
+                        android:id="@+id/btnshippingdelay"
+                        android:layout_width="80dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/btnshippingimediatly"
+                        android:background="@drawable/bg_rect_border"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="选择时间"
+                        android:textIsSelectable="false"
+                        android:textSize="@dimen/front_text_size" />
 
-                <TextView
-                    android:id="@+id/txt_besttime"
-                    android:textColor="@color/solid_black"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:textSize="@dimen/front_text_size"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/txtshippingtime"
-                     />
+                    <!--<TextView-->
+                    <!--android:id="@+id/txtshippingtime"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textSize="@dimen/front_text_size"-->
+                    <!--android:textColor="@color/solid_black"-->
+                    <!--android:layout_below="@id/btnshippingdelay"-->
+                    <!--android:text="送货时间" />-->
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:id="@+id/ivshippingdelay"
-                    android:clickable="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/calender"
-                    android:layout_height="30dp" />
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/txt_besttime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/md_red_400"
+                        android:textSize="@dimen/front_text_size" />
+
+
+                    <ImageView
+                        android:id="@+id/ivshippingdelay"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:clickable="true"
+                        android:src="@drawable/calender" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/lshippingtime2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/CommitOrder_shipping_height"
+                    android:layout_below="@id/l2"
+                    android:padding="10dp">
+
+
+                    <TextView
+                        android:id="@+id/txtshippingtime2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="送货时间"
+                        android:textColor="@color/solid_black"
+                        android:textSize="@dimen/front_text_size" />
+
+                    <TextView
+                        android:id="@+id/txt_besttime2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtshippingtime2"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/md_red_400"
+                        android:textSize="@dimen/front_text_size" />
+
+                    <TextView
+                        android:id="@+id/txt_note2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txt_besttime2"
+                        android:layout_marginTop="10dp"
+                        android:text="进口商品周末暂不送货"
+                        android:textColor="@color/md_red_400"
+                        android:textSize="@dimen/front_text_size" />
+                </RelativeLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/l3"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_below="@id/lshippingtime"
+                android:layout_below="@id/llshipping"
                 android:background="@color/myaccount_icon"
                 android:orientation="horizontal" />
 

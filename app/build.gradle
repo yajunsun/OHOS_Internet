@@ -26,9 +26,9 @@ android {
     signingConfigs {
         release {
             storeFile file("keystore/1h1skeystore_internet.jks")
-            storePassword "yajunsun12333"
+            storePassword "sx1234"
             keyAlias "china"
-            keyPassword "yajunsun12333"
+            keyPassword "sx1234"
         }
     }
     buildTypes {

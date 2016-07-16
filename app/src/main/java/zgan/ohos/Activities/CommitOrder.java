@@ -64,7 +64,8 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
 
     boolean isCommited = false;
     private IWXAPI api;
-    String[] mPaytypeNames = new String[]{"微信支付", "支付宝支付", "钱包支付", "货到付款"};
+    String[] mPaytypeNames = new String[]{"", "货到付款", "钱包支付", "支付宝支付", "微信支付"};
+    String[] mVialiabelTypes;// order.GetGoods().get(0).getpayment().split(",");
     //int[] mPaytypeDraws = new int[]{R.drawable.pay_weixin, R.drawable.pay_zhifubao, R.drawable.pay_qianbao, R.drawable.pay_huodaofukuan};
 
     TextView txt_ordernum /**订单号**/
@@ -78,7 +79,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
     TextView btnshippingdelay/**选择送货时间**/
             , txt_besttime/**预期送货时间**/
             , txt_shippingid/**配送方式**/
-            ;
+            , txt_besttime2;
     TextView
 // txt_shippinger/**配送人**/
 //            , txt_shippingtime/**配送时间**/
@@ -90,7 +91,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
     RecyclerView rv_goods;
     LinearLayout lpaytypes;
     View lshippingtime /**配送时间选择**/
-            , lshipping/**配送过程**/
+            , lshippingtime2, lshipping/**配送过程**/
             , check/**提交行**/
             ;
     /***
@@ -112,6 +113,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
     private static final int TIME_PICKER_ID = 2;// 时间
     String scheduldate;
     DecimalFormat decimalFormat = new DecimalFormat("###.0");
+    int mShipping_span = 20;
 
     @Override
     protected void initView() {
@@ -125,14 +127,15 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
         btnshippingimediatly = (TextView) findViewById(R.id.btnshippingimediatly);
         btnshippingdelay = (TextView) findViewById(R.id.btnshippingdelay);
         txt_besttime = (TextView) findViewById(R.id.txt_besttime);
+        txt_besttime2=(TextView)findViewById(R.id.txt_besttime2);
         txt_shippingid = (TextView) findViewById(R.id.txt_shippingid);
         txt_payfee = (TextView) findViewById(R.id.txt_payfee);
         rv_goods = (RecyclerView) findViewById(R.id.rv_goods);
         lpaytypes = (LinearLayout) findViewById(R.id.lpaytypes);
         lshippingtime = findViewById(R.id.lshippingtime);
+        lshippingtime2=findViewById(R.id.lshippingtime2);
         lshipping = findViewById(R.id.lshipping);
-        btnshippingimediatly = (TextView) findViewById(R.id.btnshippingimediatly);
-        btnshippingdelay = (TextView) findViewById(R.id.btnshippingdelay);
+
         check = findViewById(R.id.check);
         gdcount = (TextView) findViewById(R.id.gdcount);
         totalpay = (TextView) findViewById(R.id.totalpay);
@@ -157,6 +160,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             list = order.GetGoods();
             initialPage();
         }
+        mVialiabelTypes = list.get(0).getpayment().split(",");
         initalShipping();
         btnshippingimediatly.setTextColor(getResources().getColor(R.color.primary));
         if (Build.VERSION.SDK_INT >= 16) {
@@ -174,17 +178,51 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
         //txt_shipingstatus.setText(getShippingStatus(order.getShipping_status()));
         //txt_householder.setText("收货人：" + order.getHouse_holder());
         txt_phone.setText("收货人：" + PreferenceUtil.getUserName());
-        if (order.getdiliver_time().equals("0")) {
-            Calendar c = Calendar.getInstance();
-            c.add(Calendar.MINUTE, 20);
-            Date d = c.getTime();
-            txt_besttime.setText(generalhelper.getStringFromDate(d));
-        } else
-            txt_besttime.setText(order.getdiliver_time());
+
         for (BaseGoods g : order.GetGoods()) {
             fee += g.getprice() * g.getSelectedcount();
             count += g.getSelectedcount();
+
+            if (g.gettime() != null && !g.gettime().equals("")) {
+                int span = 0;
+                try {
+                    span = Integer.valueOf(g.gettime());
+                    if (span > mShipping_span) {
+                        mShipping_span = span;
+                    }
+                } catch (Exception e) {
+                    Log.i(TAG, "CommitOrder  Line 607 exception:" + e.getMessage());
+                }
+            }
         }
+
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MINUTE, mShipping_span);
+        Date d = c.getTime();
+
+        Date now=new Date();
+
+        //mShipping_span如果小于等于20分钟，用户可以选择送货上门时间
+        if (mShipping_span>20) {
+            lshippingtime.setVisibility(View.GONE);
+            lshippingtime2.setVisibility(View.VISIBLE);
+            //当下单时间在8点到16点之间
+            if (now.getHours() >= 8)
+            {}
+            //当下单时间在16点到24点之间
+
+            //当下单时间在0点到8点之间
+
+            txt_besttime2.setText("预计" + generalhelper.getStringFromDate(d, "yyyy-MM-dd HH:mm") + "送达");
+            order.setdiliver_time(generalhelper.getStringFromDate(d, "yyyyMMddHHmm"));
+        }
+        else
+        {
+            lshippingtime2.setVisibility(View.GONE);
+            lshippingtime.setVisibility(View.VISIBLE);
+        }
+
+
         gdcount.setText("商品：" + count);
         totalpay.setText("合计：" + decimalFormat.format(fee));
         txt_payfee.setText("￥" + decimalFormat.format(fee));
@@ -212,7 +250,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
     private void buildPayView(int statu) {
         float density = AppUtils.getDensity(this);
         int i = 0;
-        for (String p : mPaytypeNames
+        for (String p : mVialiabelTypes
                 ) {
             LinearLayout l = new LinearLayout(this);
             ImageView v = new ImageView(this);
@@ -243,9 +281,9 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             ViewGroup.MarginLayoutParams tparams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
             t.setLayoutParams(tparams);
             t.setGravity(Gravity.CENTER_VERTICAL);
-            t.setText(p);
+            t.setText(mPaytypeNames[Integer.valueOf(p)]);
             //t.setTextSize(getResources().getDimension(R.dimen.front_text_size));
-            t.setTextSize(TypedValue.COMPLEX_UNIT_SP ,10);
+            t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
             l.addView(t);
             lpaytypes.addView(l);
             i++;
@@ -258,11 +296,23 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             TextView txt_paymount;
             View view = getLayoutInflater().inflate(R.layout.lo_paytype_choose_dialog,
                     null);
-
             iv_hdfk = (ImageView) view.findViewById(R.id.iv_hdfk);
-            iv_alipay = (ImageView) view.findViewById(R.id.iv_alipay);
             iv_wallite = (ImageView) view.findViewById(R.id.iv_wallite);
+            iv_alipay = (ImageView) view.findViewById(R.id.iv_alipay);
             iv_wxpay = (ImageView) view.findViewById(R.id.iv_wxpay);
+
+            for (String tp : mVialiabelTypes
+                    ) {
+                if (tp.equals("1"))
+                    iv_hdfk.setVisibility(View.VISIBLE);
+                if (tp.equals("2"))
+                    iv_wallite.setVisibility(View.VISIBLE);
+                if (tp.equals("3"))
+                    iv_alipay.setVisibility(View.VISIBLE);
+                if (tp.equals("4"))
+                    iv_wxpay.setVisibility(View.VISIBLE);
+            }
+
             txt_paymount = (TextView) view.findViewById(R.id.txt_paymount);
             txt_paymount.setText("￥" + fee);
             iv_hdfk.setOnClickListener(this);

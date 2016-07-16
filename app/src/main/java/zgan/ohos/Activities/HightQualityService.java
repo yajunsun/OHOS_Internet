@@ -23,6 +23,7 @@ import java.util.List;
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.HightQualityDal;
 import zgan.ohos.Models.FrontItem;
+import zgan.ohos.Models.FuncBase;
 import zgan.ohos.Models.HightQualityServiceM;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
@@ -32,6 +33,11 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 特供类商品列表
+ * */
 public class HightQualityService extends myBaseActivity {
 
     int pageindex = 0;
@@ -43,12 +49,12 @@ public class HightQualityService extends myBaseActivity {
     List<HightQualityServiceM> list;
     HightQualityDal dal;
     ImageLoader imageLoader;
-    FrontItem item;
+    FuncBase item;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_hight_quality_service);
-        item =(FrontItem) getIntent().getSerializableExtra("item");
+        item =(FuncBase) getIntent().getSerializableExtra("item");
 //        if (item.getpage_id().equals("2")) {
 //            TextView t = (TextView) findViewById(R.id.txt_title);
 //            t.setText("土特产");
@@ -106,7 +112,7 @@ public class HightQualityService extends myBaseActivity {
     protected void loadData() {
         //isLoadingMore = false;
         refreshview.setRefreshing(true);
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), "@id=22,@page=0", "22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(),String.format("@id=22,@page_id=%s,@page=0",item.getpage_id()), "22"), handler);
     }
 
     public void loadMoreData() {
@@ -114,7 +120,7 @@ public class HightQualityService extends myBaseActivity {
             pageindex++;
             //isLoadingMore = true;
             refreshview.setRefreshing(true);
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page=%s", pageindex), "22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%s",item.getpage_id(), pageindex), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -148,7 +154,7 @@ public class HightQualityService extends myBaseActivity {
                             }
                             if (frame.platform != 0) {
 
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page=%s", pageindex), "22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%s",item.getpage_id(), pageindex), "22"), frame.strData);
                             }
                             List<HightQualityServiceM>hightQualityServiceMs = dal.getList(results[2]);
                             list.addAll(hightQualityServiceMs);
@@ -197,6 +203,7 @@ public class HightQualityService extends myBaseActivity {
             ImageLoader.bindBitmap(m.getpic_url(), holder.ivpreview, 600, 600);
             holder.txtdesc.setText(m.gettitle());
             holder.txtprice.setText("￥" + m.getprice());
+            holder.txtstock.setText("库存："+m.getstock());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -204,8 +211,8 @@ public class HightQualityService extends myBaseActivity {
                     Intent intent = new Intent(HightQualityService.this, HightQualityDetail.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("hqs", m);
+                    bundle.putSerializable("func",item);
                     intent.putExtras(bundle);
-                    intent.putExtra("pageid", item.gettype_id());
                     startActivityWithAnim(intent);
                 }
             });
@@ -218,13 +225,14 @@ public class HightQualityService extends myBaseActivity {
 
         class ViewHoler extends RecyclerView.ViewHolder {
             ImageView ivpreview;
-            TextView txtdesc, txtprice;
+            TextView txtdesc, txtprice,txtstock;
 
             public ViewHoler(View itemView) {
                 super(itemView);
                 ivpreview = (ImageView) itemView.findViewById(R.id.iv_preview);
                 txtdesc = (TextView) itemView.findViewById(R.id.txt_desc);
                 txtprice = (TextView) itemView.findViewById(R.id.txt_price);
+                txtstock=(TextView)itemView.findViewById(R.id.txt_stock);
                 ivpreview.setMaxWidth(width);
                 ivpreview.setMaxHeight(height);
             }

@@ -26,6 +26,11 @@ import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 系统启动界面
+ * */
 public class SplashActivity extends myBaseActivity {
 
 

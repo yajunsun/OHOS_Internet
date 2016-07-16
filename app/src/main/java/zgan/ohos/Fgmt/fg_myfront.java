@@ -6,15 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -26,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ActionMenuView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -34,7 +32,6 @@ import android.widget.TextView;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.iconics.view.IconicsImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +39,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -50,13 +46,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import zgan.ohos.Activities.AdvertiseDetail;
 import zgan.ohos.Activities.BindDevice;
-import zgan.ohos.Activities.CallOut;
 import zgan.ohos.Activities.Express_in;
 import zgan.ohos.Activities.Express_out;
-import zgan.ohos.Activities.LeaveMessages;
 import zgan.ohos.Activities.Login;
 import zgan.ohos.Activities.MessageActivity;
 import zgan.ohos.ConstomControls.ScrollViewWithCallBack;
+import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.AdvertiseDal;
 import zgan.ohos.Dals.FrontItemDal;
 import zgan.ohos.Dals.FuncPageDal;
@@ -75,6 +70,7 @@ import zgan.ohos.utils.resultCodes;
 
 /**
  * Created by yajunsun on 16-2-24.
+ * 首页fragment
  */
 public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     LinearLayout ll_shequgrid;
@@ -110,6 +106,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     Timer timer;
     LayoutInflater mLayoutInflater;
 
+    int mItemHeight = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mLayoutInflater = inflater;
@@ -121,7 +119,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         advertiseDal = new AdvertiseDal();
         iniHandler();
         initView(view);
-        //initNetData();
+        initNetData();
         initDialog();
         Log.i(TAG, "fg_myfront view created");
         return view;
@@ -130,10 +128,11 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        if (handler == null)
+        if (handler == null) {
             iniHandler();
+        }
         isStoped = false;
-        initNetData();
+        //initNetData();
     }
 
     boolean isStoped = false;
@@ -255,7 +254,12 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             ImageView simg = new ImageView(getActivity());
             simg.setLayoutParams(new ViewGroup.LayoutParams(20, 20));
             simg.setPadding(5, 5, 5, 5);
+            if (i==0)
             simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.RED).sizeDp(30));
+            else
+            {
+                simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.LTGRAY).sizeDp(30));
+            }
             funcimageViews.add(simg);
             func_ind.addView(simg);
         }
@@ -320,7 +324,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                     Intent intent = new Intent();
                     intent.setAction("Page." + func.gettype_id());
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("func", func);
+                    bundle.putSerializable("item", func);
                     intent.putExtras(bundle);
                     if (isActionInstalled(intent))
                         startActivityIfLogin(intent, 0);
@@ -351,14 +355,14 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                 set.add(frontItems);
             }
             ImageLoader.bindBitmap(frontItems1.get(0).getimage_url(), iv_gridtitle);
-
         }
         rv_grid.setAdapter(new gridItemAdapter(set));
-        int defaultheight = (int) (AppUtils.getDensity(getActivity()) * 200);
-        int height=Math.max(defaultheight,frontItems1.get(1).getheight());
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
-        params.addRule(RelativeLayout.BELOW,R.id.ll_messages);
-        ll_shequgrid.setLayoutParams(params);
+//        int defaultheight = (int) (AppUtils.getDensity(getActivity()) * 100);
+//        int height=Math.max(defaultheight,frontItems1.get(1).getheight())*lines;
+        //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        //params.addRule(RelativeLayout.BELOW,R.id.ll_messages);
+        ll_shequgrid.setMinimumHeight(120);
+        rv_grid.setMinimumHeight(100);
     }
 
     private void loadSqhdData() {
@@ -393,8 +397,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             try {
                 Intent intent = new Intent();
                 intent.setAction("Page." + item.gettype_id());
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("item",item);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("item", item);
                 intent.putExtras(bundle);
                 if (isActionInstalled(intent))
                     startActivityIfLogin(intent, 0);
@@ -417,7 +421,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                 ImageView img = new ImageView(getActivity());
                 img.setLayoutParams(params);
                 img.setScaleType(ImageView.ScaleType.FIT_XY);
-                img.setOnClickListener(new adverClick(advertises.get(i)));
+                //取消点击功能
+                //img.setOnClickListener(new adverClick(advertises.get(i)));
                 ImageLoader.bindBitmap(advertises.get(i).getpic_url(), img, 500, 200);
                 advPics.add(img);
                 ImageView simg = new ImageView(getActivity());
@@ -426,7 +431,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                 if (i == 0)
                     simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.RED).sizeDp(30));
                 else
-                    simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.WHITE).sizeDp(30));
+                    simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.LTGRAY).sizeDp(30));
                 imageViews.add(simg);
                 pager_ind.addView(simg);
             }
@@ -876,9 +881,25 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             List<FrontItem> frontItems = set.get(position);
-            ImageLoader.bindBitmap(frontItems.get(0).getimage_url(), holder.iv_bottom1, frontItems.get(0).getwidth(), frontItems.get(0).getheight());
+            ImageLoader.bindBitmap(frontItems.get(0).getimage_url(), holder.iv_bottom1, frontItems.get(0).getwidth(), frontItems.get(0).getheight(), new IImageloader() {
+                @Override
+                public void onDownloadSucc(Bitmap bitmap, String c_url, View imageView, int w, int h) {
+                    mItemHeight += imageView.getHeight();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, mItemHeight + iv_gridtitle.getHeight());
+                            params1.addRule(RelativeLayout.BELOW, R.id.ll_messages);
+                            ll_shequgrid.setLayoutParams(params1);
+                        }
+                    });
+                }
+            });
             ImageLoader.bindBitmap(frontItems.get(1).getimage_url(), holder.iv_bottom2, frontItems.get(1).getwidth(), frontItems.get(1).getheight());
             ImageLoader.bindBitmap(frontItems.get(2).getimage_url(), holder.iv_bottom3, frontItems.get(2).getwidth(), frontItems.get(2).getheight());
+            holder.iv_bottom1.setOnClickListener(new goodsClick(frontItems.get(0)));
+            holder.iv_bottom2.setOnClickListener(new goodsClick(frontItems.get(1)));
+            holder.iv_bottom3.setOnClickListener(new goodsClick(frontItems.get(2)));
         }
 
         @Override

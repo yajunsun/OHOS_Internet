@@ -139,6 +139,10 @@ public final class ImageLoader {
     }
 
     public static void bindBitmap(final String uri, final ImageView imageView, final int reqWidth, final int reqHeight) {
+        bindBitmap(uri, imageView, 0, 0, null);
+    }
+
+    public static void bindBitmap(final String uri, final ImageView imageView, final int reqWidth, final int reqHeight, final IImageloader binded) {
         imageView.setTag(TAG_KEY_URI, uri);
         final Bitmap bitmap = loadBitmapFromMemCache(uri);
         if (bitmap != null) {
@@ -150,13 +154,16 @@ public final class ImageLoader {
             public void run() {
                 Bitmap bitmap = loadBitmap(uri, reqWidth, reqHeight);
                 if (bitmap != null) {
-                    LoaderResult result = new LoaderResult(imageView, uri, bitmap);
+//                    if (binded != null)
+//                        binded.onDownloadSucc(bitmap, uri, imageView, bitmap.getWidth(), bitmap.getHeight());
+                    LoaderResult result = new LoaderResult(imageView, uri, bitmap,binded);
                     mMainHandler.obtainMessage(MESSAGE_POST_RESULT, result).sendToTarget();
                 }
             }
         };
         THREAD_POOL_EXECUTOR.execute(loadBitmapTast);
     }
+
 
     public static Bitmap loadBitmap(String uri, int reqWidth, int reqHeight) {
         Bitmap bitmap = loadBitmapFromMemCache(uri);
@@ -213,13 +220,10 @@ public final class ImageLoader {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        catch (OutOfMemoryError ofMemoryError)
-        {
+        } catch (OutOfMemoryError ofMemoryError) {
             ofMemoryError.printStackTrace();
-            generalhelper.ToastShow(MyApplication.context,"加载失败");
-        }
-        catch (Exception e) {
+            generalhelper.ToastShow(MyApplication.context, "加载失败");
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             outputStream.close();
@@ -240,17 +244,17 @@ public final class ImageLoader {
         if (snapshot != null) {
             FileInputStream fileInputStream = (FileInputStream) snapshot.getInputStream(DISK_CACHE_INDEX);
 //            try {
-                FileDescriptor fileDescriptor = fileInputStream.getFD();
-                bitmap = mImageResizer.decodeSampledBitmapFromFileDescriptor(fileDescriptor, reqWidth, reqHeight);
-                if (bitmap != null)
-                    Add2Cache(key, bitmap);
+            FileDescriptor fileDescriptor = fileInputStream.getFD();
+            bitmap = mImageResizer.decodeSampledBitmapFromFileDescriptor(fileDescriptor, reqWidth, reqHeight);
+            if (bitmap != null)
+                Add2Cache(key, bitmap);
 //            }
 //            catch (Exception e)
 //            {
 //                e.printStackTrace();
 //            }
 //            finally {
-                fileInputStream.close();
+            fileInputStream.close();
             //}
         }
         return bitmap;
@@ -425,12 +429,20 @@ public final class ImageLoader {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             try {
-                LoaderResult result = (LoaderResult) msg.obj;
+                final LoaderResult result = (LoaderResult) msg.obj;
                 ImageView imageView = result.imageView;
                 imageView.setImageBitmap(result.bitmap);
                 String uri = (String) imageView.getTag(TAG_KEY_URI);
-                if (uri.equals(result.uri))
+                if (uri.equals(result.uri)) {
                     imageView.setImageBitmap(result.bitmap);
+                    if (result.callback!=null)
+                        postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                result.callback.onDownloadSucc(result.bitmap,result.uri,result.imageView,result.bitmap.getWidth(),result.bitmap.getHeight());
+                            }
+                        },1000);
+                }
                 else {
                     Log.v(TAG, "set image bitmap,but url has changed,ignored!");
                     Log.i(TAG, "set image bitmap,but url has changed,ignored!");
@@ -446,11 +458,13 @@ public final class ImageLoader {
         public ImageView imageView;
         public String uri;
         public Bitmap bitmap;
+        public IImageloader callback;
 
-        public LoaderResult(ImageView imageView, String uri, Bitmap bitmap) {
+        public LoaderResult(ImageView imageView, String uri, Bitmap bitmap,IImageloader _call) {
             this.imageView = imageView;
             this.uri = uri;
             this.bitmap = bitmap;
+            callback=_call;
         }
     }
     /****************************************************/

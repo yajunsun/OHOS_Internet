@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 import zgan.ohos.Dals.LeaveMessageDal;
+import zgan.ohos.Models.FuncBase;
 import zgan.ohos.Models.FuncPage;
 import zgan.ohos.Models.LeaveMessage;
 import zgan.ohos.R;
@@ -32,6 +33,11 @@ import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 用户留言列表和提交界面
+ * */
 public class LeaveMessages extends myBaseActivity {
 
     Toolbar toolbar;
@@ -49,7 +55,7 @@ public class LeaveMessages extends myBaseActivity {
     EditText et_input;
     Button btn_commit;
     Button btn_cancel;
-    FuncPage funcPage;
+    FuncBase funcPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +68,7 @@ public class LeaveMessages extends myBaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_leave_messages);
-        funcPage=(FuncPage)getIntent().getSerializableExtra("func");
+        funcPage=(FuncPage)getIntent().getSerializableExtra("item");
         leavemsgDal = new LeaveMessageDal();
         mLayoutManager = new LinearLayoutManager(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -120,7 +126,7 @@ public class LeaveMessages extends myBaseActivity {
                     btn_commit.setEnabled(false);
                     PreferenceUtil.getSID();
                     //ZganCommunityService.toGetServerData(29, 0, String.format("%s\t%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID(), input), handler);
-                    ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_LEAVEMSG, String.format("@id=22,@account=%s,@q_type=%s,@q_content=\"%s\"",PreferenceUtil.getUserName(),funcPage.getpage_id(),input), "22"), handler);
+                    ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(),AppUtils.P_LEAVEMSG, String.format("@id=22,@account=%s,@q_type=%s,@q_content=\"%s\"",PreferenceUtil.getUserName(),funcPage.getpage_id(),input), "22"), handler);
                 }
             }
         });
@@ -138,6 +144,7 @@ public class LeaveMessages extends myBaseActivity {
             @Override
             public void onClick(View v) {
                 // ZganLoginService.toGetServerData(29,254,String.format(""),handler);
+                btn_commit.setEnabled(true);
                 addDialog.show();
             }
         });
@@ -180,6 +187,7 @@ public class LeaveMessages extends myBaseActivity {
                     String[] results = f.strData.split("\t");
                     if (f.subCmd == 40) {
                         if (results[0].equals("0") && results[1].equals(AppUtils.P_LEAVEMSG)&&results.length>2) {
+                            et_input.setText("");
                             addDialog.dismiss();
                             loadData();
                             btn_commit.setEnabled(true);

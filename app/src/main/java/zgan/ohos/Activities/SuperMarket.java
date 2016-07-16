@@ -24,6 +24,11 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 超市购界面
+ * */
 public class SuperMarket extends myBaseActivity {
 
     List<SuperMarketM> list;

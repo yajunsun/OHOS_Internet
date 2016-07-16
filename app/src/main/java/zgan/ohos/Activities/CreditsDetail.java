@@ -27,6 +27,11 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 积分兑换商品展示界面
+ * */
 public class CreditsDetail extends myBaseActivity {
 
     List<String> list;

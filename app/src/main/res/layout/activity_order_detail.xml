@@ -184,17 +184,17 @@
                 <TextView
                     android:id="@+id/txt1"
                     android:layout_width="wrap_content"
-                    android:textColor="@color/solid_black"
-                    android:textSize="14sp"
                     android:layout_height="wrap_content"
-                    android:text="支付方式" />
+                    android:text="支付方式"
+                    android:textColor="@color/solid_black"
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:id="@+id/lpaytypes"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
                     android:layout_height="40dp"
                     android:layout_below="@id/txt1"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
 
@@ -214,7 +214,7 @@
             <LinearLayout
                 android:id="@+id/lshipping"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="130dp"
                 android:layout_below="@id/l2"
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -231,6 +231,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+
                     android:textSize="@dimen/front_text_size" />
 
                 <TextView
@@ -238,6 +239,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+
                     android:textSize="@dimen/front_text_size" />
 
                 <TextView
@@ -245,6 +247,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+
                     android:textSize="@dimen/front_text_size" />
             </LinearLayout>
 

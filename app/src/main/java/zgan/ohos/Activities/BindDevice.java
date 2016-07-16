@@ -20,6 +20,11 @@ import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 绑定室内机操作页面
+ * */
 public class BindDevice extends myBaseActivity {
 
     TextInputLayout til_input;

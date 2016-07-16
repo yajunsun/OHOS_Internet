@@ -32,6 +32,7 @@ import zgan.ohos.Dals.ExpressInDal;
 import zgan.ohos.Dals.HouseHolderServiceDal;
 import zgan.ohos.Models.BaseGoods;
 import zgan.ohos.Models.ExpressIn;
+import zgan.ohos.Models.FuncBase;
 import zgan.ohos.Models.FuncPage;
 import zgan.ohos.Models.HightQualityServiceM;
 import zgan.ohos.Models.HouseHolderServiceM;
@@ -44,6 +45,11 @@ import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 收取快递界面
+ * */
 public class Express_in extends myBaseActivity implements View.OnClickListener {
 
     int pageindex = 0;
@@ -66,7 +72,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
     MyOrder order;
 
     Dialog paymentSelectDialog, bookSelectDialog;
-    FuncPage funcPage;
+    FuncBase funcPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +83,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_express_in);
-        funcPage = (FuncPage) getIntent().getSerializableExtra("func");
+        funcPage = (FuncBase) getIntent().getSerializableExtra("item");
         mLayoutManager=new LinearLayoutManager(this);
         iv_expressin = (ImageView) findViewById(R.id.iv_expressin);
         iv_expressin.setOnClickListener(this);
@@ -99,14 +105,14 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
 
     protected void loadData() {
         isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "@22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s,@page_id=%s", PreferenceUtil.getUserName(),funcPage.getpage_id()), "@22"), handler);
     }
 
     public void loadMoreData() {
         try {
             //pageindex++;
             isLoadingMore = true;
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "@22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s,@page_id=%s", PreferenceUtil.getUserName(),funcPage.getpage_id()), "@22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -142,7 +148,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals(AppUtils.P_EXPRESSIN)) {
+                    if (results[0].equals("0") && results[1].equals(funcPage.gettype_id())) {
 
                         try {
                             if (pageindex == 0) {
@@ -150,7 +156,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                             }
                             if (frame.platform != 0) {
 
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_EXPRESSIN, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "@22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s,@page_id=%s", PreferenceUtil.getUserName(),funcPage.getpage_id()), "@22"), frame.strData);
                             }
                             List<ExpressIn> expressIns = dal.Getlist(results[2]);
                             list.addAll(expressIns);
@@ -368,7 +374,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 Intent intent = new Intent();
                 intent.setAction("Page.2004");
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("func", msgfp);
+                bundle.putSerializable("item", msgfp);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;

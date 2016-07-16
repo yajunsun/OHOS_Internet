@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import zgan.ohos.Dals.MessageDal;
+import zgan.ohos.Models.FuncBase;
 import zgan.ohos.Models.FuncPage;
 import zgan.ohos.Models.Message;
 import zgan.ohos.R;
@@ -25,6 +26,11 @@ import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 各种消息界面
+ * */
 public class MessageActivity extends myBaseActivity {
     Toolbar toolbar;
     TextView txt_title;
@@ -35,7 +41,7 @@ public class MessageActivity extends myBaseActivity {
     int pageindex = 0;
     //int pagesize = 20;
     int msgtype = 0;
-    FuncPage funcPage;
+    FuncBase funcPage;
     myAdapter adapter;
     //boolean[] isopen;
     LinearLayoutManager mLayoutManager;
@@ -72,7 +78,7 @@ public class MessageActivity extends myBaseActivity {
 
     @Override
     protected void initView() {
-        funcPage = (FuncPage) getIntent().getSerializableExtra("func");
+        funcPage = (FuncPage) getIntent().getSerializableExtra("item");
         if (funcPage.getpage_id().equals("1"))
             msgtype = 0;
         else if (funcPage.getpage_id().equals("4"))

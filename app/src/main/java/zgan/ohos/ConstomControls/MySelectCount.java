@@ -157,6 +157,10 @@ public class MySelectCount extends LinearLayout implements View.OnClickListener 
         this.ionChanged = onchangeListener;
     }
 
+    public void setMaxValue(int maxValue)
+    {
+        this.mRestrict=maxValue;
+    }
     public interface IonChanged {
         void onAddition(int count);
 

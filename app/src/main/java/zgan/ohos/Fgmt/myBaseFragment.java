@@ -11,6 +11,8 @@ import zgan.ohos.utils.DataCacheHelper;
 
 /**
  * Created by yajunsun on 2016/1/11.
+ *
+ * 本系统内定义的fragment的父类
  */
 public class myBaseFragment extends Fragment {
 

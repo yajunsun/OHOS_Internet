@@ -58,6 +58,11 @@ import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.picturefile;
 
+/**
+ * create by yajunsun
+ *
+ * 首页个人中心fragment
+ * */
 public class fg_myaccount extends myBaseFragment implements View.OnClickListener {
 
     Toolbar toolbar;

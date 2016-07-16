@@ -26,6 +26,7 @@ import java.util.List;
 import zgan.ohos.Dals.HightQualityDal;
 import zgan.ohos.Dals.HouseHolderServiceDal;
 import zgan.ohos.Models.BaseGoods;
+import zgan.ohos.Models.FuncBase;
 import zgan.ohos.Models.HightQualityServiceM;
 import zgan.ohos.Models.HouseHolderServiceM;
 import zgan.ohos.Models.MyOrder;
@@ -55,11 +56,12 @@ public class ElectricalMaintenance extends myBaseActivity implements View.OnClic
     MyOrder order;
 
     Dialog paymentSelectDialog;
-
+    FuncBase item;
     //myAdapter adapter;
     @Override
     protected void initView() {
         setContentView(R.layout.activity_electrical_maintenance);
+        item=(FuncBase)getIntent().getSerializableExtra("item");
         ivpreview = (ImageView) findViewById(R.id.iv_preview);
         dal = new HouseHolderServiceDal();
 
@@ -86,14 +88,14 @@ public class ElectricalMaintenance extends myBaseActivity implements View.OnClic
 
     protected void loadData() {
         isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1011, "@id=22", "@22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s",item.getpage_id()), "@22"), handler);
     }
 
     public void loadMoreData() {
         try {
             //pageindex++;
             isLoadingMore = true;
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1011, "@id int", "@22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s",item.getpage_id()), "@22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -126,12 +128,12 @@ public class ElectricalMaintenance extends myBaseActivity implements View.OnClic
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1011")) {
+                    if (results[0].equals("0") && results[1].equals(item.gettype_id())) {
                         try {
                             if (!isLoadingMore) {
                                 m = dal.getItem(results[2]);
                                 if (frame.platform!=0) {
-                                    addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1011, "@id=22", "@22"),frame.strData);
+                                    addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s",item.getpage_id()), "@22"),frame.strData);
                                 }
                             } else {
                             }
@@ -273,7 +275,8 @@ public class ElectricalMaintenance extends myBaseActivity implements View.OnClic
                 order.setorder_id(order.generateOrderId());
                 order.setaccount(PreferenceUtil.getUserName());
                 order.settotal(m.getprice());
-                order.setgoods_type(MyOrder.ELECMAINTENANCE);
+                //order.setgoods_type(MyOrder.ELECMAINTENANCE);
+                order.setgoods_type(m.getgoods_type());
                 order.setpay_type(1);
                 order.setstate(1);
 

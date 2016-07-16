@@ -183,59 +183,67 @@
                 android:layout_below="@id/l2"
                 android:padding="10dp">
 
-                <TextView
-                    android:id="@+id/btnshippingimediatly"
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_rect_border"
-                    android:clickable="true"
-                    android:textSize="@dimen/front_text_size"
-                    android:gravity="center"
-                    android:textColor="@color/primary"
-                    android:text="立即上门"
-                    android:textIsSelectable="true" />
+                <!--<TextView-->
+                    <!--android:id="@+id/btnshippingimediatly"-->
+                    <!--android:layout_width="80dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:background="@drawable/bg_rect_border"-->
+                    <!--android:clickable="true"-->
+                    <!--android:textSize="@dimen/front_text_size"-->
+                    <!--android:gravity="center"-->
+                    <!--android:textColor="@color/primary"-->
+                    <!--android:text="立即上门"-->
+                    <!--android:textIsSelectable="true" />-->
 
-                <TextView
-                    android:id="@+id/btnshippingdelay"
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="@dimen/front_text_size"
-                    android:layout_toRightOf="@id/btnshippingimediatly"
-                    android:background="@drawable/bg_rect_border"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:text="选择时间"
-                    android:textIsSelectable="false" />
+                <!--<TextView-->
+                    <!--android:id="@+id/btnshippingdelay"-->
+                    <!--android:layout_width="80dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:textSize="@dimen/front_text_size"-->
+                    <!--android:layout_toRightOf="@id/btnshippingimediatly"-->
+                    <!--android:background="@drawable/bg_rect_border"-->
+                    <!--android:clickable="true"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="选择时间"-->
+                    <!--android:textIsSelectable="false" />-->
 
                 <TextView
                     android:id="@+id/txtshippingtime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
                     android:textSize="@dimen/front_text_size"
                     android:textColor="@color/solid_black"
-                    android:layout_below="@id/btnshippingimediatly"
-                    android:text="上门时间" />
+                    android:text="送货时间" />
 
                 <TextView
                     android:id="@+id/txt_besttime"
-                    android:textColor="@color/solid_black"
+                    android:textColor="@color/md_red_400"
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="10dp"
                     android:textSize="@dimen/front_text_size"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txtshippingtime"
                      />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:id="@+id/ivshippingdelay"
-                    android:clickable="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/calender"
-                    android:layout_height="30dp" />
+                <TextView
+                    android:id="@+id/txt_note"
+                    android:textColor="@color/md_red_400"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/front_text_size"
+                    android:text="进口商品周末暂不送货"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_besttime"
+                    />
+                <!--<ImageView-->
+                    <!--android:layout_width="30dp"-->
+                    <!--android:id="@+id/ivshippingdelay"-->
+                    <!--android:clickable="true"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:src="@drawable/calender"-->
+                    <!--android:layout_height="30dp" />-->
             </RelativeLayout>
 
             <LinearLayout

@@ -3,8 +3,6 @@ package zgan.ohos.Activities;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,10 +23,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import zgan.ohos.Dals.HightQualityDal;
 import zgan.ohos.Dals.HouseHolderServiceDal;
 import zgan.ohos.Models.BaseGoods;
-import zgan.ohos.Models.HightQualityServiceM;
+import zgan.ohos.Models.FuncBase;
 import zgan.ohos.Models.HouseHolderServiceM;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.R;
@@ -39,6 +36,11 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 服务预约界面
+ * */
 public class HouseHolderService extends myBaseActivity implements View.OnClickListener {
     ImageView ivpreview;
     HouseHolderServiceM m;
@@ -47,7 +49,7 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
     GridLayoutManager mLayoutManager;
     //myAdapter adapter;
 
-    TextView txt_time, btn_immediate;
+    TextView txt_time, btn_immediate, txt_title;
     View btn_time_select;
     Button btncheck;
     private static final int DATE_PICKER_ID = 1;// 日期静态常量
@@ -55,13 +57,17 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
     String scheduldate;
     MyOrder order;
     Dialog paymentSelectDialog;
+    FuncBase item;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_house_holder_service);
+        item = (FuncBase) getIntent().getSerializableExtra("item");
         ivpreview = (ImageView) findViewById(R.id.iv_preview);
         dal = new HouseHolderServiceDal();
 
+        txt_title = (TextView) findViewById(R.id.txt_title);
+        txt_title.setText(item.getview_title());
         txt_time = (TextView) findViewById(R.id.txt_time);
         btn_immediate = (TextView) findViewById(R.id.btn_immediate);
         btn_immediate.setOnClickListener(this);
@@ -85,14 +91,14 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
 
     protected void loadData() {
         isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1010, "@id=22", "@22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s", item.getpage_id()), "@22"), handler);
     }
 
     public void loadMoreData() {
         try {
             //pageindex++;
             isLoadingMore = true;
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1010, "@id=22", "@22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s", item.getpage_id()), "@22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -110,7 +116,8 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
             int maxheight = 10 * maxwidth;
             ivpreview.setMaxWidth(maxwidth);
             ivpreview.setMaxHeight(maxheight);
-            ImageLoader.bindBitmap(m.getpic_url(), ivpreview, 800, 1000);
+            //ImageLoader.bindBitmap(m.getpic_url(), ivpreview, 800, 1000);
+            ImageLoader.bindBitmap(m.getdetails_url(), ivpreview, 800, 1000);
         }
     }
 
@@ -125,12 +132,12 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1010")) {
+                    if (results[0].equals("0") && results[1].equals(item.gettype_id())) {
                         try {
                             if (!isLoadingMore) {
                                 m = dal.getItem(results[2]);
-                                if (frame.platform!=0) {
-                                    addCache("40"+String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1010, "@id=22", "@22"),frame.strData);
+                                if (frame.platform != 0) {
+                                    addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s", item.getpage_id()),"@22"), frame.strData);
                                 }
                             } else {
                             }
@@ -148,7 +155,7 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
                             handler.sendMessage(msg1);
                         }
                     } else if (results[0].equals("0") && results[1].equals("1015")) {
-                        Toast.makeText(HouseHolderService.this, String.format("订单已提交，工作人员将在%s上门服务~",order.getTimeticked()), Toast.LENGTH_LONG).show();
+                        Toast.makeText(HouseHolderService.this, String.format("订单已提交，工作人员将在%s上门服务~", order.getTimeticked()), Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }
@@ -270,7 +277,7 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
                 order.setorder_id(order.generateOrderId());
                 order.setaccount(PreferenceUtil.getUserName());
                 order.settotal(m.getprice());
-                order.setgoods_type(MyOrder.HOUSEHOLDERSERVICE);
+                order.setgoods_type(m.getgoods_type());
                 order.setpay_type(1);
                 order.setstate(1);
                 StringBuilder builder = new StringBuilder();

@@ -41,6 +41,11 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 快递投递页面
+ * */
 public class Express_out extends myBaseActivity implements View.OnClickListener {
 
     ImageView iv_preview, iv_prebook;
@@ -75,7 +80,7 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_express_out);
-        funcPage = (FuncPage) getIntent().getSerializableExtra("func");
+        funcPage = (FuncPage) getIntent().getSerializableExtra("item");
         iv_prebook = (ImageView) findViewById(R.id.iv_prebook);
         iv_prebook.setOnClickListener(this);
         iv_preview = (ImageView) findViewById(R.id.iv_preview);
@@ -142,12 +147,12 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1011")) {
+                    if (results[0].equals("0") && results[1].equals(funcPage.gettype_id())) {
                         try {
                             if (!isLoadingMore) {
                                 m = dal.getItem(results[2]);
                                 if (frame.platform != 0) {
-                                    addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1011, "@id=22", "@22"), frame.strData);
+                                    addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@page_id=%s",funcPage.getpage_id()), "@22"), frame.strData);
                                 }
                             } else {
                             }

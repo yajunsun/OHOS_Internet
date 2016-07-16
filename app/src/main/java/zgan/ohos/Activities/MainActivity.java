@@ -23,6 +23,11 @@ import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.resultCodes;
 
+/**
+ * create by yajunsun
+ *
+ * 首页activity
+ * */
 public class MainActivity extends myBaseActivity {
     /****
      * local variables

@@ -23,6 +23,8 @@ import zgan.ohos.utils.DataCacheHelper;
 
 /**
  * Created by yajunsun on 2016/1/11.
+ *
+ * 系统内的各activity继承自此activity
  */
 public abstract class myBaseActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;

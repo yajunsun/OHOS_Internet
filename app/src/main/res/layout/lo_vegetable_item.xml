@@ -62,7 +62,19 @@
         android:layout_alignParentRight="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/front_text_size" />
+
+    <TextView
+        android:id="@+id/txt_stock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:visibility="invisible"
+        android:layout_above="@id/txt_price"
         android:textColor="@color/primary"
         android:textSize="@dimen/front_text_size" />
 

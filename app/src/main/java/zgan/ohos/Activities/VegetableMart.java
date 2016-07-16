@@ -27,6 +27,7 @@ import zgan.ohos.ConstomControls.MySelectCount;
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.VegetableDal;
 import zgan.ohos.Models.BaseGoods;
+import zgan.ohos.Models.FrontItem;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.Models.Vegetable;
 import zgan.ohos.R;
@@ -37,6 +38,11 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
 
+/**
+ * create by yajunsun
+ *
+ * 常规商品选购界面
+ * */
 public class VegetableMart extends myBaseActivity implements View.OnClickListener {
 
     int pageindex = 0;
@@ -50,12 +56,13 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
     VegetableDal dal;
     RecyclerView rv_vegetable;
     Button btncheck;
-    TextView gdcount, totalpay;
+    TextView gdcount, totalpay,txt_title;
     //商品数量
     int goodscount = 0;
     //商品价格
     double goodssum = 0;
     DecimalFormat decimalFormat = new DecimalFormat("###.0");
+    FrontItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +92,11 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
     @Override
     protected void initView() {
         setContentView(R.layout.activity_vegetable_mart);
+        item=(FrontItem)getIntent().getSerializableExtra("item");
         rv_vegetable = (RecyclerView) findViewById(R.id.rv_vegetable);
         mLayoutManager = new LinearLayoutManager(VegetableMart.this);
+        txt_title=(TextView)findViewById(R.id.txt_title) ;
+        txt_title.setText(item.getview_title());
         rv_vegetable.setLayoutManager(mLayoutManager);
         dal = new VegetableDal();
         //list = dal.getList();
@@ -139,7 +149,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
     protected void loadData() {
         refreshview.setRefreshing(true);
         //isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1005, "@id=22,@page=0", "22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=0",item.getpage_id()), "22"), handler);
     }
 
     public void loadMoreData() {
@@ -147,7 +157,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
             pageindex++;
             //isLoadingMore = true;
             refreshview.setRefreshing(true);
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1005, String.format("@id=22,@page=%d", pageindex), "22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%d",item.getpage_id(), pageindex), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -173,13 +183,13 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1005")&&results.length>2) {
+                    if (results[0].equals("0") && results[1].equals(item.gettype_id())&&results.length>2) {
                         try {
                             if (pageindex == 0) {
                                 list = new ArrayList<>();
                             }
                             if (frame.platform != 0) {
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1005, String.format("@id=22,@page=%d", pageindex), "22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%d",item.getpage_id(), pageindex), "22"), frame.strData);
                             }
                             List<Vegetable> vegetables=dal.getList(results[2]);
                             list.addAll(vegetables);
@@ -208,7 +218,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
         switch (v.getId()) {
             case R.id.btncheck:
                 if (goodscount < 1) {
-                    generalhelper.ToastShow(this, "还没有选择任何蔬菜哟~");
+                    generalhelper.ToastShow(this, "还没有选择任何商品哟~");
                     return;
                 }
                 Calendar calendar = Calendar.getInstance();
@@ -237,6 +247,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                 //m1.setpay_type(3);
                 m1.settotal(goodssum);
                 m1.SetGoods(buylist);
+                m1.setgoods_type(buylist.get(0).getgoods_type());
                 StringBuilder builder = new StringBuilder();
                 String bstr = "";
                 builder.append("'");
@@ -275,6 +286,9 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
             holder.name.setText(vegetable.gettitle());
             holder.price.setText("￥" + String.valueOf(vegetable.getprice()));
             holder.size.setText(vegetable.getitemSize());
+            //取消库存限制
+//            holder.stock.setText("库存："+vegetable.getstock());
+//            holder.selectCount.setMaxValue(vegetable.getstock());
             holder.selectCount.setOnchangeListener(new MySelectCount.IonChanged() {
                 @Override
                 public void onAddition(int count) {
@@ -333,7 +347,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
 
         class ViewHolder extends RecyclerView.ViewHolder {
             ImageView iv_preview;
-            TextView name, price, size;
+            TextView name, price, size,stock;
             MySelectCount selectCount;
 
             public ViewHolder(View itemView) {
@@ -342,6 +356,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                 name = (TextView) itemView.findViewById(R.id.txt_name);
                 price = (TextView) itemView.findViewById(R.id.txt_price);
                 size = (TextView) itemView.findViewById(R.id.txt_size);
+                stock=(TextView)itemView.findViewById(R.id.txt_stock);
                 selectCount = (MySelectCount) itemView.findViewById(R.id.selectcount);
             }
         }

@@ -34,7 +34,7 @@
                 android:layout_below="@id/adv_pager"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="-25px"
-                android:gravity="right"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal" />
 
         </LinearLayout>
@@ -75,6 +75,7 @@
             android:layout_height="@dimen/front_msg_layout_height"
             android:layout_below="@id/ll_guanggao"
             android:layout_marginTop="@dimen/front_item_margin_top"
+            android:layout_marginBottom="@dimen/front_item_margin_top"
             android:background="@color/solid_white"
             android:gravity="center"
             android:orientation="vertical">
@@ -91,7 +92,7 @@
                 android:layout_below="@id/func_pager"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="-25px"
-                android:gravity="right"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal" />
 
         </LinearLayout>
@@ -100,9 +101,10 @@
         <LinearLayout
             android:id="@+id/ll_shequgrid"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/ll_messages"
             android:background="@color/transparent80"
+
             android:orientation="vertical">
 
             <ImageView

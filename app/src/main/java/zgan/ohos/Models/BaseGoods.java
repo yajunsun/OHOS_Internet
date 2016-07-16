@@ -46,7 +46,7 @@ public abstract class BaseGoods extends BaseModel implements Serializable {
     }
 
     public void settime(Object value) {
-        if (value != null)this.time = value.toString();
+        if (value != null) this.time = value.toString();
     }
 
     public int getstock() {
@@ -63,7 +63,7 @@ public abstract class BaseGoods extends BaseModel implements Serializable {
     }
 
     public void setprice(Object value) {
-        if (value != null)this.price = Double.parseDouble(value.toString());
+        if (value != null) this.price = Double.parseDouble(value.toString());
     }
 
     public int getSelectedcount() {
@@ -79,7 +79,7 @@ public abstract class BaseGoods extends BaseModel implements Serializable {
     }
 
     public void setdesc(Object value) {
-        if (value != null)this.desc = value.toString();
+        if (value != null) this.desc = value.toString();
     }
 
     /***
@@ -118,4 +118,29 @@ public abstract class BaseGoods extends BaseModel implements Serializable {
      * 购买量
      */
     private int selectedcount = 1;
+
+    /**
+     * 支持的支付方式
+     */
+    private String payment;
+    /**
+     * 商品类型 普通商品 0 服务类商品>0
+     * */
+    private String goods_type="0";
+
+    public String getpayment() {
+        return payment;
+    }
+
+    public void setpayment(String payment) {
+        this.payment = payment;
+    }
+
+    public String getgoods_type() {
+        return goods_type;
+    }
+
+    public void setgoods_type(String goods_type) {
+        this.goods_type = goods_type;
+    }
 }
