@@ -219,7 +219,6 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
                 c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 8, 0);
                 c.add(Calendar.MINUTE, mShipping_span);
             }
-
             txt_besttime2.setText("预计" + generalhelper.getStringFromDate(c.getTime(), "yyyy-MM-dd") + "送达");
             order.setdiliver_time(generalhelper.getStringFromDate(c.getTime(), "yyyyMMddHHmm"));
         } else {
