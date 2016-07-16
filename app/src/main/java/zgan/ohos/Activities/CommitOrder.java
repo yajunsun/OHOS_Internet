@@ -127,13 +127,13 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
         btnshippingimediatly = (TextView) findViewById(R.id.btnshippingimediatly);
         btnshippingdelay = (TextView) findViewById(R.id.btnshippingdelay);
         txt_besttime = (TextView) findViewById(R.id.txt_besttime);
-        txt_besttime2=(TextView)findViewById(R.id.txt_besttime2);
+        txt_besttime2 = (TextView) findViewById(R.id.txt_besttime2);
         txt_shippingid = (TextView) findViewById(R.id.txt_shippingid);
         txt_payfee = (TextView) findViewById(R.id.txt_payfee);
         rv_goods = (RecyclerView) findViewById(R.id.rv_goods);
         lpaytypes = (LinearLayout) findViewById(R.id.lpaytypes);
         lshippingtime = findViewById(R.id.lshippingtime);
-        lshippingtime2=findViewById(R.id.lshippingtime2);
+        lshippingtime2 = findViewById(R.id.lshippingtime2);
         lshipping = findViewById(R.id.lshipping);
 
         check = findViewById(R.id.check);
@@ -197,29 +197,39 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
         }
 
         Calendar c = Calendar.getInstance();
-        c.add(Calendar.MINUTE, mShipping_span);
-        Date d = c.getTime();
+        Date now = new Date();
 
-        Date now=new Date();
 
-        //mShipping_span如果小于等于20分钟，用户可以选择送货上门时间
-        if (mShipping_span>20) {
+        //mShipping_span如果大于20分钟，用户可以选择送货上门时间
+        if (mShipping_span > 20) {
             lshippingtime.setVisibility(View.GONE);
             lshippingtime2.setVisibility(View.VISIBLE);
             //当下单时间在8点到16点之间
-            if (now.getHours() >= 8)
-            {}
+            if (now.getHours() > 8 && now.getHours() <= 16) {
+                c.add(Calendar.MINUTE, mShipping_span);
+            }
             //当下单时间在16点到24点之间
-
+            if (now.getHours() > 16 && now.getHours() <= 24) {
+                c.add(Calendar.DATE, 1);
+                c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 8, 0);
+                c.add(Calendar.MINUTE, mShipping_span);
+            }
             //当下单时间在0点到8点之间
+            if (now.getHours() > 0 && now.getHours() <= 8) {
+                c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 8, 0);
+                c.add(Calendar.MINUTE, mShipping_span);
+            }
 
-            txt_besttime2.setText("预计" + generalhelper.getStringFromDate(d, "yyyy-MM-dd HH:mm") + "送达");
-            order.setdiliver_time(generalhelper.getStringFromDate(d, "yyyyMMddHHmm"));
-        }
-        else
-        {
+            txt_besttime2.setText("预计" + generalhelper.getStringFromDate(c.getTime(), "yyyy-MM-dd") + "送达");
+            order.setdiliver_time(generalhelper.getStringFromDate(c.getTime(), "yyyyMMddHHmm"));
+        } else {
             lshippingtime2.setVisibility(View.GONE);
             lshippingtime.setVisibility(View.VISIBLE);
+
+            c.add(Calendar.MINUTE, mShipping_span);
+            Date d = c.getTime();
+            txt_besttime.setText(generalhelper.getStringFromDate(d,"yyyy-MM-dd HH:mm"));
+            order.setdiliver_time(generalhelper.getStringFromDate(d,"yyyyMMddHHmm"));
         }
 
 
@@ -444,8 +454,8 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
                 Calendar calendar = Calendar.getInstance();
                 Calendar bestshippingdate = calendar;
                 bestshippingdate.add(Calendar.MINUTE, 20);
-                txt_besttime.setText(generalhelper.getStringFromDate(bestshippingdate.getTime()));
-                order.setdiliver_time(generalhelper.getStringFromDate(bestshippingdate.getTime()));
+                txt_besttime.setText(generalhelper.getStringFromDate(bestshippingdate.getTime(),"yyyy-MM-dd HH:mm"));
+                order.setdiliver_time(generalhelper.getStringFromDate(bestshippingdate.getTime(),"yyyyMMddHHmm"));
                 break;
             case R.id.btnshippingdelay:
             case R.id.ivshippingdelay:
@@ -578,7 +588,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             if (time.compareTo(nowtime) < 0) {
                 generalhelper.ToastShow(CommitOrder.this, "选择的配送时间不得小于当前时间");
             } else {
-                txt_besttime.setText(generalhelper.getStringFromDate(time));
+                txt_besttime.setText(generalhelper.getStringFromDate(time,"yyyy-MM-dd HH:mm"));
                 order.setdiliver_time(generalhelper.getStringFromDate(time, "yyyyMMddHHmm"));
             }
         }
