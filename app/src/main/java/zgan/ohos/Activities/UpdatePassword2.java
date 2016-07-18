@@ -31,6 +31,13 @@ public class UpdatePassword2 extends myBaseActivity {
         tilpwd2=(TextInputLayout)findViewById(R.id.til_pwd2);
         etpwd1=(EditText)findViewById(R.id.et_pwd1);
         etpwd2=(EditText)findViewById(R.id.et_pwd2);
+        View back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -77,7 +84,7 @@ public class UpdatePassword2 extends myBaseActivity {
                 Frame frame = (Frame) msg.obj;
                 String ret = generalhelper.getSocketeStringResult(frame.strData);
                 Log.i(TAG, frame.subCmd + "  " + ret);
-                if (frame.subCmd == 8) {
+                if (frame.subCmd == 5) {
                     if (ret.equals("0")) {
                         generalhelper.ToastShow(UpdatePassword2.this,"密码修改成功~");
                         if (SystemUtils.getIsLogin())

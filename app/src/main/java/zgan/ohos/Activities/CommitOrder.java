@@ -112,7 +112,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
     private static final int DATE_PICKER_ID = 1;// 日期静态常量
     private static final int TIME_PICKER_ID = 2;// 时间
     String scheduldate;
-    DecimalFormat decimalFormat = new DecimalFormat("###.0");
+    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
     int mShipping_span = 20;
 
     @Override
@@ -638,7 +638,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
 //            }, 100, 100);
             ImageLoader.bindBitmap(g.getpic_url(), holder.iv_preview, 100, 100);
             holder.txt_name.setText(g.gettitle());
-            holder.txt_price.setText("￥" + g.getprice());
+            holder.txt_price.setText("￥" + decimalFormat.format(g.getprice()));
             holder.txt_count.setText("*" + g.getSelectedcount());
         }
 

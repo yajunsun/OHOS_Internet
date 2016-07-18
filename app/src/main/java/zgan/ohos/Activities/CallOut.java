@@ -19,6 +19,7 @@ import android.os.Message;
 import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -67,6 +68,7 @@ public class CallOut extends myBaseActivity implements IRegisterIOTCListener, Vi
     protected void initView() {
 
         setContentView(R.layout.activity_call_out);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         item = (FuncBase) getIntent().getSerializableExtra("item");
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {

@@ -53,7 +53,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     LayoutInflater myInflater;
     SwipeRefreshLayout refreshview;
     float density = 1;
-    DecimalFormat decimalFormat = new DecimalFormat("###.0");
+    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
 
     TextView tall, tunpay, tunget;
 
@@ -162,7 +162,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                 Frame frame = (Frame) msg.obj;
                 String[] results = frame.strData.split("\t");
                 String ret = generalhelper.getSocketeStringResult(frame.strData);
-                Log.v("suntest", frame.subCmd + "  " + ret);
+                Log.i("suntest", frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
                     if (results[0].equals("0") && results[1].equals("1016")) {
@@ -365,7 +365,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
             BaseGoods g = goodslist.get(position);
             ImageLoader.bindBitmap(g.getpic_url(), holder.iv_preview, 100, 100);
             holder.txt_name.setText(g.gettitle());
-            holder.txt_price.setText("￥" + g.getprice());
+            holder.txt_price.setText("￥" + decimalFormat.format(g.getprice()));
             holder.txt_count.setText("*" + g.getSelectedcount());
         }
 

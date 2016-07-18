@@ -16,7 +16,6 @@ import zgan.ohos.utils.generalhelper;
 
 public class SMSValidationStep1 extends myBaseActivity {
 
-    TextInputLayout til_phone;
     EditText et_phone;
 
     @Override
@@ -29,7 +28,6 @@ public class SMSValidationStep1 extends myBaseActivity {
                 finish();
             }
         });
-        til_phone = (TextInputLayout) findViewById(R.id.til_phone);
         et_phone = (EditText) findViewById(R.id.et_phone);
     }
 
@@ -37,11 +35,9 @@ public class SMSValidationStep1 extends myBaseActivity {
     public void ViewClick(View v) {
         if (v.getId() == R.id.btn_ensure) {
             if (et_phone.getText().toString().trim().equals("")) {
-                til_phone.setError("电话号码不能为空~");
-                til_phone.setErrorEnabled(true);
+                generalhelper.ToastShow(this, "电话号码不能为空~");
             } else if (et_phone.getText().toString().trim().length() != 11) {
-                til_phone.setError("电话号码格式出错误~");
-                til_phone.setErrorEnabled(true);
+                generalhelper.ToastShow(this, "电话号码格式出错误~");
             }
 //            else if (!et_phone.getText().toString().trim().equals(PreferenceUtil.getUserName())) {
 //                til_phone.setError("电话号码与注册号码不同");
@@ -49,8 +45,6 @@ public class SMSValidationStep1 extends myBaseActivity {
 //            }
             else {
                 ZganLoginService.toGetServerData(8, 0, et_phone.getText().toString().trim(), handler);
-                til_phone.setErrorEnabled(false);
-
             }
         }
     }

@@ -59,7 +59,7 @@ public class UpdatePassword extends myBaseActivity {
                 case 1:
                     Frame f = (Frame) msg.obj;
                     String result = generalhelper.getSocketeStringResult(f.strData);
-                    if (f.subCmd == 27) {
+                    if (f.subCmd == 5) {
                         if (result.equals("0")) {
                             PreferenceUtil.setPassWord(newpwd);
                             generalhelper.ToastShow(UpdatePassword.this, "更新密码成功~");
@@ -71,6 +71,10 @@ public class UpdatePassword extends myBaseActivity {
                                 }
                             }, 500);
                         }
+                    }
+                    else
+                    {
+                        generalhelper.ToastShow(UpdatePassword.this, "更新密码失败~");
                     }
                     break;
             }

@@ -33,6 +33,13 @@ public class SMSValidationStep2 extends myBaseActivity {
         btnredo = (Button) findViewById(R.id.btn_redo);
         etcode = (EditText) findViewById(R.id.et_code);
         phone = getIntent().getStringExtra("phone");
+        View back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         iniTimer();
     }
 

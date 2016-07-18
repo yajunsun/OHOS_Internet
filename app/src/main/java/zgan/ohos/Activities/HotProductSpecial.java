@@ -54,7 +54,7 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
     int goodscount = 0;
     //商品价格
     double goodssum = 0;
-    DecimalFormat decimalFormat = new DecimalFormat("###.0");
+    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
     FrontItem item;
 
     @Override
@@ -72,7 +72,7 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
             goodssum = 0;
         }
         gdcount.setText("商品：" + String.valueOf(goodscount));
-        totalpay.setText("合计：" + String.valueOf(goodssum));
+        totalpay.setText("合计：" + decimalFormat.format(goodssum));
     }
 
     @Override
@@ -277,7 +277,8 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
             final Vegetable vegetable = list.get(position);
             ImageLoader.bindBitmap(vegetable.getpic_url(), holder.iv_preview, 200, 200);
             holder.name.setText(vegetable.gettitle());
-            holder.price.setText("￥" + String.valueOf(vegetable.getprice()));
+            //holder.price.setText("￥" + String.valueOf(vegetable.getprice()));
+            holder.price.setText("￥" + decimalFormat.format(vegetable.getprice()));
             holder.size.setText(vegetable.getitemSize());
             //取消库存限制
 //            holder.stock.setText("库存："+vegetable.getstock());

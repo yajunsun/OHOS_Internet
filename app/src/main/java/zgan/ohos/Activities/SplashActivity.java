@@ -48,18 +48,11 @@ public class SplashActivity extends myBaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_splash2);
-        Log.i(TAG, "start services");
-        ZganLoginService.setContext(SplashActivity.this);
-        ZganCommunityService.setContext(MyApplication.context);
 
-        Intent intent = new Intent(SplashActivity.this, ZganCommunityService.class);
-        startService(intent);
-        intent = new Intent(SplashActivity.this, ZganLoginService.class);
-        startService(intent);
         iv_logo=(ImageView)findViewById(R.id.iv_logo);
         int maxwidth = AppUtils.getWindowSize(this).x;
         int maxheight = 5 * maxwidth;
-        iv_logo.setMaxWidth(maxwidth);
+        //iv_logo.setMaxWidth(maxwidth);
         iv_logo.setMaxHeight(maxheight);
         imageLoader=new ImageLoader();
         imageLoader.loadDrawableRS(this, R.drawable.splashlauncher, iv_logo, new IImageloader() {
@@ -67,7 +60,7 @@ public class SplashActivity extends myBaseActivity {
             public void onDownloadSucc(Bitmap bitmap, String c_url, View imageView, int w, int h) {
                 ((ImageView)imageView).setImageBitmap(bitmap);
             }
-        },750,1334);
+        },maxwidth,1334);
         Log.i(TAG,"services is running");
         new Thread(new Runnable() {
             @Override
@@ -79,20 +72,15 @@ public class SplashActivity extends myBaseActivity {
                     if (!ZganLoginService.isNetworkAvailable(MyApplication.context)) {
                         handler.sendEmptyMessage(0);
                     } else {
-//                        // 判断自动登录
-//                        try {
-//                            while (!ZganLoginService.ServiceRin) {
-//                                Thread.currentThread().sleep(100);
-//                            }
-//                            if (!ZganLoginService.toAutoUserLogin(handler)) {
-//                                Thread_TimerToActivity tt = new Thread_TimerToActivity();
-//                                t1 = new Thread(tt);
-//                                t1.start();
-//                            }
-//                        } catch (Exception ex) {
-//                            generalhelper.ToastShow(SplashActivity.this, ex.getMessage());
-//                        }
-//                    }
+                        Log.i(TAG, "start services");
+                        ZganLoginService.setContext(SplashActivity.this);
+                        ZganCommunityService.setContext(MyApplication.context);
+
+                        Intent intent = new Intent(SplashActivity.this, ZganCommunityService.class);
+                        startService(intent);
+                        intent = new Intent(SplashActivity.this, ZganLoginService.class);
+                        startService(intent);
+
                         etime = Calendar.getInstance();
                         long costtime = etime.getTimeInMillis() - btime.getTimeInMillis();
                         long time = 2000;

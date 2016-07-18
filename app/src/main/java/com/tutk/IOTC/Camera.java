@@ -60,7 +60,7 @@ public class Camera {
     private VoiceIndust voiceIndust = null;
     private LinkedList<byte[]> latestNetVoice;
     private LinkedList<byte[]> micvoice;
-    private speexprocess mSpeex = null;
+    //private speexprocess mSpeex = null;
     ExecutorService executorService = null;
     //AudioProcess mAudioProcess = null;
     private int mCamIndex = 0;
@@ -525,7 +525,7 @@ public class Camera {
                     } else {
                         St_RDT_Status stSInfo = new St_RDT_Status();
                         RDTAPIs.RDT_Status_Check(nRDT_ID, stSInfo);
-
+                        Log.i("suntest","rdt status check");
                         for (int i = 0; i < mIOTCListeners.size(); i++) {
                             IRegisterIOTCListener listener = mIOTCListeners.get(i);
                             listener.receiveSessionInfo(Camera.this, CONNECTION_STATE_CONNECTED);
@@ -655,6 +655,7 @@ public class Camera {
                         }
                         break;
                     }
+                    Log.i("suntest","receive data from rdt");
                     byte[] data = new byte[len];
                     System.arraycopy(buf, 0, data, 0, len);
                     mAVChannel.rdtQueue.Enqueue(len, data);
@@ -805,6 +806,7 @@ public class Camera {
             // nFrmCount++;
             AVFrame frame = new AVFrame(pFrmNo, AVFrame.FRM_STATE_COMPLETE, frameData, frameData.length);
             nCodecId = (int) frame.getCodecId();
+            Log.i("suntest","recieved vedio");
             if (nCodecId == AVFrame.MEDIA_CODEC_VIDEO_H264) {
                 //保持图像队列的容量为10
                 if (mAVChannel.VideoFrameQueue.getCount() < 11)
@@ -1125,6 +1127,7 @@ public class Camera {
                     e.printStackTrace();
                 }
             }
+            Log.i("suntest","ready to send voice");
             nMinBufSize = AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
             //}
 
@@ -1133,9 +1136,9 @@ public class Camera {
             //AudioTrack audioTrack = null;
             recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_CONFIGURATION_MONO, AudioFormat.ENCODING_PCM_16BIT, nMinBufSize);
             recorder.startRecording();
-            mSpeex = new speexprocess();
+            //mSpeex = new speexprocess();
             //int speexinit = mSpeex.Speex_init(960, 960 * 4, 16000);
-            int speexinit = mSpeex.Speex_init(960, 960 * 4, 8000);
+            //int speexinit = mSpeex.Speex_init(960, 960 * 4, 8000);
 
             Log.i("IOTCamera", "recorder begin work");
             while (m_bIsRunning) {
@@ -1152,8 +1155,8 @@ public class Camera {
                 }
             }
             recorder.stop();
-            mSpeex.Speex_exit();
-            mSpeex = null;
+            //mSpeex.Speex_exit();
+            //mSpeex = null;
             avIndexForSendAudio = -1;
             chIndexForSendAudio = -1;
 
@@ -1200,8 +1203,8 @@ public class Camera {
                             Log.i("IOTCamera", "voice play1, latestNetVoice.size()=" + latestNetVoice.size());
                             audioTraceWrite(voice_in, 0, voice_in.length);
                             Log.i("IOTCamera", "voice has played1");
-                            int re = mSpeex.Speex_process(voice_in, voice_out, srcProcess);
-                            Log.i("suntest","result of speex:"+re);
+                            //int re = mSpeex.Speex_process(voice_in, voice_out, srcProcess);
+                            //Log.i("suntest","result of speex:"+re);
                             int nReadBytes = 960;
                             byte d = (byte) (nReadBytes + 12 & 0x000000ff);
                             byte c = (byte) ((nReadBytes + 12 & 0x0000ff00) >> 8);
@@ -1209,7 +1212,7 @@ public class Camera {
                             byte a = (byte) ((nReadBytes + 12 & 0xff000000) >> 24);
                             byte[] head = new byte[]{36, 83, 88, 38, a, b, c, d, 2, 0, 0, 0};
                             byte[] Buf_processed = new byte[nReadBytes + 12];
-                            System.arraycopy(srcProcess, 0, Buf_processed, 12, nReadBytes); // setp
+                            System.arraycopy(voice_out, 0, Buf_processed, 12, nReadBytes); // setp
                             System.arraycopy(head, 0, Buf_processed, 0, 12);
                             Log.i("IOTCamera", "voice send1, micvoice.size()=" + micvoice.size());
                             rdtWrite(nRDT_ID, Buf_processed, nReadBytes + 12);

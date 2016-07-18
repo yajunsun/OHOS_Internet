@@ -1,5 +1,7 @@
 package zgan.ohos.Models;
 
+import android.widget.Switch;
+
 import java.io.Serializable;
 
 import zgan.ohos.utils.SystemUtils;
@@ -7,7 +9,7 @@ import zgan.ohos.utils.SystemUtils;
 /**
  * Created by Administrator on 16-4-30.
  */
-public class QueryOrderM extends BaseModel  implements Serializable {
+public class QueryOrderM extends BaseModel implements Serializable {
     private String order_id;//	订单id
     private int order_state;//	订单状态
     private String title;//	商品标题
@@ -18,6 +20,8 @@ public class QueryOrderM extends BaseModel  implements Serializable {
     private int pay_type;//	支付方式
     private String diliver_time;//	预计完成时间
     private String pic_url;//商品图片
+
+    private int Stype = 0;
     //private String over_time;//	配送完成时间
 
 //    public String getover_time() {
@@ -119,6 +123,15 @@ public class QueryOrderM extends BaseModel  implements Serializable {
             this.diliver_time = value.toString();
     }
 
+    public int getStype() {
+        return Stype;
+    }
+
+    public void setStype(Object value) {
+        if (value != null)
+            this.Stype = SystemUtils.getIntValue(value.toString());
+    }
+
     @Override
     public QueryOrderM getnewinstance() {
         return new QueryOrderM();
@@ -126,27 +139,35 @@ public class QueryOrderM extends BaseModel  implements Serializable {
 
 
     public String getStatusText() {
-        String result = "配送中";
-        switch (order_state) {
-            case 0:
-            case 1:
+        String result = "处理中";
+        if (order_state == 0) {
+            switch (Stype) {
+                case 0:
+                case 1:
+                    result = "新订单";
+                    break;
+                case 2:
+                    result = "已取消";
+                    break;
+                case 3:
+                    result = "已无效";
+                    break;
+                case 4:
+                    result = "已退货";
+                    break;
+                case 5:
+                    result = "已完成";
+                    break;
+                case 6:
+                    result = "配送中";
+                    break;
+            }
+        } else if (order_state > 0) {
+            if (Stype == 0) {
                 result = "新订单";
-                break;
-            case 2:
-                result = "已取消";
-                break;
-            case 3:
-                result = "已无效";
-                break;
-            case 4:
-                result = "已退货";
-                break;
-            case 5:
-                result = "已完成";
-                break;
-            case 6:
-                result = "配送中";
-                break;
+            } else if (Stype > 0) {
+                result = "已处理";
+            }
         }
         return result;
     }

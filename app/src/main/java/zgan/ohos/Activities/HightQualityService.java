@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class HightQualityService extends myBaseActivity {
     HightQualityDal dal;
     ImageLoader imageLoader;
     FuncBase item;
+    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
 
     @Override
     protected void initView() {
@@ -202,7 +204,8 @@ public class HightQualityService extends myBaseActivity {
             final HightQualityServiceM m = list.get(position);
             ImageLoader.bindBitmap(m.getpic_url(), holder.ivpreview, 600, 600);
             holder.txtdesc.setText(m.gettitle());
-            holder.txtprice.setText("￥" + m.getprice());
+            //holder.txtprice.setText("￥" + m.getprice());
+            holder.txtprice.setText("￥" + decimalFormat.format(m.getprice()));
             holder.txtstock.setText("库存："+m.getstock());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

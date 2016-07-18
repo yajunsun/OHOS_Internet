@@ -62,12 +62,12 @@ public class HightQualityDetail extends myBaseActivity implements View.OnClickLi
         int maxwidth = AppUtils.getWindowSize(this).x;
         int maxheight = 5 * maxwidth;
         imageLoader = new ImageLoader();
-        ivpreview.setMaxWidth(maxwidth);
+        //ivpreview.setMaxWidth(maxwidth);
         ivpreview.setMaxHeight(maxheight);
-        ImageLoader.bindBitmap(hqs.getpic_url(), ivpreview, 800, 1000);
-        ivimgdesc.setMaxWidth(maxwidth);
+        ImageLoader.bindBitmap(hqs.getpic_url(), ivpreview, maxwidth, 1000);
+        //ivimgdesc.setMaxWidth(maxwidth);
         ivimgdesc.setMaxHeight(maxheight);
-        ImageLoader.bindBitmap(hqs.getdetails_url(), ivimgdesc, 800, 1000);
+        ImageLoader.bindBitmap(hqs.getdetails_url(), ivimgdesc, maxwidth, 1000);
         txtdesc.setText(hqs.gettitle());
         txtprice.setText("￥" + String.valueOf(hqs.getprice()));
         //取消库存限制

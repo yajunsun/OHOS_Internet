@@ -60,7 +60,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
     LayoutInflater myInflater;
     SwipeRefreshLayout refreshview;
     float density = 1;
-    DecimalFormat decimalFormat = new DecimalFormat("###.0");
+    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
 
     TextView tall, tunpay, tunget;
 
@@ -374,7 +374,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
             BaseGoods g = goodslist.get(position);
             ImageLoader.bindBitmap(g.getpic_url(), holder.iv_preview, 100, 100);
             holder.txt_name.setText(g.gettitle());
-            holder.txt_price.setText("￥" + g.getprice());
+            holder.txt_price.setText("￥" + decimalFormat.format(g.getprice()));
             holder.txt_count.setText("*" + g.getSelectedcount());
         }
 

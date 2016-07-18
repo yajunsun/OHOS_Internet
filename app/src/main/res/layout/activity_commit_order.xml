@@ -187,8 +187,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/CommitOrder_shipping_height"
                     android:layout_below="@id/l2"
-                    android:padding="10dp"
-                    android:visibility="gone">
+                    android:padding="10dp">
 
                     <TextView
                         android:id="@+id/btnshippingimediatly"
@@ -215,22 +214,22 @@
                         android:textIsSelectable="false"
                         android:textSize="@dimen/front_text_size" />
 
-                    <!--<TextView-->
-                    <!--android:id="@+id/txtshippingtime"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:textSize="@dimen/front_text_size"-->
-                    <!--android:textColor="@color/solid_black"-->
-                    <!--android:layout_below="@id/btnshippingdelay"-->
-                    <!--android:text="送货时间" />-->
+                    <TextView
+                        android:id="@+id/txtshippingtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/btnshippingdelay"
+                        android:layout_marginTop="10dp"
+                        android:text="送货时间"
+                        android:textColor="@color/solid_black"
+                        android:textSize="@dimen/front_text_size" />
 
                     <TextView
                         android:id="@+id/txt_besttime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="10dp"
+                        android:text="adfasdf"
                         android:textColor="@color/md_red_400"
                         android:textSize="@dimen/front_text_size" />
 
@@ -250,7 +249,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/CommitOrder_shipping_height"
                     android:layout_below="@id/l2"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    android:visibility="gone">
 
 
                     <TextView

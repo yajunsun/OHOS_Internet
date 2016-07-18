@@ -89,7 +89,7 @@ public class OrderDetail extends myBaseActivity implements View.OnClickListener 
     Dialog dialog;
     Dialog paypwdInputDialog;
     double fee = 0;
-    DecimalFormat decimalFormat = new DecimalFormat("###.0");
+    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
     String orderStatus = "配送中";
     String addTime;
 
@@ -445,7 +445,7 @@ public class OrderDetail extends myBaseActivity implements View.OnClickListener 
 //            }, 100, 100);
             ImageLoader.bindBitmap(g.getpic_url(), holder.iv_preview, 100, 100);
             holder.txt_name.setText(g.gettitle());
-            holder.txt_price.setText("￥" + g.getprice());
+            holder.txt_price.setText("￥" +decimalFormat.format( g.getprice()));
             holder.txt_count.setText("*" + g.getSelectedcount());
         }
 

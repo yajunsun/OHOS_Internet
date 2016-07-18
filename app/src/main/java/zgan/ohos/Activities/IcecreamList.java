@@ -50,7 +50,7 @@ public class IcecreamList extends myBaseActivity implements View.OnClickListener
     int goodscount = 0;
     //商品价格
     double goodssum = 0;
-    DecimalFormat decimalFormat = new DecimalFormat("###.0");
+    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
     FuncBase item;
 
     @Override
