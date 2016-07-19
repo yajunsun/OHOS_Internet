@@ -212,7 +212,7 @@ public class Monitor extends SurfaceView implements SurfaceHolder.Callback, IReg
 
 					parseMidPoint(mMidPoint, vLeft, vTop, vRight, vBottom);
 					parseMidPoint(mMidPointForCanvas, vLeft, vTop, vRight, vBottom);
-					
+
 					Log.i("IOTCamera", "Change canvas size (" + (mRectCanvas.right - mRectCanvas.left) + ", " + (mRectCanvas.bottom - mRectCanvas.top) + ")");
 				}
 			}
@@ -524,7 +524,7 @@ public class Monitor extends SurfaceView implements SurfaceHolder.Callback, IReg
 								// Fixed by CA
 								// should edit videoCanvas before unlock it.
 								videoCanvas.drawColor(Color.BLACK);
-								videoCanvas.drawBitmap(mLastFrame, null, mRectCanvas, null);							
+								videoCanvas.drawBitmap(mLastFrame, null, mRectCanvas, null);
 							}
 						} finally{
 							if (videoCanvas != null)

@@ -105,14 +105,16 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
 
     protected void loadData() {
         isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s,@page_id=%s", PreferenceUtil.getUserName(),funcPage.getpage_id()), "@22"), handler);
+        //ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s,@page_id=%s", PreferenceUtil.getUserName(),funcPage.getpage_id()), "@22"), handler);
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "@22"), handler);
     }
 
     public void loadMoreData() {
         try {
             //pageindex++;
             isLoadingMore = true;
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s,@page_id=%s", PreferenceUtil.getUserName(),funcPage.getpage_id()), "@22"), handler);
+            //ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s,@page_id=%s", PreferenceUtil.getUserName(),funcPage.getpage_id()), "@22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "@22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -156,7 +158,8 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                             }
                             if (frame.platform != 0) {
 
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s,@page_id=%s", PreferenceUtil.getUserName(),funcPage.getpage_id()), "@22"), frame.strData);
+                                //addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s,@page_id=%s", PreferenceUtil.getUserName(),funcPage.getpage_id()), "@22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), funcPage.gettype_id(), String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "@22"), frame.strData);
                             }
                             List<ExpressIn> expressIns = dal.Getlist(results[2]);
                             list.addAll(expressIns);

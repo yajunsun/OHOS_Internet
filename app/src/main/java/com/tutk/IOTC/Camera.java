@@ -633,18 +633,19 @@ public class Camera {
             while (bIsRunning) {
                 if (mSID >= 0 && nRDT_ID >= 0) {//&& mAVChannel.getAVIndex() >= 0) {
 
-                    if (System.currentTimeMillis() - lastTimeStamp > 1000) {
-
-                        lastTimeStamp = System.currentTimeMillis();
-
-                        for (int i = 0; i < mIOTCListeners.size(); i++) {
-
-                            IRegisterIOTCListener listener = mIOTCListeners.get(i);
-                            listener.receiveFrameInfo(Camera.this, mAVChannel.getChannel(), (mAVChannel.AudioBPS + mAVChannel.VideoBPS) * 8 / 1024, mAVChannel.VideoFPS, nOnlineNumber, nFrmCount, nIncompleteFrmCount);
-                        }
-
-                        mAVChannel.VideoFPS = mAVChannel.VideoBPS = mAVChannel.AudioBPS = 0;
-                    }
+                    //modified by yajunsun 20160719
+//                    if (System.currentTimeMillis() - lastTimeStamp > 1000) {
+//
+//                        lastTimeStamp = System.currentTimeMillis();
+//
+//                        for (int i = 0; i < mIOTCListeners.size(); i++) {
+//
+//                            IRegisterIOTCListener listener = mIOTCListeners.get(i);
+//                            listener.receiveFrameInfo(Camera.this, mAVChannel.getChannel(), (mAVChannel.AudioBPS + mAVChannel.VideoBPS) * 8 / 1024, mAVChannel.VideoFPS, nOnlineNumber, nFrmCount, nIncompleteFrmCount);
+//                        }
+//
+//                        mAVChannel.VideoFPS = mAVChannel.VideoBPS = mAVChannel.AudioBPS = 0;
+//                    }
                     //读取RDT
                     //short[] buf1 = new short[]{};
                     int len = RDTAPIs.RDT_Read(nRDT_ID, buf, MAX_BUF_SIZE, 30000);

@@ -90,7 +90,7 @@ public class HightQualityDetail extends myBaseActivity implements View.OnClickLi
         });
 
         //gdcount.setText("商品：" + hqs.getPrice());
-        totalpay.setText("合计：" + hqs.getprice());
+        totalpay.setText("合计：￥" + hqs.getprice());
         btncheck.setOnClickListener(this);
     }
 

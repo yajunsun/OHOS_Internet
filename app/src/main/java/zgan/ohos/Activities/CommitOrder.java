@@ -233,7 +233,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
 
 
         gdcount.setText("商品：" + count);
-        totalpay.setText("合计：" + decimalFormat.format(fee));
+        totalpay.setText("合计：￥" + decimalFormat.format(fee));
         txt_payfee.setText("￥" + decimalFormat.format(fee));
         int h = (int) (AppUtils.getDensity(this) * 120 * list.size());
         ViewGroup.LayoutParams params = rv_goods.getLayoutParams();

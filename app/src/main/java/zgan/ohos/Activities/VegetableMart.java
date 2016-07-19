@@ -80,7 +80,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
             goodssum = 0;
         }
         gdcount.setText("商品：" + String.valueOf(goodscount));
-        totalpay.setText("合计：" + decimalFormat.format(goodssum));
+        totalpay.setText("合计：￥" + decimalFormat.format(goodssum));
     }
 
     @Override
@@ -309,7 +309,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                     goodscount++;
                     goodssum += vegetable.getprice();
                     gdcount.setText("商品：" + String.valueOf(goodscount));
-                    totalpay.setText("合计：" + decimalFormat.format(goodssum));
+                    totalpay.setText("合计：￥" + decimalFormat.format(goodssum));
                 }
 
                 @Override
@@ -336,7 +336,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                     goodssum -= vegetable.getprice();
                     goodscount--;
                     gdcount.setText("商品：" + String.valueOf(goodscount));
-                    totalpay.setText("合计：" + decimalFormat.format(goodssum));
+                    totalpay.setText("合计：￥" + decimalFormat.format(goodssum));
                 }
             });
         }

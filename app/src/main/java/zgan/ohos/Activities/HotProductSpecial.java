@@ -72,7 +72,7 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
             goodssum = 0;
         }
         gdcount.setText("商品：" + String.valueOf(goodscount));
-        totalpay.setText("合计：" + decimalFormat.format(goodssum));
+        totalpay.setText("合计：￥" + decimalFormat.format(goodssum));
     }
 
     @Override
@@ -302,7 +302,7 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
                     goodscount++;
                     goodssum += vegetable.getprice();
                     gdcount.setText("商品：" + String.valueOf(goodscount));
-                    totalpay.setText("合计：" + decimalFormat.format(goodssum));
+                    totalpay.setText("合计：￥" + decimalFormat.format(goodssum));
                 }
 
                 @Override
@@ -329,7 +329,7 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
                     goodssum -= vegetable.getprice();
                     goodscount--;
                     gdcount.setText("商品：" + String.valueOf(goodscount));
-                    totalpay.setText("合计：" + decimalFormat.format(goodssum));
+                    totalpay.setText("合计：￥" + decimalFormat.format(goodssum));
                 }
             });
         }
