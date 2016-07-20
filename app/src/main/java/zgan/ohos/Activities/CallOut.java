@@ -6,42 +6,45 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
-import com.tutk.IOTC.AVIOCTRLDEFs;
 import com.tutk.IOTC.Camera;
+import com.tutk.IOTC.HightRDTCamera;
 import com.tutk.IOTC.IRegisterIOTCListener;
 import com.tutk.IOTC.Monitor;
+import com.tutk.IOTC.NormalRDTCamera;
+import com.tutk.IOTC.RDTCamera;
+
+import java.security.Permission;
+import java.security.PermissionCollection;
+import java.security.Permissions;
 
 import zgan.ohos.Models.FuncBase;
+import zgan.ohos.MyApplication;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
-import zgan.ohos.utils.Frame;
-import zgan.ohos.utils.MyCamera;
-import zgan.ohos.utils.PreferenceUtil;
-import zgan.ohos.utils.generalhelper;
+import zgan.ohos.utils.SystemUtils;
 
 /**
  * create by yajunsun
- *
+ * <p>
  * 音视频通话界面
- * */
+ */
 public class CallOut extends myBaseActivity implements IRegisterIOTCListener, View.OnClickListener, ZganCommunityService.ICallOutListner {
 
 
@@ -66,47 +69,65 @@ public class CallOut extends myBaseActivity implements IRegisterIOTCListener, Vi
 
     @Override
     protected void initView() {
-
-        setContentView(R.layout.activity_call_out);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        item = (FuncBase) getIntent().getSerializableExtra("item");
-        View back = findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                communityService.hangup();
-                toQuitVideo();
-                iniDialog("提示", "确定退出视频通话");
+        Log.i(TAG,"my PhoneYear is "+MyApplication.PhoneYear);
+        if (MyApplication.PhoneYear < 2013) {
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+ SystemUtils.getShop()));
+            if(getPackageManager().checkPermission("android.permission.CALL_PHONE", getPackageName())== PackageManager.PERMISSION_GRANTED)
+            {
+                startActivityForResult(intent, 0);
             }
-        });
-        if (item != null) {
-            TextView txt_title = (TextView) findViewById(R.id.txt_title);
-            txt_title.setText(item.getview_title());
-        }
-        btn_hangup = (ImageView) findViewById(R.id.btn_hangup);
-        btn_hangup.setOnClickListener(this);
-        l_connected = findViewById(R.id.l_connected);
-        l_waite = findViewById(R.id.l_waite);
+        } else {
+            setContentView(R.layout.activity_call_out);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            item = (FuncBase) getIntent().getSerializableExtra("item");
+            View back = findViewById(R.id.back);
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    communityService.hangup();
+                    toQuitVideo();
+                    iniDialog("提示", "确定退出视频通话");
+                }
+            });
+            if (item != null) {
+                TextView txt_title = (TextView) findViewById(R.id.txt_title);
+                txt_title.setText(item.getview_title());
+            }
+            btn_hangup = (ImageView) findViewById(R.id.btn_hangup);
+            btn_hangup.setOnClickListener(this);
+            l_connected = findViewById(R.id.l_connected);
+            l_waite = findViewById(R.id.l_waite);
 //        toSetProgressText("正在接通中，请稍后。。。");
 //        toShowProgress();
-        //ZganCommunityService.toGetServerData(37, 0, String.format("%s\t3", PreferenceUtil.getUserName()), serviceHandler);
-        //connect();
-        bindService(new Intent(CallOut.this, ZganCommunityService.class), mconnection, Context.BIND_AUTO_CREATE);
+            //ZganCommunityService.toGetServerData(37, 0, String.format("%s\t3", PreferenceUtil.getUserName()), serviceHandler);
+            //connect();
+            bindService(new Intent(CallOut.this, ZganCommunityService.class), mconnection, Context.BIND_AUTO_CREATE);
+        }
     }
 
     private void connect() {
-        MyCamera.init();
-
+        RDTCamera.init();
         mSelectedChannel = 0;
-        mCamera = new MyCamera("admin["
-                + mDevUID
-                + "]",
-                mDevUID,
-                "admin", "admin");
+        if (MyApplication.PhoneYear > 2013) {
+            mCamera = new HightRDTCamera("admin["
+                    + mDevUID
+                    + "]",
+                    mDevUID,
+                    "admin", "admin");
+            Log.i(TAG,"use HightRDTCamera");
+        }
+        else {
+            mCamera = new NormalRDTCamera("admin["
+                    + mDevUID
+                    + "]",
+                    mDevUID,
+                    "admin", "admin");
+            Log.i(TAG,"use NormalRDTCamera");
+        }
         mCamera.registerIOTCListener(this);
 
         mCamera.start(
-                MyCamera.DEFAULT_AV_CHANNEL,
+                RDTCamera.DEFAULT_AV_CHANNEL,
                 "admin", "admin");
         mCamera.connect(mDevUID, mSelectedChannel);
         //mCamera.startShow(mSelectedChannel);
@@ -252,14 +273,14 @@ public class CallOut extends myBaseActivity implements IRegisterIOTCListener, Vi
                     communityService.hangup();
                     toQuitVideo();
                     iniDialog("提示", "连接已断开");
-                    Log.i(TAG,"CONNECTION_STATE_DISCONNECTED");
+                    Log.i(TAG, "CONNECTION_STATE_DISCONNECTED");
                     break;
 
                 case Camera.CONNECTION_STATE_UNKNOWN_DEVICE:
                     communityService.hangup();
                     toQuitVideo();
                     iniDialog("提示", "连接失败");
-                    Log.i(TAG,"CONNECTION_STATE_UNKNOWN_DEVICE");
+                    Log.i(TAG, "CONNECTION_STATE_UNKNOWN_DEVICE");
                     break;
 
                 case Camera.CONNECTION_STATE_TIMEOUT:
@@ -267,7 +288,7 @@ public class CallOut extends myBaseActivity implements IRegisterIOTCListener, Vi
                         communityService.hangup();
                         toQuitVideo();
                         iniDialog("提示", "连接超时");
-                        Log.i(TAG,"CONNECTION_STATE_TIMEOUT");
+                        Log.i(TAG, "CONNECTION_STATE_TIMEOUT");
                     }
                     break;
 
@@ -275,12 +296,18 @@ public class CallOut extends myBaseActivity implements IRegisterIOTCListener, Vi
                     communityService.hangup();
                     toQuitVideo();
                     iniDialog("提示", "连接失败");
-                    Log.i(TAG,"CONNECTION_STATE_CONNECT_FAILED");
+                    Log.i(TAG, "CONNECTION_STATE_CONNECT_FAILED");
                     break;
             }
             super.handleMessage(msg);
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG, String.valueOf(resultCode));
+    }
 
     @Override
     protected void onDestroy() {

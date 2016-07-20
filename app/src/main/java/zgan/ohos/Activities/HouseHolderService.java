@@ -228,7 +228,7 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
         ivprebookno = (ImageView) view.findViewById(R.id.ivprebook_no);
         txt_servicetype = (TextView) view.findViewById(R.id.txt_servicetype);
         txt_servicetime = (TextView) view.findViewById(R.id.txt_servicetime);
-        txt_servicetype.setText("服务类型：家政服务");
+        txt_servicetype.setText("服务类型："+item.getview_title());
         if (order.getdiliver_time() == null || order.getdiliver_time().equals(""))
             txt_servicetime.setText("上门时间：即时上门");
         else

@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.tutk.IOTC.Camera;
+import com.tutk.IOTC.RDTCamera;
 
 import zgan.ohos.MyApplication;
 import zgan.ohos.utils.DataCacheHelper;
@@ -121,7 +122,7 @@ public class ZganCommunityService extends Service {
             thishandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Camera.uninit();
+                    RDTCamera.uninit();
                 }
             },5000);
         }

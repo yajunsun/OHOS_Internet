@@ -49,6 +49,10 @@ uses-permission#android.permission.ACCESS_WIFI_STATE
 ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:21:5-76
 	android:name
 		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:21:22-73
+uses-permission#android.permission.CALL_PHONE
+ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:22:6-70
+	android:name
+		ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:22:23-67
 uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from G:\AndroidDev\AndroidSourceCode\OHOS\app\src\main\AndroidManifest.xml:23:5-79
 	android:name

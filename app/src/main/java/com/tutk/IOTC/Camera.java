@@ -25,10 +25,10 @@ import java.util.concurrent.ExecutorService;
 
 import zgan.ohos.utils.RDTFrame;
 
-public class Camera {
+public abstract class Camera {
 
-    private static volatile int mCameraCount = 0;
-    private static int mDefaultMaxCameraLimit = 4;
+
+    protected static int mDefaultMaxCameraLimit = 4;
 
     public static final int DEFAULT_AV_CHANNEL = 0;
 
@@ -45,32 +45,30 @@ public class Camera {
     // public static final int CHANGE_SESSION_MODE = 1006;
     // public static final int CHANGE_CHANNEL_STREAMINFO = 1104;
 
-    private final Object mWaitObjectForConnected = new Object();
+    protected final Object mWaitObjectForConnected = new Object();
 
-    private ThreadConnectDev mThreadConnectDev = null;
 
-    //private ThreadSendAudio mThreadSendAudio = null;
+    //protected ThreadSendAudio mThreadSendAudio = null;
 
-    private volatile int mSID = -1;
-    private volatile int mSessionMode = -1;
-    private volatile int nRDT_ID = -1;
+    protected volatile int mSID = -1;
+    protected volatile int mSessionMode = -1;
+    protected volatile int nRDT_ID = -1;
 
-    private boolean mInitAudio = false;
-    private AudioTrack mAudioTrack = null;
-    private VoiceIndust voiceIndust = null;
-    private LinkedList<byte[]> latestNetVoice;
-    private LinkedList<byte[]> micvoice;
-    //private speexprocess mSpeex = null;
+    protected boolean mInitAudio = false;
+    protected AudioTrack mAudioTrack = null;
+    protected LinkedList<byte[]> latestNetVoice;
+    protected LinkedList<byte[]> micvoice;
+    //protected speexprocess mSpeex = null;
     ExecutorService executorService = null;
     //AudioProcess mAudioProcess = null;
-    private int mCamIndex = 0;
+    protected int mCamIndex = 0;
 
     /* camera info */
-    private String mDevUID;
-    private String mDevPwd;
+    protected String mDevUID="";
+    protected String mDevPwd="";
 
-    private List<IRegisterIOTCListener> mIOTCListeners = Collections.synchronizedList(new Vector<IRegisterIOTCListener>());
-    private List<AVChannel> mAVChannels = Collections.synchronizedList(new Vector<AVChannel>());
+    protected List<IRegisterIOTCListener> mIOTCListeners = Collections.synchronizedList(new Vector<IRegisterIOTCListener>());
+    protected List<AVChannel> mAVChannels = Collections.synchronizedList(new Vector<AVChannel>());
 
 
     public Camera() {
@@ -119,53 +117,6 @@ public class Camera {
         return result;
     }
 
-    public synchronized static int init() {
-        int nRet = 0;
-
-        if (mCameraCount == 0) {
-            int port = (int) (10000 + (System.currentTimeMillis() % 10000));
-
-            // nRet = IOTCAPIs.ialize(port, "50.19.254.134", "122.248.234.207", "m4.iotcplatform.com", "m5.iotcplatform.com");
-            nRet = IOTCAPIs.IOTC_Initialize(port, "50.19.254.134", "122.248.234.207", null, null);
-            //nRet = IOTCAPIs.IOTC_Initialize2(port);
-
-            Log.i("IOTCamera", "IOTC_Initialize2() returns " + nRet);
-
-            if (nRet < 0) {
-                return nRet;
-            }
-
-            //nRet = AVAPIs.avInitialize(mDefaultMaxCameraLimit * 16);
-            RDTAPIs.RDT_Initialize();
-            Log.i("suntest", "RDT_Initialize() = " + nRet);
-
-            if (nRet < 0) {
-                return nRet;
-            }
-        }
-
-        mCameraCount++;
-        return nRet;
-    }
-
-    public synchronized static int uninit() {
-
-        int nRet = 0;
-
-        if (mCameraCount > 0) {
-            mCameraCount--;
-
-            if (mCameraCount == 0) {
-                RDTAPIs.RDT_DeInitialize();
-                //nRet = AVAPIs.avDeInitialize();
-                Log.i("IOTCamera", "RDT_DeInitialize() returns " + nRet);
-                nRet = IOTCAPIs.IOTC_DeInitialize();
-                Log.i("IOTCamera", "IOTC_DeInitialize() returns " + nRet);
-            }
-        }
-
-        return nRet;
-    }
 
     public boolean isSessionConnected() {
         return mSID >= 0;
@@ -198,83 +149,11 @@ public class Camera {
         }
     }
 
-    public void connect(String uid, int channel) {
+    public abstract void connect(String uid, int channel);
 
-        mDevUID = uid;
+    public abstract void connect(String uid, String pwd);
 
-        if (mThreadConnectDev == null) {
-            mThreadConnectDev = new ThreadConnectDev(0, channel);
-            mThreadConnectDev.start();
-        }
-    }
-
-    public void connect(String uid, String pwd) {
-
-        mDevUID = uid;
-        mDevPwd = pwd;
-
-        if (mThreadConnectDev == null) {
-            mThreadConnectDev = new ThreadConnectDev(1, 0);
-            mThreadConnectDev.start();
-        }
-    }
-
-    public void disconnect() {
-
-        Log.i("suntest", "disconnect");
-        synchronized (mAVChannels) {
-
-            for (AVChannel ch : mAVChannels) {
-
-                ch.AudioFrameQueue.removeAll();
-                ch.AudioFrameQueue = null;
-
-                ch.VideoFrameQueue.removeAll();
-                ch.VideoFrameQueue = null;
-
-                if (micvoice != null) {
-                    micvoice.clear();
-                    micvoice = null;
-                }
-                if (latestNetVoice != null) {
-                    latestNetVoice.clear();
-                    latestNetVoice = null;
-                }
-
-                ch.IOCtrlQueue.removeAll();
-                ch.IOCtrlQueue = null;
-            }
-        }
-
-        mAVChannels.clear();
-
-        try {
-            synchronized (mWaitObjectForConnected) {
-                mWaitObjectForConnected.wait(1000);
-            }
-        } catch (InterruptedException e) {
-        }
-        if (mThreadConnectDev != null)
-            mThreadConnectDev.stopThread();
-        if (mThreadConnectDev != null && mThreadConnectDev.isAlive()) {
-            try {
-                mThreadConnectDev.interrupt();
-                mThreadConnectDev.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        mThreadConnectDev = null;
-
-        if (mSID >= 0) {
-
-            IOTCAPIs.IOTC_Session_Close(mSID);
-            Log.i("IOTCamera", "IOTC_Session_Close(nSID = " + mSID + ")");
-            mSID = -1;
-        }
-        Log.i("suntest", "disconnected");
-        mSessionMode = -1;
-    }
+    public abstract void disconnect();
 
     public void start(int avChannel, String viewAccount, String viewPasswd) {
 
@@ -283,115 +162,11 @@ public class Camera {
         mAVChannels.add(ch);
     }
 
-    public void startShow(int avChannel) {
+    public abstract void startShow(int avChannel);
 
-        synchronized (mAVChannels) {
+    public abstract void stopShow(int avChannel);
 
-            for (int i = 0; i < mAVChannels.size(); i++) {
-
-                AVChannel ch = mAVChannels.get(i);
-
-                if (ch.getChannel() == avChannel) {
-
-                    ch.VideoFrameQueue.removeAll();
-
-                    if (ch.threadRecvVideo == null) {
-                        ch.threadRecvVideo = new ThreadRecvVideo2(ch);
-                        ch.threadRecvVideo.start();
-                    }
-                    if (ch.threadSendAudio == null) {
-                        ch.threadSendAudio = new ThreadSendAudio(ch);
-                        ch.threadSendAudio.start();
-                    }
-                    if (ch.pollData == null) {
-                        ch.pollData = new PollData(ch);
-                        ch.pollData.start();
-                    }
-                    if (ch.threadDecVideo == null) {
-                        ch.threadDecVideo = new ThreadDecodeVideo2(ch);
-                        ch.threadDecVideo.start();
-                    }
-                    break;
-                }
-            }
-        }
-    }
-
-    public void stopShow(int avChannel) {
-
-        Log.i("suntest", "stopShow");
-        synchronized (mAVChannels) {
-
-            for (int i = 0; i < mAVChannels.size(); i++) {
-
-                AVChannel ch = mAVChannels.get(i);
-
-                if (ch.getChannel() == avChannel) {
-
-                    if (ch.threadSendAudio != null) {
-                        ch.threadSendAudio.stopThread();
-                        try {
-                            ch.threadSendAudio.interrupt();
-                            ch.threadSendAudio.join();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    if (ch.threadDecVideo != null) {
-                        ch.threadDecVideo.stopThread();
-                        try {
-                            ch.threadDecVideo.interrupt();
-                            ch.threadDecVideo.join();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        ch.threadDecVideo = null;
-                    }
-
-
-                    if (ch.pollData != null) {
-                        ch.pollData.stopThread();
-                        try {
-                            ch.pollData.interrupt();
-                            ch.pollData.join();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    if (ch.threadRecvVideo != null) {
-                        ch.threadRecvVideo.stopThread();
-                        try {
-                            ch.threadRecvVideo.interrupt();
-                            ch.threadRecvVideo.join();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        ch.threadRecvVideo = null;
-                    }
-
-                    if (voiceIndust != null) {
-                        voiceIndust.StopThread();
-
-                        try {
-                            voiceIndust.interrupt();
-                            voiceIndust.join();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        voiceIndust = null;
-                    }
-                    ch.VideoFrameQueue.removeAll();
-                    Log.i("suntest", "stop show");
-                    break;
-                }
-            }
-        }
-    }
-
-    private synchronized boolean audioDev_init(int sampleRateInHz, int channel, int dataBit, int codec_id) {
+    protected synchronized boolean audioDev_init(int sampleRateInHz, int channel, int dataBit, int codec_id) {
 
         if (!mInitAudio) {
 
@@ -440,7 +215,7 @@ public class Camera {
             return false;
     }
 
-    private synchronized void audioDev_stop(int codec_id) {
+    protected synchronized void audioDev_stop(int codec_id) {
 
         if (mInitAudio) {
 
@@ -463,390 +238,19 @@ public class Camera {
         }
     }
 
-    private class ThreadConnectDev extends Thread {
 
-        private int mConnType = -1;
-        private boolean mIsRunning = false;
-        private Object m_waitForStopConnectThread = new Object();
-        int nRet = -1;
-        int Channel = 0;
-
-        public ThreadConnectDev(int connType, int channel) {
-            mConnType = connType;
-            Channel = channel;
-        }
-
-        public synchronized void stopThread() {
-
-            mIsRunning = false;
-
-            if (mSID < 0)
-                IOTCAPIs.IOTC_Connect_Stop();
-
-            synchronized (m_waitForStopConnectThread) {
-                m_waitForStopConnectThread.notify();
-            }
-        }
-
-        public void run() {
-
-            int nRetryForIOTC_Conn = 0;
-
-            mIsRunning = true;
-
-            while (mIsRunning && mSID < 0) {
-
-                // synchronized (mIOTCListeners) {
-                for (int i = 0; i < mIOTCListeners.size(); i++) {
-                    IRegisterIOTCListener listener = mIOTCListeners.get(i);
-                    listener.receiveSessionInfo(Camera.this, CONNECTION_STATE_CONNECTING);
-                }
-                // }
-
-
-                if (mConnType == 0) {
-                    mSID = IOTCAPIs.IOTC_Connect_ByUID(mDevUID);
-                    Log.i("IOTCamera", "IOTC_Connect_ByUID(" + mDevUID + ") returns " + mSID);
-                    Log.i("suntest", "IOTC_Connect_ByUID(" + mDevUID + ") returns " + mSID);
-                } else if (mConnType == 1) {
-                    mSID = IOTCAPIs.IOTC_Connect_ByUID2(mDevUID, mDevPwd, 2);
-                    Log.i("IOTCamera", "IOTC_Connect_ByUID2(" + mDevUID + ", " + mDevPwd + ") returns " + mSID);
-                } else {
-                    return;
-                }
-
-                if (mSID >= 0) {
-
-                    nRDT_ID = RDTAPIs.RDT_Create(mSID, 3000, 0);
-                    Log.i("suntest", "RDTAPIs.RDT_Create(" + mSID + ", 3000, 0) returns " + nRDT_ID);
-                    if (nRDT_ID < 0) {
-                        IOTCAPIs.IOTC_Session_Close(mSID);
-                        return;
-                    } else {
-                        St_RDT_Status stSInfo = new St_RDT_Status();
-                        RDTAPIs.RDT_Status_Check(nRDT_ID, stSInfo);
-                        Log.i("suntest","rdt status check");
-                        for (int i = 0; i < mIOTCListeners.size(); i++) {
-                            IRegisterIOTCListener listener = mIOTCListeners.get(i);
-                            listener.receiveSessionInfo(Camera.this, CONNECTION_STATE_CONNECTED);
-                        }
-                        // }
-
-                        synchronized (mWaitObjectForConnected) {
-                            mWaitObjectForConnected.notify();
-                        }
-                        startShow(Channel);
-                    }
-                } else if (mSID < 0) {
-                    Log.i("suntest", "IOTC_Connect_ByUID(" + mDevUID + ") returns " + mSID);
-                    mIsRunning = false;
-                    for (int i = 0; i < mIOTCListeners.size(); i++) {
-                        IRegisterIOTCListener listener = mIOTCListeners.get(i);
-                        listener.receiveSessionInfo(Camera.this, CONNECTION_STATE_DISCONNECTED);
-                        //setLog(Sample_RDTAPIs.MainHandler.MSGTYPE_LOG, str);
-                    }
-                    break;
-                }
-
-                Log.i("IOTCamera", "===ThreadConnectDev exit===");
-            }
-        }
+    public synchronized void audioTraceWrite(byte[] source, int offset, int length) {
+        if (mAudioTrack != null)
+            mAudioTrack.write(source, offset, length);
     }
 
-
-    private class ThreadRecvVideo2 extends Thread {
-        private static final int MAX_BUF_SIZE = 1024 * 20;
-        private boolean bIsRunning = false;
-
-        private AVChannel mAVChannel;
-
-        public ThreadRecvVideo2(AVChannel channel) {
-            mAVChannel = channel;
-        }
-
-        public synchronized void stopThread() {
-            bIsRunning = false;
-            Log.i("suntest", "停止视频接收线程");
-        }
-
-        @Override
-        public void run() {
-
-            //System.gc();
-
-            bIsRunning = true;
-
-            //while (bIsRunning && (mSID < 0 || mAVChannel.getAVIndex() < 0)) {
-            while (bIsRunning && (mSID < 0)) {
-                try {
-                    synchronized (mWaitObjectForConnected) {
-                        mWaitObjectForConnected.wait(1000);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            mAVChannel.VideoBPS = 0;
-            mAVChannel.AudioBPS = 0;
-            byte[] buf = new byte[MAX_BUF_SIZE];
-            boolean bInitAudio = false;
-
-            int nSamplerate = 44100;
-            int nDatabits = 1;
-            int nChannel = 1;
-            int nVoiceCodecId = AVFrame.MEDIA_CODEC_AUDIO_PCM;
-            int nFrmCount = 0;
-            int nIncompleteFrmCount = 0;
-            int nOnlineNumber = 0;
-            long lastTimeStamp = System.currentTimeMillis();
-
-            int ret = -1;
-            //if (bIsRunning && mSID >= 0 && mAVChannel.getAVIndex() >= 0) {
-            if (bIsRunning && mSID >= 0) {
-                mAVChannel.IOCtrlQueue.Enqueue(mAVChannel.getAVIndex(), AVIOCTRLDEFs.IOTYPE_USER_IPCAM_START, Packet.intToByteArray_Little(mCamIndex));
-                mAVChannel.IOCtrlQueue.Enqueue(mAVChannel.getAVIndex(), AVIOCTRLDEFs.IOTYPE_USER_IPCAM_AUDIOSTART, Packet.intToByteArray_Little(mCamIndex));
-            }
-
-            mAVChannel.AudioFrameQueue.removeAll();
-
-            St_RDT_Status stSInfo = new St_RDT_Status();
-            if (RDTAPIs.RDT_Status_Check(nRDT_ID, stSInfo) < 0) {
-                Log.v("suntest", String.format("RDT send start failed[%d]!!\\n", ret));
-                //IOTCAPIs.IOTC_Session_Close(mSID);
-                //stopShow(mAVChannel.getChannel());
-                return;
-            }
-
-
-            /*******初始化音频*********/
-            nSamplerate = 16000;//AVFrame.getSamplerate(frame.getFlags());
-            nDatabits = 0x02; //(int) (frame.getFlags() & 0x02);
-            nDatabits = (nDatabits == 0x02) ? 1 : 0;
-            nChannel = AVFrame.AUDIO_CHANNEL_MONO;//(int) (frame.getFlags() & 0x01);
-
-            Log.i("suntest", "begin initialize audio");
-            Log.i("suntest", String.format("nSamplerate:%d,nChannel:%d,nDatabits:%d,nCodecId:%d", nSamplerate, nChannel, nDatabits, nVoiceCodecId));
-            bInitAudio = audioDev_init(nSamplerate, nChannel, nDatabits, nVoiceCodecId);
-            Log.i("suntest", "audio initialized:");
-
-            while (bIsRunning) {
-                if (mSID >= 0 && nRDT_ID >= 0) {//&& mAVChannel.getAVIndex() >= 0) {
-
-                    //modified by yajunsun 20160719
-//                    if (System.currentTimeMillis() - lastTimeStamp > 1000) {
-//
-//                        lastTimeStamp = System.currentTimeMillis();
-//
-//                        for (int i = 0; i < mIOTCListeners.size(); i++) {
-//
-//                            IRegisterIOTCListener listener = mIOTCListeners.get(i);
-//                            listener.receiveFrameInfo(Camera.this, mAVChannel.getChannel(), (mAVChannel.AudioBPS + mAVChannel.VideoBPS) * 8 / 1024, mAVChannel.VideoFPS, nOnlineNumber, nFrmCount, nIncompleteFrmCount);
-//                        }
-//
-//                        mAVChannel.VideoFPS = mAVChannel.VideoBPS = mAVChannel.AudioBPS = 0;
-//                    }
-                    //读取RDT
-                    //short[] buf1 = new short[]{};
-                    int len = RDTAPIs.RDT_Read(nRDT_ID, buf, MAX_BUF_SIZE, 30000);
-                    if (len < 0) {
-                        for (int i = 0; i < mIOTCListeners.size(); i++) {
-                            IRegisterIOTCListener listener = mIOTCListeners.get(i);
-                            listener.receiveChannelInfo(Camera.this, mAVChannel.getChannel(), CONNECTION_STATE_DISCONNECTED);
-                        }
-                        break;
-                    }
-                    Log.i("suntest","receive data from rdt");
-                    byte[] data = new byte[len];
-                    System.arraycopy(buf, 0, data, 0, len);
-                    mAVChannel.rdtQueue.Enqueue(len, data);
-                    //Log.i("IOTCamera", "Enqueue rdtQueue left " + mAVChannel.rdtQueue.getCount());
-                }
-            }// while--end
-            if (bInitAudio) {
-                Log.i("suntest", "voice stopping...");
-                audioDev_stop(nVoiceCodecId);
-                Log.i("suntest", "voice stopped");
-            }
-            mAVChannel.VideoFrameQueue.removeAll();
-            if (mSID >= 0) {
-                mAVChannel.IOCtrlQueue.Enqueue(mAVChannel.getAVIndex(), AVIOCTRLDEFs.IOTYPE_USER_IPCAM_STOP, Packet.intToByteArray_Little(mCamIndex));
-                //AVAPIs.avClientCleanBuf(mAVChannel.getAVIndex());
-                mAVChannel.IOCtrlQueue.Enqueue(mAVChannel.getAVIndex(), AVIOCTRLDEFs.IOTYPE_USER_IPCAM_AUDIOSTOP, Packet.intToByteArray_Little(mCamIndex));
-            }
-            Log.i("IOTCamera", "===ThreadRecvAudio exit===");
-            Log.i("IOTCamera", "===ThreadRecvVideo exit===");
-        }
-    }
-
-    private class PollData extends Thread {
-
-        private Object m_waitObjForCheckDevStatus1 = new Object();
-        AVChannel mAVChannel;
-
-        public PollData(AVChannel _mAVChannel) {
-            mAVChannel = _mAVChannel;
-        }
-
-        boolean bIsRunning = false;
-
-        public synchronized void stopThread() {
-            bIsRunning = false;
-            Log.i("suntest", "停止音频接受线程");
-//            synchronized (m_waitObjForCheckDevStatus) {
-//                m_waitObjForCheckDevStatus.notify();
-//            }
-        }
-
-        @Override
-        public void run() {
-            bIsRunning = true;
-            int pFrmNo = 0;
-            RDTFrame rdtFrame = null;
-            byte[] readPool = new byte[1024 * 30];
-            int nReadSize = 0;
-            while (bIsRunning) {
-
-                while (mAVChannel.rdtQueue == null || mAVChannel.rdtQueue.isEmpty()) {
-                    try {
-                        if (!bIsRunning)
-                            break;
-//                        synchronized (m_waitObjForCheckDevStatus1) {
-//                            m_waitObjForCheckDevStatus1.wait(1000);
-//                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    continue;
-                }
-                try {
-                    //从队列中获取数据
-                    RDTQueue.RDTData data = mAVChannel.rdtQueue.Dequeue();
-                    //Log.i("IOTCamera", "Dequeue rdtQueue left " + mAVChannel.rdtQueue.getCount());
-                    //将获取的数据放入写入缓存readPool中
-                    System.arraycopy(data.getData(), 0, readPool, nReadSize, data.getLength());
-                    //缓存中数据的长度
-                    nReadSize += data.getLength();//此处size有问题
-                    //将数据frame化
-                    rdtFrame = new RDTFrame(readPool);
-                } catch (Exception e) {
-                    //Log.i("suntest", e.getMessage());
-                    e.printStackTrace();
-                    nReadSize = 0;
-                    readPool = new byte[1024 * 30];
-                    continue;
-                }
-                //此帧数据长度如果大于缓存的长度则继续往缓存中写入数据
-                if (rdtFrame.mLen > nReadSize) {
-                    continue;
-                }
-                //如果此帧数据长度小于缓存的长度则从缓存中读取数据
-                else if (rdtFrame.mLen < nReadSize) {
-                    int dataL = rdtFrame.mLen;//此帧数据长度
-                    int writeSize = 0;//缓存中已经被读取的长度
-                    RDTFrame f1 = null;
-                    //循环读取缓存数据
-                    while (bIsRunning && dataL < nReadSize && mAudioTrack != null) {
-                        try {
-                            //每一帧的数据
-                            byte[] b1 = new byte[dataL];
-                            System.arraycopy(readPool, 0, b1, 0, dataL);
-                            RDTFrame f = new RDTFrame(b1);
-                            pFrmNo++;
-                            //播放此帧
-                            playRDT(mAVChannel, pFrmNo, f);
-                            //播放后缓存中的数据减少，长度减少一帧的长度
-                            nReadSize = nReadSize - dataL;
-                            //播放后已经读取的长度增加一帧的长度
-                            writeSize = writeSize + dataL;
-                            //此处将缓存里面还没播放的数据提到位置0处
-                            byte[] unread = new byte[nReadSize];
-                            System.arraycopy(readPool, dataL, unread, 0, nReadSize);
-                            readPool = new byte[1024 * 30];
-                            System.arraycopy(unread, 0, readPool, 0, nReadSize);
-                            //当缓存池中的数据长度小于12时就继续从队列中取出数据
-                            if (nReadSize < 12)
-                                break;
-                            //继续计算下一帧数据的长度
-                            f1 = new RDTFrame(readPool);
-                            dataL = f1.mLen;
-                            //如果下一帧播放的长度=缓存池数据的长度则直接播放并初始化缓存池
-                            if (dataL == nReadSize) {
-                                pFrmNo++;
-                                playRDT(mAVChannel, pFrmNo, f1);
-                                nReadSize = 0;
-                                readPool = new byte[1024 * 30];
-                                break;
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            //Log.i("suntest", "read error:" + e.getMessage());
-                            nReadSize = 0;
-                            break;
-                        }
-                    }
-                } else {
-                    pFrmNo++;
-                    playRDT(mAVChannel, pFrmNo, rdtFrame);
-                    nReadSize = 0;
-                    readPool = new byte[1024 * 30];
-                }
-            }
-        }
-    }
-
-    private void playRDT(AVChannel mAVChannel, int pFrmNo, RDTFrame rdtFrame) {
-        byte[] adpcmOutBuf = new byte[640];
-        int nCodecId = 0;
-
-
-        byte[] frameData = new byte[rdtFrame.mLen - 12];
-        System.arraycopy(rdtFrame.mContent, 0, frameData, 0, frameData.length);
-        if (rdtFrame.mType == 1) {
-            //mAVChannel.VideoBPS += rdtFrame.mLen; //outBufSize[0];
-            // nFrmCount++;
-            AVFrame frame = new AVFrame(pFrmNo, AVFrame.FRM_STATE_COMPLETE, frameData, frameData.length);
-            nCodecId = (int) frame.getCodecId();
-            Log.i("suntest","recieved vedio");
-            if (nCodecId == AVFrame.MEDIA_CODEC_VIDEO_H264) {
-                //保持图像队列的容量为10
-                if (mAVChannel.VideoFrameQueue.getCount() < 11)
-                    mAVChannel.VideoFrameQueue.addLast(frame);
-                //Log.i("IOTCamera", "Enqueue AVFrameQueue left " + mAVChannel.VideoFrameQueue.getCount());
-            }
-        }
-        if (rdtFrame.mType == 2) {
-            try {
-                mAVChannel.AudioBPS += rdtFrame.mLen;
-                //960 4*960,16000
-                if (latestNetVoice == null)
-                    latestNetVoice = new LinkedList<>();
-                else {
-                    if (micvoice == null) {
-                        //MIC未启动时直接播放
-                        audioTraceWrite(frameData, 0, frameData.length);
-                        Log.i("IOTCamera", "voice play0");
-                    } else {
-                        //保持音频队列的容量为10
-                        if (latestNetVoice.size() < 11)
-                            latestNetVoice.addLast(frameData);
-                        Log.i("IOTCamera", "voice in, latestNetVoice.size()=" + latestNetVoice.size());
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                //Log.i("suntest", "voice error:" + e.getMessage());
-            }
-        }
-    }
-
-    private class ThreadDecodeVideo2 extends Thread {
+    protected class ThreadDecodeVideo2 extends Thread {
 
         static final int MAX_FRAMEBUF = 1280 * 720 * 3;
 
-        private boolean m_bIsRunning = false;
+        protected boolean m_bIsRunning = false;
 
-        private AVChannel mAVChannel;
+        protected AVChannel mAVChannel;
 
         public ThreadDecodeVideo2(AVChannel channel) {
             mAVChannel = channel;
@@ -1088,199 +492,17 @@ public class Camera {
         }
     }
 
+    protected class AVChannel {
 
-    private class ThreadSendAudio extends Thread {
-
-        private boolean m_bIsRunning = false;
-        private static final int SAMPLE_RATE_IN_HZ = 16000;
-        private int avIndexForSendAudio = -1;
-        private int chIndexForSendAudio = -1;
-        private AVChannel mAVChannel = null;
-        private Object m_waitObjForCheckDevStatus = new Object();
-
-
-        public ThreadSendAudio(AVChannel ch) {
-            mAVChannel = ch;
-        }
-
-        public synchronized void stopThread() {
-//            synchronized (m_waitObjForCheckDevStatus) {
-//                m_waitObjForCheckDevStatus.notify();
-//            }
-            Log.i("suntest", "停止音频发送线程");
-            m_bIsRunning = false;
-        }
-
-        @Override
-        public void run() {
-            super.run();
-            m_bIsRunning = true;
-            int nMinBufSize = 0, playBufSize = 0;
-            int nReadBytes = 0;
-
-            while (mSID < 0 || nRDT_ID < 0) {
-                try {
-
-                    synchronized (m_waitObjForCheckDevStatus) {
-                        m_waitObjForCheckDevStatus.wait(1000);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            Log.i("suntest","ready to send voice");
-            nMinBufSize = AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
-            //}
-
-			/* init mic of phone */
-            AudioRecord recorder = null;
-            //AudioTrack audioTrack = null;
-            recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_CONFIGURATION_MONO, AudioFormat.ENCODING_PCM_16BIT, nMinBufSize);
-            recorder.startRecording();
-            //mSpeex = new speexprocess();
-            //int speexinit = mSpeex.Speex_init(960, 960 * 4, 16000);
-            //int speexinit = mSpeex.Speex_init(960, 960 * 4, 8000);
-
-            Log.i("IOTCamera", "recorder begin work");
-            while (m_bIsRunning) {
-                byte[] inPCMBuf = new byte[960];
-                recorder.read(inPCMBuf, 0, inPCMBuf.length);
-                if (micvoice == null)
-                    micvoice = new LinkedList<>();
-                //保持发送音频队列的容量为10
-                if (micvoice.size() < 11)
-                    micvoice.addLast(inPCMBuf);
-                if (voiceIndust == null) {
-                    voiceIndust = new VoiceIndust();
-                    voiceIndust.start();
-                }
-            }
-            recorder.stop();
-            //mSpeex.Speex_exit();
-            //mSpeex = null;
-            avIndexForSendAudio = -1;
-            chIndexForSendAudio = -1;
-
-            Log.i("IOTCamera", "===ThreadSendAudio exit===");
-        }
-    }
-
-    private class VoiceIndust extends Thread {
-        private boolean isRunning = false;
-
-        public VoiceIndust() {
-            isRunning = true;
-            //executorService = Executors.newFixedThreadPool(5);
-        }
-
-        public void StopThread() {
-            isRunning = false;
-            if (executorService != null)
-                executorService.shutdown();
-            Log.i("IOTCamera", "VoiceIndust stoped 1");
-        }
-
-        @Override
-        public void run() {
-            super.run();
-            while (isRunning) {
-//                try {
-//                    Thread.sleep(10);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-                if (latestNetVoice != null && micvoice != null) {
-                    if (latestNetVoice.size() > 0 && micvoice.size() > 0) {
-                        byte[] voice_in;
-                        byte[] voice_out;
-                        synchronized (latestNetVoice) {
-                            voice_in = latestNetVoice.removeFirst();
-                        }
-                        synchronized (micvoice) {
-                            voice_out = micvoice.removeFirst();
-                        }
-                        if (voice_in != null && voice_out != null) {
-                            byte[] srcProcess = new byte[960];
-                            Log.i("IOTCamera", "voice play1, latestNetVoice.size()=" + latestNetVoice.size());
-                            audioTraceWrite(voice_in, 0, voice_in.length);
-                            Log.i("IOTCamera", "voice has played1");
-                            //int re = mSpeex.Speex_process(voice_in, voice_out, srcProcess);
-                            //Log.i("suntest","result of speex:"+re);
-                            int nReadBytes = 960;
-                            byte d = (byte) (nReadBytes + 12 & 0x000000ff);
-                            byte c = (byte) ((nReadBytes + 12 & 0x0000ff00) >> 8);
-                            byte b = (byte) ((nReadBytes + 12 & 0x00ff0000) >> 16);
-                            byte a = (byte) ((nReadBytes + 12 & 0xff000000) >> 24);
-                            byte[] head = new byte[]{36, 83, 88, 38, a, b, c, d, 2, 0, 0, 0};
-                            byte[] Buf_processed = new byte[nReadBytes + 12];
-                            System.arraycopy(voice_out, 0, Buf_processed, 12, nReadBytes); // setp
-                            System.arraycopy(head, 0, Buf_processed, 0, 12);
-                            Log.i("IOTCamera", "voice send1, micvoice.size()=" + micvoice.size());
-                            rdtWrite(nRDT_ID, Buf_processed, nReadBytes + 12);
-                            Log.i("IOTCamera", "voice has sent1");
-//                        latestNetVoice.clear();
-//                        micvoice.clear();
-                            System.gc();
-                        }
-                    } else if (latestNetVoice.size() > 0) {
-                        final byte[] voice_in;
-                        synchronized (latestNetVoice) {
-                            voice_in = latestNetVoice.removeFirst();
-                        }
-                        if (voice_in != null) {
-                            Log.i("IOTCamera", "voice play2, latestNetVoice.size()=" + latestNetVoice.size());
-                            audioTraceWrite(voice_in, 0, voice_in.length);
-                            Log.i("IOTCamera", "voice has played2");
-                            System.gc();
-                        }
-                    } else if (micvoice.size() > 0 && !micvoice.isEmpty()) {
-                        byte[] voice_out;
-                        synchronized (micvoice) {
-                            voice_out = micvoice.removeFirst();
-                        }
-                        if (voice_out != null) {
-                            int nReadBytes = 960;
-                            byte d = (byte) (nReadBytes + 12 & 0x000000ff);
-                            byte c = (byte) ((nReadBytes + 12 & 0x0000ff00) >> 8);
-                            byte b = (byte) ((nReadBytes + 12 & 0x00ff0000) >> 16);
-                            byte a = (byte) ((nReadBytes + 12 & 0xff000000) >> 24);
-                            byte[] head = new byte[]{36, 83, 88, 38, a, b, c, d, 2, 0, 0, 0};
-                            byte[] Buf_processed = new byte[nReadBytes + 12];
-                            System.arraycopy(voice_out, 0, Buf_processed, 12, nReadBytes); // setp
-                            System.arraycopy(head, 0, Buf_processed, 0, 12);
-                            Log.i("IOTCamera", "voice send2, micvoice.size()=" + micvoice.size());
-                            rdtWrite(nRDT_ID, Buf_processed, nReadBytes + 12);
-                            Log.i("IOTCamera", "voice has sent2");
-                            System.gc();
-                        }
-
-                    }
-                }
-            }
-            Log.i("IOTCamera", "VoiceIndust stoped 0");
-        }
-    }
-
-    public synchronized void audioTraceWrite(byte[] source, int offset, int length) {
-        if (mAudioTrack != null)
-            mAudioTrack.write(source, offset, length);
-    }
-
-    public synchronized void rdtWrite(int rdtID, byte[] source, int length) {
-        RDTAPIs.RDT_Write(rdtID, source, length);
-    }
-
-    private class AVChannel {
-
-        private volatile int mChannel = -1;
-        private volatile int mAVIndex = -1;
-        private long mServiceType = 0xFFFFFFFF;
-        private String mViewAcc;
-        private String mViewPwd;
-        private int mAudioCodec;
+        protected volatile int mChannel = -1;
+        protected volatile int mAVIndex = -1;
+        protected long mServiceType = 0xFFFFFFFF;
+        protected String mViewAcc;
+        protected String mViewPwd;
+        protected int mAudioCodec;
 
         public IOCtrlQueue IOCtrlQueue;
-        public RDTQueue rdtQueue;
+
         public AVFrameQueue VideoFrameQueue;
         public AVFrameQueue AudioFrameQueue;
 
@@ -1301,7 +523,7 @@ public class Camera {
             LastFrame = null;
 
             IOCtrlQueue = new IOCtrlQueue();
-            rdtQueue = new RDTQueue();
+//            rdtQueue = new RDTQueue();
             VideoFrameQueue = new AVFrameQueue();
             AudioFrameQueue = new AVFrameQueue();
         }
@@ -1342,14 +564,9 @@ public class Camera {
         public String getViewPwd() {
             return mViewPwd;
         }
-
-        public ThreadRecvVideo2 threadRecvVideo = null;
-        public PollData pollData = null;
-        public ThreadSendAudio threadSendAudio = null;
-        public ThreadDecodeVideo2 threadDecVideo = null;
     }
 
-    private class IOCtrlQueue {
+    protected class IOCtrlQueue {
 
         public class IOCtrlSet {
 
@@ -1393,64 +610,7 @@ public class Camera {
 
     }
 
-    private class RDTQueue {
-
-        public class RDTData {
-            public int getLength() {
-                return length;
-            }
-
-            public void setLength(int length) {
-                this.length = length;
-            }
-
-            public byte[] getData() {
-                return data;
-            }
-
-            public void setData(byte[] data) {
-                this.data = data;
-            }
-
-            private int length = 0;
-            private byte[] data = new byte[1024 * 20];
-
-            public RDTData(int len, byte[] buf) {
-                length = len;
-                data = buf;
-            }
-
-            public RDTData() {
-            }
-        }
-
-        LinkedList<RDTData> listData = new LinkedList<RDTData>();
-
-        public synchronized boolean isEmpty() {
-            return listData.isEmpty();
-        }
-
-        public synchronized void Enqueue(int len, byte[] data) {
-            listData.addLast(new RDTData(len, data));
-        }
-
-        public int getCount() {
-            return this.listData.size();
-        }
-
-        public synchronized RDTData Dequeue() {
-
-            return listData.isEmpty() ? null : listData.removeFirst();
-        }
-
-        public synchronized void removeAll() {
-            if (!listData.isEmpty())
-                listData.clear();
-        }
-
-    }
-
-    private class TimBytes {
+    protected class TimBytes {
         public TimBytes(long t, byte[] d) {
             setTimstamp(t);
             setData(d);
@@ -1472,8 +632,8 @@ public class Camera {
             this.data = data;
         }
 
-        private Long timstamp;
-        private byte[] data;
+        protected Long timstamp;
+        protected byte[] data;
     }
 
 }
