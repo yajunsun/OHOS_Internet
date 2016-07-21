@@ -21,6 +21,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 
 import zgan.ohos.ConstomControls.MySelectCount;
@@ -275,18 +277,24 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
 
     class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
+        HashMap<Integer,Integer>hashMap=new HashMap<>();
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_vegetable_item, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
             final Vegetable vegetable = list.get(position);
             ImageLoader.bindBitmap(vegetable.getpic_url(), holder.iv_preview, 200, 200);
             holder.name.setText(vegetable.gettitle());
             holder.price.setText("￥" + decimalFormat.format(vegetable.getprice()));
             holder.size.setText(vegetable.getitemSize());
+            holder.selectCount.restore();
+            if (hashMap.get(position)!=null)
+            {
+                holder.selectCount.setCount(hashMap.get(position));
+            }
             //取消库存限制
 //            holder.stock.setText("库存："+vegetable.getstock());
 //            holder.selectCount.setMaxValue(vegetable.getstock());
@@ -298,13 +306,17 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                         if (buylist.get(i).getproduct_id().equals(vegetable.getproduct_id())) {
                             contained = true;
                             int selectedcount = vegetable.getSelectedcount();
-                            if (selectedcount > 0)
+                            if (selectedcount > 0) {
                                 vegetable.setSelectedcount(selectedcount + 1);
+                                //holder.count=selectedcount + 1;
+                                hashMap.put(position,selectedcount + 1);
+                            }
                             break;
                         }
                     }
                     if (!contained) {
                         buylist.add(vegetable);
+                        hashMap.put(position,holder.selectCount.getMinValue()+1);
                     }
                     goodscount++;
                     goodssum += vegetable.getprice();
@@ -321,8 +333,11 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                     for (int i = 0; i < buylist.size(); i++) {
                         if (buylist.get(i).getproduct_id().equals(vegetable.getproduct_id())) {
                             int selectedcount = vegetable.getSelectedcount();
-                            if (selectedcount > 0)
+                            if (selectedcount > 0) {
                                 vegetable.setSelectedcount(selectedcount - 1);
+                                //holder.count=selectedcount - 1;
+                                hashMap.put(position,selectedcount - 1);
+                            }
                             if (vegetable.getSelectedcount() == 0) {
                                 canremove = true;
                                 removeIndex = i;

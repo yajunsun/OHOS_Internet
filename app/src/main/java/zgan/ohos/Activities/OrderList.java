@@ -20,7 +20,11 @@ import android.widget.TextView;
 import java.sql.Ref;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.MyOrderDal;
@@ -43,9 +47,9 @@ import zgan.ohos.utils.resultCodes;
 
 /**
  * create by yajunsun
- *
+ * <p/>
  * 订单列表activity
- * */
+ */
 public class OrderList extends myBaseActivity implements View.OnClickListener {
 
     int pageindex = 1;
@@ -60,7 +64,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
     LayoutInflater myInflater;
     SwipeRefreshLayout refreshview;
     float density = 1;
-    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
 
     TextView tall, tunpay, tunget;
 
@@ -121,6 +125,8 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent=new Intent(OrderList.this,MainActivity.class);
+                startActivityWithAnim(intent);
                 finish();
             }
         });
@@ -170,7 +176,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 Log.i("suntest", frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1016")&&results.length>2) {
+                    if (results[0].equals("0") && results[1].equals("1016") && results.length > 2) {
                         try {
                             if (pageindex == 1) {
                                 list = new ArrayList<>();
@@ -232,13 +238,15 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
 
     class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
+        HashMap<Integer, Handler> handlerHashMap = new HashMap<>();
+
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new ViewHolder(myInflater.inflate(R.layout.lo_order_item, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
             QueryOrderM m = list.get(position);
             MyOrder o = new MyOrder();
             //设置recycleviewer的高度
@@ -275,6 +283,47 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
             // holder.txt_shippingstatus.setText(getShippingStatus(m.getShipping_status()));
             holder.txt_count.setText(String.format("共%d件商品", count));
             holder.txt_payfee.setText("合计：￥" + decimalFormat.format(fee));
+            holder.index = position;
+            holder.txttimer.setText("");
+            final Date deliverTime = generalhelper.getDateFromString(o.getdiliver_time(), new Date());
+            Date now = new Date();
+            if (deliverTime.compareTo(now) > 0) {
+                long l = deliverTime.getTime() - now.getTime();
+                long day = l / (24 * 60 * 60 * 1000);
+                long hour = (l / (60 * 60 * 1000) - day * 24);
+                long min = ((l / (60 * 1000)) - day * 24 * 60 - hour * 60);
+                long s = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+
+                if (day > 0) {
+                    holder.txttimer.setText(String.format("预计%s送达", generalhelper.getStringFromDate(deliverTime, "yyyy-MM-dd")));
+                } else if (hour > 0) {
+                    holder.txttimer.setText(String.format("预计%s送达", generalhelper.getStringFromDate(deliverTime, "yyyy-MM-dd HH")));
+                } else {
+                    holder.timer = new Timer(true);
+
+                    holder.timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            //holder.txttimer.setText(""+day+"天"+hour+"小时"+min+"分"+s+"秒");
+                            Date now = new Date();
+                            long l = deliverTime.getTime() - now.getTime();
+                            long day = l / (24 * 60 * 60 * 1000);
+                            long hour = (l / (60 * 60 * 1000) - day * 24);
+                            long min = ((l / (60 * 1000)) - day * 24 * 60 - hour * 60);
+                            long s = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+                            Message msg = holder.handler.obtainMessage();
+                            msg.what = 1;
+                            msg.obj = min + "分" + s + "秒";
+                            msg.arg1 = position;
+                            holder.handler.sendMessage(msg);
+                            if (deliverTime.compareTo(now) <= 0) {
+                                holder.handler.sendEmptyMessage(0);
+                            }
+                        }
+                    }, 0, 1000);
+                }
+            }
+
 
 //            if (mOrder_type == 1 || mOrder_type == 3) {
 //                holder.btn_deleteorder.setVisibility(View.VISIBLE);
@@ -337,9 +386,27 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
-            TextView txt_ordernum, txt_shippingstatus, txt_count, txt_payfee;
+            TextView txt_ordernum, txt_shippingstatus, txt_count, txt_payfee, txttimer;
             Button btn_deleteorder, btn_checkshipping, btn_payimmediatly;
             RecyclerView rv_goods;
+            Timer timer;
+            int index = 0;
+            final Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    switch (msg.what) {
+                        case 1:
+                            if (index == msg.arg1)
+                                settxtTimer(msg.obj.toString());
+                            break;
+                        case 0:
+                            timer.cancel();
+                            settxtTimer("");
+                            break;
+                    }
+                }
+            };
+            ;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -347,11 +414,16 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 txt_shippingstatus = (TextView) itemView.findViewById(R.id.txt_shippingstatus);
                 txt_count = (TextView) itemView.findViewById(R.id.txt_count);
                 txt_payfee = (TextView) itemView.findViewById(R.id.txt_payfee);
+                txttimer = (TextView) itemView.findViewById(R.id.txttimer);
                 rv_goods = (RecyclerView) itemView.findViewById(R.id.rv_goods);
                 rv_goods.setLayoutManager(new LinearLayoutManager(OrderList.this));
                 btn_deleteorder = (Button) itemView.findViewById(R.id.btn_deleteorder);
                 btn_checkshipping = (Button) itemView.findViewById(R.id.btn_checkshipping);
                 btn_payimmediatly = (Button) itemView.findViewById(R.id.btn_payimmediatly);
+            }
+
+            public void settxtTimer(String str) {
+                txttimer.setText(str);
             }
         }
     }

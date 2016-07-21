@@ -888,6 +888,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            Log.i("suntest",String.format("ll_shequgrid.setLayoutParams(%s)",mItemHeight));
                             RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, mItemHeight + iv_gridtitle.getHeight());
                             params1.addRule(RelativeLayout.BELOW, R.id.ll_messages);
                             ll_shequgrid.setLayoutParams(params1);

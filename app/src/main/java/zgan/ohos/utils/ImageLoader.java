@@ -154,7 +154,7 @@ public final class ImageLoader {
             public void run() {
                 Bitmap bitmap = loadBitmap(uri, reqWidth, reqHeight);
                 if (bitmap != null) {
-//                    if (binded != null)
+      //              if (binded != null)
 //                        binded.onDownloadSucc(bitmap, uri, imageView, bitmap.getWidth(), bitmap.getHeight());
                     LoaderResult result = new LoaderResult(imageView, uri, bitmap,binded);
                     mMainHandler.obtainMessage(MESSAGE_POST_RESULT, result).sendToTarget();
@@ -435,16 +435,17 @@ public final class ImageLoader {
                 String uri = (String) imageView.getTag(TAG_KEY_URI);
                 if (uri.equals(result.uri)) {
                     imageView.setImageBitmap(result.bitmap);
-                    if (result.callback!=null)
+                    if (result.callback!=null) {
+                        Log.i("suntest", "load bitmap callback");
                         postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                result.callback.onDownloadSucc(result.bitmap,result.uri,result.imageView,result.bitmap.getWidth(),result.bitmap.getHeight());
+                                result.callback.onDownloadSucc(result.bitmap, result.uri, result.imageView, result.bitmap.getWidth(), result.bitmap.getHeight());
                             }
-                        },1000);
+                        }, 200);
+                    }
                 }
                 else {
-                    Log.v(TAG, "set image bitmap,but url has changed,ignored!");
                     Log.i(TAG, "set image bitmap,but url has changed,ignored!");
                 }
             } catch (Exception e) {

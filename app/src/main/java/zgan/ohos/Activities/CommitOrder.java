@@ -548,6 +548,8 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             case R.id.btn_complete:
                 dialog.dismiss();
                 paymentSelectDialog.dismiss();
+                intent = new Intent(this, MainActivity.class);
+                startActivityWithAnim(intent);
                 finish();
                 break;
             case R.id.txt_toorder:
