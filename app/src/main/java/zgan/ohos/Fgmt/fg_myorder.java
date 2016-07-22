@@ -83,6 +83,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
         imageLoader = new ImageLoader();
         //list = MyOrderDal.mConfirmedOrders;
         rv_orders = (RecyclerView) v.findViewById(R.id.rv_orders);
+        rv_orders.setLayoutManager(mLayoutManager);
         rv_orders.addItemDecoration(new RecyclerViewItemSpace(20));
         refreshview = (SwipeRefreshLayout) v.findViewById(R.id.refreshview);
         refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -155,7 +156,6 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
         if (adapter == null) {
             adapter = new myAdapter();
             rv_orders.setAdapter(adapter);
-            rv_orders.setLayoutManager(mLayoutManager);
         } else
             adapter.notifyDataSetChanged();
         isLoadingMore = false;

@@ -63,6 +63,7 @@ import zgan.ohos.utils.resultCodes;
 public class CommitOrder extends myBaseActivity implements View.OnClickListener {
 
     boolean isCommited = false;
+    boolean inserted=false;
     private IWXAPI api;
     String[] mPaytypeNames = new String[]{"", "货到付款", "钱包支付", "支付宝支付", "微信支付"};
     String[] mVialiabelTypes;// order.GetGoods().get(0).getpayment().split(",");
@@ -112,7 +113,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
     private static final int DATE_PICKER_ID = 1;// 日期静态常量
     private static final int TIME_PICKER_ID = 2;// 时间
     String scheduldate;
-    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
     int mShipping_span = 20;
 
     @Override
@@ -227,8 +228,8 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
 
             c.add(Calendar.MINUTE, mShipping_span);
             Date d = c.getTime();
-            txt_besttime.setText(generalhelper.getStringFromDate(d,"yyyy-MM-dd HH:mm"));
-            order.setdiliver_time(generalhelper.getStringFromDate(d,"yyyyMMddHHmm"));
+            txt_besttime.setText(generalhelper.getStringFromDate(d, "yyyy-MM-dd HH:mm"));
+            order.setdiliver_time(generalhelper.getStringFromDate(d, "yyyyMMddHHmm"));
         }
 
 
@@ -437,6 +438,64 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
                 , "22"), handler);
     }
 
+    private void updateCommit() {
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1025,
+                String.format("@id=22,@order_id=%s,@state=%s,@pay_type=%s",
+                        order.getorder_id(), order.getstate(),order.getpay_type())
+                , "22"), handler);
+    }
+
+    private void pay() {
+        switch (order.getpay_type()) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                AliPay aliPay = new AliPay(this);
+                aliPay.setOnPayListner(new AliPay.OnAliPayListner() {
+                    @Override
+                    public void done(String stat) {
+                        if (stat.equals("9000")) {
+                            order.setpay_type(3);
+                            order.setstate(1);
+                            paymentSelectDialog.dismiss();
+                            //支付成功修改订单为已支付
+                            updateCommit();
+                            isCommited = true;
+                        } else {
+                            isCommited = false;
+                            generalhelper.ToastShow(CommitOrder.this, "支付失败");
+                        }
+                    }
+
+                    @Override
+                    public void predo() {
+                    }
+                });
+                aliPay.Pay(order);
+                break;
+            case 4:
+                toSetProgressText("正在启动微信支付请稍等");
+                toShowProgress();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        api = WXAPIFactory.createWXAPI(CommitOrder.this, Constants.APP_ID, false);
+                        api.registerApp(Constants.APP_ID);
+                        WXPay wxPay = new WXPay(api);
+                        if (!wxPay.checkSupport()) {
+                            handler.obtainMessage(400, "此版本的微信不支持支付功能").sendToTarget();
+                            return;
+                        }
+                        wxPay.setOrder(order);
+                        wxPay.Pay();
+                    }
+                }).start();
+                break;
+        }
+    }
+
     @Override
     public void ViewClick(View v) {
         Intent intent;
@@ -453,8 +512,8 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
                 Calendar calendar = Calendar.getInstance();
                 Calendar bestshippingdate = calendar;
                 bestshippingdate.add(Calendar.MINUTE, 20);
-                txt_besttime.setText(generalhelper.getStringFromDate(bestshippingdate.getTime(),"yyyy-MM-dd HH:mm"));
-                order.setdiliver_time(generalhelper.getStringFromDate(bestshippingdate.getTime(),"yyyyMMddHHmm"));
+                txt_besttime.setText(generalhelper.getStringFromDate(bestshippingdate.getTime(), "yyyy-MM-dd HH:mm"));
+                order.setdiliver_time(generalhelper.getStringFromDate(bestshippingdate.getTime(), "yyyyMMddHHmm"));
                 break;
             case R.id.btnshippingdelay:
             case R.id.ivshippingdelay:
@@ -480,69 +539,38 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
                 break;
             case R.id.iv_alipay:
                 if (!isCommited) {
-                    //generalhelper.ToastShow(this, "选择了支付宝支付");
-                    //order.setConfirm_time(generalhelper.getStringFromDate(new Date()));
-                    //order.setPay_time(generalhelper.getStringFromDate(new Date()));
-                    AliPay aliPay = new AliPay(this);
-                    aliPay.setOnPayListner(new AliPay.OnAliPayListner() {
-                        @Override
-                        public void done(String stat) {
-                            if (stat.equals("9000")) {
-                                order.setpay_type(3);
-                                //order.setPay_status(1);
-                                order.setstate(1);
-                                //dal.mConfirmedOrders.add(order);
-                                buildDialog(true, "支付宝支付");
-                                paymentSelectDialog.dismiss();
-                                commit();
-                                isCommited = true;
-//                        } else if (stat.equals("8000")) {
-//                            order.setstate(0);
-//                            generalhelper.ToastShow(CommitOrder.this, "支付结果确认中");
-                            } else {
-//                            order.setstate(0);
-//                            buildDialog(false, "支付宝支付-结果确认中");
-                                generalhelper.ToastShow(CommitOrder.this, "支付失败，订单未提交");
-                            }
-
-                        }
-
-                        @Override
-                        public void predo() {
-
-                        }
-                    });
-                    aliPay.Pay(order);
+                    if(order.getpay_type()==0||!inserted) {
+                        order.setstate(0);
+                        order.setpay_type(3);
+                        //先插入未支付的订单
+                        commit();
+                    }
+                    else
+                    {
+                        order.setpay_type(3);
+                        pay();
+                    }
                 }
                 break;
             case R.id.iv_wallite:
                 if (!isCommited) {
-                    //generalhelper.ToastShow(this, "选择了钱包支付");
                     buildPaypwdDialog();
                 }
                 break;
             case R.id.iv_wxpay:
                 if (!isCommited) {
-                    //generalhelper.ToastShow(this, "选择了微信支付");
-//                order.setConfirm_time(generalhelper.getStringFromDate(new Date()));
-//                order.setPay_time(generalhelper.getStringFromDate(new Date()));
-                    toSetProgressText("正在启动微信支付请稍等");
-                    toShowProgress();
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            api = WXAPIFactory.createWXAPI(CommitOrder.this, Constants.APP_ID, false);
-                            api.registerApp(Constants.APP_ID);
-                            WXPay wxPay = new WXPay(api);
-                            if (!wxPay.checkSupport()) {
-                                //generalhelper.ToastShow(this, "此版本的微信不支持支付功能");
-                                handler.obtainMessage(400, "此版本的微信不支持支付功能").sendToTarget();
-                                return;
-                            }
-                            wxPay.setOrder(order);
-                            wxPay.Pay();
-                        }
-                    }).start();
+                    isCommited = true;
+                    if (order.getpay_type()==0||!inserted) {
+                        order.setpay_type(4);
+                        order.setstate(0);
+                        //先插入未支付的订单
+                        commit();
+                    }
+                    else
+                    {
+                        order.setpay_type(4);
+                        pay();
+                    }
                 }
                 break;
             case R.id.btn_complete:
@@ -589,7 +617,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             if (time.compareTo(nowtime) < 0) {
                 generalhelper.ToastShow(CommitOrder.this, "选择的配送时间不得小于当前时间");
             } else {
-                txt_besttime.setText(generalhelper.getStringFromDate(time,"yyyy-MM-dd HH:mm"));
+                txt_besttime.setText(generalhelper.getStringFromDate(time, "yyyy-MM-dd HH:mm"));
                 order.setdiliver_time(generalhelper.getStringFromDate(time, "yyyyMMddHHmm"));
             }
         }
@@ -672,10 +700,8 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
                 order.setpay_type(4);
                 order.setstate(1);
                 paymentSelectDialog.dismiss();
-                commit();
-                isCommited = true;
+                updateCommit();
                 //dal.mConfirmedOrders.add(order);
-                buildDialog(true, "微信支付");
             } else if (msg.what == 1) {
                 Frame frame = (Frame) msg.obj;
                 String ret = generalhelper.getSocketeStringResult(frame.strData);
@@ -690,24 +716,38 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject obj = (JSONObject) jsonArray.opt(i);
                                 if (obj.getString("result").equals("0")) {
-                                    //generalhelper.ToastShow(CommitOrder.this,obj.getString("resg"));
+                                    inserted=true;
+                                    pay();
+                                } else {
+                                    isCommited = false;
+                                    inserted=false;
+                                    generalhelper.ToastShow(CommitOrder.this, "订单新增错误~");
                                 }
                             }
                         } catch (Exception e) {
+                            inserted=false;
+                            isCommited=false;
                             e.printStackTrace();
                         }
                     }
-//                    else if (results[0].equals("0") && results[1].equals("1020")) {
+                    if (results[0].equals("0") && results[1].equals("1025")) {
 //                        String datastr = results[2];
 //                        try {
 //                            JSONArray jsonArray = new JSONObject(datastr)
 //                                    .getJSONArray("data");
-//                            JSONObject obj = (JSONObject) jsonArray.opt(0);
-//                            txt_addr.setText("收货地址：" + obj.getString("address"));
+//                            for (int i = 0; i < jsonArray.length(); i++) {
+//                                JSONObject obj = (JSONObject) jsonArray.opt(i);
+//                                if (obj.getString("result").equals("0")) {
+//                                    buildDialog(true, mPaytypeNames[order.getpay_type()]);
+//                                } else {
+//                                    isCommited = false;
+//                                }
+//                            }
 //                        } catch (Exception e) {
 //                            e.printStackTrace();
 //                        }
-//                    }
+                        buildDialog(true, mPaytypeNames[order.getpay_type()]);
+                    }
                 }
             } else {
                 generalhelper.ToastShow(CommitOrder.this, msg.obj.toString());
@@ -726,12 +766,15 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
                         handler.obtainMessage(resultCodes.PAYCOMPLETE).sendToTarget();
                         break;
                     case BaseResp.ErrCode.ERR_USER_CANCEL:
+                        isCommited = false;
                         generalhelper.ToastShow(CommitOrder.this, "已取消支付");
                         break;
                     case BaseResp.ErrCode.ERR_AUTH_DENIED:
+                        isCommited = false;
                         generalhelper.ToastShow(CommitOrder.this, "未授权");
                         break;
                     default:
+                        isCommited = false;
                         generalhelper.ToastShow(CommitOrder.this, "未知错误");
                         break;
                 }

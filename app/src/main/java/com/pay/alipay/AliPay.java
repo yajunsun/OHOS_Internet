@@ -24,6 +24,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import zgan.ohos.Models.MyOrder;
+import zgan.ohos.utils.SystemUtils;
 
 /**
  * Created by yajunsun on 16-4-23.
@@ -157,7 +158,8 @@ public class AliPay {
         orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
 
         // 商户网站唯一订单号
-        orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+        //orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+        orderInfo += "&out_trade_no=" + "\"" + order.getorder_id() + "\"";
 
         // 商品名称
         orderInfo += "&subject=" + "\"一家一店在线支付-支付宝支付\"";
@@ -169,7 +171,7 @@ public class AliPay {
         orderInfo += "&total_fee=" + "\""+order.gettotal()+"\"";
 
 //        // 服务器异步通知页面路径
-        orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm" + "\"";
+        orderInfo += "&notify_url=" + "\"" + SystemUtils.getALIPAYurl() + "\"";
 
         // 服务接口名称， 固定值
         orderInfo += "&service=\"mobile.securitypay.pay\"";

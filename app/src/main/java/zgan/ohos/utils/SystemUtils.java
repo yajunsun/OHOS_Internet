@@ -16,6 +16,8 @@ public class SystemUtils {
     private static String shop;
     private static String property;
     private static String Fname;
+    private static String ALIPAYurl;
+    private static String WPAYurl;
 
     public static String getShop() {
         return shop;
@@ -57,6 +59,25 @@ public class SystemUtils {
         SystemUtils.village = _village;
     }
 
+    public static String getALIPAYurl()
+    {
+        return ALIPAYurl;
+    }
+
+    public static void setALIPAYurl(String _ALIPAYurl)
+    {
+        SystemUtils.ALIPAYurl=_ALIPAYurl;
+    }
+
+    public static String getWPAYurl()
+    {
+        return WPAYurl;
+    }
+
+    public static void setWPAYurl(String _WPAYurl)
+    {
+        SystemUtils.WPAYurl=_WPAYurl;
+    }
 
     //private static String SID="";
 

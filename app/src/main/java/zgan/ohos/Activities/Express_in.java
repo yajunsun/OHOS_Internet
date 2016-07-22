@@ -88,6 +88,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
         iv_expressin = (ImageView) findViewById(R.id.iv_expressin);
         iv_expressin.setOnClickListener(this);
         expresses = (RecyclerView) findViewById(R.id.expresses);
+        expresses.setLayoutManager(mLayoutManager);
         emptyview = findViewById(R.id.emptyview);
         txt_title = (TextView) findViewById(R.id.txt_title);
         txt_title.setText(funcPage.getview_title());
@@ -133,7 +134,6 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
         if (adapter == null) {
             adapter = new myAdapter();
             expresses.setAdapter(adapter);
-            expresses.setLayoutManager(mLayoutManager);
         } else
             adapter.notifyDataSetChanged();
         isLoadingMore = false;

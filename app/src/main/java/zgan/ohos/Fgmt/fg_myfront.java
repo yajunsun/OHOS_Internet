@@ -586,6 +586,10 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         SystemUtils.setProperty(property);
                                         SystemUtils.setFname(Fname);
                                         txt_xiaoqu.setText(village);
+                                        String ALIPAYurl=obj.get("ALIPAYurl").toString();
+                                        String WPAYurl=obj.get("WPAYurl").toString();
+                                        SystemUtils.setALIPAYurl(ALIPAYurl);
+                                        SystemUtils.setWPAYurl(WPAYurl);
                                         if (frame.platform != 0) {
                                             addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_USERINFO, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), frame.strData);
                                         }
