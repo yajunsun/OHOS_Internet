@@ -268,7 +268,8 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
 
     class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
-        HashMap<Integer,Integer> hashMap=new HashMap<>();
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_vegetable_item, parent, false));
@@ -282,8 +283,7 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
             holder.price.setText("￥" + decimalFormat.format(vegetable.getprice()));
             holder.size.setText(vegetable.getitemSize());
             holder.selectCount.restore();
-            if (hashMap.get(position)!=null)
-            {
+            if (hashMap.containsKey(position)) {
                 holder.selectCount.setCount(hashMap.get(position));
             }
             //取消库存限制
@@ -293,43 +293,42 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
                 @Override
                 public void onAddition(int count) {
                     boolean contained = false;
+                    hashMap.put(position, count);
                     for (int i = 0; i < buylist.size(); i++) {
                         if (buylist.get(i).getproduct_id().equals(vegetable.getproduct_id())) {
                             contained = true;
-                            int selectedcount = vegetable.getSelectedcount();
-                            if (selectedcount > 0) {
-                                vegetable.setSelectedcount(selectedcount + 1);
-                                //holder.count=selectedcount + 1;
-                                hashMap.put(position,selectedcount + 1);
-                            }
+                            Vegetable v = (Vegetable) buylist.get(i);
+                            v.setSelectedcount(count);
+                            //int selectedcount = vegetable.getSelectedcount();
+//                            if (selectedcount > 0) {
+//                                vegetable.setSelectedcount(count);
+//                                hashMap.put(position, count);
+//                            }
                             break;
                         }
                     }
                     if (!contained) {
                         buylist.add(vegetable);
-                        hashMap.put(position,holder.selectCount.getMinValue()+1);
                     }
                     goodscount++;
                     goodssum += vegetable.getprice();
                     gdcount.setText("商品：" + String.valueOf(goodscount));
                     totalpay.setText("合计：￥" + decimalFormat.format(goodssum));
+                    //printBuylst();
                 }
 
                 @Override
                 public void onReduction(int count) {
+                    hashMap.put(position, count);
                     //是否移除
                     boolean canremove = false;
                     //移除索引
                     int removeIndex = 0;
                     for (int i = 0; i < buylist.size(); i++) {
                         if (buylist.get(i).getproduct_id().equals(vegetable.getproduct_id())) {
-                            int selectedcount = vegetable.getSelectedcount();
-                            if (selectedcount > 0) {
-                                vegetable.setSelectedcount(selectedcount - 1);
-                                //holder.count=selectedcount - 1;
-                                hashMap.put(position,selectedcount - 1);
-                            }
-                            if (vegetable.getSelectedcount() == 0) {
+                            Vegetable v = (Vegetable) buylist.get(i);
+                            v.setSelectedcount(count);
+                            if (count == 0) {
                                 canremove = true;
                                 removeIndex = i;
                             }
@@ -343,6 +342,7 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
                     goodscount--;
                     gdcount.setText("商品：" + String.valueOf(goodscount));
                     totalpay.setText("合计：￥" + decimalFormat.format(goodssum));
+                    //printBuylst();
                 }
             });
         }
@@ -354,7 +354,7 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
 
         class ViewHolder extends RecyclerView.ViewHolder {
             ImageView iv_preview;
-            TextView name, price, size,stock;
+            TextView name, price, size, stock;
             MySelectCount selectCount;
 
             public ViewHolder(View itemView) {
@@ -363,7 +363,7 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
                 name = (TextView) itemView.findViewById(R.id.txt_name);
                 price = (TextView) itemView.findViewById(R.id.txt_price);
                 size = (TextView) itemView.findViewById(R.id.txt_size);
-                stock=(TextView)itemView.findViewById(R.id.txt_stock);
+                stock = (TextView) itemView.findViewById(R.id.txt_stock);
                 selectCount = (MySelectCount) itemView.findViewById(R.id.selectcount);
             }
         }

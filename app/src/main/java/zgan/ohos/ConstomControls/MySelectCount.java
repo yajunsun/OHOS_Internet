@@ -45,7 +45,7 @@ public class MySelectCount extends LinearLayout implements View.OnClickListener 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.MySelectCount);
         size = ta.getInt(R.styleable.MySelectCount_size, 20);
         minValue = ta.getInt(R.styleable.MySelectCount_minValue, 0);
-        mCount=minValue;
+        mCount = minValue;
         caninput = ta.getBoolean(R.styleable.MySelectCount_canInput, false);
         //int color=ta.getColor(R.styleable.MySelectCount_icon_color, Color.parseColor("#000"));
         ta.recycle();
@@ -154,35 +154,53 @@ public class MySelectCount extends LinearLayout implements View.OnClickListener 
         return mCount;
     }
 
-    public void setCount(int count){mCount=count;edinput.setText(String.valueOf(mCount));}
+    public void setCount(int count) {
+        mCount = count;
+        edinput.setText(String.valueOf(mCount));
+        if (mCount > minValue) {
+            ivremove.setEnabled(true);
+            ivremove.setColor(getResources().getColor(R.color.solid_black));
+        }
+    }
 
-    public int getMinValue(){
+    public int getMinValue() {
         return minValue;
     }
 
-    public int getRestrict()
-    {
+    public int getRestrict() {
         return mRestrict;
     }
 
-    public void restore(){mCount=minValue;edinput.setText(String.valueOf(minValue));ivremove.setEnabled(false);ivremove.setColor(getResources().getColor(R.color.myaccount_icon)); }
-
-    public void increace()
-    {
-        mCount=mCount+1;edinput.setText(String.valueOf(mCount));
+    public void restore() {
+        mCount = minValue;
+        edinput.setText(String.valueOf(minValue));
+        ivremove.setEnabled(false);
+        ivremove.setColor(getResources().getColor(R.color.myaccount_icon));
     }
-    public void reduce()
-    {
-        mCount=mCount-1;edinput.setText(String.valueOf(mCount));
+
+    public void increace() {
+        mCount = mCount + 1;
+        edinput.setText(String.valueOf(mCount));
+        ivremove.setEnabled(true);
+        ivremove.setColor(getResources().getColor(R.color.solid_black));
+    }
+
+    public void reduce() {
+        mCount = mCount - 1;
+        edinput.setText(String.valueOf(mCount));
+        if(mCount<=minValue)
+        {
+            ivremove.setEnabled(false);
+            ivremove.setColor(getResources().getColor(R.color.myaccount_icon));
+        }
     }
 
     public void setOnchangeListener(IonChanged onchangeListener) {
         this.ionChanged = onchangeListener;
     }
 
-    public void setMaxValue(int maxValue)
-    {
-        this.mRestrict=maxValue;
+    public void setMaxValue(int maxValue) {
+        this.mRestrict = maxValue;
     }
 
     public interface IonChanged {

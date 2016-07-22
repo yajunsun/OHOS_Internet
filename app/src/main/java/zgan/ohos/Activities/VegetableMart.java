@@ -42,9 +42,9 @@ import zgan.ohos.utils.generalhelper;
 
 /**
  * create by yajunsun
- *
+ * <p>
  * 常规商品选购界面
- * */
+ */
 public class VegetableMart extends myBaseActivity implements View.OnClickListener {
 
     int pageindex = 0;
@@ -58,13 +58,13 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
     VegetableDal dal;
     RecyclerView rv_vegetable;
     Button btncheck;
-    TextView gdcount, totalpay,txt_title;
+    TextView gdcount, totalpay, txt_title;
     //商品数量
     int goodscount = 0;
     //商品价格
     double goodssum = 0;
     //DecimalFormat decimalFormat = new DecimalFormat("###.0");
-    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
     FrontItem item;
 
     @Override
@@ -95,10 +95,10 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
     @Override
     protected void initView() {
         setContentView(R.layout.activity_vegetable_mart);
-        item=(FrontItem)getIntent().getSerializableExtra("item");
+        item = (FrontItem) getIntent().getSerializableExtra("item");
         rv_vegetable = (RecyclerView) findViewById(R.id.rv_vegetable);
         mLayoutManager = new LinearLayoutManager(VegetableMart.this);
-        txt_title=(TextView)findViewById(R.id.txt_title) ;
+        txt_title = (TextView) findViewById(R.id.txt_title);
         txt_title.setText(item.getview_title());
         rv_vegetable.setLayoutManager(mLayoutManager);
         dal = new VegetableDal();
@@ -149,10 +149,19 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
         loadData();
     }
 
+    private void restore() {
+        adapter = null;
+        goodscount = 0;
+        goodssum = 0;
+        gdcount.setText("商品：" + String.valueOf(goodscount));
+        totalpay.setText("合计：￥" + decimalFormat.format(goodssum));
+    }
+
     protected void loadData() {
         refreshview.setRefreshing(true);
         //isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=0",item.getpage_id()), "22"), handler);
+        //restore();
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=0", item.getpage_id()), "22"), handler);
     }
 
     public void loadMoreData() {
@@ -160,7 +169,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
             pageindex++;
             //isLoadingMore = true;
             refreshview.setRefreshing(true);
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%d",item.getpage_id(), pageindex), "22"), handler);
+            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%d", item.getpage_id(), pageindex), "22"), handler);
         } catch (Exception ex) {
             generalhelper.ToastShow(this, ex.getMessage());
         }
@@ -186,15 +195,15 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals(item.gettype_id())&&results.length>2) {
+                    if (results[0].equals("0") && results[1].equals(item.gettype_id()) && results.length > 2) {
                         try {
                             if (pageindex == 0) {
                                 list = new ArrayList<>();
                             }
                             if (frame.platform != 0) {
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%d",item.getpage_id(), pageindex), "22"), frame.strData);
+                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s,@page=%d", item.getpage_id(), pageindex), "22"), frame.strData);
                             }
-                            List<Vegetable> vegetables=dal.getList(results[2]);
+                            List<Vegetable> vegetables = dal.getList(results[2]);
                             list.addAll(vegetables);
                             handler.post(new Runnable() {
                                 @Override
@@ -230,26 +239,13 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
 
                 Intent intent = new Intent(this, CommitOrder.class);
                 MyOrder m1 = new MyOrder();
-//                m1.setOrder_sn("2016041500245");
-//                m1.setHouse_holder("徐鹏");
-//                m1.setHouser_name("金易伯爵世家4栋3单元6-2");
-//                m1.setOrder_status("已确认");
-//                m1.setShipping_status(0);
-//                m1.setPay_status(0);
-//                m1.setBest_time(generalhelper.getStringFromDate(bestshippingdate.getTime()));
-//                m1.setOrder_type("订购");
-//                m1.setShipping_id("送货上门");
-//                m1.setGoods_amount(goodssum);
-//                m1.setPay_fee(goodssum);
-//                m1.setMoney_paid(0);
-//                m1.setOrder_amount(goodssum);
-//                m1.setAdd_time(generalhelper.getStringFromDate(calendar.getTime()));
                 m1.setorder_id(m1.generateOrderId());
                 m1.setaccount(PreferenceUtil.getUserName());
                 m1.setdiliver_time("0");//(generalhelper.getStringFromDate(bestshippingdate.getTime()));
                 //m1.setpay_type(3);
                 m1.settotal(goodssum);
                 m1.SetGoods(buylist);
+                //printBuylst();
                 m1.setgoods_type(buylist.get(0).getgoods_type());
                 StringBuilder builder = new StringBuilder();
                 String bstr = "";
@@ -277,7 +273,8 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
 
     class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
-        HashMap<Integer,Integer>hashMap=new HashMap<>();
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_vegetable_item, parent, false));
@@ -291,8 +288,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
             holder.price.setText("￥" + decimalFormat.format(vegetable.getprice()));
             holder.size.setText(vegetable.getitemSize());
             holder.selectCount.restore();
-            if (hashMap.get(position)!=null)
-            {
+            if (hashMap.containsKey(position)) {
                 holder.selectCount.setCount(hashMap.get(position));
             }
             //取消库存限制
@@ -302,43 +298,42 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                 @Override
                 public void onAddition(int count) {
                     boolean contained = false;
+                    hashMap.put(position, count);
                     for (int i = 0; i < buylist.size(); i++) {
                         if (buylist.get(i).getproduct_id().equals(vegetable.getproduct_id())) {
                             contained = true;
-                            int selectedcount = vegetable.getSelectedcount();
-                            if (selectedcount > 0) {
-                                vegetable.setSelectedcount(selectedcount + 1);
-                                //holder.count=selectedcount + 1;
-                                hashMap.put(position,selectedcount + 1);
-                            }
+                            Vegetable v = (Vegetable) buylist.get(i);
+                            v.setSelectedcount(count);
+                            //int selectedcount = vegetable.getSelectedcount();
+//                            if (selectedcount > 0) {
+//                                vegetable.setSelectedcount(count);
+//                                hashMap.put(position, count);
+//                            }
                             break;
                         }
                     }
                     if (!contained) {
                         buylist.add(vegetable);
-                        hashMap.put(position,holder.selectCount.getMinValue()+1);
                     }
                     goodscount++;
                     goodssum += vegetable.getprice();
                     gdcount.setText("商品：" + String.valueOf(goodscount));
                     totalpay.setText("合计：￥" + decimalFormat.format(goodssum));
+                    //printBuylst();
                 }
 
                 @Override
                 public void onReduction(int count) {
+                    hashMap.put(position, count);
                     //是否移除
                     boolean canremove = false;
                     //移除索引
                     int removeIndex = 0;
                     for (int i = 0; i < buylist.size(); i++) {
                         if (buylist.get(i).getproduct_id().equals(vegetable.getproduct_id())) {
-                            int selectedcount = vegetable.getSelectedcount();
-                            if (selectedcount > 0) {
-                                vegetable.setSelectedcount(selectedcount - 1);
-                                //holder.count=selectedcount - 1;
-                                hashMap.put(position,selectedcount - 1);
-                            }
-                            if (vegetable.getSelectedcount() == 0) {
+                            Vegetable v = (Vegetable) buylist.get(i);
+                            v.setSelectedcount(count);
+                            if (count == 0) {
                                 canremove = true;
                                 removeIndex = i;
                             }
@@ -352,6 +347,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                     goodscount--;
                     gdcount.setText("商品：" + String.valueOf(goodscount));
                     totalpay.setText("合计：￥" + decimalFormat.format(goodssum));
+                    //printBuylst();
                 }
             });
         }
@@ -363,7 +359,7 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
 
         class ViewHolder extends RecyclerView.ViewHolder {
             ImageView iv_preview;
-            TextView name, price, size,stock;
+            TextView name, price, size, stock;
             MySelectCount selectCount;
 
             public ViewHolder(View itemView) {
@@ -372,9 +368,17 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                 name = (TextView) itemView.findViewById(R.id.txt_name);
                 price = (TextView) itemView.findViewById(R.id.txt_price);
                 size = (TextView) itemView.findViewById(R.id.txt_size);
-                stock=(TextView)itemView.findViewById(R.id.txt_stock);
+                stock = (TextView) itemView.findViewById(R.id.txt_stock);
                 selectCount = (MySelectCount) itemView.findViewById(R.id.selectcount);
             }
         }
     }
+
+//    private void printBuylst() {
+//        StringBuilder builder = new StringBuilder();
+//        for (BaseGoods goods : buylist) {
+//            builder.append(goods.gettitle() + "  " + goods.getSelectedcount() + "\n");
+//        }
+//        Log.i("suntest print", builder.toString());
+//    }
 }
