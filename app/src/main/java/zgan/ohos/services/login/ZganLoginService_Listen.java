@@ -41,13 +41,14 @@ public class ZganLoginService_Listen implements Runnable {
                     String communityIP = PreferenceUtil.getCommunityIP();
                     int communityPort = PreferenceUtil.getCommunityPORT();
                     if (results.length == 3 && results[0].equals("0")) {
-                        Log.i(TAG, "ZganLoginService小区ID：" + results[1]);
+                        Log.i(TAG, "ZganLoginService小区：" + result);
                         //String[] ipport = results[1].split(":");
                         if (!communityIP.equals(NetUtils.getIp(results[1])) || communityPort != Integer.parseInt(results[2])) {
                             PreferenceUtil.setCommunityIP(NetUtils.getIp(results[1]));
                             PreferenceUtil.setCommunityPORT(Integer.parseInt(results[2]));
                             communityIP=NetUtils.getIp(results[1]);
                             communityPort=Integer.parseInt(results[2]);
+                            Log.i(TAG,String.format("获取到小区云IP：%s，端口：%s",communityIP,communityPort));
                         }
                         ZganCommunityService.CommunityIp=communityIP;
                         ZganCommunityService.CommunityPort=communityPort;
@@ -68,6 +69,7 @@ public class ZganLoginService_Listen implements Runnable {
             if (msg.what == 1) {//autologin
                 Frame frame = (Frame) msg.obj;
                 String result = generalhelper.getSocketeStringResult(frame.strData);
+                Log.i(TAG,String.format("小区云登陆结果：%s",result));
                 String[] results = result.split(",");
                 if (frame.subCmd == 1 && results[0].equals("0")) {
                     ZganCommunityService.toGetServerData(28, 0, PreferenceUtil.getUserName(), mycommunityHandler);

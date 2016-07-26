@@ -152,6 +152,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Log.i(TAG,String.format("LOAD_SUCCESS=%s,isStoped=%s",LOAD_SUCCESS,isStoped));
                 if (!LOAD_SUCCESS && !isStoped) {
                     while (!SystemUtils.getIsCommunityLogin()) {
                         try {
@@ -161,12 +162,13 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                         }
                     }
                     if (SystemUtils.getIsCommunityLogin()) {
-                        //功能区
-                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FUNCPAGE, "@id=22", "22"), handler);
+                        Log.i(TAG,"小区云登陆成功开始拉取数据！!");
                         //用户信息（地址、积分等）
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_USERINFO, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), handler);
                         //顶部滚动广告
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_ADVER, "@id=22", "22"), handler);
+                        //功能区
+                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FUNCPAGE, "@id=22", "22"), handler);
                         //专题内容1
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES1, "@id=22", "22"), handler);
                         //专题内容2
