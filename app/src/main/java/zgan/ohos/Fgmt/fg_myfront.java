@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -82,6 +83,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     LinearLayout pager_ind, func_ind;
     LinearLayoutManager gridItemLayoutmanger;
     static final int ADSINDEX = 0;
+    static final int TOSTMSG=10;
     boolean isContinue = true;
     List<ImageView> imageViews = new ArrayList<>();
     List<ImageView> funcimageViews = new ArrayList<>();
@@ -105,7 +107,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     private Handler handler;
     Timer timer;
     LayoutInflater mLayoutInflater;
-
+    int mTimeOut = 5000;
     int mItemHeight = 0;
 
     @Override
@@ -152,17 +154,21 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.i(TAG,String.format("LOAD_SUCCESS=%s,isStoped=%s",LOAD_SUCCESS,isStoped));
+                Log.i(TAG, String.format("LOAD_SUCCESS=%s,isStoped=%s", LOAD_SUCCESS, isStoped));
                 if (!LOAD_SUCCESS && !isStoped) {
                     while (!SystemUtils.getIsCommunityLogin()) {
                         try {
+                            if (mTimeOut <= 0) {
+                                break;
+                            }
                             Thread.sleep(100);
+                            mTimeOut -= 100;
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
                     if (SystemUtils.getIsCommunityLogin()) {
-                        Log.i(TAG,"小区云登陆成功开始拉取数据！!");
+                        Log.i(TAG, "小区云登陆成功开始拉取数据！!");
                         //用户信息（地址、积分等）
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_USERINFO, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), handler);
                         //顶部滚动广告
@@ -173,6 +179,12 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES1, "@id=22", "22"), handler);
                         //专题内容2
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES2, "@id=22", "22"), handler);
+                    } else {
+                        Log.i(TAG,"连接网络超时，请退出后重新打开应用~");
+                        Message msg=handler.obtainMessage();
+                        msg.what=TOSTMSG;
+                        msg.obj="连接网络超时，请退出后重新打开应用~";
+                        msg.sendToTarget();
                     }
                 }
 
@@ -256,10 +268,9 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             ImageView simg = new ImageView(getActivity());
             simg.setLayoutParams(new ViewGroup.LayoutParams(20, 20));
             simg.setPadding(5, 5, 5, 5);
-            if (i==0)
-            simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.RED).sizeDp(30));
-            else
-            {
+            if (i == 0)
+                simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.RED).sizeDp(30));
+            else {
                 simg.setImageDrawable(new IconicsDrawable(getActivity(), GoogleMaterial.Icon.gmd_brightness_1).color(Color.LTGRAY).sizeDp(30));
             }
             funcimageViews.add(simg);
@@ -588,8 +599,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         SystemUtils.setProperty(property);
                                         SystemUtils.setFname(Fname);
                                         txt_xiaoqu.setText(village);
-                                        String ALIPAYurl=obj.get("ALIPAYurl").toString();
-                                        String WPAYurl=obj.get("WPAYurl").toString();
+                                        String ALIPAYurl = obj.get("ALIPAYurl").toString();
+                                        String WPAYurl = obj.get("WPAYurl").toString();
                                         SystemUtils.setALIPAYurl(ALIPAYurl);
                                         SystemUtils.setWPAYurl(WPAYurl);
                                         if (frame.platform != 0) {
@@ -609,6 +620,11 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                     }
                 } else if (msg.what == ADSINDEX) {
                     adv_pager.setCurrentItem(msg.arg1);
+                }
+                else if (msg.what==TOSTMSG)
+                {
+                    Log.i(TAG,"I received you msg:"+msg.obj.toString());
+                    Toast.makeText(getActivity(),msg.obj.toString(),Toast.LENGTH_LONG);
                 }
             }
 
@@ -894,7 +910,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            Log.i("suntest",String.format("ll_shequgrid.setLayoutParams(%s)",mItemHeight));
+                            Log.i("suntest", String.format("ll_shequgrid.setLayoutParams(%s)", mItemHeight));
                             RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, mItemHeight + iv_gridtitle.getHeight());
                             params1.addRule(RelativeLayout.BELOW, R.id.ll_messages);
                             ll_shequgrid.setLayoutParams(params1);

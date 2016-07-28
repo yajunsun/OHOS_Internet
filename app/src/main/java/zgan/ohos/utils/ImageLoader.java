@@ -144,6 +144,7 @@ public final class ImageLoader {
 
     public static void bindBitmap(final String uri, final ImageView imageView, final int reqWidth, final int reqHeight, final IImageloader binded) {
         imageView.setTag(TAG_KEY_URI, uri);
+        //imageView.setImageDrawable(MyApplication.context.getResources().getDrawable(R.drawable.nullpic));
         final Bitmap bitmap = loadBitmapFromMemCache(uri);
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);

@@ -136,6 +136,7 @@ public class SplashActivity extends myBaseActivity {
                         }
                         ZganCommunityService.CommunityIp = communityIP;
                         ZganCommunityService.CommunityPort = communityPort;
+                        Log.i("toConnectServer","SplashActivity 登陆小区云");
                         ZganCommunityService.toAutoUserLogin(communityHandler);
                     }
                 }

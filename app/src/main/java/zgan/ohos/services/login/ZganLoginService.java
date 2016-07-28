@@ -110,6 +110,7 @@ public class ZganLoginService extends Service {
                         }
                         ZganCommunityService.CommunityIp = communityIP;
                         ZganCommunityService.CommunityPort = communityPort;
+                        Log.i("toConnectServer","ZganLoginService 登陆小区云");
                         ZganCommunityService.toAutoUserLogin(mycommunityHandler);
                     }
                 } else {

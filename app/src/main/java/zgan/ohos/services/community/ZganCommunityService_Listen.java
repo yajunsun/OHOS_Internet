@@ -30,14 +30,17 @@ public class ZganCommunityService_Listen implements Runnable {
                 String result = generalhelper.getSocketeStringResult(frame.strData);
                 String[] results = result.split(",");
                 if (frame.subCmd == 1 && results[0].equals("0")) {
+                    SystemUtils.setIsCommunityLogin(true);
                     ZganCommunityService.toGetServerData(28, 0, PreferenceUtil.getUserName(), myhandler);
-                    Log.v("TAG", "自动重新登录小区云成功");
+                    ZganCommunityServiceTools.isConnect = true;
+                    Log.i(TAG, "自动重新登录小区云成功");
                 } else if (frame.subCmd == 28 && results[0].equals("0")) {
                     if (results.length == 2)
                         PreferenceUtil.setSID(results[1]);
-                    ;
                 } else {
-                    Log.v(TAG, "自动重新登录小区云失败");
+                    zsc.toConnectDisconnect();
+                    ServerState = 0;
+                    ZganCommunityServiceTools.isConnect = false;
                     Log.i(TAG, "自动重新登录小区云失败");
                 }
             }
@@ -69,7 +72,7 @@ public class ZganCommunityService_Listen implements Runnable {
         iniNetState = isNet;
         while (true) {
             try {
-                Thread.sleep(500);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -83,64 +86,62 @@ public class ZganCommunityService_Listen implements Runnable {
                         //用户打开网络后自动登录操作
                         if (!iniNetState) {
                             iniNetState = true;
+                            Log.i("toConnectServer", "ZganCommunityService_Lister Line 86 登陆小区云");
                             ZganCommunityService.toAutoUserLogin(myhandler);
                         }
                         if (!isNet) {
                             ServerState = 2;
                             ZganCommunityService.BroadError("网络连接错误");
-                            Log.v(TAG, "ZganCommunityService_Listen1ServerState=" + ServerState);
                             Log.i(TAG, "ZganCommunityService_Listen1ServerState=" + ServerState);
                         }
 
                         if (zsc.client.isClosed()) {
                             ServerState = 2;
-                            Log.v(TAG, "ZganCommunityService_Listen2ServerState=" + ServerState);
                             Log.i(TAG, "ZganCommunityService_Listen2ServerState=" + ServerState);
                         }
 
                         if (!zsc.isRun) {
                             ServerState = 2;
-                            Log.v(TAG, "ZganCommunityService_Listen3ServerState=" + ServerState);
                             Log.i(TAG, "ZganCommunityService_Listen3ServerState=" + ServerState);
                         }
 
                     } else if (ServerState == 0) {
 
                         if (isNet) {
-                            Log.i(TAG, "ZganCommunityService_Listen client 重新连接");
-                            Log.v(TAG, "ZganCommunityService_Listen client 重新连接");
                             //ServerState = 3;
                             //zsc.Server_IP = ZganCommunityService.toGetHostIP();
                             zsc.Server_IP = ZganCommunityService.CommunityIp;
                             zsc.ServerPort = ZganCommunityService.CommunityPort;
-                            Log.v(TAG, "ZganCommunityService_Listenconnect to=" + zsc.Server_IP);
-                            Log.i(TAG, "ZganCommunityService_Listenconnect to=" + zsc.Server_IP);
-                            if (zsc.Server_IP != null && !zsc.Server_IP.equals("0"))
-                                //if (zsc.toConnectServer()) {
-                                if (toConnectServer()) {
-                                    ServerState = 1;
-                                    Log.v(TAG, "ZganCommunityService_Listen5ServerState=" + ServerState);
-                                    Log.i(TAG, "ZganCommunityService_Listen5ServerState=" + ServerState);
-                                    ZganCommunityServiceTools.isConnect = true;
-                                    //LoginMsgServer(UName);
-                                    ZganCommunityService.toAutoUserLogin(myhandler);
-                                } else {
-                                    Log.i(TAG, zsc.client == null ? "空 socket" : "非空socket");
-                                    Log.i(TAG, zsc.client.isClosed() ? "socket关闭状态" : "socket打开状态");
-                                    if (zsc.client != null && !zsc.client.isClosed())
-                                        zsc.toConnectDisconnect();
-                                    //newSocketClient();
-                                    ServerState = 0;
-                                    Log.v(TAG, "ZganCommunityService_Listen6ServerState=" + ServerState);
-                                    Log.i(TAG, "ZganCommunityService_Listen6ServerState=" + ServerState);
-                                }
+                            if (zsc.Server_IP != null && !zsc.Server_IP.equals("0")) {
+                                Log.i(TAG, "ZganCommunityService_Listen client 重新连接");
+                                Log.i(TAG, "ZganCommunityService_Listenconnect to=" + zsc.Server_IP);
+//                                if (toConnectServer()) {
+//                                    ServerState = 1;
+//                                    Log.i(TAG, "ZganCommunityService_Listen5ServerState=" + ServerState);
+//                                    ZganCommunityServiceTools.isConnect = true;
+//                                    //LoginMsgServer(UName);
+//                                    Log.i("toConnectServer","ZganCommunityService_listen Line 127 登陆小区云");
+//                                    ZganCommunityService.toAutoUserLogin(myhandler);
+//                                } else {
+//                                    Log.i(TAG, zsc.client == null ? "空 socket" : "非空socket");
+//                                    Log.i(TAG, zsc.client.isClosed() ? "socket关闭状态" : "socket打开状态");
+//                                    if (zsc.client != null && !zsc.client.isClosed())
+//                                        zsc.toConnectDisconnect();
+//                                    //newSocketClient();
+//                                    ServerState = 0;
+//                                    Log.i(TAG, "ZganCommunityService_Listen6ServerState=" + ServerState);
+//                                }
+                                //LoginMsgServer(UName);
+                                ServerState = 1;
+                                ZganCommunityServiceTools.isConnect = true;
+                                ZganCommunityService.toAutoUserLogin(myhandler);
+                            }
 
                         }
 
                     } else if (ServerState == 2) {
                         //网络断开
                         ZganCommunityServiceTools.isConnect = false;
-                        Log.v(TAG, "ZganCommunityService_Listenclient 断开连接");
                         Log.i(TAG, "ZganCommunityService_Listenclient 断开连接");
                         zsc.toConnectDisconnect();
                         ServerState = 0;
@@ -150,7 +151,6 @@ public class ZganCommunityService_Listen implements Runnable {
                     }
                 }
             } catch (Exception e) {
-                Log.v(TAG, "ZganCommunityService_Listen" + e.getMessage());
                 Log.i(TAG, "ZganCommunityService_Listen" + e.getMessage());
                 continue;
             }
@@ -171,8 +171,7 @@ public class ZganCommunityService_Listen implements Runnable {
                     } else
                         return false;
                 }
-            }
-            else if (ZganCommunityService.CommunityIp != zsc.Server_IP || ZganCommunityService.CommunityPort != zsc.ServerPort) {
+            } else if (ZganCommunityService.CommunityIp != zsc.Server_IP || ZganCommunityService.CommunityPort != zsc.ServerPort) {
                 synchronized (ZganCommunityService_Listen.class) {
                     zsc.Server_IP = ZganCommunityService.CommunityIp;
                     zsc.ServerPort = ZganCommunityService.CommunityPort;

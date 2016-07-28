@@ -86,7 +86,7 @@ public class BindDevice extends myBaseActivity {
                     til_input.setErrorEnabled(false);
                     toSetProgressText("请稍等，正在绑定中");
                     toShowProgress();
-                    ZganLoginService.toGetServerData(4, 0, String.format("%s\t%s", Phone, SID), handler);
+                   ZganLoginService.toUserLogin(Phone,Pwd,"",loginH);
                 }
                 break;
             case R.id.btn_cancel:
@@ -98,7 +98,7 @@ public class BindDevice extends myBaseActivity {
 
     }
 
-    Handler handler = new Handler() {
+    Handler loginH=new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -110,6 +110,23 @@ public class BindDevice extends myBaseActivity {
                 if (f.subCmd == 1) {
                     if (results[0].equals("0")) {
                         SystemUtils.setIsLogin(true);
+                        ZganLoginService.toGetServerData(4, 0, String.format("%s\t%s", Phone, SID), handler);
+                    }
+                }
+            }
+        }
+    };
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {
+                Frame f = (Frame) msg.obj;
+                String result = generalhelper.getSocketeStringResult(f.strData);
+                String[] results = result.split(",");
+                System.out.print(f.strData);
+                if (f.subCmd == 1) {
+                    if (results[0].equals("0")) {
                         SystemUtils.setIsCommunityLogin(true);
                         PreferenceUtil.setUserName(Phone);
                         PreferenceUtil.setPassWord(Pwd);
@@ -120,6 +137,7 @@ public class BindDevice extends myBaseActivity {
                 }
                 if (f.subCmd == 4) {
                     if (result.equals("0")) {
+                        //ZganLoginService.toUserLogin(Phone,Pwd,"",handler);
                         ZganLoginService.toGetServerData(3, 0, String.format("%s", Phone), handler);
                         PreferenceUtil.setSID(SID);
                     } else {
@@ -133,8 +151,7 @@ public class BindDevice extends myBaseActivity {
                         PreferenceUtil.setCommunityPORT(Integer.parseInt(results[2]));
                         ZganCommunityService.CommunityIp = NetUtils.getIp(results[1]);
                         ZganCommunityService.CommunityPort = Integer.parseInt(results[2]);
-                        ZganCommunityService.toUserLogin(Phone, Pwd, handler);//.toGetServerData(1,"",handler);
-                        //ZganCommunityService.startCommunityService(BindDevice.this);
+                        ZganCommunityService.toUserLogin(Phone,Pwd,handler);//.toGetServerData(1,"",handler);
                         //}
                     }
                 }

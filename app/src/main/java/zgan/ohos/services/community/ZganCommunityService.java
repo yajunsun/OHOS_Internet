@@ -187,7 +187,7 @@ public class ZganCommunityService extends Service {
      */
     public static void toUserLogin(String strUName, String strPwd, Handler _handler) {
         String strImei = LocationUtil.getDrivenToken(MyApplication.context, strUName);
-        Log.v(TAG, "ZganCommunityService log in");
+        Log.i(TAG, "ZganCommunityService log in");
         Frame f = createFrame();
         f.subCmd = 1;
         f.strData = strUName + "\t" + strPwd + "\t" + strImei + "\t0";
@@ -341,7 +341,7 @@ public class ZganCommunityService extends Service {
         _threadListen = null;
         _threadMain = null;
         toStartLoginService();
-        Log.v(TAG, "toRestartLoginSerice");
+        Log.i("toConnectServer","toRestartLoginSerice 登陆小区云");
         toAutoUserLogin(myhandler);
     }
 
@@ -428,7 +428,6 @@ public class ZganCommunityService extends Service {
         ztl.toDisConnectServer();
         _threadListen.interrupt();
         _threadMain.interrupt();
-        Log.v(TAG, "ZganCommunityService stoped");
         Log.i(TAG, "ZganCommunityService stoped");
         return super.stopService(name);
     }
