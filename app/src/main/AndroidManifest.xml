@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="zgan.ohos">
 
-    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
-    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
+    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <!-- <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -66,8 +66,8 @@
             android:label="@string/news_option_name"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="Page.2001"></action>
-                <action android:name="Page.2002"></action>
+                <action android:name="Page.2001" />
+                <action android:name="Page.2002" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -98,7 +98,8 @@
             android:name=".Activities.MessageDetailActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="Page.2003"></action>
+                <action android:name="Page.2003" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -119,13 +120,15 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="Page.2013" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".Activities.BindDevice" />
         <activity android:name=".Activities.LeaveMessages">
             <intent-filter>
-                <action android:name="Page.2004"></action>
+                <action android:name="Page.2004" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -134,7 +137,8 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
-                <action android:name="Page.2006"></action>
+                <action android:name="Page.2006" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -172,7 +176,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--洗衣-->
+        <!-- 洗衣 -->
         <activity
             android:name=".Activities.ProLaundry"
             android:screenOrientation="portrait">
@@ -191,15 +195,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--<activity-->
-            <!--android:name=".Activities.ElectricalMaintenance"-->
-            <!--android:screenOrientation="portrait">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="Page.2013" />-->
+        <!-- <activity -->
+        <!-- android:name=".Activities.ElectricalMaintenance" -->
+        <!-- android:screenOrientation="portrait"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="Page.2013" /> -->
 
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".Activities.CommitOrder"
             android:screenOrientation="portrait" />
@@ -222,7 +227,8 @@
             android:name=".Activities.CallOut"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="Page.2010"></action>
+                <action android:name="Page.2010" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -240,43 +246,48 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <!--<activity-->
-            <!--android:name=".Activities.IcecreamList"-->
-            <!--android:screenOrientation="portrait">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="Page.2014" />-->
+        <!-- <activity -->
+        <!-- android:name=".Activities.IcecreamList" -->
+        <!-- android:screenOrientation="portrait"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="Page.2014" /> -->
 
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity android:name=".Activities.CreditsRule" />
         <activity android:name=".Activities.CreditsDetail" />
         <activity android:name=".Activities.Express_out">
             <intent-filter>
-                <action android:name="Page.2008"></action>
+                <action android:name="Page.2008" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".Activities.Express_in">
             <intent-filter>
-                <action android:name="Page.2009"></action>
+                <action android:name="Page.2009" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Activities.HotProvideSpecial">
             <intent-filter>
-                <action android:name="Page.2017"></action>
+                <action android:name="Page.2017" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Activities.HotProductSpecial">
             <intent-filter>
-                <action android:name="Page.2018"></action>
+                <action android:name="Page.2018" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.BindCommunity" />
+        <activity android:name=".Activities.SortCommunityList"></activity>
     </application>
 
 </manifest>

@@ -141,7 +141,8 @@ public class Login extends myBaseActivity {
                         ZganCommunityService.CommunityPort = communityPort;
                         ZganCommunityService.toUserLogin(PhoneNum, et_pwd.getText().toString().trim(), communityHandler);
                     } else {
-                        Intent intent = new Intent(Login.this, BindDevice.class);
+                        //Intent intent = new Intent(Login.this, BindDevice.class);
+                        Intent intent=new Intent(Login.this,BindCommunity.class);
                         intent.putExtra("username", PhoneNum);
                         intent.putExtra("pwd", et_pwd.getText().toString().trim());
                         intent.putExtra("showcancel", true);

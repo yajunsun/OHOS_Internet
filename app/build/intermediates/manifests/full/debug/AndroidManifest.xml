@@ -292,6 +292,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name="zgan.ohos.Activities.BindCommunity" />
+        <activity android:name="zgan.ohos.Activities.SortCommunityList" />
         <activity android:name="com.mikepenz.aboutlibraries.ui.LibsActivity" />
     </application>
 

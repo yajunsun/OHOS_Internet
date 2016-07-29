@@ -141,7 +141,10 @@ public class Register extends myBaseActivity {
                 Frame frame = (Frame) msg.obj;
                 String result = generalhelper.getSocketeStringResult(frame.strData);
                 if (frame.subCmd == 1 && result.equals("0")) {
-                    Intent intent = new Intent(Register.this, BindDevice.class);
+                    //绑定室内机SID号
+                    //Intent intent = new Intent(Register.this, BindDevice.class);
+                    //手动选择小区名和单元楼层房号
+                    Intent intent=new Intent(Register.this,BindCommunity.class);
                     intent.putExtra("username", Phone);
                     intent.putExtra("pwd", Pwd);
                     intent.putExtra("showcancel", true);
