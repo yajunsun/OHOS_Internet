@@ -287,7 +287,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.BindCommunity" />
-        <activity android:name=".Activities.SortCommunityList"></activity>
+
+        <activity android:name=".Activities.SortCommunityList" />
+
     </application>
 
 </manifest>

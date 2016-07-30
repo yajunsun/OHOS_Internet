@@ -48,14 +48,15 @@
 
     <zgan.ohos.ConstomControls.SortView.ClearEditText
         android:id="@+id/filter_edit"
-        android:layout_marginTop="5dip"
+
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/search_bar_edit_selector"
-        android:drawableLeft="@drawable/search_bar_icon_normal"
+        android:layout_height="@dimen/navigation_height"
+        android:background="@drawable/bg_serchbar"
+        android:drawableLeft="@drawable/img_search"
+        android:layout_margin="10dp"
         android:hint="请输入关键字"
         android:singleLine="true"
-        android:textSize="15.0dip" />
+        android:textSize="@dimen/order_text_size" />
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -73,7 +74,7 @@
             android:layout_width="80.0dip"
             android:layout_height="80.0dip"
             android:layout_gravity="center"
-            android:background="@drawable/show_head_toast_bg"
+            android:background="@drawable/bg_search_index"
             android:gravity="center"
             android:textColor="#ffffffff"
             android:textSize="30.0dip"
@@ -81,7 +82,9 @@
 
         <zgan.ohos.ConstomControls.SortView.SideBar
             android:id="@+id/sidrbar"
-            android:layout_width="30.0dip"
+            android:layout_width="30dp"
+            android:background="@drawable/bg_search_index"
+            android:layout_marginRight="10dp"
             android:layout_height="fill_parent"
             android:layout_gravity="right|center" />
     </FrameLayout>

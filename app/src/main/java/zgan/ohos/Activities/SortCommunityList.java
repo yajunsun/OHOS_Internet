@@ -62,7 +62,6 @@ public class SortCommunityList extends myBaseActivity implements Serializable {
     private void bindData() {
         //数据填充
         SourceDateList = filledData(list);
-
         Collections.sort(SourceDateList, pinyinComparator);
         adapter = new SortAdapter(this, SourceDateList);
         sortListView.setAdapter(adapter);
@@ -74,7 +73,6 @@ public class SortCommunityList extends myBaseActivity implements Serializable {
 
     private void initViews() {
         characterParser = CharacterParser.getInstance();
-
         pinyinComparator = new PinyinComparator();
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {

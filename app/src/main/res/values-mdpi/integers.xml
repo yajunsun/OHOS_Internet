@@ -8,4 +8,6 @@
     <integer name="supermarket_img_height">500</integer>
     <!--首页图片间距-->
     <integer name="front_item_marginTop">1</integer>
+    <!--按首字母检索中的字母大小-->
+    <integer name="search_index_size">20</integer>
 </resources>

@@ -50,7 +50,7 @@ public class SideBar extends View {
             // paint.setColor(Color.WHITE);
             paint.setTypeface(Typeface.DEFAULT_BOLD);
             paint.setAntiAlias(true);
-            paint.setTextSize(20);
+            paint.setTextSize(getResources().getInteger(R.integer.search_index_size));
             if (i == choose) {
                 paint.setColor(Color.parseColor("#3399ff"));
                 paint.setFakeBoldText(true);
@@ -74,7 +74,7 @@ public class SideBar extends View {
 
         switch (action) {
             case MotionEvent.ACTION_UP:
-                setBackgroundDrawable(new ColorDrawable(0x00000000));
+                //setBackgroundDrawable(new ColorDrawable(0x00000000));
                 choose = -1;//
                 invalidate();
                 if (mTextDialog != null) {
@@ -83,7 +83,7 @@ public class SideBar extends View {
                 break;
 
             default:
-                setBackgroundResource(R.drawable.sidebar_background);
+                //setBackgroundResource(R.drawable.sidebar_background);
                 if (oldChoose != c) {
                     if (c >= 0 && c < b.length) {
                         if (listener != null) {

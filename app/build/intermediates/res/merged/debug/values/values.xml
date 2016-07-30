@@ -586,6 +586,7 @@
     <dimen name="activity_main_option_margin">20dp</dimen>
     <dimen name="activity_main_option_padding">5dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="bindcommunity_item_height">60dp</dimen>
     <dimen name="card_padding_openSource">12dp</dimen>
     <dimen name="cardview_compat_inset_shadow">1dp</dimen>
     <dimen name="cardview_default_elevation">2dp</dimen>
@@ -767,6 +768,7 @@
     <integer name="cancel_button_image_alpha">127</integer>
     <integer name="design_snackbar_text_max_lines">2</integer>
     <integer name="front_item_marginTop">1</integer>
+    <integer name="search_index_size">20</integer>
     <integer name="status_bar_notification_info_maxnum">999</integer>
     <integer name="supermarket_img_height">500</integer>
     <integer name="vegetable_select_count_size">20</integer>

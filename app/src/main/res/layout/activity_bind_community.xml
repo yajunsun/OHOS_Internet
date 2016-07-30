@@ -53,14 +53,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:layout_margin="10dp"
         android:background="@drawable/bg_register_outer"
         android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/llselectComm"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/bindcommunity_item_height"
+            android:background="@drawable/bg_rect_border"
             android:clickable="true"
             android:focusable="true">
 
@@ -77,24 +77,21 @@
 
             <TextView
                 android:id="@+id/txtcomm"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="@dimen/edittext_height"
                 android:layout_alignParentRight="true"
-                android:gravity="center"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="20dp"
+                android:gravity="center" />
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/icon_base_color"></LinearLayout>
 
         <RelativeLayout
             android:id="@+id/llselectDetail"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/bindcommunity_item_height"
+            android:background="@drawable/bg_rect_border"
             android:clickable="true"
             android:focusable="true"
             android:visibility="gone">
@@ -112,20 +109,15 @@
 
             <TextView
                 android:id="@+id/txtdetail"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="@dimen/edittext_height"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:gravity="center"
-                android:layout_gravity="center_vertical"
                 android:layout_marginRight="20dp"
+                android:gravity="center"
                 android:hint="栋、单元、楼层-房号" />
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/icon_base_color"></LinearLayout>
 
     </LinearLayout>
 
@@ -138,8 +130,8 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/login_done"
-        android:text="确认绑定"
         android:enabled="false"
+        android:text="确认绑定"
         android:textColor="@color/color_txt_toobar"
         android:textSize="@dimen/toolbar_title_size" />
 </RelativeLayout>

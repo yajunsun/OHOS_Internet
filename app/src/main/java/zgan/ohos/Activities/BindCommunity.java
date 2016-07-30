@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,10 +39,6 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
                     txtcomm.setText(Comm.getCommName());
                     ZganCommunityService.CommunityIp = NetUtils.getIp(Comm.getCommIp());
                     ZganCommunityService.CommunityPort = Comm.getCommPort();
-
-                    //ZganCommunityService.toUserLogin(Phone, Pwd, handler);
-                    //ZganLoginService.toGetServerData(4, 0, String.format("%s\t%s", Phone, SID), handler);
-                    //ZganCommunityService.toGetServerData();
                     llselectDetail.setVisibility(View.VISIBLE);
                 }
                 break;
@@ -54,13 +51,6 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
                 break;
         }
     }
-
-    Handler handlerH = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -76,10 +66,16 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
                             SystemUtils.setIsCommunityLogin(true);
                             PreferenceUtil.setUserName(Phone);
                             PreferenceUtil.setPassWord(Pwd);
-                            //ZganCommunityService.toGetServerData(8, 0, String.format("%s\t%s", Phone, 0), handler);
-                            Intent intent = new Intent(BindCommunity.this, UserCommSelect.class);
-                            intent.putExtra("fcommid", "0");
-                            startActivityWithAnimForResult(intent, resultCodes.COMMSELECTED);
+                            generalhelper.ToastShow(BindCommunity.this, "绑定成功");
+                            startActivityWithAnim(new Intent(BindCommunity.this, MainActivity.class));
+                            finish();
+                        }
+                    } else if (f.subCmd == 27) {
+                        if (results[0].equals("0")&&results.length==2) {
+                            PreferenceUtil.setSID(results[1]);
+                            ZganCommunityService.toUserLogin(Phone,Pwd,handler);
+                        } else {
+                            generalhelper.ToastShow(BindCommunity.this, "绑定失败~");
                         }
                     }
                     break;
@@ -130,13 +126,20 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
             case R.id.llselectDetail:
                 intent = new Intent(BindCommunity.this, UserCommSelect.class);
                 intent.putExtra("fcommid", "0");
-                intent.putExtra("username",Phone);
+                intent.putExtra("username", Phone);
                 startActivityWithAnimForResult(intent, resultCodes.COMMSELECTED);
                 break;
             case R.id.btn_bind:
-                generalhelper.ToastShow(BindCommunity.this, "绑定室内机成功");
-                startActivityWithAnim(new Intent(BindCommunity.this, MainActivity.class));
-                finish();
+               /* 手机->服务器: 账号\t楼层信息
+                （楼层信息：幢号,单元号,层号,房间号,设备号)
+                返回: 状态码\t室内机SID*/
+                Log.i(TAG, CommId);
+                if (CommId.indexOf(",") > 0) {
+                    String comm = CommId.substring(CommId.indexOf(",") + 1);
+                    if (comm.length() > 0) {
+                        ZganCommunityService.toGetServerData(27, Phone + "\t" + comm + ",0", handler);
+                    }
+                }
                 break;
             default:
                 break;

@@ -101,4 +101,6 @@
     <dimen name="expressin_item_height">50dp</dimen>
     <dimen name="expressin_first_line_size">15sp</dimen>
     <dimen name="expressin_second_line_size">13sp</dimen>
+    <!--选择小区layout高度-->
+    <dimen name="bindcommunity_item_height">60dp</dimen>
 </resources>

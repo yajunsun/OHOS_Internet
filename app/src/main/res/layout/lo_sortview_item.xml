@@ -9,7 +9,7 @@
         android:id="@+id/catalog"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#E0E0E0"
+        android:background="#EBEBEB"
         android:textColor="#454545"
         android:layout_weight="1.0"
         android:paddingLeft="5dip"
@@ -24,10 +24,10 @@
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
         android:layout_weight="1.0"
-        android:textColor="#336598"
+        android:background="@color/solid_white"
         android:layout_marginLeft="5dip"
         android:paddingTop="10dip"
         android:paddingBottom="10dip"
-        android:text="hhhh"/>
+        />
 
 </LinearLayout>
