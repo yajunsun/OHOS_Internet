@@ -104,7 +104,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", wxresp);
         data.putExtras(bundle);
-        sendBroadcast(data);
+        sendOrderedBroadcast(data,null);
         Log.i("suntest", "complete pay and sendbroadcast");
         finish();
     }

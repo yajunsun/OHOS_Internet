@@ -1,6 +1,11 @@
 package zgan.ohos.Fgmt;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,9 +16,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.pay.alipay.AliPay;
+import com.pay.wxpay.Constants;
+import com.pay.wxpay.WXPay;
+import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import java.sql.Time;
 import java.text.DecimalFormat;
@@ -25,12 +39,15 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import zgan.ohos.Activities.MainActivity;
 import zgan.ohos.Activities.OrderDetail;
+import zgan.ohos.Activities.OrderList;
 import zgan.ohos.Dals.QueryOrderDal;
 import zgan.ohos.Models.BaseGoods;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.Models.QueryOrderM;
 import zgan.ohos.Models.Vegetable;
+import zgan.ohos.Models.WXResp;
 import zgan.ohos.R;
 import zgan.ohos.adapters.RecyclerViewItemSpace;
 import zgan.ohos.services.community.ZganCommunityService;
@@ -60,8 +77,14 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     SwipeRefreshLayout refreshview;
     float density = 1;
     DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
-
+    Dialog paymentSelectDialog;
     TextView tall, tunpay, tunget;
+    String[] mPaytypeNames = new String[]{"", "货到付款", "钱包支付", "支付宝支付", "微信支付"};
+    String[] mVialiabelTypes = new String[]{"3", "4"};
+    boolean isCommited = false;
+    private IWXAPI api;
+    MyOrder order;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -195,6 +218,21 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                             msg1.obj = ex.getMessage();
                             handler.sendMessage(msg1);
                         }
+                    } else if (results[1].equals("1025")) {//results[0].equals("0") &&
+                        try {
+                            getActivity().unregisterReceiver(wxpayreceiver);
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        if (results[0].equals("0")) {
+                            generalhelper.ToastShow(getActivity(), "支付成功~");
+                            paymentSelectDialog.dismiss();
+                            loadData();
+                        }
+                        else
+                            generalhelper.ToastShow(getActivity(), "支付失败~");
                     }
                     refreshview.setRefreshing(false);
                 }
@@ -224,6 +262,22 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                 mOrder_type = 3;
                 tunget.setTextColor(getResources().getColor(R.color.primary));
                 loadData();
+                break;
+            case R.id.iv_alipay:
+                if (!isCommited) {
+                    order.setpay_type(3);
+                    pay();
+                }
+                break;
+            case R.id.iv_wxpay:
+                if (!isCommited) {
+                    order.setpay_type(4);
+                    pay();
+                }
+                break;
+            case R.id.btn_complete:
+            case R.id.txt_toorder:
+                paymentSelectDialog.dismiss();
                 break;
         }
     }
@@ -268,6 +322,8 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
             o.setpay_type(m.getpay_type());
             ViewGroup.LayoutParams params = holder.rv_goods.getLayoutParams();
             params.height = h;
+            if (m.getpay_state() == 0)
+                holder.btn_payimmediatly.setVisibility(View.VISIBLE);
             holder.rv_goods.setLayoutParams(params);
             holder.rv_goods.setAdapter(new mySubAdapter(goodses));
             holder.txt_ordernum.setText("订单号：" + m.getorder_id());
@@ -359,6 +415,8 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                         break;
                     case R.id.btn_payimmediatly:
                         //支付
+                        order = o;
+                        buildPaySelection();
                         break;
                     case R.id.btn_checkshipping:
                         //查看物流
@@ -459,4 +517,147 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
             }
         }
     }
+
+
+    private void buildPaySelection() {
+        if (paymentSelectDialog == null) {
+            ImageView iv_hdfk, iv_alipay, iv_wallite, iv_wxpay;
+            TextView txt_paymount;
+            View view = getActivity().getLayoutInflater().inflate(R.layout.lo_paytype_choose_dialog,
+                    null);
+            iv_hdfk = (ImageView) view.findViewById(R.id.iv_hdfk);
+            iv_wallite = (ImageView) view.findViewById(R.id.iv_wallite);
+            iv_alipay = (ImageView) view.findViewById(R.id.iv_alipay);
+            iv_wxpay = (ImageView) view.findViewById(R.id.iv_wxpay);
+
+            for (String tp : mVialiabelTypes) {
+                if (tp.equals("1"))
+                    iv_hdfk.setVisibility(View.VISIBLE);
+                if (tp.equals("2"))
+                    iv_wallite.setVisibility(View.VISIBLE);
+                if (tp.equals("3"))
+                    iv_alipay.setVisibility(View.VISIBLE);
+                if (tp.equals("4"))
+                    iv_wxpay.setVisibility(View.VISIBLE);
+            }
+
+            txt_paymount = (TextView) view.findViewById(R.id.txt_paymount);
+            txt_paymount.setText("￥" + decimalFormat.format(order.gettotal()));
+            iv_hdfk.setOnClickListener(this);
+            iv_alipay.setOnClickListener(this);
+            iv_wallite.setOnClickListener(this);
+            iv_wxpay.setOnClickListener(this);
+            paymentSelectDialog = new Dialog(getActivity(), R.style.transparentFrameWindowStyle);
+            paymentSelectDialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            Window window = paymentSelectDialog.getWindow();
+            // 设置显示动画
+            window.setWindowAnimations(R.style.main_menu_animstyle);
+            WindowManager.LayoutParams wl = window.getAttributes();
+            wl.x = 0;
+            wl.y = getActivity().getWindowManager().getDefaultDisplay().getHeight();
+            // 以下这两句是为了保证按钮可以水平满屏
+            wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+            // 设置显示位置
+            paymentSelectDialog.onWindowAttributesChanged(wl);
+            // 设置点击外围解散
+            paymentSelectDialog.setCanceledOnTouchOutside(true);
+        }
+        paymentSelectDialog.show();
+    }
+
+    private void updateCommit() {
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1025,
+                String.format("@id=22,@order_id=%s,@state=%s,@pay_type=%s",
+                        order.getorder_id(), order.getstate(), order.getpay_type())
+                , "22"), handler);
+    }
+
+    private void pay() {
+        switch (order.getpay_type()) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                AliPay aliPay = new AliPay(getActivity());
+                aliPay.setOnPayListner(new AliPay.OnAliPayListner() {
+                    @Override
+                    public void done(String stat) {
+                        if (stat.equals("9000")) {
+                            order.setpay_type(3);
+                            order.setstate(1);
+                            paymentSelectDialog.dismiss();
+                            //支付成功修改订单为已支付
+                            updateCommit();
+                            isCommited = true;
+                        } else {
+                            isCommited = false;
+                            generalhelper.ToastShow(getActivity(), "支付失败");
+                        }
+                    }
+
+                    @Override
+                    public void predo() {
+                    }
+                });
+                aliPay.Pay(order);
+                break;
+            case 4:
+//                toSetProgressText("正在启动微信支付请稍等");
+//                toShowProgress();
+                IntentFilter filter = new IntentFilter();
+                filter.addAction(WXPay.payresultAction);
+                getActivity().registerReceiver(wxpayreceiver, filter);
+                progressDialog = new ProgressDialog(getActivity());
+                progressDialog.setCancelable(true);
+                progressDialog.setMessage("正在启动微信支付。。");
+                progressDialog.show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        api = WXAPIFactory.createWXAPI(getActivity(), Constants.APP_ID, false);
+                        api.registerApp(Constants.APP_ID);
+                        WXPay wxPay = new WXPay(api);
+                        if (!wxPay.checkSupport()) {
+                            handler.obtainMessage(400, "此版本的微信不支持支付功能").sendToTarget();
+                            return;
+                        }
+                        wxPay.setOrder(order);
+                        wxPay.Pay();
+                    }
+                }).start();
+                break;
+        }
+    }
+
+    public BroadcastReceiver wxpayreceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.hasExtra("data")) {
+                WXResp resp = (WXResp) intent.getSerializableExtra("data");
+                switch (resp.getErrcode()) {
+                    case BaseResp.ErrCode.ERR_OK:
+                        generalhelper.ToastShow(getActivity(), "支付成功");
+                        handler.obtainMessage(resultCodes.PAYCOMPLETE).sendToTarget();
+                        break;
+                    case BaseResp.ErrCode.ERR_USER_CANCEL:
+                        isCommited = false;
+                        generalhelper.ToastShow(getActivity(), "已取消支付");
+                        break;
+                    case BaseResp.ErrCode.ERR_AUTH_DENIED:
+                        isCommited = false;
+                        generalhelper.ToastShow(getActivity(), "未授权");
+                        break;
+                    default:
+                        isCommited = false;
+                        generalhelper.ToastShow(getActivity(), "未知错误");
+                        break;
+                }
+            }
+            progressDialog.dismiss();
+        }
+    };
 }

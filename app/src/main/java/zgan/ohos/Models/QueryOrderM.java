@@ -20,7 +20,7 @@ public class QueryOrderM extends BaseModel implements Serializable {
     private int pay_type;//	支付方式
     private String diliver_time;//	预计完成时间
     private String pic_url;//商品图片
-
+    private int pay_state;//支付状态 0没支付 2已支付
     private int Stype = 0;
     //private String over_time;//	配送完成时间
 
@@ -132,6 +132,13 @@ public class QueryOrderM extends BaseModel implements Serializable {
             this.Stype = SystemUtils.getIntValue(value.toString());
     }
 
+    public int getpay_state(){return pay_state;}
+
+    public void setpay_state(Object value)
+    {
+        if (value != null)
+            this.pay_state = SystemUtils.getIntValue(value.toString());
+    }
     @Override
     public QueryOrderM getnewinstance() {
         return new QueryOrderM();

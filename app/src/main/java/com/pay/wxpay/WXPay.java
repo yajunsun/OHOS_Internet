@@ -35,7 +35,7 @@ import zgan.ohos.utils.generalhelper;
  * Created by Administrator on 16-4-23.
  */
 public class WXPay {
-    public static final String payresultAction="action.pay.wxpay.result";
+    public static final String payresultAction = "action.pay.wxpay.result";
     private IWXAPI api;
     private String appid, attach, body, mch_id, nonce_str, device_info,
             out_trade_no, notify_url, total_fee, trade_type, key, sign,
@@ -69,7 +69,7 @@ public class WXPay {
         nonce_str = getRandomString(32).toUpperCase();
         device_info = "WEB";
         out_trade_no = order.getorder_id();
-        total_fee = String.valueOf( (int)(order.gettotal()*100));
+        total_fee = String.valueOf((int) (order.gettotal() * 100));
         trade_type = "APP";
         notify_url = Constants.notify_url;
         detail = "一家一店在线支付-微信支付";
@@ -175,7 +175,7 @@ public class WXPay {
                     req.partnerId = preResult.getmch_id();// mch_id;
                     req.prepayId = preResult.getprepay_id();
                     req.nonceStr = preResult.getnonce_str();// nonce_str;
-                    req.timeStamp = String.valueOf(System.currentTimeMillis()).substring(0,10);
+                    req.timeStamp = String.valueOf(System.currentTimeMillis()).substring(0, 10);
                     req.packageValue = "Sign=WXPay";
                     getpaySIGN(req);
                     // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
@@ -251,11 +251,12 @@ public class WXPay {
         String sign = MD5.getMessageDigest(SignTemp.getBytes()).toUpperCase();
         return sign;
     }
+
     private String getpaySIGN(PayReq req) {
-        String A = String.format("appid=%s&noncestr=%s&package=Sign=WXPay&partnerid=%s&prepayid=%s&timestamp=%s",req.appId,req.nonceStr,req.partnerId,req.prepayId,req.timeStamp);
+        String A = String.format("appid=%s&noncestr=%s&package=Sign=WXPay&partnerid=%s&prepayid=%s&timestamp=%s", req.appId, req.nonceStr, req.partnerId, req.prepayId, req.timeStamp);
         String SignTemp = String.format("%s&key=%s", A, key);
         String sign = MD5.getMessageDigest(SignTemp.getBytes()).toUpperCase();
-        req.sign=sign;
+        req.sign = sign;
         return sign;
     }
 

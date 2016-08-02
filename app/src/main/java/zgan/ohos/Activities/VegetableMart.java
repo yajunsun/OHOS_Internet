@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -243,7 +244,9 @@ public class VegetableMart extends myBaseActivity implements View.OnClickListene
                 m1.setaccount(PreferenceUtil.getUserName());
                 m1.setdiliver_time("0");//(generalhelper.getStringFromDate(bestshippingdate.getTime()));
                 //m1.setpay_type(3);
-                m1.settotal(goodssum);
+                BigDecimal bg = new BigDecimal(goodssum);
+                goodssum = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                m1.settotal( goodssum);
                 m1.SetGoods(buylist);
                 //printBuylst();
                 m1.setgoods_type(buylist.get(0).getgoods_type());

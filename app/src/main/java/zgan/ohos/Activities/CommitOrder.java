@@ -324,7 +324,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
             }
 
             txt_paymount = (TextView) view.findViewById(R.id.txt_paymount);
-            txt_paymount.setText("￥" + fee);
+            txt_paymount.setText("￥" + decimalFormat.format(fee));
             iv_hdfk.setOnClickListener(this);
             iv_alipay.setOnClickListener(this);
             iv_wallite.setOnClickListener(this);
