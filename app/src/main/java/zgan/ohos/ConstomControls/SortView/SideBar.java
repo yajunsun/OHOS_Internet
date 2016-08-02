@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +17,7 @@ public class SideBar extends View {
     public static String[] b = { "A", "B", "C", "D", "E", "F", "G", "H", "I",
             "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
             "W", "X", "Y", "Z", "#" };
+
     
     private int choose = -1;
     private Paint paint = new Paint();
