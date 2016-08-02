@@ -218,14 +218,8 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                             msg1.obj = ex.getMessage();
                             handler.sendMessage(msg1);
                         }
-                    } else if (results[1].equals("1025")) {//results[0].equals("0") &&
-                        try {
-                            getActivity().unregisterReceiver(wxpayreceiver);
-                        }
-                        catch (Exception e)
-                        {
-                            e.printStackTrace();
-                        }
+                    }
+                    else if (results[1].equals("1025")) {//results[0].equals("0") &&
                         if (results[0].equals("0")) {
                             generalhelper.ToastShow(getActivity(), "支付成功~");
                             paymentSelectDialog.dismiss();
@@ -237,6 +231,17 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                     refreshview.setRefreshing(false);
                 }
                 //toCloseProgress();
+            }
+            else if (msg.what==resultCodes.PAYCOMPLETE)
+            {
+                updateCommit();
+                try {
+                    getActivity().unregisterReceiver(wxpayreceiver);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         }
     };
