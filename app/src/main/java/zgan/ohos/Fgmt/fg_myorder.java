@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,6 +22,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pay.alipay.AliPay;
@@ -56,12 +59,13 @@ import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
+import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.resultCodes;
 
 /**
  * create by yajunsun
- * <p>
+ * <p/>
  * 首页订单fragment
  */
 public class fg_myorder extends myBaseFragment implements View.OnClickListener {
@@ -87,6 +91,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     private IWXAPI api;
     MyOrder order;
     private ProgressDialog progressDialog;
+    public static final int ORDER_GOODS_LIST = 10000;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -103,7 +108,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
         myInflater = inflater;
         View v = myInflater.inflate(R.layout.activity_order_list, container, false);
         dal = new QueryOrderDal();
-        goodsdal=new VegetableDal();
+        goodsdal = new VegetableDal();
         density = AppUtils.getDensity(getActivity());
         mLayoutManager = new LinearLayoutManager(getActivity());
         imageLoader = new ImageLoader();
@@ -286,7 +291,42 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
 
     class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
-        HashMap<Integer, Handler> handlerHashMap = new HashMap<>();
+        HashMap<Integer, List<BaseGoods>> goodsMap = new HashMap<>();
+        Handler adapterHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case 1:
+                        Frame frame = (Frame) msg.obj;
+                        String[] results = frame.strData.split("\t");
+                        String ret = generalhelper.getSocketeStringResult(frame.strData);
+                        Log.i("suntest", frame.subCmd + "  " + ret);
+
+                        if (frame.subCmd == 40) {
+                            if (results[0].equals("0") && results[1].equals("1026")) {
+                                try {
+                                    List<Vegetable> lst = goodsdal.getList(results[2]);
+                                    final List<BaseGoods> goodslst = new ArrayList<>();
+                                    for (BaseGoods v : lst) {
+                                        goodslst.add(v);
+                                    }
+                                    goodsMap.put(SystemUtils.getIntValue(results[3]), goodslst);
+                                } catch (Exception ex) {
+                                    android.os.Message msg1 = new android.os.Message();
+                                    msg1.what = 0;
+                                    msg1.obj = ex.getMessage();
+                                    handler.sendMessage(msg1);
+                                }
+                            }
+                        }
+                        break;
+                    case ORDER_GOODS_LIST:
+                        ZganCommunityService.toGetServerData(40, 0, 3, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1026, String.format("@id=22,@account=%s,@order_id=%s", PreferenceUtil.getUserName(), msg.obj), msg.arg1), adapterHandler);
+                        break;
+                }
+            }
+        };
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -299,39 +339,25 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
             MyOrder o = new MyOrder();
             //设置recycleviewer的高度
             //int h = 0;//(int) (density * 120 * getItemCount());
-            int h = (int) (density * 120);
+            //int w = (int) (density * 120);
             double fee = m.getpriceTotal();
             int count = m.getcount();
-            List<BaseGoods> goodses = new ArrayList<>();
-//            BaseGoods goods = new Vegetable();
-//            goods.settitle(m.gettitle());
-//            goods.setprice(m.getprice());
-//            goods.setSelectedcount(m.getcount());
-//            goods.setpic_url(m.getpic_url());
-//            goodses.add(goods);
-//            for (BaseGoods g : m.GetGoods()) {
-//                fee += g.getprice()*g.getSelectedcount();
-//                count+=g.getSelectedcount();
-//                h +=  (int) (density * 120);
-//            }
-            if (m.gettitle().equals(""))
-                h = 0;
             o.setorder_id(m.getorder_id());
             o.setdiliver_time(m.getdiliver_time());
-            o.SetGoods(goodses);
+            // o.SetGoods(goodses);
             o.settotal(m.getpriceTotal());
             o.setstate(m.getorder_state());
             o.setpay_type(m.getpay_type());
-            ViewGroup.LayoutParams params = holder.rv_goods.getLayoutParams();
-            params.height = h;
+            //ViewGroup.LayoutParams params = holder.rv_goods.getLayoutParams();
+            //params.height = h;
             if (m.getpay_state() == 0)
                 holder.btn_payimmediatly.setVisibility(View.VISIBLE);
-            holder.rv_goods.setLayoutParams(params);
-            Message msg = holder.handler.obtainMessage();
-            msg.what = 2;
+            //holder.rv_goods.setLayoutParams(params);
+            Message msg = adapterHandler.obtainMessage();
+            msg.what = ORDER_GOODS_LIST;
             msg.obj = o.getorder_id();
             msg.arg1 = position;
-            holder.handler.sendMessage(msg);
+            adapterHandler.sendMessage(msg);
 
             //holder.rv_goods.setAdapter(new mySubAdapter(goodses));
             holder.txt_ordernum.setText("订单号：" + m.getorder_id());
@@ -341,6 +367,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
             holder.txt_payfee.setText("合计：￥" + decimalFormat.format(fee));
             holder.index = position;
             holder.txttimer.setText("");
+            holder.rv_goods.removeAllViews();
             final Date deliverTime = generalhelper.getDateFromString(o.getdiliver_time(), new Date());
             Date now = new Date();
             if (deliverTime.compareTo(now) > 0) {
@@ -379,7 +406,53 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                     }, 0, 1000);
                 }
             }
+            if (goodsMap.get(position) != null) {
+                List<BaseGoods>goodses=goodsMap.get(position);
+                for(BaseGoods g :goodses)
+                {
+                    LinearLayout layout=new LinearLayout(getActivity());
+                    LinearLayout.MarginLayoutParams params=new LinearLayout.LayoutParams((int)(100*density),(int)(100*density));
+                    layout.setOrientation(LinearLayout.VERTICAL);
+                    ImageView img=new ImageView(getActivity());
+                    params.setMargins(10,10,0,10);
+                    layout.setLayoutParams(params);
+                    img.setLayoutParams(params);
+                    img.setLayoutParams(params);
+                    img.setScaleType(ImageView.ScaleType.FIT_XY);
+                    img.setAdjustViewBounds(true);
+                    img.setMaxWidth((int)(300*density));
+                    ImageLoader.bindBitmap(g.getpic_url(), img, 100, 100);
+                    layout.addView(img);
+                    holder.rv_goods.addView(layout);
+                }
 
+            }
+            else
+                holder.rv_goods.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (goodsMap.get(position) != null) {
+                            List<BaseGoods>goodses=goodsMap.get(position);
+                            for(BaseGoods g :goodses)
+                            {
+                                LinearLayout layout=new LinearLayout(getActivity());
+                                LinearLayout.MarginLayoutParams params=new LinearLayout.LayoutParams((int)(100*density),(int)(100*density));
+                                layout.setOrientation(LinearLayout.VERTICAL);
+                                ImageView img=new ImageView(getActivity());
+                                params.setMargins(10,10,0,10);
+                                layout.setLayoutParams(params);
+                                img.setLayoutParams(params);
+                                img.setLayoutParams(params);
+                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setAdjustViewBounds(true);
+                                img.setMaxWidth((int)(300*density));
+                                ImageLoader.bindBitmap(g.getpic_url(), img, 100, 100);
+                                layout.addView(img);
+                                holder.rv_goods.addView(layout);
+                            }
+                        }
+                    }
+                }, 1000);
             holder.btn_deleteorder.setOnClickListener(new ItemButtonOnclickListner(o, m.getStatusText(), m.getsub_time()));
             holder.btn_checkshipping.setOnClickListener(new ItemButtonOnclickListner(o, m.getStatusText(), m.getsub_time()));
             holder.btn_payimmediatly.setOnClickListener(new ItemButtonOnclickListner(o, m.getStatusText(), m.getsub_time()));
@@ -435,7 +508,8 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
         class ViewHolder extends RecyclerView.ViewHolder {
             TextView txt_ordernum, txt_shippingstatus, txt_count, txt_payfee, txttimer;
             Button btn_deleteorder, btn_checkshipping, btn_payimmediatly;
-            RecyclerView rv_goods;
+            //RecyclerView rv_goods;
+            LinearLayout rv_goods;
             Timer timer;
             int index = 0;
             final Handler handler = new Handler() {
@@ -443,51 +517,12 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                 public void handleMessage(Message msg) {
                     if (index == msg.arg1)
                         switch (msg.what) {
-                            case 1:
-                                Frame frame = (Frame) msg.obj;
-                                String[] results = frame.strData.split("\t");
-                                String ret = generalhelper.getSocketeStringResult(frame.strData);
-                                Log.i("suntest", frame.subCmd + "  " + ret);
-
-                                if (frame.subCmd == 40) {
-                                    if (results[0].equals("0") && results[1].equals("1026")) {
-                                        try {
-                                            //这里先要判断一下返回的ID(position)
-                                            //if(_=msg.arg1)
-                                            //商品图片列表
-                                             List<Vegetable> lst =  goodsdal.getList(results[2]);
-                                             final List<BaseGoods>goodslst=new ArrayList<>();
-                                            for (BaseGoods v :lst)
-                                            {
-                                                goodslst.add(v);
-                                            }
-                                            handler.post(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    rv_goods.setAdapter(new mySubAdapter(goodslst));
-
-                                                }
-                                            });
-                                        } catch (Exception ex) {
-                                            android.os.Message msg1 = new android.os.Message();
-                                            msg1.what = 0;
-                                            msg1.obj = ex.getMessage();
-                                            handler.sendMessage(msg1);
-                                        }
-                                    }
-                                }
-
-                                break;
                             case 3:
                                 settxtTimer(msg.obj.toString());
                                 break;
                             case 0:
                                 timer.cancel();
                                 settxtTimer("");
-                                break;
-                            case 2:
-                                //此处将ID设为position
-                                ZganCommunityService.toGetServerData(40,0,3, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1026, String.format("@id=22,@account=%s,@order_id=%s", PreferenceUtil.getUserName(), msg.obj), msg.arg1), handler);
                                 break;
                         }
                 }
@@ -500,8 +535,9 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                 txt_count = (TextView) itemView.findViewById(R.id.txt_count);
                 txt_payfee = (TextView) itemView.findViewById(R.id.txt_payfee);
                 txttimer = (TextView) itemView.findViewById(R.id.txttimer);
-                rv_goods = (RecyclerView) itemView.findViewById(R.id.rv_goods);
-                rv_goods.setLayoutManager(new LinearLayoutManager(getActivity()));
+                //rv_goods = (RecyclerView) itemView.findViewById(R.id.rv_goods);
+                rv_goods = (LinearLayout) itemView.findViewById(R.id.rv_goods);
+                //rv_goods.setLayoutManager(new LinearLayoutManager(getActivity()));
                 btn_deleteorder = (Button) itemView.findViewById(R.id.btn_deleteorder);
                 btn_checkshipping = (Button) itemView.findViewById(R.id.btn_checkshipping);
                 btn_payimmediatly = (Button) itemView.findViewById(R.id.btn_payimmediatly);
@@ -512,49 +548,6 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
             }
         }
     }
-
-    class mySubAdapter extends RecyclerView.Adapter<mySubAdapter.ViewHolder> {
-
-        List<BaseGoods> goodslist;
-
-        public mySubAdapter(List<BaseGoods> _goodslist) {
-            goodslist = _goodslist;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(myInflater.inflate(R.layout.lo_ordergoods_item, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            BaseGoods g = goodslist.get(position);
-            ImageLoader.bindBitmap(g.getpic_url(), holder.iv_preview, 100, 100);
-            holder.txt_name.setText(g.gettitle());
-            holder.txt_price.setText("￥" + decimalFormat.format(g.getprice()));
-            holder.txt_count.setText("*" + g.getSelectedcount());
-        }
-
-        @Override
-        public int getItemCount() {
-            return goodslist.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            ImageView iv_preview;
-            TextView txt_price, txt_name, txt_count;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                iv_preview = (ImageView) itemView.findViewById(R.id.iv_preview);
-                txt_price = (TextView) itemView.findViewById(R.id.txt_price);
-                txt_name = (TextView) itemView.findViewById(R.id.txt_name);
-                txt_count = (TextView) itemView.findViewById(R.id.txt_count);
-            }
-        }
-    }
-
-
     private void buildPaySelection() {
         if (paymentSelectDialog == null) {
             ImageView iv_hdfk, iv_alipay, iv_wallite, iv_wxpay;

@@ -2,6 +2,8 @@ package zgan.ohos.Models;
 
 import java.io.Serializable;
 
+import zgan.ohos.utils.SystemUtils;
+
 /**
  * Created by Administrator on 16-4-8.
  */
@@ -156,7 +158,7 @@ public abstract class BaseGoods extends BaseModel implements Serializable {
     {
         if(value!=null)
         {
-            count=Integer.valueOf(value.toString());
+            count= SystemUtils.getIntValue(value.toString());
         }
     }
 }

@@ -33,10 +33,17 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/rv_goods"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="130dp" />-->
+    <LinearLayout
         android:id="@+id/rv_goods"
         android:layout_width="match_parent"
-        android:layout_height="130dp" />
+        android:layout_height="120dp"
+        android:gravity="center_vertical"
+        android:background="@color/transparent80"
+        android:orientation="horizontal"></LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

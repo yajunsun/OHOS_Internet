@@ -592,18 +592,18 @@ public final class R {
 		public static final int abc_search_view = 0x7f040017;
 		public static final int abc_select_dialog_material = 0x7f040018;
 		public static final int crossfader_base = 0x7f040041;
-		public static final int notification_media_action = 0x7f04008e;
-		public static final int notification_media_cancel_action = 0x7f04008f;
-		public static final int notification_template_big_media = 0x7f040090;
-		public static final int notification_template_big_media_narrow = 0x7f040091;
-		public static final int notification_template_lines = 0x7f040092;
-		public static final int notification_template_media = 0x7f040093;
-		public static final int notification_template_part_chronometer = 0x7f040094;
-		public static final int notification_template_part_time = 0x7f040095;
-		public static final int select_dialog_item_material = 0x7f040098;
-		public static final int select_dialog_multichoice_material = 0x7f040099;
-		public static final int select_dialog_singlechoice_material = 0x7f04009a;
-		public static final int support_simple_spinner_dropdown_item = 0x7f04009c;
+		public static final int notification_media_action = 0x7f04008f;
+		public static final int notification_media_cancel_action = 0x7f040090;
+		public static final int notification_template_big_media = 0x7f040091;
+		public static final int notification_template_big_media_narrow = 0x7f040092;
+		public static final int notification_template_lines = 0x7f040093;
+		public static final int notification_template_media = 0x7f040094;
+		public static final int notification_template_part_chronometer = 0x7f040095;
+		public static final int notification_template_part_time = 0x7f040096;
+		public static final int select_dialog_item_material = 0x7f040099;
+		public static final int select_dialog_multichoice_material = 0x7f04009a;
+		public static final int select_dialog_singlechoice_material = 0x7f04009b;
+		public static final int support_simple_spinner_dropdown_item = 0x7f04009d;
 	}
 	public static final class string {
 		public static final int abc_action_bar_home_description = 0x7f080000;

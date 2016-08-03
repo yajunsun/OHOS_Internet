@@ -1,6 +1,11 @@
 package zgan.ohos.Activities;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,9 +18,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.pay.alipay.AliPay;
+import com.pay.wxpay.Constants;
+import com.pay.wxpay.WXPay;
+import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import java.sql.Ref;
 import java.text.DecimalFormat;
@@ -29,12 +44,14 @@ import java.util.TimerTask;
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.MyOrderDal;
 import zgan.ohos.Dals.QueryOrderDal;
+import zgan.ohos.Dals.VegetableDal;
 import zgan.ohos.Fgmt.myBaseFragment;
 import zgan.ohos.Models.BaseGoods;
 import zgan.ohos.Models.BaseObject;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.Models.QueryOrderM;
 import zgan.ohos.Models.Vegetable;
+import zgan.ohos.Models.WXResp;
 import zgan.ohos.R;
 import zgan.ohos.adapters.RecyclerViewItemSpace;
 import zgan.ohos.services.community.ZganCommunityService;
@@ -42,6 +59,7 @@ import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
+import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.resultCodes;
 
@@ -51,7 +69,6 @@ import zgan.ohos.utils.resultCodes;
  * 订单列表activity
  */
 public class OrderList extends myBaseActivity implements View.OnClickListener {
-
     int pageindex = 1;
     boolean isLoadingMore = false;
     LinearLayoutManager mLayoutManager;
@@ -59,14 +76,22 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
     int mOrder_type = 1;
     RecyclerView rv_orders;
     QueryOrderDal dal;
+    VegetableDal goodsdal;
     ImageLoader imageLoader;
     List<QueryOrderM> list;
     LayoutInflater myInflater;
     SwipeRefreshLayout refreshview;
     float density = 1;
     DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
-
+    Dialog paymentSelectDialog;
     TextView tall, tunpay, tunget;
+    String[] mPaytypeNames = new String[]{"", "货到付款", "钱包支付", "支付宝支付", "微信支付"};
+    String[] mVialiabelTypes = new String[]{"3", "4"};
+    boolean isCommited = false;
+    private IWXAPI api;
+    MyOrder order;
+    private ProgressDialog progressDialog;
+    public static final int ORDER_GOODS_LIST = 10000;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -77,20 +102,15 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
         }
     }
 
-    void initialOptions() {
-        tall.setTextColor(getResources().getColor(R.color.solid_black));
-        tunpay.setTextColor(getResources().getColor(R.color.solid_black));
-        tunget.setTextColor(getResources().getColor(R.color.solid_black));
-    }
-
     @Override
     protected void initView() {
-
+        myInflater =getLayoutInflater();
         setContentView(R.layout.activity_order_list);
-        myInflater = getLayoutInflater();
+        // myInflater.inflate(R.layout.activity_order_list, container, false);
         dal = new QueryOrderDal();
-        density = AppUtils.getDensity(this);
-        mLayoutManager = new LinearLayoutManager(this);
+        goodsdal = new VegetableDal();
+        density = AppUtils.getDensity(OrderList.this);
+        mLayoutManager = new LinearLayoutManager(OrderList.this);
         imageLoader = new ImageLoader();
         //list = MyOrderDal.mConfirmedOrders;
         rv_orders = (RecyclerView) findViewById(R.id.rv_orders);
@@ -103,6 +123,8 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 pageindex = 1;
                 isLoadingMore = false;
                 loadData();
+                //adapter.notifyDataSetChanged();
+
             }
         });
         rv_orders.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -121,16 +143,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 }
             }
         });
-        View back = findViewById(R.id.back);
-        back.setVisibility(View.VISIBLE);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(OrderList.this,MainActivity.class);
-                startActivityWithAnim(intent);
-                finish();
-            }
-        });
+
         tall = (TextView) findViewById(R.id.t_all);
         tunpay = (TextView) findViewById(R.id.t_unpay);
         tunget = (TextView) findViewById(R.id.t_unget);
@@ -138,7 +151,25 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
         tunpay.setOnClickListener(this);
         tunget.setOnClickListener(this);
         tall.setTextColor(getResources().getColor(R.color.primary));
+    }
+
+    @Override
+    public void ViewClick(View v) {
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter = null;
+        pageindex = 1;
         loadData();
+    }
+
+    void initialOptions() {
+        tall.setTextColor(getResources().getColor(R.color.solid_black));
+        tunpay.setTextColor(getResources().getColor(R.color.solid_black));
+        tunget.setTextColor(getResources().getColor(R.color.solid_black));
     }
 
     protected void loadData() {
@@ -152,7 +183,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
             refreshview.setRefreshing(true);
             ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), "22"), handler);
         } catch (Exception ex) {
-            generalhelper.ToastShow(this, ex.getMessage());
+            generalhelper.ToastShow(OrderList.this, ex.getMessage());
         }
     }
 
@@ -176,13 +207,13 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 Log.i("suntest", frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("1016") && results.length > 2) {
+                    if (results[0].equals("0") && results[1].equals("1016")) {
                         try {
                             if (pageindex == 1) {
                                 list = new ArrayList<>();
                             }
                             if (frame.platform != 0) {
-                                addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), "22"), frame.strData);
+                                String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), frame.strData);
                             }
                             List<QueryOrderM> orders = dal.getList(results[2]);
                             list.addAll(orders);
@@ -190,6 +221,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                                 @Override
                                 public void run() {
                                     bindData();
+                                    refreshview.setRefreshing(false);
                                 }
                             });
                         } catch (Exception ex) {
@@ -198,10 +230,24 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                             msg1.obj = ex.getMessage();
                             handler.sendMessage(msg1);
                         }
+                    } else if (results[1].equals("1025")) {//results[0].equals("0") &&
+                        if (results[0].equals("0")) {
+                            generalhelper.ToastShow(OrderList.this, "支付成功~");
+                            paymentSelectDialog.dismiss();
+                            loadData();
+                        } else
+                            generalhelper.ToastShow(OrderList.this, "支付失败~");
                     }
                     refreshview.setRefreshing(false);
                 }
                 //toCloseProgress();
+            } else if (msg.what == resultCodes.PAYCOMPLETE) {
+                updateCommit();
+                try {
+                    OrderList.this.unregisterReceiver(wxpayreceiver);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     };
@@ -228,17 +274,63 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 tunget.setTextColor(getResources().getColor(R.color.primary));
                 loadData();
                 break;
+            case R.id.iv_alipay:
+                if (!isCommited) {
+                    order.setpay_type(3);
+                    pay();
+                }
+                break;
+            case R.id.iv_wxpay:
+                if (!isCommited) {
+                    order.setpay_type(4);
+                    pay();
+                }
+                break;
+            case R.id.btn_complete:
+            case R.id.txt_toorder:
+                paymentSelectDialog.dismiss();
+                break;
         }
-    }
-
-    @Override
-    public void ViewClick(View v) {
-
     }
 
     class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
-        HashMap<Integer, Handler> handlerHashMap = new HashMap<>();
+        HashMap<Integer, List<BaseGoods>> goodsMap = new HashMap<>();
+        Handler adapterHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case 1:
+                        Frame frame = (Frame) msg.obj;
+                        String[] results = frame.strData.split("\t");
+                        String ret = generalhelper.getSocketeStringResult(frame.strData);
+                        Log.i("suntest", frame.subCmd + "  " + ret);
+
+                        if (frame.subCmd == 40) {
+                            if (results[0].equals("0") && results[1].equals("1026")) {
+                                try {
+                                    List<Vegetable> lst = goodsdal.getList(results[2]);
+                                    final List<BaseGoods> goodslst = new ArrayList<>();
+                                    for (BaseGoods v : lst) {
+                                        goodslst.add(v);
+                                    }
+                                    goodsMap.put(SystemUtils.getIntValue(results[3]), goodslst);
+                                } catch (Exception ex) {
+                                    android.os.Message msg1 = new android.os.Message();
+                                    msg1.what = 0;
+                                    msg1.obj = ex.getMessage();
+                                    handler.sendMessage(msg1);
+                                }
+                            }
+                        }
+                        break;
+                    case ORDER_GOODS_LIST:
+                        ZganCommunityService.toGetServerData(40, 0, 3, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1026, String.format("@id=22,@account=%s,@order_id=%s", PreferenceUtil.getUserName(), msg.obj), msg.arg1), adapterHandler);
+                        break;
+                }
+            }
+        };
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -251,33 +343,27 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
             MyOrder o = new MyOrder();
             //设置recycleviewer的高度
             //int h = 0;//(int) (density * 120 * getItemCount());
-            int h = (int) (density * 120);
+            //int w = (int) (density * 120);
             double fee = m.getpriceTotal();
             int count = m.getcount();
-            List<BaseGoods> goodses = new ArrayList<>();
-            BaseGoods goods = new Vegetable();
-            goods.settitle(m.gettitle());
-            goods.setprice(m.getprice());
-            goods.setSelectedcount(m.getcount());
-            goods.setpic_url(m.getpic_url());
-            goodses.add(goods);
-//            for (BaseGoods g : m.GetGoods()) {
-//                fee += g.getprice()*g.getSelectedcount();
-//                count+=g.getSelectedcount();
-//                h +=  (int) (density * 120);
-//            }
-            if (m.gettitle().equals(""))
-                h = 0;
             o.setorder_id(m.getorder_id());
             o.setdiliver_time(m.getdiliver_time());
-            o.SetGoods(goodses);
+            // o.SetGoods(goodses);
             o.settotal(m.getpriceTotal());
             o.setstate(m.getorder_state());
             o.setpay_type(m.getpay_type());
-            ViewGroup.LayoutParams params = holder.rv_goods.getLayoutParams();
-            params.height = h;
-            holder.rv_goods.setLayoutParams(params);
-            holder.rv_goods.setAdapter(new mySubAdapter(goodses));
+            //ViewGroup.LayoutParams params = holder.rv_goods.getLayoutParams();
+            //params.height = h;
+            if (m.getpay_state() == 0)
+                holder.btn_payimmediatly.setVisibility(View.VISIBLE);
+            //holder.rv_goods.setLayoutParams(params);
+            Message msg = adapterHandler.obtainMessage();
+            msg.what = ORDER_GOODS_LIST;
+            msg.obj = o.getorder_id();
+            msg.arg1 = position;
+            adapterHandler.sendMessage(msg);
+
+            //holder.rv_goods.setAdapter(new mySubAdapter(goodses));
             holder.txt_ordernum.setText("订单号：" + m.getorder_id());
             holder.txt_shippingstatus.setText(m.getStatusText());
             // holder.txt_shippingstatus.setText(getShippingStatus(m.getShipping_status()));
@@ -285,6 +371,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
             holder.txt_payfee.setText("合计：￥" + decimalFormat.format(fee));
             holder.index = position;
             holder.txttimer.setText("");
+            holder.rv_goods.removeAllViews();
             final Date deliverTime = generalhelper.getDateFromString(o.getdiliver_time(), new Date());
             Date now = new Date();
             if (deliverTime.compareTo(now) > 0) {
@@ -297,7 +384,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 if (day > 0) {
                     holder.txttimer.setText(String.format("预计%s送达", generalhelper.getStringFromDate(deliverTime, "yyyy-MM-dd")));
                 } else if (hour > 0) {
-                    holder.txttimer.setText(String.format("预计%s送达", generalhelper.getStringFromDate(deliverTime, "yyyy-MM-dd HH")));
+                    holder.txttimer.setText(String.format("预计%s送达", generalhelper.getStringFromDate(deliverTime, "yyyy-MM-dd")));
                 } else {
                     holder.timer = new Timer(true);
 
@@ -312,7 +399,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                             long min = ((l / (60 * 1000)) - day * 24 * 60 - hour * 60);
                             long s = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
                             Message msg = holder.handler.obtainMessage();
-                            msg.what = 1;
+                            msg.what = 3;
                             msg.obj = min + "分" + s + "秒";
                             msg.arg1 = position;
                             holder.handler.sendMessage(msg);
@@ -323,18 +410,53 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                     }, 0, 1000);
                 }
             }
+            if (goodsMap.get(position) != null) {
+                List<BaseGoods>goodses=goodsMap.get(position);
+                for(BaseGoods g :goodses)
+                {
+                    LinearLayout layout=new LinearLayout(OrderList.this);
+                    LinearLayout.MarginLayoutParams params=new LinearLayout.LayoutParams((int)(100*density),(int)(100*density));
+                    layout.setOrientation(LinearLayout.VERTICAL);
+                    ImageView img=new ImageView(OrderList.this);
+                    params.setMargins(10,10,0,10);
+                    layout.setLayoutParams(params);
+                    img.setLayoutParams(params);
+                    img.setLayoutParams(params);
+                    img.setScaleType(ImageView.ScaleType.FIT_XY);
+                    img.setAdjustViewBounds(true);
+                    img.setMaxWidth((int)(300*density));
+                    ImageLoader.bindBitmap(g.getpic_url(), img, 100, 100);
+                    layout.addView(img);
+                    holder.rv_goods.addView(layout);
+                }
 
-
-//            if (mOrder_type == 1 || mOrder_type == 3) {
-//                holder.btn_deleteorder.setVisibility(View.VISIBLE);
-//                holder.btn_checkshipping.setVisibility(View.VISIBLE);
-//                holder.btn_payimmediatly.setVisibility(View.GONE);
-//            }
-//            if (mOrder_type == 2) {
-//                holder.btn_deleteorder.setVisibility(View.VISIBLE);
-//                holder.btn_checkshipping.setVisibility(View.GONE);
-//                holder.btn_payimmediatly.setVisibility(View.VISIBLE);
-//            }
+            }
+            else
+                holder.rv_goods.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (goodsMap.get(position) != null) {
+                            List<BaseGoods>goodses=goodsMap.get(position);
+                            for(BaseGoods g :goodses)
+                            {
+                                LinearLayout layout=new LinearLayout(OrderList.this);
+                                LinearLayout.MarginLayoutParams params=new LinearLayout.LayoutParams((int)(100*density),(int)(100*density));
+                                layout.setOrientation(LinearLayout.VERTICAL);
+                                ImageView img=new ImageView(OrderList.this);
+                                params.setMargins(10,10,0,10);
+                                layout.setLayoutParams(params);
+                                img.setLayoutParams(params);
+                                img.setLayoutParams(params);
+                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setAdjustViewBounds(true);
+                                img.setMaxWidth((int)(300*density));
+                                ImageLoader.bindBitmap(g.getpic_url(), img, 100, 100);
+                                layout.addView(img);
+                                holder.rv_goods.addView(layout);
+                            }
+                        }
+                    }
+                }, 1000);
             holder.btn_deleteorder.setOnClickListener(new ItemButtonOnclickListner(o, m.getStatusText(), m.getsub_time()));
             holder.btn_checkshipping.setOnClickListener(new ItemButtonOnclickListner(o, m.getStatusText(), m.getsub_time()));
             holder.btn_payimmediatly.setOnClickListener(new ItemButtonOnclickListner(o, m.getStatusText(), m.getsub_time()));
@@ -367,6 +489,8 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                         break;
                     case R.id.btn_payimmediatly:
                         //支付
+                        order = o;
+                        buildPaySelection();
                         break;
                     case R.id.btn_checkshipping:
                         //查看物流
@@ -388,25 +512,25 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
         class ViewHolder extends RecyclerView.ViewHolder {
             TextView txt_ordernum, txt_shippingstatus, txt_count, txt_payfee, txttimer;
             Button btn_deleteorder, btn_checkshipping, btn_payimmediatly;
-            RecyclerView rv_goods;
+            //RecyclerView rv_goods;
+            LinearLayout rv_goods;
             Timer timer;
             int index = 0;
             final Handler handler = new Handler() {
                 @Override
                 public void handleMessage(Message msg) {
-                    switch (msg.what) {
-                        case 1:
-                            if (index == msg.arg1)
+                    if (index == msg.arg1)
+                        switch (msg.what) {
+                            case 3:
                                 settxtTimer(msg.obj.toString());
-                            break;
-                        case 0:
-                            timer.cancel();
-                            settxtTimer("");
-                            break;
-                    }
+                                break;
+                            case 0:
+                                timer.cancel();
+                                settxtTimer("");
+                                break;
+                        }
                 }
             };
-            ;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -415,8 +539,9 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 txt_count = (TextView) itemView.findViewById(R.id.txt_count);
                 txt_payfee = (TextView) itemView.findViewById(R.id.txt_payfee);
                 txttimer = (TextView) itemView.findViewById(R.id.txttimer);
-                rv_goods = (RecyclerView) itemView.findViewById(R.id.rv_goods);
-                rv_goods.setLayoutManager(new LinearLayoutManager(OrderList.this));
+                //rv_goods = (RecyclerView) itemView.findViewById(R.id.rv_goods);
+                rv_goods = (LinearLayout) itemView.findViewById(R.id.rv_goods);
+                //rv_goods.setLayoutManager(new LinearLayoutManager(OrderList.this));
                 btn_deleteorder = (Button) itemView.findViewById(R.id.btn_deleteorder);
                 btn_checkshipping = (Button) itemView.findViewById(R.id.btn_checkshipping);
                 btn_payimmediatly = (Button) itemView.findViewById(R.id.btn_payimmediatly);
@@ -427,45 +552,145 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
             }
         }
     }
+    private void buildPaySelection() {
+        if (paymentSelectDialog == null) {
+            ImageView iv_hdfk, iv_alipay, iv_wallite, iv_wxpay;
+            TextView txt_paymount;
+            View view = OrderList.this.getLayoutInflater().inflate(R.layout.lo_paytype_choose_dialog,
+                    null);
+            iv_hdfk = (ImageView) view.findViewById(R.id.iv_hdfk);
+            iv_wallite = (ImageView) view.findViewById(R.id.iv_wallite);
+            iv_alipay = (ImageView) view.findViewById(R.id.iv_alipay);
+            iv_wxpay = (ImageView) view.findViewById(R.id.iv_wxpay);
 
-    class mySubAdapter extends RecyclerView.Adapter<mySubAdapter.ViewHolder> {
-
-        List<BaseGoods> goodslist;
-
-        public mySubAdapter(List<BaseGoods> _goodslist) {
-            goodslist = _goodslist;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(myInflater.inflate(R.layout.lo_ordergoods_item, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            BaseGoods g = goodslist.get(position);
-            ImageLoader.bindBitmap(g.getpic_url(), holder.iv_preview, 100, 100);
-            holder.txt_name.setText(g.gettitle());
-            holder.txt_price.setText("￥" + decimalFormat.format(g.getprice()));
-            holder.txt_count.setText("*" + g.getSelectedcount());
-        }
-
-        @Override
-        public int getItemCount() {
-            return goodslist.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            ImageView iv_preview;
-            TextView txt_price, txt_name, txt_count;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                iv_preview = (ImageView) itemView.findViewById(R.id.iv_preview);
-                txt_price = (TextView) itemView.findViewById(R.id.txt_price);
-                txt_name = (TextView) itemView.findViewById(R.id.txt_name);
-                txt_count = (TextView) itemView.findViewById(R.id.txt_count);
+            for (String tp : mVialiabelTypes) {
+                if (tp.equals("1"))
+                    iv_hdfk.setVisibility(View.VISIBLE);
+                if (tp.equals("2"))
+                    iv_wallite.setVisibility(View.VISIBLE);
+                if (tp.equals("3"))
+                    iv_alipay.setVisibility(View.VISIBLE);
+                if (tp.equals("4"))
+                    iv_wxpay.setVisibility(View.VISIBLE);
             }
+
+            txt_paymount = (TextView) view.findViewById(R.id.txt_paymount);
+            txt_paymount.setText("￥" + decimalFormat.format(order.gettotal()));
+            iv_hdfk.setOnClickListener(this);
+            iv_alipay.setOnClickListener(this);
+            iv_wallite.setOnClickListener(this);
+            iv_wxpay.setOnClickListener(this);
+            paymentSelectDialog = new Dialog(OrderList.this, R.style.transparentFrameWindowStyle);
+            paymentSelectDialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            Window window = paymentSelectDialog.getWindow();
+            // 设置显示动画
+            window.setWindowAnimations(R.style.main_menu_animstyle);
+            WindowManager.LayoutParams wl = window.getAttributes();
+            wl.x = 0;
+            wl.y = OrderList.this.getWindowManager().getDefaultDisplay().getHeight();
+            // 以下这两句是为了保证按钮可以水平满屏
+            wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+            // 设置显示位置
+            paymentSelectDialog.onWindowAttributesChanged(wl);
+            // 设置点击外围解散
+            paymentSelectDialog.setCanceledOnTouchOutside(true);
+        }
+        paymentSelectDialog.show();
+    }
+
+    private void updateCommit() {
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1025,
+                String.format("@id=22,@order_id=%s,@state=%s,@pay_type=%s",
+                        order.getorder_id(), order.getstate(), order.getpay_type())
+                , "22"), handler);
+    }
+
+    private void pay() {
+        switch (order.getpay_type()) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                AliPay aliPay = new AliPay(OrderList.this);
+                aliPay.setOnPayListner(new AliPay.OnAliPayListner() {
+                    @Override
+                    public void done(String stat) {
+                        if (stat.equals("9000")) {
+                            order.setpay_type(3);
+                            order.setstate(1);
+                            paymentSelectDialog.dismiss();
+                            //支付成功修改订单为已支付
+                            updateCommit();
+                            isCommited = true;
+                        } else {
+                            isCommited = false;
+                            generalhelper.ToastShow(OrderList.this, "支付失败");
+                        }
+                    }
+
+                    @Override
+                    public void predo() {
+                    }
+                });
+                aliPay.Pay(order);
+                break;
+            case 4:
+//                toSetProgressText("正在启动微信支付请稍等");
+//                toShowProgress();
+                IntentFilter filter = new IntentFilter();
+                filter.addAction(WXPay.payresultAction);
+                OrderList.this.registerReceiver(wxpayreceiver, filter);
+                progressDialog = new ProgressDialog(OrderList.this);
+                progressDialog.setCancelable(true);
+                progressDialog.setMessage("正在启动微信支付。。");
+                progressDialog.show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        api = WXAPIFactory.createWXAPI(OrderList.this, Constants.APP_ID, false);
+                        api.registerApp(Constants.APP_ID);
+                        WXPay wxPay = new WXPay(api);
+                        if (!wxPay.checkSupport()) {
+                            handler.obtainMessage(400, "此版本的微信不支持支付功能").sendToTarget();
+                            return;
+                        }
+                        wxPay.setOrder(order);
+                        wxPay.Pay();
+                    }
+                }).start();
+                break;
         }
     }
+
+    public BroadcastReceiver wxpayreceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.hasExtra("data")) {
+                WXResp resp = (WXResp) intent.getSerializableExtra("data");
+                switch (resp.getErrcode()) {
+                    case BaseResp.ErrCode.ERR_OK:
+                        generalhelper.ToastShow(OrderList.this, "支付成功");
+                        handler.obtainMessage(resultCodes.PAYCOMPLETE).sendToTarget();
+                        break;
+                    case BaseResp.ErrCode.ERR_USER_CANCEL:
+                        isCommited = false;
+                        generalhelper.ToastShow(OrderList.this, "已取消支付");
+                        break;
+                    case BaseResp.ErrCode.ERR_AUTH_DENIED:
+                        isCommited = false;
+                        generalhelper.ToastShow(OrderList.this, "未授权");
+                        break;
+                    default:
+                        isCommited = false;
+                        generalhelper.ToastShow(OrderList.this, "未知错误");
+                        break;
+                }
+            }
+            progressDialog.dismiss();
+        }
+    };
 }

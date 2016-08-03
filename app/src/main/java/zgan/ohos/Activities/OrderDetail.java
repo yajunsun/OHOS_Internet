@@ -35,13 +35,16 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import zgan.ohos.ConstomControls.PayPwdEditText;
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.MyOrderDal;
+import zgan.ohos.Dals.VegetableDal;
 import zgan.ohos.Models.BaseGoods;
 import zgan.ohos.Models.MyOrder;
+import zgan.ohos.Models.Vegetable;
 import zgan.ohos.Models.WXResp;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
@@ -138,7 +141,8 @@ public class OrderDetail extends myBaseActivity implements View.OnClickListener 
             }
         });
         if (order != null) {
-            list = order.GetGoods();
+            //list = order.GetGoods();
+            loadData();
             initialPage();
         }
         txt_addr.setText("收货地址：" + SystemUtils.getVillage()+SystemUtils.getAddress());
@@ -162,14 +166,23 @@ public class OrderDetail extends myBaseActivity implements View.OnClickListener 
 //            fee += g.getprice() * g.getSelectedcount();
 //        }
         txt_payfee.setText("￥" + decimalFormat.format(fee));
+
+        buildPayView(order.getpay_type());
+    }
+
+    private void  loadData()
+    {
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1026, String.format("@id=22,@account=%s,@order_id=%s", PreferenceUtil.getUserName(), order.getorder_id()),"22"), handler);
+    }
+    private void dataBind()
+    {
         int h = (int) (AppUtils.getDensity(this) * 120 * list.size());
         ViewGroup.LayoutParams params = rv_goods.getLayoutParams();
         params.height = h;
         rv_goods.setAdapter(new myAdapter());
+        rv_goods.setLayoutParams(params);
         rv_goods.setLayoutManager(new LinearLayoutManager(this));
-        buildPayView(order.getpay_type());
     }
-
     private void buildPayView(int statu) {
         float density = AppUtils.getDensity(this);
         int i = 0;
@@ -431,7 +444,7 @@ public class OrderDetail extends myBaseActivity implements View.OnClickListener 
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_ordergoods_item, parent, false));
+            return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_ordergoods_detail_item, parent, false));
         }
 
         @Override
@@ -446,7 +459,7 @@ public class OrderDetail extends myBaseActivity implements View.OnClickListener 
             ImageLoader.bindBitmap(g.getpic_url(), holder.iv_preview, 100, 100);
             holder.txt_name.setText(g.gettitle());
             holder.txt_price.setText("￥" +decimalFormat.format( g.getprice()));
-            holder.txt_count.setText("*" + g.getSelectedcount());
+            holder.txt_count.setText("*" + g.getcount());
         }
 
         @Override
@@ -482,17 +495,23 @@ public class OrderDetail extends myBaseActivity implements View.OnClickListener 
                 Log.i(TAG, frame.subCmd + "  " + ret);
                 if (frame.subCmd == 40) {
                     String[] results = frame.strData.split("\t");
-//                    if (results[0].equals("0") && results[1].equals("1020")) {
-//                        String datastr = results[2];
-//                        try {
-//                            JSONArray jsonArray = new JSONObject(datastr)
-//                                    .getJSONArray("data");
-//                            JSONObject obj = (JSONObject) jsonArray.opt(0);
-//                            txt_addr.setText("收货地址："+obj.getString("address"));
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
+                    if (results[0].equals("0") && results[1].equals("1026")) {
+                        try {
+                            list=new ArrayList<>();
+                            List<Vegetable> lst = new VegetableDal().getList(results[2]);
+                            List<BaseGoods> goodslst = new ArrayList<>();
+                            for (BaseGoods v : lst) {
+                                list.add(v);
+                            }
+                                    dataBind();
+                            //goodsMap.put(SystemUtils.getIntValue(results[3]), goodslst);
+                        } catch (Exception ex) {
+                            android.os.Message msg1 = new android.os.Message();
+                            msg1.what = 0;
+                            msg1.obj = ex.getMessage();
+                            handler.sendMessage(msg1);
+                        }
+                    }
                 }
             }
         }
