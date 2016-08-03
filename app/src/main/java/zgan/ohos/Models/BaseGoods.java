@@ -118,6 +118,10 @@ public abstract class BaseGoods extends BaseModel implements Serializable {
      * 购买量
      */
     private int selectedcount = 1;
+    /**
+     * 服务器返回的数量
+     */
+    private int count = 0;
 
     /**
      * 支持的支付方式
@@ -125,8 +129,8 @@ public abstract class BaseGoods extends BaseModel implements Serializable {
     private String payment;
     /**
      * 商品类型 普通商品 0 服务类商品>0
-     * */
-    private String goods_type="0";
+     */
+    private String goods_type = "0";
 
     public String getpayment() {
         return payment;
@@ -142,5 +146,17 @@ public abstract class BaseGoods extends BaseModel implements Serializable {
 
     public void setgoods_type(String goods_type) {
         this.goods_type = goods_type;
+    }
+
+    public int getcount() {
+        return count;
+    }
+
+    public void setcount(Object value)
+    {
+        if(value!=null)
+        {
+            count=Integer.valueOf(value.toString());
+        }
     }
 }

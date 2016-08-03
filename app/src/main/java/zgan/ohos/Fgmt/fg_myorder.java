@@ -43,6 +43,7 @@ import zgan.ohos.Activities.MainActivity;
 import zgan.ohos.Activities.OrderDetail;
 import zgan.ohos.Activities.OrderList;
 import zgan.ohos.Dals.QueryOrderDal;
+import zgan.ohos.Dals.VegetableDal;
 import zgan.ohos.Models.BaseGoods;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.Models.QueryOrderM;
@@ -60,7 +61,7 @@ import zgan.ohos.utils.resultCodes;
 
 /**
  * create by yajunsun
- * <p/>
+ * <p>
  * 首页订单fragment
  */
 public class fg_myorder extends myBaseFragment implements View.OnClickListener {
@@ -71,6 +72,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     int mOrder_type = 1;
     RecyclerView rv_orders;
     QueryOrderDal dal;
+    VegetableDal goodsdal;
     ImageLoader imageLoader;
     List<QueryOrderM> list;
     LayoutInflater myInflater;
@@ -101,6 +103,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
         myInflater = inflater;
         View v = myInflater.inflate(R.layout.activity_order_list, container, false);
         dal = new QueryOrderDal();
+        goodsdal=new VegetableDal();
         density = AppUtils.getDensity(getActivity());
         mLayoutManager = new LinearLayoutManager(getActivity());
         imageLoader = new ImageLoader();
@@ -218,28 +221,22 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                             msg1.obj = ex.getMessage();
                             handler.sendMessage(msg1);
                         }
-                    }
-                    else if (results[1].equals("1025")) {//results[0].equals("0") &&
+                    } else if (results[1].equals("1025")) {//results[0].equals("0") &&
                         if (results[0].equals("0")) {
                             generalhelper.ToastShow(getActivity(), "支付成功~");
                             paymentSelectDialog.dismiss();
                             loadData();
-                        }
-                        else
+                        } else
                             generalhelper.ToastShow(getActivity(), "支付失败~");
                     }
                     refreshview.setRefreshing(false);
                 }
                 //toCloseProgress();
-            }
-            else if (msg.what==resultCodes.PAYCOMPLETE)
-            {
+            } else if (msg.what == resultCodes.PAYCOMPLETE) {
                 updateCommit();
                 try {
                     getActivity().unregisterReceiver(wxpayreceiver);
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -306,12 +303,12 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
             double fee = m.getpriceTotal();
             int count = m.getcount();
             List<BaseGoods> goodses = new ArrayList<>();
-            BaseGoods goods = new Vegetable();
-            goods.settitle(m.gettitle());
-            goods.setprice(m.getprice());
-            goods.setSelectedcount(m.getcount());
-            goods.setpic_url(m.getpic_url());
-            goodses.add(goods);
+//            BaseGoods goods = new Vegetable();
+//            goods.settitle(m.gettitle());
+//            goods.setprice(m.getprice());
+//            goods.setSelectedcount(m.getcount());
+//            goods.setpic_url(m.getpic_url());
+//            goodses.add(goods);
 //            for (BaseGoods g : m.GetGoods()) {
 //                fee += g.getprice()*g.getSelectedcount();
 //                count+=g.getSelectedcount();
@@ -330,7 +327,13 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
             if (m.getpay_state() == 0)
                 holder.btn_payimmediatly.setVisibility(View.VISIBLE);
             holder.rv_goods.setLayoutParams(params);
-            holder.rv_goods.setAdapter(new mySubAdapter(goodses));
+            Message msg = holder.handler.obtainMessage();
+            msg.what = 2;
+            msg.obj = o.getorder_id();
+            msg.arg1 = position;
+            holder.handler.sendMessage(msg);
+
+            //holder.rv_goods.setAdapter(new mySubAdapter(goodses));
             holder.txt_ordernum.setText("订单号：" + m.getorder_id());
             holder.txt_shippingstatus.setText(m.getStatusText());
             // holder.txt_shippingstatus.setText(getShippingStatus(m.getShipping_status()));
@@ -365,7 +368,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                             long min = ((l / (60 * 1000)) - day * 24 * 60 - hour * 60);
                             long s = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
                             Message msg = holder.handler.obtainMessage();
-                            msg.what = 1;
+                            msg.what = 3;
                             msg.obj = min + "分" + s + "秒";
                             msg.arg1 = position;
                             holder.handler.sendMessage(msg);
@@ -377,17 +380,6 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                 }
             }
 
-
-//            if (mOrder_type == 1 || mOrder_type == 3) {
-//                holder.btn_deleteorder.setVisibility(View.VISIBLE);
-//                holder.btn_checkshipping.setVisibility(View.VISIBLE);
-//                holder.btn_payimmediatly.setVisibility(View.GONE);
-//            }
-//            if (mOrder_type == 2) {
-//                holder.btn_deleteorder.setVisibility(View.VISIBLE);
-//                holder.btn_checkshipping.setVisibility(View.GONE);
-//                holder.btn_payimmediatly.setVisibility(View.VISIBLE);
-//            }
             holder.btn_deleteorder.setOnClickListener(new ItemButtonOnclickListner(o, m.getStatusText(), m.getsub_time()));
             holder.btn_checkshipping.setOnClickListener(new ItemButtonOnclickListner(o, m.getStatusText(), m.getsub_time()));
             holder.btn_payimmediatly.setOnClickListener(new ItemButtonOnclickListner(o, m.getStatusText(), m.getsub_time()));
@@ -452,11 +444,50 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                     if (index == msg.arg1)
                         switch (msg.what) {
                             case 1:
+                                Frame frame = (Frame) msg.obj;
+                                String[] results = frame.strData.split("\t");
+                                String ret = generalhelper.getSocketeStringResult(frame.strData);
+                                Log.i("suntest", frame.subCmd + "  " + ret);
+
+                                if (frame.subCmd == 40) {
+                                    if (results[0].equals("0") && results[1].equals("1026")) {
+                                        try {
+                                            //这里先要判断一下返回的ID(position)
+                                            //if(_=msg.arg1)
+                                            //商品图片列表
+                                             List<Vegetable> lst =  goodsdal.getList(results[2]);
+                                             final List<BaseGoods>goodslst=new ArrayList<>();
+                                            for (BaseGoods v :lst)
+                                            {
+                                                goodslst.add(v);
+                                            }
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    rv_goods.setAdapter(new mySubAdapter(goodslst));
+
+                                                }
+                                            });
+                                        } catch (Exception ex) {
+                                            android.os.Message msg1 = new android.os.Message();
+                                            msg1.what = 0;
+                                            msg1.obj = ex.getMessage();
+                                            handler.sendMessage(msg1);
+                                        }
+                                    }
+                                }
+
+                                break;
+                            case 3:
                                 settxtTimer(msg.obj.toString());
                                 break;
                             case 0:
                                 timer.cancel();
                                 settxtTimer("");
+                                break;
+                            case 2:
+                                //此处将ID设为position
+                                ZganCommunityService.toGetServerData(40,0,3, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1026, String.format("@id=22,@account=%s,@order_id=%s", PreferenceUtil.getUserName(), msg.obj), msg.arg1), handler);
                                 break;
                         }
                 }
