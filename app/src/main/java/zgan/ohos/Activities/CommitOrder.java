@@ -205,7 +205,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
         if (mShipping_span > 20) {
             lshippingtime.setVisibility(View.GONE);
             lshippingtime2.setVisibility(View.VISIBLE);
-            //当下单时间在8点到16点之间
+            //当下单时间在8点到16点之间f
             if (now.getHours() > 8 && now.getHours() <= 16) {
                 c.add(Calendar.MINUTE, mShipping_span);
             }
@@ -654,7 +654,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_ordergoods_item, parent, false));
+            return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_ordergoods_detail_item, parent, false));
         }
 
         @Override
