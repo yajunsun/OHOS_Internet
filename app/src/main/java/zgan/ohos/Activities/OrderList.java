@@ -364,8 +364,18 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
             adapterHandler.sendMessage(msg);
 
             //holder.rv_goods.setAdapter(new mySubAdapter(goodses));
-            holder.txt_ordernum.setText("订单号：" + m.getorder_id());
+            holder.txt_ordernum.setText(m.getorder_id());
             holder.txt_shippingstatus.setText(m.getStatusText());
+            if(m.getStatusText().equals("已完成"))
+            {
+                holder.imgywc.setVisibility(View.VISIBLE);
+                holder.txt_shippingstatus.setVisibility(View.GONE);
+            }
+            else
+            {
+                holder.imgywc.setVisibility(View.GONE);
+                holder.txt_shippingstatus.setVisibility(View.VISIBLE);
+            }
             // holder.txt_shippingstatus.setText(getShippingStatus(m.getShipping_status()));
             holder.txt_count.setText(String.format("共%d件商品", count));
             holder.txt_payfee.setText("合计：￥" + decimalFormat.format(fee));
@@ -515,6 +525,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
             //RecyclerView rv_goods;
             LinearLayout rv_goods;
             Timer timer;
+            ImageView imgywc;
             int index = 0;
             final Handler handler = new Handler() {
                 @Override
@@ -540,6 +551,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 txt_payfee = (TextView) itemView.findViewById(R.id.txt_payfee);
                 txttimer = (TextView) itemView.findViewById(R.id.txttimer);
                 //rv_goods = (RecyclerView) itemView.findViewById(R.id.rv_goods);
+                imgywc=(ImageView)itemView.findViewById(R.id.img_ywc);
                 rv_goods = (LinearLayout) itemView.findViewById(R.id.rv_goods);
                 //rv_goods.setLayoutManager(new LinearLayoutManager(OrderList.this));
                 btn_deleteorder = (Button) itemView.findViewById(R.id.btn_deleteorder);
