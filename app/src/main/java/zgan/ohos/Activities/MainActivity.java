@@ -2,6 +2,7 @@ package zgan.ohos.Activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 
 import com.mikepenz.iconics.view.IconicsImageView;
 
+import cn.jpush.android.api.BasicPushNotificationBuilder;
+import cn.jpush.android.api.CustomPushNotificationBuilder;
+import cn.jpush.android.api.JPushInterface;
 import zgan.ohos.Fgmt.fg_myaccount;
 import zgan.ohos.Fgmt.fg_myfront;
 import zgan.ohos.Fgmt.fg_myorder;
@@ -25,9 +29,9 @@ import zgan.ohos.utils.resultCodes;
 
 /**
  * create by yajunsun
- *
+ * <p/>
  * 首页activity
- * */
+ */
 public class MainActivity extends myBaseActivity {
     /****
      * local variables
@@ -88,6 +92,12 @@ public class MainActivity extends myBaseActivity {
         super.onCreate(savedInstanceState);
         Log.v(TAG, "created");
         AppUtils.iniMainActivity(MainActivity.this);
+
+        //极光推送初始化
+        JPushInterface.init(getApplicationContext());
+        //极光推送的注册ID，需要注册到开发者服务器
+        //String rid = JPushInterface.getRegistrationID(getApplicationContext());
+        setStyleCustom();
     }
 
     @Override
@@ -153,6 +163,16 @@ public class MainActivity extends myBaseActivity {
         current_option_index = 0;
         setTabSelection(CURRENT_OPTION_MAIN);
         Log.v(TAG, "main activity initialed");
+    }
+
+    /**
+     * 设置通知栏样式 - 定义通知栏Layout
+     */
+    private void setStyleCustom() {
+        CustomPushNotificationBuilder builder = new CustomPushNotificationBuilder(MainActivity.this, R.layout.customer_notitfication_layout, R.id.icon, R.id.title, R.id.text);
+        builder.layoutIconDrawable = R.drawable.launcher;
+        builder.developerArg0 = "developerArg2";
+        JPushInterface.setPushNotificationBuilder(2, builder);
     }
 
     @Override
