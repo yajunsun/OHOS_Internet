@@ -28,6 +28,7 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
     String Phone, Pwd;
     NewUserComm Comm;
     String CommId;
+    String SID;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -51,6 +52,31 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
                 break;
         }
     }
+
+    Handler handlerL = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    Frame f = (Frame) msg.obj;
+                    String result = generalhelper.getSocketeStringResult(f.strData);
+                    String[] results = result.split(",");
+                    System.out.print(f.strData);
+                    if (f.subCmd == 1) {
+                        if (results[0].equals("0")) {
+                            //确认了登陆云服务器成功后绑定室内机SID
+                            PreferenceUtil.setUserName(Phone);
+                            PreferenceUtil.setPassWord(Pwd);
+                            SystemUtils.setIsLogin(true);
+                            ZganLoginService.toGetServerData(4, 0, String.format("%s\t%s", Phone, SID), handler);
+                            finish();
+                        }
+                    }
+                    break;
+            }
+        }
+    };
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -64,18 +90,28 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
                     if (f.subCmd == 1) {
                         if (results[0].equals("0")) {
                             SystemUtils.setIsCommunityLogin(true);
-                            PreferenceUtil.setUserName(Phone);
-                            PreferenceUtil.setPassWord(Pwd);
                             generalhelper.ToastShow(BindCommunity.this, "绑定成功");
+                            //确定了小区服务器登陆成功后跳转到MainActivity
                             startActivityWithAnim(new Intent(BindCommunity.this, MainActivity.class));
                             finish();
                         }
                     } else if (f.subCmd == 27) {
-                        if (results[0].equals("0")&&results.length==2) {
-                            PreferenceUtil.setSID(results[1]);
-                            ZganCommunityService.toUserLogin(Phone,Pwd,handler);
+                        if (results[0].equals("0") && results.length == 2) {
+                            SID=results[1];
+                            //获取到SID后确认登陆了云服务器
+                            ZganLoginService.toUserLogin(Phone, Pwd, "", handlerL);
                         } else {
                             generalhelper.ToastShow(BindCommunity.this, "绑定失败~");
+                        }
+                    }
+                    if (f.subCmd == 4) {
+                        if (result.equals("0")) {
+                            PreferenceUtil.setSID(SID);
+                            //室内机绑定成功后再确认登陆小区服务器
+                            ZganCommunityService.toUserLogin(Phone,Pwd,handler);
+                        } else {
+                            generalhelper.ToastShow(BindCommunity.this, "绑定室内机失败");
+                            toCloseProgress();
                         }
                     }
                     break;
@@ -137,6 +173,7 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
                 if (CommId.indexOf(",") > 0) {
                     String comm = CommId.substring(CommId.indexOf(",") + 1);
                     if (comm.length() > 0) {
+                        //获取SID
                         ZganCommunityService.toGetServerData(27, Phone + "\t" + comm + ",0", handler);
                     }
                 }
