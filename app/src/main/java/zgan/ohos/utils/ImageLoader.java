@@ -196,7 +196,7 @@ public final class ImageLoader {
         return bitmap;
     }
 
-    private static Bitmap loadBitmapFromHttp(String url, int reqWidth, int reqHeight) throws IOException {
+    private static synchronized Bitmap loadBitmapFromHttp(String url, int reqWidth, int reqHeight) throws IOException {
         if (Looper.myLooper() == Looper.getMainLooper())
             throw new RuntimeException("can not vist network from UI Thread.");
         if (diskLruCache == null)

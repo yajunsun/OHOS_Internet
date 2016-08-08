@@ -84,7 +84,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
     float density = 1;
     DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
     Dialog paymentSelectDialog;
-    TextView tall, tunpay, tunget;
+    TextView tall, tunpay, tunget,tinprogress;
     String[] mPaytypeNames = new String[]{"", "货到付款", "钱包支付", "支付宝支付", "微信支付"};
     String[] mVialiabelTypes = new String[]{"3", "4"};
     boolean isCommited = false;
@@ -147,9 +147,11 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
         tall = (TextView) findViewById(R.id.t_all);
         tunpay = (TextView) findViewById(R.id.t_unpay);
         tunget = (TextView) findViewById(R.id.t_unget);
+        tinprogress=(TextView)findViewById(R.id.t_inprogress) ;
         tall.setOnClickListener(this);
         tunpay.setOnClickListener(this);
         tunget.setOnClickListener(this);
+        tinprogress.setOnClickListener(this);
         tall.setTextColor(getResources().getColor(R.color.primary));
     }
 
@@ -170,6 +172,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
         tall.setTextColor(getResources().getColor(R.color.solid_black));
         tunpay.setTextColor(getResources().getColor(R.color.solid_black));
         tunget.setTextColor(getResources().getColor(R.color.solid_black));
+        tinprogress.setTextColor(getResources().getColor(R.color.solid_black));
     }
 
     protected void loadData() {
@@ -272,6 +275,12 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 initialOptions();
                 mOrder_type = 3;
                 tunget.setTextColor(getResources().getColor(R.color.primary));
+                loadData();
+                break;
+            case R.id.t_inprogress:
+                initialOptions();
+                mOrder_type = 4;
+                tinprogress.setTextColor(getResources().getColor(R.color.primary));
                 loadData();
                 break;
             case R.id.iv_alipay:

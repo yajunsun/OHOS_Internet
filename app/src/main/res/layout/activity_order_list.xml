@@ -87,6 +87,15 @@
             android:text="待收货"
             android:textColor="@color/solid_black"
             android:textSize="@dimen/myorder_statustxt_size" />
+        <TextView
+            android:id="@+id/t_inprogress"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="进行中"
+            android:textColor="@color/solid_black"
+            android:textSize="@dimen/myorder_statustxt_size" />
     </LinearLayout>
 
     <LinearLayout
