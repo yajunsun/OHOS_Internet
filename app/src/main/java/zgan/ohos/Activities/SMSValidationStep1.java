@@ -17,6 +17,8 @@ import zgan.ohos.utils.generalhelper;
 public class SMSValidationStep1 extends myBaseActivity {
 
     EditText et_phone;
+    boolean mIsregiter=false;
+    String mPhone,mPwd;
 
     @Override
     protected void initView() {
@@ -29,6 +31,16 @@ public class SMSValidationStep1 extends myBaseActivity {
             }
         });
         et_phone = (EditText) findViewById(R.id.et_phone);
+        mIsregiter=getIntent().getBooleanExtra("register",false);
+        //获取传递过来的参数
+        Intent intent=getIntent();
+        if (intent.hasExtra("phone"))
+        {
+            mPhone=intent.getStringExtra("phone");
+            et_phone.setText(mPhone);
+            mPwd=intent.getStringExtra("pwd");
+
+        }
     }
 
     @Override
@@ -62,6 +74,9 @@ public class SMSValidationStep1 extends myBaseActivity {
                         if (ret.equals("0")) {
                             Intent intent = new Intent(SMSValidationStep1.this, SMSValidationStep2.class);
                             intent.putExtra("phone", et_phone.getText().toString());
+                            if(mPwd!=null&&!mPwd.equals(""))
+                                intent.putExtra("pwd",mPwd);
+                            intent.putExtra("register",mIsregiter);
                             startActivityWithAnim(intent);
                             finish();
                         } else {

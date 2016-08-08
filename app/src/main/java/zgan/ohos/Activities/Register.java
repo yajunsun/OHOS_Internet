@@ -23,9 +23,9 @@ import zgan.ohos.utils.resultCodes;
 
 /**
  * create by yajunsun
- *
+ * <p>
  * 注册界面
- * */
+ */
 public class Register extends myBaseActivity {
     TextInputLayout til_Phone;
     TextInputLayout til_pwd;
@@ -118,10 +118,12 @@ public class Register extends myBaseActivity {
                 }
                 try {
                     if (CheckName && CheckPwd) {
-                        toSetProgressText("请稍后...");
-                        toShowProgress();
-                        //ZganLoginService.toGetServerData(2, communityId + "\t" + Phone + "\t" + Pwd + "\t0", handler);
-                        ZganLoginService.toGetServerData(2, Phone + "\t" + Pwd + "\t0", handler);
+                        Intent intent = new Intent(Register.this, SMSValidationStep1.class);
+                        intent.putExtra("phone", Phone);
+                        intent.putExtra("pwd", Pwd);
+                        intent.putExtra("register", true);
+                        startActivityWithAnim(intent);
+                        finish();
                     }
                 } catch (Exception ex) {
                     generalhelper.ToastShow(Register.this, ex.getMessage());
@@ -133,39 +135,7 @@ public class Register extends myBaseActivity {
         }
     }
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == 1) {
-                Frame frame = (Frame) msg.obj;
-                String result = generalhelper.getSocketeStringResult(frame.strData);
-                if (frame.subCmd == 1 && result.equals("0")) {
-                    //绑定室内机SID号
-                    //Intent intent = new Intent(Register.this, BindDevice.class);
-                    //手动选择小区名和单元楼层房号
-                    Intent intent=new Intent(Register.this,BindCommunity.class);
-                    intent.putExtra("username", Phone);
-                    intent.putExtra("pwd", Pwd);
-                    intent.putExtra("showcancel", true);
-                    startActivityWithAnim(intent);
-                    toCloseProgress();
-                    finish();
-                } else if (frame.subCmd == 2 && result.equals("0")) {
-//                    setResult(resultCodes.LOGIN);
-//                    SystemUtils.setIsLogin(true);
-//                    PreferenceUtil.setUserName(Phone);
-//                    PreferenceUtil.setPassWord(Pwd);
-                    //PreferenceUtil.setCommunityId(String.valueOf(communityId));
-                    Log.v(TAG, "注册成功");
-                    ZganLoginService.toUserLogin(Phone, Pwd, "", handler);
-                } else if (frame.subCmd == 2 && result.equals("24")) {
-                    generalhelper.ToastShow(Register.this, "该号码已被注册");
-                    toCloseProgress();
-                }
-            }
-        }
-    };
+
 
     @Override
     public void onDestroy() {

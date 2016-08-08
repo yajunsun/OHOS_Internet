@@ -22,17 +22,24 @@ public class SMSValidationStep2 extends myBaseActivity {
 
     Button btnredo;
     EditText etcode;
-    String phone;
+    String phone,pwd;
     int mTimeout = 60;
     Timer mTimer;
     final static int TIME_TICK = 9;
+    boolean mIsregister=false;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_smsvalidation_step2);
         btnredo = (Button) findViewById(R.id.btn_redo);
         etcode = (EditText) findViewById(R.id.et_code);
-        phone = getIntent().getStringExtra("phone");
+        Intent intent=getIntent();
+        phone = intent.getStringExtra("phone");
+        mIsregister=intent.getBooleanExtra("register",false);
+        if(intent.hasExtra("pwd"))
+        {
+            pwd=intent.getStringExtra("pwd");
+        }
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +89,20 @@ public class SMSValidationStep2 extends myBaseActivity {
                             generalhelper.ToastShow(SMSValidationStep2.this, "短信发送失败~");
                         }
                     }
+                     if (frame.subCmd == 2 && ret.equals("0")) {
+                        Intent intent=new Intent(SMSValidationStep2.this,BindCommunity.class);
+                         intent.putExtra("username",phone);
+                         intent.putExtra("pwd",pwd);
+                         startActivityWithAnim(intent);
+                         finish();
+//
+                    } else if (frame.subCmd == 2 && ret.equals("24")) {
+                        generalhelper.ToastShow(SMSValidationStep2.this, "该号码已被注册");
+                        toCloseProgress();
+                         Intent intent=new Intent(SMSValidationStep2.this,Register.class);
+                         startActivityWithAnim(intent);
+                         finish();
+                    }
                     break;
             }
         }
@@ -96,11 +117,21 @@ public class SMSValidationStep2 extends myBaseActivity {
                     return;
                 } else {
                     //判断验证码是否输入正确
-                    Intent intent = new Intent(this, UpdatePassword2.class);
-                    intent.putExtra("code", etcode.getText().toString().trim());
-                    intent.putExtra("phone", phone);
-                    startActivityWithAnim(intent);
-                    finish();
+                    if(mIsregister)
+                    {
+                        toSetProgressText("请稍后...");
+                        toShowProgress();
+                        ZganLoginService.toGetServerData(2, phone + "\t" + pwd + "\t"+etcode.getText().toString().trim(), handler);
+                        //intent.putExtra("code", etcode.getText().toString().trim());
+                    }
+                    else {
+                        Intent  intent= new Intent(this, UpdatePassword2.class);
+                        intent.putExtra("code", etcode.getText().toString().trim());
+                        intent.putExtra("phone", phone);
+                        startActivityWithAnim(intent);
+                        finish();
+                    }
+
                 }
                 break;
             case R.id.btn_redo:

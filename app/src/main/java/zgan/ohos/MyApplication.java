@@ -39,7 +39,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
-        PhoneYear = YearClass.get(context);
+        PhoneYear = 2012;//YearClass.get(context);
 //        if (isOwnAPP()) {
         requestQueue = Volley.newRequestQueue(this);
         CrashHandler crashHandler = CrashHandler.getInstance();

@@ -29,6 +29,7 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
     NewUserComm Comm;
     String CommId;
     String SID;
+    //String SMScode;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -131,6 +132,7 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
         if (requestIntent.hasExtra("username")) {
             Phone = requestIntent.getStringExtra("username");
             Pwd = requestIntent.getStringExtra("pwd");
+            //SMScode=requestIntent.getStringExtra("code");
         }
         llselectComm = findViewById(R.id.llselectComm);
         llselectDetail = findViewById(R.id.llselectDetail);
