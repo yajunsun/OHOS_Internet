@@ -84,7 +84,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     float density = 1;
     DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
     Dialog paymentSelectDialog;
-    TextView tall, tunpay, tunget,tinprogress ;
+    TextView tall, tunpay, tunget, tinprogress;
     String[] mPaytypeNames = new String[]{"", "货到付款", "钱包支付", "支付宝支付", "微信支付"};
     String[] mVialiabelTypes = new String[]{"3", "4"};
     boolean isCommited = false;
@@ -92,6 +92,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     MyOrder order;
     private ProgressDialog progressDialog;
     public static final int ORDER_GOODS_LIST = 10000;
+    boolean mNeedReload = true;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -147,7 +148,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
         tall = (TextView) v.findViewById(R.id.t_all);
         tunpay = (TextView) v.findViewById(R.id.t_unpay);
         tunget = (TextView) v.findViewById(R.id.t_unget);
-        tinprogress=(TextView)v.findViewById(R.id.t_inprogress) ;
+        tinprogress = (TextView) v.findViewById(R.id.t_inprogress);
         tall.setOnClickListener(this);
         tunpay.setOnClickListener(this);
         tunget.setOnClickListener(this);
@@ -159,6 +160,10 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
+        reload();
+    }
+
+    private void reload() {
         adapter = null;
         pageindex = 1;
         loadData();
@@ -301,6 +306,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
         HashMap<Integer, List<BaseGoods>> goodsMap = new HashMap<>();
+        HashMap<Integer, Boolean> isLoadDetail = new HashMap<>();
         Handler adapterHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -369,15 +375,12 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
             adapterHandler.sendMessage(msg);
 
             //holder.rv_goods.setAdapter(new mySubAdapter(goodses));
-            holder.txt_ordernum.setText( m.getorder_id());
+            holder.txt_ordernum.setText(m.getorder_id());
             holder.txt_shippingstatus.setText(m.getStatusText());
-            if(m.getStatusText().equals("已完成"))
-            {
+            if (m.getStatusText().equals("已完成")) {
                 holder.imgywc.setVisibility(View.VISIBLE);
                 holder.txt_shippingstatus.setVisibility(View.GONE);
-            }
-            else
-            {
+            } else {
                 holder.imgywc.setVisibility(View.GONE);
                 holder.txt_shippingstatus.setVisibility(View.VISIBLE);
             }
@@ -426,48 +429,48 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                 }
             }
             if (goodsMap.get(position) != null) {
-                List<BaseGoods>goodses=goodsMap.get(position);
-                for(BaseGoods g :goodses)
-                {
-                    LinearLayout layout=new LinearLayout(getActivity());
-                    LinearLayout.MarginLayoutParams params=new LinearLayout.LayoutParams((int)(100*density),(int)(100*density));
+                List<BaseGoods> goodses = goodsMap.get(position);
+                isLoadDetail.put(position, true);
+                for (BaseGoods g : goodses) {
+                    LinearLayout layout = new LinearLayout(getActivity());
+                    LinearLayout.MarginLayoutParams params = new LinearLayout.LayoutParams((int) (100 * density), (int) (100 * density));
                     layout.setOrientation(LinearLayout.VERTICAL);
-                    ImageView img=new ImageView(getActivity());
-                    params.setMargins(10,10,0,10);
+                    ImageView img = new ImageView(getActivity());
+                    params.setMargins(10, 10, 0, 10);
                     layout.setLayoutParams(params);
                     img.setLayoutParams(params);
                     img.setLayoutParams(params);
                     img.setScaleType(ImageView.ScaleType.FIT_XY);
                     img.setAdjustViewBounds(true);
-                    img.setMaxWidth((int)(300*density));
+                    img.setMaxWidth((int) (300 * density));
                     ImageLoader.bindBitmap(g.getpic_url(), img, 100, 100);
                     layout.addView(img);
                     holder.rv_goods.addView(layout);
                 }
 
-            }
-            else
+            } else
                 holder.rv_goods.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         if (goodsMap.get(position) != null) {
-                            List<BaseGoods>goodses=goodsMap.get(position);
-                            for(BaseGoods g :goodses)
-                            {
-                                LinearLayout layout=new LinearLayout(getActivity());
-                                LinearLayout.MarginLayoutParams params=new LinearLayout.LayoutParams((int)(100*density),(int)(100*density));
-                                layout.setOrientation(LinearLayout.VERTICAL);
-                                ImageView img=new ImageView(getActivity());
-                                params.setMargins(10,10,0,10);
-                                layout.setLayoutParams(params);
-                                img.setLayoutParams(params);
-                                img.setLayoutParams(params);
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
-                                img.setAdjustViewBounds(true);
-                                img.setMaxWidth((int)(300*density));
-                                ImageLoader.bindBitmap(g.getpic_url(), img, 100, 100);
-                                layout.addView(img);
-                                holder.rv_goods.addView(layout);
+                            if (isLoadDetail.get(position) == null || !isLoadDetail.get(position)) {
+                                List<BaseGoods> goodses = goodsMap.get(position);
+                                for (BaseGoods g : goodses) {
+                                    LinearLayout layout = new LinearLayout(getActivity());
+                                    LinearLayout.MarginLayoutParams params = new LinearLayout.LayoutParams((int) (100 * density), (int) (100 * density));
+                                    layout.setOrientation(LinearLayout.VERTICAL);
+                                    ImageView img = new ImageView(getActivity());
+                                    params.setMargins(10, 10, 0, 10);
+                                    layout.setLayoutParams(params);
+                                    img.setLayoutParams(params);
+                                    img.setLayoutParams(params);
+                                    img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    img.setAdjustViewBounds(true);
+                                    img.setMaxWidth((int) (300 * density));
+                                    ImageLoader.bindBitmap(g.getpic_url(), img, 100, 100);
+                                    layout.addView(img);
+                                    holder.rv_goods.addView(layout);
+                                }
                             }
                         }
                     }
@@ -518,7 +521,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                         intent.putExtra("addtime", addTime);
                         intent.putExtra("fee", o.gettotal());
                         intent.putExtras(bundle);
-                        startActivityForResult(intent, 0);
+                        startActivityWithAnimForResult(getActivity(), intent, resultCodes.DETAIL);
                         break;
                 }
             }
@@ -558,7 +561,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                 //rv_goods = (RecyclerView) itemView.findViewById(R.id.rv_goods);
                 rv_goods = (LinearLayout) itemView.findViewById(R.id.rv_goods);
                 //rv_goods.setLayoutManager(new LinearLayoutManager(getActivity()));
-                imgywc=(ImageView)itemView.findViewById(R.id.img_ywc);
+                imgywc = (ImageView) itemView.findViewById(R.id.img_ywc);
                 btn_deleteorder = (Button) itemView.findViewById(R.id.btn_deleteorder);
                 btn_checkshipping = (Button) itemView.findViewById(R.id.btn_checkshipping);
                 btn_payimmediatly = (Button) itemView.findViewById(R.id.btn_payimmediatly);
@@ -569,6 +572,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
             }
         }
     }
+
     private void buildPaySelection() {
         if (paymentSelectDialog == null) {
             ImageView iv_hdfk, iv_alipay, iv_wallite, iv_wxpay;

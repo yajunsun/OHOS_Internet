@@ -38,6 +38,7 @@ public class SMSValidationStep1 extends myBaseActivity {
         {
             mPhone=intent.getStringExtra("phone");
             et_phone.setText(mPhone);
+            et_phone.setEnabled(false);
             mPwd=intent.getStringExtra("pwd");
 
         }

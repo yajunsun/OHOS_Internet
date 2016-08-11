@@ -124,4 +124,8 @@ public final class resultCodes {
      * 支付
      */
     public final static int PAYCOMPLETE=10029;
+    /**
+     * 查看详细
+     */
+    public final static int DETAIL=10030;
 }

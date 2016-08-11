@@ -22,14 +22,14 @@
 
             <LinearLayout
                 android:id="@+id/back"
-                android:visibility="invisible"
                 style="?android:actionButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/back_icon_left_margin"
-                android:clickable="true">
+                android:clickable="true"
+                android:visibility="invisible">
 
                 <com.mikepenz.iconics.view.IconicsImageView
                     android:layout_width="@dimen/back_icon_size"
@@ -59,43 +59,50 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/t_all"
-            android:layout_width="80dp"
+            android:id="@+id/t_inprogress"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
-            android:text="全部"
+            android:text="进行中订单"
+            android:textColor="@color/solid_black"
+            android:textSize="@dimen/myorder_statustxt_size" />
+
+        <TextView
+            android:id="@+id/t_all"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="全部订单"
             android:textColor="@color/primary"
             android:textSize="@dimen/myorder_statustxt_size" />
 
         <TextView
             android:id="@+id/t_unpay"
-            android:layout_width="80dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
             android:text="待付款"
             android:textColor="@color/solid_black"
-            android:textSize="@dimen/myorder_statustxt_size" />
+            android:textSize="@dimen/myorder_statustxt_size"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/t_unget"
-            android:layout_width="80dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
             android:text="待收货"
             android:textColor="@color/solid_black"
-            android:textSize="@dimen/myorder_statustxt_size" />
-        <TextView
-            android:id="@+id/t_inprogress"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="进行中"
-            android:textColor="@color/solid_black"
-            android:textSize="@dimen/myorder_statustxt_size" />
+            android:textSize="@dimen/myorder_statustxt_size"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout

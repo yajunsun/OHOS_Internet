@@ -3692,10 +3692,10 @@ containing a value of this type.
         public static final int start=0x7f0e0030;
         public static final int status_bar_latest_event_content=0x7f0e01f7;
         public static final int submit_area=0x7f0e0071;
-        public static final int t_all=0x7f0e00f2;
-        public static final int t_inprogress=0x7f0e00f5;
-        public static final int t_unget=0x7f0e00f4;
-        public static final int t_unpay=0x7f0e00f3;
+        public static final int t_all=0x7f0e00f3;
+        public static final int t_inprogress=0x7f0e00f2;
+        public static final int t_unget=0x7f0e00f5;
+        public static final int t_unpay=0x7f0e00f4;
         public static final int tabMode=0x7f0e0019;
         public static final int tb_normal=0x7f0e01ca;
         public static final int tb_oversize=0x7f0e01cc;

@@ -186,6 +186,7 @@ public class HotProvideSpecial extends myBaseActivity{
         @Override
         public void onBindViewHolder(ViewHoler holder, int position) {
             final HightQualityServiceM m = list.get(position);
+            //holder.ivpreview.setImageBitmap(null);
             ImageLoader.bindBitmap(m.getpic_url(), holder.ivpreview, 600, 600);
             holder.txtdesc.setText(m.gettitle());
             //holder.txtprice.setText("￥" + m.getprice());

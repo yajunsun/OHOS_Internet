@@ -1683,10 +1683,10 @@ int id src_over 0x7f0e0036
 int id start 0x7f0e0030
 int id status_bar_latest_event_content 0x7f0e01f7
 int id submit_area 0x7f0e0071
-int id t_all 0x7f0e00f2
-int id t_inprogress 0x7f0e00f5
-int id t_unget 0x7f0e00f4
-int id t_unpay 0x7f0e00f3
+int id t_all 0x7f0e00f3
+int id t_inprogress 0x7f0e00f2
+int id t_unget 0x7f0e00f5
+int id t_unpay 0x7f0e00f4
 int id tabMode 0x7f0e0019
 int id tb_normal 0x7f0e01ca
 int id tb_oversize 0x7f0e01cc
