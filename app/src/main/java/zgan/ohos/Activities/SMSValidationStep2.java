@@ -99,7 +99,9 @@ public class SMSValidationStep2 extends myBaseActivity {
                     } else if (frame.subCmd == 2 && ret.equals("24")) {
                         generalhelper.ToastShow(SMSValidationStep2.this, "该号码已被注册");
                         toCloseProgress();
-                         Intent intent=new Intent(SMSValidationStep2.this,Register.class);
+                         //Intent intent=new Intent(SMSValidationStep2.this,Register.class);
+                         Intent intent=new Intent(SMSValidationStep2.this,Login.class);
+                         intent.putExtra("phone",phone);
                          startActivityWithAnim(intent);
                          finish();
                     }
