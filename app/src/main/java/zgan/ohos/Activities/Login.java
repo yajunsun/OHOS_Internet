@@ -48,6 +48,12 @@ public class Login extends myBaseActivity {
         til_pwd = (TextInputLayout) findViewById(R.id.til_pwd);
         et_Phone = (EditText) findViewById(R.id.et_Phone);
         et_pwd = (EditText) findViewById(R.id.et_pwd);
+        //phone参数从注册验证那边传过来
+        Intent requestIntent=getIntent();
+        if(requestIntent.hasExtra("phone"))
+        {
+            et_phone.setText(requestIntent.getStringExtra("phone"));
+        }
     }
 
     public void ViewClick(View view) {
@@ -145,7 +151,7 @@ public class Login extends myBaseActivity {
                         Intent intent=new Intent(Login.this,BindCommunity.class);
                         intent.putExtra("username", PhoneNum);
                         intent.putExtra("pwd", et_pwd.getText().toString().trim());
-                        intent.putExtra("showcancel", true);
+                        //intent.putExtra("showcancel", true);
                         startActivityWithAnim(intent);
                         //finish();
                     }
