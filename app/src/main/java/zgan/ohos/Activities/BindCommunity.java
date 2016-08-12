@@ -111,7 +111,7 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
                             //室内机绑定成功后再确认登陆小区服务器
                             ZganCommunityService.toUserLogin(Phone,Pwd,handler);
                         } else {
-                            generalhelper.ToastShow(BindCommunity.this, "绑定室内机失败");
+                            generalhelper.ToastShow(BindCommunity.this, "绑定失败~");
                             toCloseProgress();
                         }
                     }
@@ -137,6 +137,7 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
         llselectComm = findViewById(R.id.llselectComm);
         llselectDetail = findViewById(R.id.llselectDetail);
         btn_bind = (Button) findViewById(R.id.btn_bind);
+        btn_bind.setEnable(false);
         llselectComm.setOnClickListener(this);
         llselectDetail.setOnClickListener(this);
         btn_bind.setOnClickListener(this);
