@@ -48,7 +48,7 @@ public class Register extends myBaseActivity {
 
     protected void initView() {
         setContentView(R.layout.lo_activity_register);
-        Intent thisIntent = getIntent();
+        //Intent thisIntent = getIntent();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //communityId = thisIntent.getIntExtra("communityid", 4);
@@ -116,7 +116,6 @@ public class Register extends myBaseActivity {
                     CheckPwd = true;
                     til_repwd.setErrorEnabled(false);
                 }
-                
                 try {
                     if (CheckName && CheckPwd) {
                         Intent intent = new Intent(Register.this, SMSValidationStep1.class);
@@ -135,9 +134,7 @@ public class Register extends myBaseActivity {
                 break;
         }
     }
-
-
-
+    
     @Override
     public void onDestroy() {
         super.onDestroy();

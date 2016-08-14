@@ -117,6 +117,7 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
                     }
                     break;
             }
+            btn_bind.setEnabled(true);
         }
     };
 
