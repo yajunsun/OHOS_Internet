@@ -52,7 +52,7 @@ public class Login extends myBaseActivity {
         Intent requestIntent=getIntent();
         if(requestIntent.hasExtra("phone"))
         {
-            et_phone.setText(requestIntent.getStringExtra("phone"));
+            et_Phone.setText(requestIntent.getStringExtra("phone"));
         }
     }
 
@@ -66,7 +66,7 @@ public class Login extends myBaseActivity {
                 if (Phone.length() == 0) {
                     til_Phone.setError("电话号码不能为空");
                     til_Phone.setErrorEnabled(true);
-                } else if (Phone.toCharArray().length > 11) {
+                } else if (Phone.toCharArray().length != 11) {
                     til_Phone.setError("电话号码填写错误");
                     til_Phone.setErrorEnabled(true);
                 } else {

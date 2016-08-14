@@ -73,7 +73,8 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     boolean isLoadingMore = false;
     LinearLayoutManager mLayoutManager;
     myAdapter adapter;
-    int mOrder_type = 1;
+    //int mOrder_type = 1;
+    int mOrder_type = 4;
     RecyclerView rv_orders;
     QueryOrderDal dal;
     VegetableDal goodsdal;
@@ -153,7 +154,6 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
         tunpay.setOnClickListener(this);
         tunget.setOnClickListener(this);
         tinprogress.setOnClickListener(this);
-        tall.setTextColor(getResources().getColor(R.color.primary));
         return v;
     }
 

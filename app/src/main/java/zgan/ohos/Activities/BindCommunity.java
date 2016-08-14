@@ -137,7 +137,7 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
         llselectComm = findViewById(R.id.llselectComm);
         llselectDetail = findViewById(R.id.llselectDetail);
         btn_bind = (Button) findViewById(R.id.btn_bind);
-        btn_bind.setEnable(false);
+        btn_bind.setEnabled(false);
         llselectComm.setOnClickListener(this);
         llselectDetail.setOnClickListener(this);
         btn_bind.setOnClickListener(this);

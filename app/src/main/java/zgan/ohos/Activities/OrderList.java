@@ -73,7 +73,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
     boolean isLoadingMore = false;
     LinearLayoutManager mLayoutManager;
     myAdapter adapter;
-    int mOrder_type = 1;
+    int mOrder_type = 4;
     RecyclerView rv_orders;
     QueryOrderDal dal;
     VegetableDal goodsdal;
@@ -152,7 +152,17 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
         tunpay.setOnClickListener(this);
         tunget.setOnClickListener(this);
         tinprogress.setOnClickListener(this);
-        tall.setTextColor(getResources().getColor(R.color.primary));
+        //tall.setTextColor(getResources().getColor(R.color.primary));
+        View back = findViewById(R.id.back);
+        back.setVisibility(View.VISIBLE);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(OrderList.this,MainActivity.class);
+                startActivityWithAnim(intent);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -305,6 +315,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
     class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
         HashMap<Integer, List<BaseGoods>> goodsMap = new HashMap<>();
+        HashMap<Integer, Boolean> isLoadDetail = new HashMap<>();
         Handler adapterHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -375,13 +386,10 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
             //holder.rv_goods.setAdapter(new mySubAdapter(goodses));
             holder.txt_ordernum.setText(m.getorder_id());
             holder.txt_shippingstatus.setText(m.getStatusText());
-            if(m.getStatusText().equals("已完成"))
-            {
+            if (m.getStatusText().equals("已完成")) {
                 holder.imgywc.setVisibility(View.VISIBLE);
                 holder.txt_shippingstatus.setVisibility(View.GONE);
-            }
-            else
-            {
+            } else {
                 holder.imgywc.setVisibility(View.GONE);
                 holder.txt_shippingstatus.setVisibility(View.VISIBLE);
             }
@@ -430,48 +438,48 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 }
             }
             if (goodsMap.get(position) != null) {
-                List<BaseGoods>goodses=goodsMap.get(position);
-                for(BaseGoods g :goodses)
-                {
-                    LinearLayout layout=new LinearLayout(OrderList.this);
-                    LinearLayout.MarginLayoutParams params=new LinearLayout.LayoutParams((int)(100*density),(int)(100*density));
+                List<BaseGoods> goodses = goodsMap.get(position);
+                isLoadDetail.put(position, true);
+                for (BaseGoods g : goodses) {
+                    LinearLayout layout = new LinearLayout(OrderList.this);
+                    LinearLayout.MarginLayoutParams params = new LinearLayout.LayoutParams((int) (100 * density), (int) (100 * density));
                     layout.setOrientation(LinearLayout.VERTICAL);
-                    ImageView img=new ImageView(OrderList.this);
-                    params.setMargins(10,10,0,10);
+                    ImageView img = new ImageView(OrderList.this);
+                    params.setMargins(10, 10, 0, 10);
                     layout.setLayoutParams(params);
                     img.setLayoutParams(params);
                     img.setLayoutParams(params);
                     img.setScaleType(ImageView.ScaleType.FIT_XY);
                     img.setAdjustViewBounds(true);
-                    img.setMaxWidth((int)(300*density));
+                    img.setMaxWidth((int) (300 * density));
                     ImageLoader.bindBitmap(g.getpic_url(), img, 100, 100);
                     layout.addView(img);
                     holder.rv_goods.addView(layout);
                 }
 
-            }
-            else
+            } else
                 holder.rv_goods.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         if (goodsMap.get(position) != null) {
-                            List<BaseGoods>goodses=goodsMap.get(position);
-                            for(BaseGoods g :goodses)
-                            {
-                                LinearLayout layout=new LinearLayout(OrderList.this);
-                                LinearLayout.MarginLayoutParams params=new LinearLayout.LayoutParams((int)(100*density),(int)(100*density));
-                                layout.setOrientation(LinearLayout.VERTICAL);
-                                ImageView img=new ImageView(OrderList.this);
-                                params.setMargins(10,10,0,10);
-                                layout.setLayoutParams(params);
-                                img.setLayoutParams(params);
-                                img.setLayoutParams(params);
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
-                                img.setAdjustViewBounds(true);
-                                img.setMaxWidth((int)(300*density));
-                                ImageLoader.bindBitmap(g.getpic_url(), img, 100, 100);
-                                layout.addView(img);
-                                holder.rv_goods.addView(layout);
+                            if (isLoadDetail.get(position) == null || !isLoadDetail.get(position)) {
+                                List<BaseGoods> goodses = goodsMap.get(position);
+                                for (BaseGoods g : goodses) {
+                                    LinearLayout layout = new LinearLayout(OrderList.this);
+                                    LinearLayout.MarginLayoutParams params = new LinearLayout.LayoutParams((int) (100 * density), (int) (100 * density));
+                                    layout.setOrientation(LinearLayout.VERTICAL);
+                                    ImageView img = new ImageView(OrderList.this);
+                                    params.setMargins(10, 10, 0, 10);
+                                    layout.setLayoutParams(params);
+                                    img.setLayoutParams(params);
+                                    img.setLayoutParams(params);
+                                    img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    img.setAdjustViewBounds(true);
+                                    img.setMaxWidth((int) (300 * density));
+                                    ImageLoader.bindBitmap(g.getpic_url(), img, 100, 100);
+                                    layout.addView(img);
+                                    holder.rv_goods.addView(layout);
+                                }
                             }
                         }
                     }
@@ -522,7 +530,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                         intent.putExtra("addtime", addTime);
                         intent.putExtra("fee", o.gettotal());
                         intent.putExtras(bundle);
-                        startActivityForResult(intent, 0);
+                        startActivityWithAnimForResult(intent, resultCodes.DETAIL);
                         break;
                 }
             }
@@ -560,9 +568,9 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 txt_payfee = (TextView) itemView.findViewById(R.id.txt_payfee);
                 txttimer = (TextView) itemView.findViewById(R.id.txttimer);
                 //rv_goods = (RecyclerView) itemView.findViewById(R.id.rv_goods);
-                imgywc=(ImageView)itemView.findViewById(R.id.img_ywc);
                 rv_goods = (LinearLayout) itemView.findViewById(R.id.rv_goods);
-                //rv_goods.setLayoutManager(new LinearLayoutManager(OrderList.this));
+                //rv_goods.setLayoutManager(new LinearLayoutManager(getActivity()));
+                imgywc = (ImageView) itemView.findViewById(R.id.img_ywc);
                 btn_deleteorder = (Button) itemView.findViewById(R.id.btn_deleteorder);
                 btn_checkshipping = (Button) itemView.findViewById(R.id.btn_checkshipping);
                 btn_payimmediatly = (Button) itemView.findViewById(R.id.btn_payimmediatly);
