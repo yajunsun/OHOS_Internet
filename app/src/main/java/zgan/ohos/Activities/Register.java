@@ -116,6 +116,7 @@ public class Register extends myBaseActivity {
                     CheckPwd = true;
                     til_repwd.setErrorEnabled(false);
                 }
+                
                 try {
                     if (CheckName && CheckPwd) {
                         Intent intent = new Intent(Register.this, SMSValidationStep1.class);
