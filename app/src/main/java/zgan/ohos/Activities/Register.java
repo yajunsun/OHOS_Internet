@@ -134,7 +134,7 @@ public class Register extends myBaseActivity {
                 break;
         }
     }
-    
+
     @Override
     public void onDestroy() {
         super.onDestroy();

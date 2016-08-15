@@ -235,7 +235,7 @@ public class fg_myaccount extends myBaseFragment implements View.OnClickListener
 
     protected void loadData() {
         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1022, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), handler);
-        ZganCommunityService.toGetServerData(40,0,2, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1024, String.format("@id=22,@Fname=%s", SystemUtils.getFname()), "22"), handler);
+        //ZganCommunityService.toGetServerData(40,0,2, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1024, String.format("@id=22,@Fname=%s", SystemUtils.getFname()), "22"), handler);
     }
 
     @Override

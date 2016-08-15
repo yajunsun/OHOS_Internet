@@ -3,6 +3,8 @@ package zgan.ohos.Models;
 import android.widget.Switch;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import zgan.ohos.utils.SystemUtils;
 
@@ -22,6 +24,7 @@ public class QueryOrderM extends BaseModel implements Serializable {
     private String pic_url;//商品图片
     private int pay_state;//支付状态 0没支付 2已支付
     private int Stype = 0;
+    private List<BaseGoods> goodsitems=new ArrayList<>();
     //private String over_time;//	配送完成时间
 
 //    public String getover_time() {
@@ -138,6 +141,14 @@ public class QueryOrderM extends BaseModel implements Serializable {
     {
         if (value != null)
             this.pay_state = SystemUtils.getIntValue(value.toString());
+    }
+
+    public List<BaseGoods> getgoodsitems(){return goodsitems;}
+
+    public void setgoogsitems(List<BaseGoods> value)
+    {
+        if (value!=null)
+            goodsitems=value;
     }
     @Override
     public QueryOrderM getnewinstance() {
