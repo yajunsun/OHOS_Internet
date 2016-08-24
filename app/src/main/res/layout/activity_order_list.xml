@@ -55,55 +55,110 @@
         android:layout_height="50dp"
         android:layout_below="@id/toolbar"
         android:background="@drawable/bg_rect_border"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/t_inprogress"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/t_inprogress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="进行中订单"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/myorder_statustxt_size" />
+
+            <LinearLayout
+                android:id="@+id/ll_inprogress"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/primary"
+                android:orientation="vertical"></LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/t_all"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="全部订单"
+                android:textColor="@color/solid_black"
+                android:textSize="@dimen/myorder_statustxt_size" />
+
+            <LinearLayout
+                android:id="@+id/ll_all"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"></LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="进行中订单"
-            android:textColor="@color/primary"
+            android:visibility="gone">
 
-            android:textSize="@dimen/myorder_statustxt_size" />
+            <TextView
+                android:id="@+id/t_unpay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="待付款"
+                android:textColor="@color/solid_black"
+                android:textSize="@dimen/myorder_statustxt_size" />
 
-        <TextView
-            android:id="@+id/t_all"
+            <LinearLayout
+                android:id="@+id/ll_unpay"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"></LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="全部订单"
-            android:textColor="@color/solid_black"
-            android:textSize="@dimen/myorder_statustxt_size" />
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/t_unpay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="待付款"
-            android:textColor="@color/solid_black"
-            android:textSize="@dimen/myorder_statustxt_size"
-            android:visibility="gone" />
+            <TextView
+                android:id="@+id/t_unget"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="待收货"
+                android:textColor="@color/solid_black"
+                android:textSize="@dimen/myorder_statustxt_size" />
 
-        <TextView
-            android:id="@+id/t_unget"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="待收货"
-            android:textColor="@color/solid_black"
-            android:textSize="@dimen/myorder_statustxt_size"
-            android:visibility="gone" />
+            <LinearLayout
+                android:id="@+id/ll_unget"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"></LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout

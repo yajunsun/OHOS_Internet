@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/l1"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
@@ -61,7 +61,7 @@
         android:id="@+id/l3"
         android:layout_below="@id/rv_goods"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:paddingRight="15dp">
 
         <TextView
