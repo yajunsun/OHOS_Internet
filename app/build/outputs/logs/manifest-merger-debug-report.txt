@@ -675,6 +675,40 @@ ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:3
 		ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:391:13-37
 	android:name
 		ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:390:13-66
+receiver#zgan.ohos.Receivers.JReceiver
+ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:394:9-408:20
+	android:enabled
+		ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:397:9-31
+	android:exported
+		ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:396:9-33
+	android:name
+		ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:395:9-44
+intent-filter#cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK+cn.jpush.android.intent.MESSAGE_RECEIVED+cn.jpush.android.intent.NOTIFICATION_OPENED+cn.jpush.android.intent.NOTIFICATION_RECEIVED+cn.jpush.android.intent.REGISTRATION+cn.jpush.android.intent.UNREGISTRATION+zgan.ohos
+ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:398:9-407:25
+action#cn.jpush.android.intent.REGISTRATION
+ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:399:9-71
+	android:name
+		ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:399:17-68
+action#cn.jpush.android.intent.UNREGISTRATION
+ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:400:9-73
+	android:name
+		ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:400:17-70
+action#cn.jpush.android.intent.MESSAGE_RECEIVED
+ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:401:9-75
+	android:name
+		ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:401:17-72
+action#cn.jpush.android.intent.NOTIFICATION_RECEIVED
+ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:402:9-80
+	android:name
+		ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:402:17-77
+action#cn.jpush.android.intent.NOTIFICATION_OPENED
+ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:403:9-78
+	android:name
+		ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:403:17-75
+action#cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK
+ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:404:9-83
+	android:name
+		ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:404:17-80
 meta-data#JPUSH_CHANNEL
 ADDED from E:\AndroidDev\studio\OHOS_Internet\app\src\main\AndroidManifest.xml:412:9-414:49
 	android:value
