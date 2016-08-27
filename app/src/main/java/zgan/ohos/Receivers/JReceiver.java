@@ -48,11 +48,11 @@ public class JReceiver extends BroadcastReceiver {
             Intent btnIntent ;
             if(SystemUtils.getIsLogin()&&SystemUtils.getIsCommunityLogin()) {
                 btnIntent = new Intent(context, MainActivity.class);
-                btnIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             }
             else {
                 btnIntent = new Intent(context, SplashActivity.class);
             }
+            btnIntent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
             //如果是启动activity，那么就用PendingIntent.getActivity，如果是启动服务，那么是getService
             PendingIntent Pintent = PendingIntent.getActivity(context,
                     (int) SystemClock.uptimeMillis(), btnIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -72,11 +72,15 @@ public class JReceiver extends BroadcastReceiver {
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             //Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
             //打开自定义的Activity
-            Intent i = new Intent(context, MainActivity.class);
-            i.putExtras(bundle);
-            //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
-            context.startActivity(i);
+            Intent btnIntent ;
+            if(SystemUtils.getIsLogin()&&SystemUtils.getIsCommunityLogin()) {
+                btnIntent = new Intent(context, MainActivity.class);
+            }
+            else {
+                btnIntent = new Intent(context, SplashActivity.class);
+            }
+            btnIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(btnIntent);
 
         } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
             Log.d(TAG, "[JReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
