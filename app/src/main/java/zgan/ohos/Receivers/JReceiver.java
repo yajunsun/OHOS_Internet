@@ -11,6 +11,7 @@ import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import cn.jpush.android.api.JPushInterface;
 import zgan.ohos.Activities.MainActivity;
@@ -89,6 +90,13 @@ public class JReceiver extends BroadcastReceiver {
         } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
             boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
             Log.w(TAG, "[JReceiver]" + intent.getAction() + " connected state change to " + connected);
+            Toast.makeText(context,"[JReceiver]" + intent.getAction() + " connected state change to " + connected,Toast.LENGTH_LONG);
+            System.out.println(TAG+"网络变化 ");
+            if(connected)
+            {
+                JPushInterface.init(context);
+                System.out.println(TAG+"连接到网络 ");
+            }
         } else {
             Log.d(TAG, "[JReceiver] Unhandled intent - " + intent.getAction());
         }

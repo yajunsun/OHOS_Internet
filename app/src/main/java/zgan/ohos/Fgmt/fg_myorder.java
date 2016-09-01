@@ -67,7 +67,7 @@ import zgan.ohos.utils.resultCodes;
 
 /**
  * create by yajunsun
- * <p/>
+ * <p>
  * 首页订单fragment
  */
 public class fg_myorder extends myBaseFragment implements View.OnClickListener {
@@ -88,7 +88,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
     Dialog paymentSelectDialog;
     TextView tall, tunpay, tunget, tinprogress;
-    LinearLayout llall,llunpay,llunget,llinprogress;
+    LinearLayout llall, llunpay, llunget, llinprogress;
     String[] mPaytypeNames = new String[]{"", "货到付款", "钱包支付", "支付宝支付", "微信支付"};
     String[] mVialiabelTypes = new String[]{"3", "4"};
     boolean isCommited = false;
@@ -153,21 +153,24 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
         tunpay = (TextView) v.findViewById(R.id.t_unpay);
         tunget = (TextView) v.findViewById(R.id.t_unget);
         tinprogress = (TextView) v.findViewById(R.id.t_inprogress);
-        llall=(LinearLayout)v.findViewById(R.id.ll_all);
-        llunpay=(LinearLayout)v.findViewById(R.id.ll_unpay);
-        llunget=(LinearLayout)v.findViewById(R.id.ll_unget);
-        llinprogress=(LinearLayout)v.findViewById(R.id.ll_inprogress);
+        llall = (LinearLayout) v.findViewById(R.id.ll_all);
+        llunpay = (LinearLayout) v.findViewById(R.id.ll_unpay);
+        llunget = (LinearLayout) v.findViewById(R.id.ll_unget);
+        llinprogress = (LinearLayout) v.findViewById(R.id.ll_inprogress);
         tall.setOnClickListener(this);
         tunpay.setOnClickListener(this);
         tunget.setOnClickListener(this);
         tinprogress.setOnClickListener(this);
+        loadData();
         return v;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        reload();
+        if (AppUtils.NEED_REFRESH_ORDER)
+            reload();
+        AppUtils.NEED_REFRESH_ORDER=false;
     }
 
     private void reload() {
@@ -181,7 +184,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
         tunpay.setTextColor(getResources().getColor(R.color.solid_black));
         tunget.setTextColor(getResources().getColor(R.color.solid_black));
         tinprogress.setTextColor(getResources().getColor(R.color.solid_black));
-        if(Build.VERSION.SDK_INT>15) {
+        if (Build.VERSION.SDK_INT > 15) {
             llall.setBackgroundColor(getResources().getColor(android.R.color.transparent));
             llunpay.setBackgroundColor(getResources().getColor(android.R.color.transparent));
             llunget.setBackgroundColor(getResources().getColor(android.R.color.transparent));
@@ -295,7 +298,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                 initialOptions();
                 mOrder_type = 1;
                 tall.setTextColor(getResources().getColor(R.color.primary));
-                if(Build.VERSION.SDK_INT>15) {
+                if (Build.VERSION.SDK_INT > 15) {
                     llall.setBackgroundColor(getResources().getColor(R.color.primary));
                 }
                 loadData();
@@ -304,7 +307,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                 initialOptions();
                 mOrder_type = 2;
                 tunpay.setTextColor(getResources().getColor(R.color.primary));
-                if(Build.VERSION.SDK_INT>15) {
+                if (Build.VERSION.SDK_INT > 15) {
                     llunpay.setBackgroundColor(getResources().getColor(R.color.primary));
                 }
                 loadData();
@@ -313,7 +316,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                 initialOptions();
                 mOrder_type = 3;
                 tunget.setTextColor(getResources().getColor(R.color.primary));
-                if(Build.VERSION.SDK_INT>15) {
+                if (Build.VERSION.SDK_INT > 15) {
                     llunget.setBackgroundColor(getResources().getColor(R.color.primary));
                 }
                 loadData();
@@ -322,7 +325,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                 initialOptions();
                 mOrder_type = 4;
                 tinprogress.setTextColor(getResources().getColor(R.color.primary));
-                if(Build.VERSION.SDK_INT>15) {
+                if (Build.VERSION.SDK_INT > 15) {
                     llinprogress.setBackgroundColor(getResources().getColor(R.color.primary));
                 }
                 loadData();

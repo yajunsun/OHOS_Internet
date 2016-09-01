@@ -79,6 +79,8 @@ public class AppUtils {
         return null;
     }
 
+    public static boolean NEED_REFRESH_ORDER=false;
+
     private static Activity mainActivity;
     private static Activity loginActivity;
 

@@ -7,6 +7,8 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by yajunsun on 2015/12/12.
  */
@@ -34,7 +36,7 @@ public class AuotOpenDoor extends BroadcastReceiver{
 
                 //获取当前wifi名称
                 System.out.println("连接到网络 " + wifiInfo.getSSID());
-
+                JPushInterface.init(context);
             }
 
         }

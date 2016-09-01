@@ -718,6 +718,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
                                 if (obj.getString("result").equals("0")) {
                                     inserted=true;
                                     pay();
+                                    AppUtils.NEED_REFRESH_ORDER=true;
                                 } else {
                                     isCommited = false;
                                     inserted=false;

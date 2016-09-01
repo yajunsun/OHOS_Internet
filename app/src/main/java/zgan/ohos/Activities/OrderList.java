@@ -170,6 +170,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                 finish();
             }
         });
+        loadData();
     }
 
     @Override
@@ -180,9 +181,12 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        adapter = null;
-        pageindex = 1;
-        loadData();
+        if (AppUtils.NEED_REFRESH_ORDER) {
+            AppUtils.NEED_REFRESH_ORDER = false;
+            adapter = null;
+            pageindex = 1;
+            loadData();
+        }
     }
 
     void initialOptions() {
