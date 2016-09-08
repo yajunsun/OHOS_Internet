@@ -81,6 +81,7 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
     VegetableDal goodsdal;
     ImageLoader imageLoader;
     List<QueryOrderM> list;
+    List<String>mOids;
     LayoutInflater myInflater;
     SwipeRefreshLayout refreshview;
     float density = 1;
@@ -241,12 +242,29 @@ public class OrderList extends myBaseActivity implements View.OnClickListener {
                         try {
                             if (pageindex == 1) {
                                 list = new ArrayList<>();
+                                mOids=new ArrayList<>();
                             }
                             if (frame.platform != 0) {
                                 String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1016, String.format("@id=22,@account=%s,@order_type=%s,@page=%s", PreferenceUtil.getUserName(), mOrder_type, pageindex), frame.strData);
                             }
                             int ini_count = list.size();
                             List<QueryOrderM> orders = dal.getList(results[2]);
+                            //如果从服务器获取到了数据
+                            if(orders.size()>0) {
+                                //判断本地是否已经有了本次获取的数据
+                                if (mOids.contains(orders.get(0).getorder_id()))
+                                {
+                                    //如果存在就直接忽略此次加载,避免重复
+                                    pageindex--;
+                                    refreshview.setRefreshing(false);
+                                    return;
+                                }
+                                else
+                                {
+                                    //如果本地没有已有标志,则保存次页数据已存在的标志并加载显示出来
+                                    mOids.add(orders.get(0).getorder_id());
+                                }
+                            }
                             list.addAll(orders);
                             for (QueryOrderM m : orders) {
                                 ZganCommunityService.toGetServerData(40, 0, 3, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1026, String.format("@id=22,@account=%s,@order_id=%s", PreferenceUtil.getUserName(), m.getorder_id()), ini_count++), handler);
