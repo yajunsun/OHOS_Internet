@@ -14,7 +14,7 @@ import java.util.List;
 import zgan.ohos.Models.BaseModel;
 
 /**
- * Created by Administrator on 16-4-21.
+ * Created by yajunsun on 16-4-21.
  */
 public class JsonParser<T extends BaseModel> {
     //单个实例

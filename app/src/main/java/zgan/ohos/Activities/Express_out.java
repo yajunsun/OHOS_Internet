@@ -30,6 +30,7 @@ import java.util.List;
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.HouseHolderServiceDal;
 import zgan.ohos.Models.BaseGoods;
+import zgan.ohos.Models.FrontItem;
 import zgan.ohos.Models.FuncPage;
 import zgan.ohos.Models.HouseHolderServiceM;
 import zgan.ohos.Models.MyOrder;
@@ -66,7 +67,7 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
 
     Dialog bookSelectDialog;
     Dialog paymentSelectDialog;
-    FuncPage funcPage;
+    FrontItem funcPage;
     ToggleButton tbnormal, tboverweight, tboversize;
 
     final static String TYPE_NORMAL = "普通", TYPE_OVERWEIGHT = "超重", TYPE_OVERSIZE = "超大";
@@ -80,7 +81,7 @@ public class Express_out extends myBaseActivity implements View.OnClickListener 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_express_out);
-        funcPage = (FuncPage) getIntent().getSerializableExtra("item");
+        funcPage = (FrontItem) getIntent().getSerializableExtra("item");
         iv_prebook = (ImageView) findViewById(R.id.iv_prebook);
         iv_prebook.setOnClickListener(this);
         iv_preview = (ImageView) findViewById(R.id.iv_preview);

@@ -5,7 +5,8 @@ import java.util.List;
 import zgan.ohos.Models.FrontItem;
 
 /**
- * Created by Administrator on 16-4-21.
+ * Created by yajunsun on 16-4-21.
+ *
  */
 public class FrontItemDal extends  ZGbaseDal<FrontItem> {
     public List<FrontItem> getList(String xmlString) {

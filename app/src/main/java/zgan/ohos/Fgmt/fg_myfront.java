@@ -88,12 +88,12 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     List<ImageView> imageViews = new ArrayList<>();
     List<ImageView> funcimageViews = new ArrayList<>();
     private AtomicInteger what = new AtomicInteger(0);
-    List<FuncPage> funcPages;
+    List<FrontItem> funcPages;
     ImageView iv_gridtitle;
     List<FrontItem> frontItems1;
     List<FrontItem> frontItems2;
     List<Advertise> advertises;
-    FuncPageDal funcPageDal;
+    //FuncPageDal funcPageDal;
     AdvertiseDal advertiseDal;
     FrontItemDal frontItemDal;
     Calendar lastOpent;
@@ -116,7 +116,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_my_front, container, false);
         frontItems1 = new ArrayList<>();
         frontItems2 = new ArrayList<>();
-        funcPageDal = new FuncPageDal();
+        //funcPageDal = new FuncPageDal();
         frontItemDal = new FrontItemDal();
         advertiseDal = new AdvertiseDal();
         iniHandler();
@@ -243,7 +243,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         else pageCount = funcCount / 8;
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         for (int i = 0; i < pageCount; i++) {
-            List<FuncPage> fps = new ArrayList<>();
+            List<FrontItem> fps = new ArrayList<>();
             if (funcCount > 8 && i < pageCount - 1) {
                 int b = i * 8;
                 int e = (i + 1) * 8;
@@ -304,9 +304,9 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     }
 
     class funcClick implements View.OnClickListener {
-        FuncPage func;
+        FrontItem func;
 
-        public funcClick(FuncPage _func) {
+        public funcClick(FrontItem _func) {
             func = _func;
         }
 
@@ -551,7 +551,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                             String datastr = results[2];
                             if (results[1].equals(AppUtils.P_FUNCPAGE)) {
                                 if (datastr.length() > 0) {
-                                    funcPages = funcPageDal.getList(datastr);
+                                    funcPages = frontItemDal.getList(datastr);
                                     loadFuncData();
                                     if (frame.platform != 0) {
                                         addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FUNCPAGE, "@id=22", "22"), frame.strData);
@@ -850,9 +850,9 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
     private class funcAdapter extends RecyclerView.Adapter<funcAdapter.ViewHolder> {
 
-        List<FuncPage> list;
+        List<FrontItem> list;
 
-        public funcAdapter(List<FuncPage> _lst) {
+        public funcAdapter(List<FrontItem> _lst) {
             list = _lst;
         }
 
@@ -863,7 +863,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            FuncPage funcPage = list.get(position);
+            FrontItem funcPage = list.get(position);
             ImageLoader.bindBitmap(funcPage.geticon_url(), holder.funcicon);
             holder.functxt.setText(funcPage.getview_title());
             //holder.itemView.setOnClickListener(new funcClick(funcPage));

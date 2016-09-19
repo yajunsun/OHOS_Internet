@@ -5,11 +5,20 @@ import android.util.Log;
 import java.io.Serializable;
 
 /**
- * Created by Administrator on 16-4-21.
+ * Created by yajunsun on 16-4-21.
  */
 public class FrontItem extends FuncBase implements Serializable {
     private String image_url;
     private int width = 0;
+    private String icon_url;
+
+    public String geticon_url() {
+        return icon_url;
+    }
+    public void seticon_url(String icon_url) {
+        this.icon_url = icon_url;
+    }
+
     @Override
     public String getview_title() {
         return view_title;

@@ -3,8 +3,9 @@ package zgan.ohos.Models;
 import java.io.Serializable;
 
 /**
- * Created by Administrator on 16-6-23.
+ * Created by yajunsun on 16-6-23.
  * 功能页面实体
+ * 20160919弃用
  */
 public class FuncPage extends FuncBase implements Serializable {
 
