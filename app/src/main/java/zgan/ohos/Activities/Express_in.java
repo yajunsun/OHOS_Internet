@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,21 +27,19 @@ import java.util.Date;
 import java.util.List;
 
 import zgan.ohos.Dals.ExpressInDal;
-import zgan.ohos.Dals.HouseHolderServiceDal;
 import zgan.ohos.Models.BaseGoods;
 import zgan.ohos.Models.ExpressIn;
+import zgan.ohos.Models.FrontItem;
 import zgan.ohos.Models.FuncBase;
-import zgan.ohos.Models.FuncPage;
-import zgan.ohos.Models.HightQualityServiceM;
 import zgan.ohos.Models.HouseHolderServiceM;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.R;
-import zgan.ohos.adapters.RecyclerViewItemSpace;
 import zgan.ohos.services.community.ZganCommunityService;
-import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.generalhelper;
+
+//import zgan.ohos.Models.FuncPage;
 
 /**
  * create by yajunsun
@@ -370,7 +366,7 @@ public class Express_in extends myBaseActivity implements View.OnClickListener {
                 buildBookSelection();
                 break;
             case R.id.btn_expressin:
-                FuncPage msgfp = new FuncPage();
+                FrontItem msgfp = new FrontItem();
                 msgfp.setview_title("取件留言");
                 msgfp.setpage_id("3");
                 msgfp.settype_id("2004");

@@ -21,12 +21,11 @@ import java.util.Date;
 import java.util.List;
 
 import zgan.ohos.Dals.LeaveMessageDal;
+import zgan.ohos.Models.FrontItem;
 import zgan.ohos.Models.FuncBase;
-import zgan.ohos.Models.FuncPage;
 import zgan.ohos.Models.LeaveMessage;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
-import zgan.ohos.services.login.ZganLoginService;
 import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
@@ -68,7 +67,7 @@ public class LeaveMessages extends myBaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_leave_messages);
-        funcPage=(FuncPage)getIntent().getSerializableExtra("item");
+        funcPage=(FrontItem)getIntent().getSerializableExtra("item");
         leavemsgDal = new LeaveMessageDal();
         mLayoutManager = new LinearLayoutManager(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);

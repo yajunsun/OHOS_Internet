@@ -55,10 +55,8 @@ import zgan.ohos.ConstomControls.ScrollViewWithCallBack;
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.AdvertiseDal;
 import zgan.ohos.Dals.FrontItemDal;
-import zgan.ohos.Dals.FuncPageDal;
 import zgan.ohos.Models.Advertise;
 import zgan.ohos.Models.FrontItem;
-import zgan.ohos.Models.FuncPage;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.utils.AppUtils;
@@ -68,6 +66,8 @@ import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.resultCodes;
+
+//import zgan.ohos.Models.FuncPage;
 
 /**
  * Created by yajunsun on 16-2-24.

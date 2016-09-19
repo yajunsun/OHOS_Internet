@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 功能页面实体
  * 20160919弃用
  */
-public class FuncPage extends FuncBase implements Serializable {
+public class FuncPage1 extends FuncBase implements Serializable {
 
     public static final String funPage = "100102";
     private String icon_url;
@@ -46,7 +46,7 @@ public class FuncPage extends FuncBase implements Serializable {
 
 
     @Override
-    public FuncPage getnewinstance() {
-        return new FuncPage();
+    public FuncPage1 getnewinstance() {
+        return new FuncPage1();
     }
 }
