@@ -106,7 +106,7 @@ public class SortCommunityList extends myBaseActivity implements Serializable {
                 //Toast.makeText(getApplication(), ((SortModel)adapter.getItem(position)).getName(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 Bundle bundle=new Bundle();
-                bundle.putSerializable("UserComm",list.get(position));
+                bundle.putSerializable("UserComm",list.get(SourceDateList.get(position).getSourceIndex()));
                 intent.putExtras(bundle);
                 setResult(resultCodes.BINDDEVICE, intent);
                 finish();
@@ -139,6 +139,7 @@ public class SortCommunityList extends myBaseActivity implements Serializable {
 
         for (int i = 0; i < date.size(); i++) {
             SortModel sortModel = new SortModel();
+            sortModel.setSourceIndex(i);
             sortModel.setName(date.get(i).getCommName());
             String pinyin = characterParser.getSelling(date.get(i).getCommName());
             String sortString = pinyin.substring(0, 1).toUpperCase();

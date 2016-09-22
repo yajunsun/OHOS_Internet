@@ -105,6 +105,11 @@ public class SMSValidationStep2 extends myBaseActivity {
                          startActivityWithAnim(intent);
                          finish();
                     }
+                    else
+                     {
+                         generalhelper.ToastShow(SMSValidationStep2.this, "验证失败,请联系一家一店工作人员!");
+                         toCloseProgress();
+                     }
                     break;
             }
         }

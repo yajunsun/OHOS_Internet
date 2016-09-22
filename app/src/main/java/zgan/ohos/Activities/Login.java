@@ -49,9 +49,8 @@ public class Login extends myBaseActivity {
         et_Phone = (EditText) findViewById(R.id.et_Phone);
         et_pwd = (EditText) findViewById(R.id.et_pwd);
         //phone参数从注册验证那边传过来
-        Intent requestIntent=getIntent();
-        if(requestIntent.hasExtra("phone"))
-        {
+        Intent requestIntent = getIntent();
+        if (requestIntent.hasExtra("phone")) {
             et_Phone.setText(requestIntent.getStringExtra("phone"));
         }
     }
@@ -99,10 +98,13 @@ public class Login extends myBaseActivity {
                 }
                 break;
             case R.id.btn_register:
-                //Intent intent = new Intent(Login.this, UserCommSelect.class);
+
                 Intent intent = new Intent(Login.this, Register.class);
                 startActivityWithAnim(intent);
-                //finish();
+//                Intent intent=new Intent(Login.this,BindCommunity.class);
+//                intent.putExtra("username",et_Phone.getText().toString());
+//                intent.putExtra("pwd",et_pwd.getText().toString());
+//                startActivityWithAnim(intent);
                 break;
             case R.id.btn_forgetpwd:
                 Intent pwdintent = new Intent(Login.this, SMSValidationStep1.class);
@@ -148,7 +150,7 @@ public class Login extends myBaseActivity {
                         ZganCommunityService.toUserLogin(PhoneNum, et_pwd.getText().toString().trim(), communityHandler);
                     } else {
                         //Intent intent = new Intent(Login.this, BindDevice.class);
-                        Intent intent=new Intent(Login.this,BindCommunity.class);
+                        Intent intent = new Intent(Login.this, BindCommunity.class);
                         intent.putExtra("username", PhoneNum);
                         intent.putExtra("pwd", et_pwd.getText().toString().trim());
                         //intent.putExtra("showcancel", true);
