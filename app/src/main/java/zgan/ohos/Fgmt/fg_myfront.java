@@ -51,6 +51,7 @@ import zgan.ohos.Activities.Express_in;
 import zgan.ohos.Activities.Express_out;
 import zgan.ohos.Activities.Login;
 import zgan.ohos.Activities.MessageActivity;
+import zgan.ohos.Activities.SuperMarket;
 import zgan.ohos.ConstomControls.ScrollViewWithCallBack;
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.AdvertiseDal;
@@ -66,8 +67,6 @@ import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.resultCodes;
-
-//import zgan.ohos.Models.FuncPage;
 
 /**
  * Created by yajunsun on 16-2-24.
@@ -149,7 +148,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 //        }
 
     }
-
+//获取页面数据
     private void initNetData() {
         new Thread(new Runnable() {
             @Override
@@ -233,7 +232,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         ll_shequgrid = (LinearLayout) v.findViewById(R.id.ll_shequgrid);
         rv_grid = (RecyclerView) v.findViewById(R.id.rv_grid);
     }
-
+//加载功能区
     private void loadFuncData() {
         List<View> views = new ArrayList<>();
         int funcCount = funcPages.size();
@@ -302,7 +301,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                      }
         );
     }
-
+//功能区点击处理事件
     class funcClick implements View.OnClickListener {
         FrontItem func;
 
@@ -341,18 +340,23 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                     intent.putExtras(bundle);
                     if (isActionInstalled(intent))
                         startActivityIfLogin(intent, 0);
-                    else
-                        generalhelper.ToastShow(getActivity(), "即将上线~");
+                    else {
+                        //generalhelper.ToastShow(getActivity(), "即将上线~");
+                        intent=new Intent(getActivity(), SuperMarket.class);
+                        startActivityWithAnim(getActivity(), intent);
+                    }
                 }
             } catch (ActivityNotFoundException anfe) {
-                generalhelper.ToastShow(getActivity(), "即将上线~");
-                return;
+                Intent intent=new Intent(getActivity(), SuperMarket.class);
+                startActivityWithAnim(getActivity(), intent);
+//                generalhelper.ToastShow(getActivity(), "即将上线~");
+//                return;
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-
+//加载活动专区
     private void loadGridItems() {
         List<List<FrontItem>> set = new ArrayList<>();
         gridItemLayoutmanger = new LinearLayoutManager(getActivity());
@@ -377,7 +381,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         ll_shequgrid.setMinimumHeight(120);
         rv_grid.setMinimumHeight(100);
     }
-
+//加载超市购首页项目
     private void loadSqhdData() {
         int int_marginTop = getResources().getInteger(R.integer.front_item_marginTop);
         int marginTop = (int) (AppUtils.getDensity(getActivity()) * int_marginTop);
@@ -397,7 +401,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
         ll_shequhuodong.setMinimumHeight(0);
     }
-
+//超市购项点击处理事件
     class goodsClick implements View.OnClickListener {
         FrontItem item;
 
@@ -415,17 +419,22 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                 intent.putExtras(bundle);
                 if (isActionInstalled(intent))
                     startActivityIfLogin(intent, 0);
-                else
-                    generalhelper.ToastShow(getActivity(), "即将上线~");
+                else {
+                    //generalhelper.ToastShow(getActivity(), "即将上线~");
+                    intent=new Intent(getActivity(), SuperMarket.class);
+                    startActivityWithAnim(getActivity(), intent);
+                }
             } catch (ActivityNotFoundException anfe) {
-                generalhelper.ToastShow(getActivity(), "即将上线~");
-                return;
+               Intent  intent=new Intent(getActivity(), SuperMarket.class);
+                startActivityWithAnim(getActivity(), intent);
+//                generalhelper.ToastShow(getActivity(), "即将上线~");
+//                return;
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-
+//加载顶部广告
     private void loadGuanggaoData() {
         if (advertises != null) {
             List<View> advPics = new ArrayList<>();
@@ -485,7 +494,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
     }
 
-
+//广告点击处理事件
     class adverClick implements View.OnClickListener {
         Advertise advertise;
 
@@ -503,7 +512,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             startActivityWithAnim(getActivity(), intent);
         }
     }
-
+//提示对话框弹出
     private void communityOpt(int cmd, String data) {
         //if (SystemUtils.getSID().equals("")) {
         //if (PreferenceUtil.getSID().equals("")) {
@@ -529,7 +538,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
     }
 
-
+//数据处理handler
     private void iniHandler() {
         handler = new Handler() {
             @Override
@@ -630,7 +639,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
         };
     }
-
+//带数据返回处理
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -723,7 +732,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             startActivityWithAnimForResult(getActivity(), loginIntent, requstCode);
         }
     }
-
+//隐式Intent判断目标是否存在
     public boolean isActionInstalled(Intent intent) {
         final PackageManager packageManager = getActivity().getPackageManager();
         //final Intent intent = new Intent(action);
@@ -731,7 +740,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return list.size() > 0;
     }
-
+//广告循环驱动
     private void whatOption() {
         what.incrementAndGet();
         if (what.get() > imageViews.size() - 1) {
@@ -743,7 +752,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
         }
     }
-
+//广告滑动监听
     private final class GuidePageChangeListener implements ViewPager.OnPageChangeListener {
 
         @Override
@@ -772,7 +781,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
 
     }
-
+//功能区滑动监听
     private final class funcPageChangeListener implements ViewPager.OnPageChangeListener {
 
         @Override
@@ -798,7 +807,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
 
     }
-
+//广告适配器
     private final class AdvAdapter extends PagerAdapter {
         private List<View> views = null;
 
@@ -847,7 +856,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
         }
     }
-
+//功能区适配器
     private class funcAdapter extends RecyclerView.Adapter<funcAdapter.ViewHolder> {
 
         List<FrontItem> list;
@@ -887,7 +896,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
 
     }
-
+//活动专区适配器
     private class gridItemAdapter extends RecyclerView.Adapter<gridItemAdapter.ViewHolder> {
         List<List<FrontItem>> set;
 

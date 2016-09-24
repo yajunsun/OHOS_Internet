@@ -1,116 +1,89 @@
 package zgan.ohos.Activities;
 
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
+import android.util.Xml;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import java.util.Calendar;
-import java.util.List;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
-import zgan.ohos.Dals.HightQualityDal;
-import zgan.ohos.Dals.SuperMarketDal;
-import zgan.ohos.Models.SuperMarketM;
+import java.io.BufferedInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+
+import okio.BufferedSink;
 import zgan.ohos.R;
-import zgan.ohos.services.community.ZganCommunityService;
-import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
-import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
+import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 
 /**
  * create by yajunsun
- *
+ * <p/>
  * 超市购界面
- * */
+ */
 public class SuperMarket extends myBaseActivity {
 
-    List<SuperMarketM> list;
-    SuperMarketDal dal;
-    LinearLayout llcontent;
-    int pageindex = 0;
-    boolean isLoadingMore = false;
-    GridLayoutManager mLayoutManager;
-    Calendar lastCall;
-    Calendar thisCall;
-    int width=0;
-    //myAdapter adapter;
+    TextView txtdata;
+
     @Override
     protected void initView() {
         setContentView(R.layout.activity_super_market);
-        dal=new SuperMarketDal();
-        llcontent=(LinearLayout)findViewById(R.id.ll_content);
-        width= AppUtils.getWindowSize(this).x;
-        View back=findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        toSetProgressText(getResources().getString(R.string.loading));
-        toShowProgress();
+        txtdata = (TextView) findViewById(R.id.txt_data);
         loadData();
     }
+
     protected void loadData() {
-        isLoadingMore = false;
-        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1009, "@id=22", "@22"), handler);
-    }
+        OkHttpClient mOkHttpClient = new OkHttpClient();
+//创建一个Request
+        FormEncodingBuilder builder = new FormEncodingBuilder();
+        builder.add("ID","2016");
+        builder.add("account",PreferenceUtil.getUserName());
+        builder.add("token",SystemUtils.getNetToken());
+        final Request request = new Request.Builder()
+                .url("http://app.yumanc.1home1shop.com/V1_0/marketlist.aspx").post(builder.build())
+                .build();
+//new call
+        Call call = mOkHttpClient.newCall(request);
+//请求加入调度
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+            }
 
-    public void loadMoreData() {
-        try {
-            pageindex++;
-            isLoadingMore = true;
-            ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1009, "@id int", "@22"), handler);
-        } catch (Exception ex) {
-            generalhelper.ToastShow(this, ex.getMessage());
-        }
+            @Override
+            public void onResponse(final Response response) throws IOException {
+                final String htmlStr =  response.body().string().replace("\\","");
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtdata.setText(htmlStr);
+                    }
+                });
+            }
+        });
     }
-
-//    void bindData() {
-////        if (!isLoadingMore) {
-////            adapter = new myAdapter();
-////            rv_cakes.setAdapter(adapter);
-////            rv_cakes.setLayoutManager(mLayoutManager);
-////        } else
-////            adapter.notifyDataSetChanged();
-////        if (m!=null)
-////        {
-////            ImageLoader.bindBitmap(m.getpic_url(),ivpreview,500,500);
-////        }
-//        ViewGroup.MarginLayoutParams params=new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,getResources().getInteger(R.integer.supermarket_img_height));
-//        for (int i=0;i<list.size();i++)
-//        {
-//            ImageView iv=new ImageView(this);
-//            iv.setLayoutParams(params);
-//            iv.setScaleType(ImageView.ScaleType.FIT_XY);
-//            ImageLoader.bindBitmap(list.get(i).getpic_url(), iv, 800, getResources().getInteger(R.integer.supermarket_img_height));
-//            llcontent.addView(iv);
-//        }
-//    }
 
     void bindData() {
-        // ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getInteger(R.integer.supermarket_img_height));
-        ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        int maxheight=width*5;
-        params.setMargins(0, 0, 0, 0);
-        for (int i = 0; i < list.size(); i++) {
-            ImageView iv = new ImageView(this);
-            iv.setLayoutParams(params);
-            iv.setScaleType(ImageView.ScaleType.FIT_XY);
-            iv.setAdjustViewBounds(true);
-            iv.setMaxWidth(width);
-            iv.setMaxHeight(maxheight);
-            ImageLoader.bindBitmap(list.get(i).getpic_url(), iv, width, width);
-            llcontent.addView(iv);
-        }
+
     }
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -122,22 +95,9 @@ public class SuperMarket extends myBaseActivity {
                 Log.i(TAG, frame.subCmd + "  " + ret);
 
                 if (frame.subCmd == 40) {
-                    if (results[0].equals("0")&& results[1].equals("1009")) {
+                    if (results[0].equals("0") && results[1].equals("2016")) {
                         try {
-                            if (!isLoadingMore) {
-                                list = dal.getList(results[2]);
-                                if (frame.platform != 0) {
-                                    addCache("40" +  String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1009, "@id=22", "@22"), frame.strData);
-                                }
-                            } else
-                            {}
-//                                list.addAll(dal.getList(results[2]));
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    bindData();
-                                }
-                            });
+
                         } catch (Exception ex) {
                             android.os.Message msg1 = new android.os.Message();
                             msg1.what = 0;
@@ -150,29 +110,9 @@ public class SuperMarket extends myBaseActivity {
             }
         }
     };
+
     @Override
     public void ViewClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.l_call_mall:
-                if (lastCall == null) {
-                    lastCall = Calendar.getInstance();
-                    Intent intent = new Intent(this, CallOut.class);
-                    startActivityWithAnim(intent);
-                } else {
-                    thisCall = Calendar.getInstance();
-                    long span = thisCall.getTimeInMillis() - lastCall.getTimeInMillis();
-                    //判断上次点击开门和本次点击开门时间间隔是否大于5秒钟
-                    if (span > 5000) {
-                        lastCall = Calendar.getInstance();
-                        //communityOpt(37, String.format("%s\t%s", PreferenceUtil.getUserName(), PreferenceUtil.getSID()));
-                        Intent intent = new Intent(this, CallOut.class);
-                        startActivityWithAnim(intent);
-                    } else {
-                        generalhelper.ToastShow(this, "请在" + ((5000 - span) / 1000 + 1) + "秒后操作");
-                    }
-                }
-                break;
-        }
+
     }
 }

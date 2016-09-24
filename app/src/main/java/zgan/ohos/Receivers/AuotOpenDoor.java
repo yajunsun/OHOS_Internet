@@ -36,7 +36,7 @@ public class AuotOpenDoor extends BroadcastReceiver{
 
                 //获取当前wifi名称
                 System.out.println("连接到网络 " + wifiInfo.getSSID());
-                JPushInterface.init(context);
+                //JPushInterface.init(context);
             }
 
         }

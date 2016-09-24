@@ -30,6 +30,10 @@ import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 
+/***
+ * create by yajunsun
+ * 神行云长链接服务
+ */
 public class ZganLoginService extends Service {
 
     public static boolean ServiceRin = false;
@@ -94,6 +98,7 @@ public class ZganLoginService extends Service {
                 String[] results = result.split(",");
                 if (frame.subCmd == 1 && results[0].equals("0")) {
                     SystemUtils.setIsLogin(true);
+                    //获取小区服务器地址
                     toGetServerData(3, 0, PreferenceUtil.getUserName(), myhandler);
                     Log.v("TAG", "ZganLoginService自动重新登录成功");
                 } else if (frame.subCmd == 3) {
@@ -113,7 +118,8 @@ public class ZganLoginService extends Service {
                         Log.i("toConnectServer","ZganLoginService 登陆小区云");
                         ZganCommunityService.toAutoUserLogin(mycommunityHandler);
                     }
-                } else {
+                }
+                else {
                     Log.v("TAG", "ZganLoginService自动重新登录失败");
                 }
             }
@@ -129,8 +135,14 @@ public class ZganLoginService extends Service {
                 String result = generalhelper.getSocketeStringResult(frame.strData);
                 String[] results = result.split(",");
                 if (frame.subCmd == 1 && results[0].equals("0")) {
+                    //获取室内机SID
                     ZganCommunityService.toGetServerData(28, 0, PreferenceUtil.getUserName(), mycommunityHandler);
+                    //获取联网令牌
+                    ZganCommunityService.toGetServerData(43,PreferenceUtil.getUserName(),mycommunityHandler);
                     SystemUtils.setIsCommunityLogin(true);
+                }else if (frame.subCmd==43&&results[0].equals("0"))
+                {
+                    SystemUtils.setNetToken(results[1]);
                 }
                 else if (frame.subCmd == 28 && results[0].equals("0")) {
                     if (results.length == 2)

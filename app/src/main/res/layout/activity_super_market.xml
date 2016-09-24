@@ -47,45 +47,8 @@
                 android:textSize="@dimen/toolbar_title_size" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
-
-    <LinearLayout
-        android:id="@+id/l_call_mall"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/toolbar"
-        android:clickable="true"
-        android:gravity="center_vertical"
-        android:onClick="ViewClick"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/yijianhujiao_primary" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="一键呼叫 送货上门"
-            android:textColor="@color/primary"
-            android:textSize="@dimen/front_text_size" />
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/l_call_mall"
-        android:layout_marginTop="5dp">
-
-        <LinearLayout
-            android:id="@+id/ll_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-        </LinearLayout>
-    </ScrollView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/txt_data"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

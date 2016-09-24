@@ -13,6 +13,10 @@ import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 
+/***
+ * create by yajunsun
+ * 小区云长链接数据监听线程
+ */
 public class ZganCommunityService_Listen implements Runnable {
 
     private ZganSocketClient zsc;
@@ -31,10 +35,17 @@ public class ZganCommunityService_Listen implements Runnable {
                 String[] results = result.split(",");
                 if (frame.subCmd == 1 && results[0].equals("0")) {
                     SystemUtils.setIsCommunityLogin(true);
+                    //获取室内机SID
                     ZganCommunityService.toGetServerData(28, 0, PreferenceUtil.getUserName(), myhandler);
+                    //获取联网令牌
+                    ZganCommunityService.toGetServerData(43,PreferenceUtil.getUserName(),myhandler);
                     ZganCommunityServiceTools.isConnect = true;
                     Log.i(TAG, "自动重新登录小区云成功");
-                } else if (frame.subCmd == 28 && results[0].equals("0")) {
+                }
+                else if (frame.subCmd==43&&results[0].equals("0"))
+                {
+                    SystemUtils.setNetToken(results[1]);
+                }else if (frame.subCmd == 28 && results[0].equals("0")) {
                     if (results.length == 2)
                         PreferenceUtil.setSID(results[1]);
                 } else {

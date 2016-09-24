@@ -2,6 +2,10 @@ package zgan.ohos.utils;
 
 import android.content.res.Resources;
 
+/***
+ * create by yajunsun
+ * 系统通用数据
+ */
 public class SystemUtils {
     public static int getScreenOrientation() {
         return Resources.getSystem().getConfiguration().orientation;
@@ -9,6 +13,7 @@ public class SystemUtils {
 
     private static boolean isLogin = false;
     private static boolean isCommunityLogin = false;
+    private static String NET_TOKEN = "";
     public static final String FORRESULT = "forresult";
 
     private static String address;
@@ -59,24 +64,20 @@ public class SystemUtils {
         SystemUtils.village = _village;
     }
 
-    public static String getALIPAYurl()
-    {
+    public static String getALIPAYurl() {
         return ALIPAYurl;
     }
 
-    public static void setALIPAYurl(String _ALIPAYurl)
-    {
-        SystemUtils.ALIPAYurl=_ALIPAYurl;
+    public static void setALIPAYurl(String _ALIPAYurl) {
+        SystemUtils.ALIPAYurl = _ALIPAYurl;
     }
 
-    public static String getWPAYurl()
-    {
+    public static String getWPAYurl() {
         return WPAYurl;
     }
 
-    public static void setWPAYurl(String _WPAYurl)
-    {
-        SystemUtils.WPAYurl=_WPAYurl;
+    public static void setWPAYurl(String _WPAYurl) {
+        SystemUtils.WPAYurl = _WPAYurl;
     }
 
     //private static String SID="";
@@ -104,6 +105,15 @@ public class SystemUtils {
 //    public static void setSID(String _SID) {
 //        SID = _SID;
 //    }
+
+    public static String getNetToken() {
+            return NET_TOKEN;
+    }
+
+    public static void setNetToken(String token) {
+        if (!token.isEmpty())
+            NET_TOKEN = token;
+    }
 
     public static Integer getIntValue(String strValue) {
         try {

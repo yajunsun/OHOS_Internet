@@ -187,6 +187,12 @@ public class SplashActivity extends myBaseActivity {
                 String[] results = result.split(",");
                 if (frame.subCmd == 1 && results[0].equals("0")) {
                     SystemUtils.setIsCommunityLogin(true);
+                    //获取联网令牌
+                    ZganCommunityService.toGetServerData(43,PreferenceUtil.getUserName(),communityHandler);
+                }
+                else if (frame.subCmd==43&&results[0].equals("0"))
+                {
+                    SystemUtils.setNetToken(results[1]);
                 }
             }
         }

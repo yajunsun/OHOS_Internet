@@ -23,8 +23,13 @@ import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.LocationUtil;
 import zgan.ohos.utils.PreferenceUtil;
+import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 
+/***
+ * create by yajunsun
+ * 小区云长链接服务
+ */
 public class ZganCommunityService extends Service {
 
     public static boolean ServiceRin = false;
@@ -81,13 +86,20 @@ public class ZganCommunityService extends Service {
                 String result = generalhelper.getSocketeStringResult(frame.strData);
                 String[] results = result.split(",");
                 if (frame.subCmd == 1 && results[0].equals("0")) {
+                    //获取室内机
                     toGetServerData(28, 0, PreferenceUtil.getUserName(), myhandler);
-                    Log.v("TAG", "ZganCommunityService自动重新登录成功");
-                } else if (frame.subCmd == 28 && results[0].equals("0")) {
+                    //获取联网令牌
+                    toGetServerData(43,PreferenceUtil.getUserName(),myhandler);
+                    Log.v("TAG", "登陆小区云成功");
+                }
+                else if (frame.subCmd==43&&results[0].equals("0"))
+                {
+                    SystemUtils.setNetToken(results[1]);
+                }else if (frame.subCmd == 28 && results[0].equals("0")) {
                     if (results.length == 2)
                         PreferenceUtil.setSID(results[1]);
                 } else {
-                    Log.v("TAG", "ZganCommunityService自动重新登录失败");
+                    Log.v("TAG", "登陆小区云失败");
                 }
             }
         }
