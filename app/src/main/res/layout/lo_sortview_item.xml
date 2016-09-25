@@ -3,31 +3,30 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/catalog"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#EBEBEB"
-        android:textColor="#454545"
         android:layout_weight="1.0"
+        android:background="#EBEBEB"
+        android:paddingBottom="5dip"
         android:paddingLeft="5dip"
         android:paddingTop="5dip"
-        android:paddingBottom="5dip"
-        android:text="A"/>
+        android:text="A"
+        android:textColor="#454545" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
+        android:layout_marginLeft="5dip"
         android:layout_weight="1.0"
         android:background="@color/solid_white"
-        android:layout_marginLeft="5dip"
-        android:paddingTop="10dip"
+        android:gravity="center_vertical"
         android:paddingBottom="10dip"
-        />
+        android:paddingTop="10dip" />
 
 </LinearLayout>

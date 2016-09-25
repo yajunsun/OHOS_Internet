@@ -58,6 +58,7 @@
             android:id="@+id/lst_class"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:divider="@drawable/dush_divider"
             android:layout_weight="3"></ListView>
 
         <LinearLayout

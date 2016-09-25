@@ -50,7 +50,7 @@ public class SuperMarketDal extends ZGbaseDal<SuperMarketM> {
                             List<SM_GoodsM>goodsMs=new ArrayList<>();
                             for (int g=0;g<goods.length();g++)
                             {
-                                JSONObject go=(JSONObject)goods.opt(i);
+                                JSONObject go=(JSONObject)goods.opt(g);
                                 SM_GoodsM sm_goodsM=new SM_GoodsM();
                                 try{
                                     String gname=go.getString("name");

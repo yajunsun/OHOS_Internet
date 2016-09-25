@@ -1,5 +1,7 @@
 package zgan.ohos.Models;
 
+import android.view.View;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,6 +21,8 @@ public class SuperMarketM extends BaseModel  implements Serializable {
     private String recommend;
     //二级分类集合
     private List<SM_SecondaryM>category;
+    //是否选中
+    private  int isSelected= 0;
 
     public String getname() {
         return name;
@@ -52,6 +56,11 @@ public class SuperMarketM extends BaseModel  implements Serializable {
         this.category = category;
     }
 
+    public int getIsSelected(){return isSelected;}
+    public void setIsSelected(int status)
+    {
+        isSelected=status;
+    }
     @Override
     public SuperMarketM getnewinstance() {
         return new SuperMarketM();

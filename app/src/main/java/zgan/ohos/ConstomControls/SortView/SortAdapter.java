@@ -12,6 +12,10 @@ import android.widget.TextView;
 
 import zgan.ohos.R;
 
+/***
+ * create by yajunsun
+ * 按拼音排序列表适配器
+ */
 public class SortAdapter extends BaseAdapter implements SectionIndexer{
     private List<SortModel> list = null;
     private Context mContext;
@@ -56,11 +60,8 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer{
         }else{
             viewHolder.tvLetter.setVisibility(View.GONE);
         }
-
         viewHolder.tvTitle.setText(this.list.get(position).getName());
-
         return view;
-
     }
 
     final static class ViewHolder {
