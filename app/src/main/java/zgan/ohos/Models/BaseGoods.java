@@ -9,6 +9,57 @@ import zgan.ohos.utils.SystemUtils;
  */
 public abstract class BaseGoods extends BaseModel implements Serializable {
 
+    /***
+     * 商品名称
+     */
+    private String title;
+    /***
+     * 图片uri
+     */
+    private String pic_url;
+    /***
+     * 商品编号
+     */
+    private String product_id;
+    /***
+     * 配送时间
+     */
+    private String time;
+    /***
+     * 库存
+     */
+    private int stock;
+    /***
+     * 规格
+     */
+    private String specs;
+    /***
+     * 商品描述
+     */
+    private String desc;
+    /***
+     * 商品价格
+     */
+    private double price;
+    /***
+     * 购买量
+     */
+    private int selectedcount = 1;
+    /**
+     * 服务器返回的数量
+     */
+    private int count = 0;
+
+    /**
+     * 支持的支付方式
+     */
+    private String payment;
+    /**
+     * 商品类型 普通商品 0 服务类商品>0
+     */
+    private String goods_type = "0";
+
+
     public String getspecs() {
         return specs;
     }
@@ -83,56 +134,6 @@ public abstract class BaseGoods extends BaseModel implements Serializable {
     public void setdesc(Object value) {
         if (value != null) this.desc = value.toString();
     }
-
-    /***
-     * 商品名称
-     */
-    private String title;
-    /***
-     * 图片uri
-     */
-    private String pic_url;
-    /***
-     * 商品编号
-     */
-    private String product_id;
-    /***
-     * 配送时间
-     */
-    private String time;
-    /***
-     * 库存
-     */
-    private int stock;
-    /***
-     * 规格
-     */
-    private String specs;
-    /***
-     * 商品描述
-     */
-    private String desc;
-    /***
-     * 商品价格
-     */
-    private double price;
-    /***
-     * 购买量
-     */
-    private int selectedcount = 1;
-    /**
-     * 服务器返回的数量
-     */
-    private int count = 0;
-
-    /**
-     * 支持的支付方式
-     */
-    private String payment;
-    /**
-     * 商品类型 普通商品 0 服务类商品>0
-     */
-    private String goods_type = "0";
 
     public String getpayment() {
         return payment;

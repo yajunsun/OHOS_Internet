@@ -1,7 +1,5 @@
 package zgan.ohos.utils;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,28 +27,23 @@ public class JsonParser<T extends BaseModel> {
 
     public JsonParser(T _instance) {
         modelInstance = _instance;
-        Method[]superMs=null;
-        Method[]myMs;
-        if (modelInstance.getClass().getSuperclass().toString().equals("class zgan.ohos.Models.BaseGoods"))
-        {
-            superMs=modelInstance.getClass().getSuperclass().getDeclaredMethods();
+        Method[] superMs = null;
+        Method[] myMs;
+        if (modelInstance.getClass().getSuperclass().toString().equals("class zgan.ohos.Models.BaseGoods")) {
+            superMs = modelInstance.getClass().getSuperclass().getDeclaredMethods();
         }
         myMs = modelInstance.getClass().getDeclaredMethods();
-        if (superMs!=null) {
+        if (superMs != null) {
             methods = new Method[superMs.length + myMs.length];
-            for(int i=0;i<superMs.length;i++)
-            {
-                methods[i]=superMs[i];
+            for (int i = 0; i < superMs.length; i++) {
+                methods[i] = superMs[i];
             }
-            for(int i=0;i<myMs.length;i++)
-            {
-                methods[superMs.length+i]=myMs[i];
+            for (int i = 0; i < myMs.length; i++) {
+                methods[superMs.length + i] = myMs[i];
             }
 
-        }
-        else
-        {
-            methods=myMs;
+        } else {
+            methods = myMs;
         }
     }
 
@@ -64,7 +57,6 @@ public class JsonParser<T extends BaseModel> {
             try {
                 JSONArray jsonArray = new JSONObject(jsonstr)
                         .getJSONArray("data");
-//                Log.i("suntest", jsonstr);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     model = modelInstance.getnewinstance();
                     JSONObject obj = (JSONObject) jsonArray.opt(i);
@@ -76,12 +68,9 @@ public class JsonParser<T extends BaseModel> {
                                 try {
                                     String value = obj.get(mName.substring(3)).toString().trim();
                                     m.invoke(model, value);
-                                }
-                                catch (JSONException jse)
-                                {
+                                } catch (JSONException jse) {
                                     continue;
-                                }
-                                catch (Exception e) {
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                     continue;
                                 }

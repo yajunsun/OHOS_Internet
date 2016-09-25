@@ -1,33 +1,55 @@
 package zgan.ohos.Models;
 
 import java.io.Serializable;
+import java.util.List;
 
 import zgan.ohos.utils.SystemUtils;
 
 /**
- * Created by Administrator on 16-5-6.
+ * Created by yajunsun on 16-5-6.
+ * 超市购数据结构
  */
 public class SuperMarketM extends BaseModel  implements Serializable {
 
-    private int order;
-    private String pic_url;
+    //分类名
+    private String name;
+    //分类id
+    private String id;
+    //是否店主推荐 0推荐 1不推荐
+    private String recommend;
+    //二级分类集合
+    private List<SM_SecondaryM>category;
 
-    public int getorder() {
-        return order;
+    public String getname() {
+        return name;
     }
 
-    public void setorder(Object value) {
-        if (value != null)
-            this.order = SystemUtils.getIntValue(value.toString());
+    public void setname(String name) {
+        this.name = name;
     }
 
-    public String getpic_url() {
-        return pic_url;
+    public String getid() {
+        return id;
     }
 
-    public void setpic_url(Object value) {
-        if (value != null)
-            this.pic_url = value.toString();
+    public void setid(String id) {
+        this.id = id;
+    }
+
+    public String getrecommend() {
+        return recommend;
+    }
+
+    public void setrecommend(String recommend) {
+        this.recommend = recommend;
+    }
+
+    public List<SM_SecondaryM> getcategory() {
+        return category;
+    }
+
+    public void setcategory(List<SM_SecondaryM> category) {
+        this.category = category;
     }
 
     @Override

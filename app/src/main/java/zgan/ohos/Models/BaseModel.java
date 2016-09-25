@@ -5,4 +5,5 @@ package zgan.ohos.Models;
  */
 public abstract class BaseModel {
     public abstract <T> T getnewinstance();
+
 }

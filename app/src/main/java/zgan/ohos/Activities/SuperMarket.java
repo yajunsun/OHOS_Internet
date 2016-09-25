@@ -2,9 +2,14 @@ package zgan.ohos.Activities;
 
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.util.Xml;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.okhttp.Call;
@@ -16,6 +21,9 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -25,8 +33,11 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
+import java.util.List;
 
 import okio.BufferedSink;
+import zgan.ohos.Dals.SuperMarketDal;
+import zgan.ohos.Models.SuperMarketM;
 import zgan.ohos.R;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.PreferenceUtil;
@@ -39,23 +50,34 @@ import zgan.ohos.utils.generalhelper;
  * 超市购界面
  */
 public class SuperMarket extends myBaseActivity {
-
-    TextView txtdata;
+    SuperMarketDal dal;
+    List<SuperMarketM> list;
+    ListView lstclass;
+    RecyclerView rvproducts;
+    LinearLayout llcategray1;
+    LinearLayout llcategray2;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_super_market);
-        txtdata = (TextView) findViewById(R.id.txt_data);
+        dal = new SuperMarketDal();
+        lstclass=(ListView)findViewById(R.id.lst_class);
+        rvproducts=(RecyclerView)findViewById(R.id.rv_products);
+        llcategray1=(LinearLayout)findViewById(R.id.ll_categray1);
+        llcategray2=(LinearLayout)findViewById(R.id.ll_categray2);
         loadData();
     }
 
     protected void loadData() {
+        toSetProgressText("正在加载...");
+        toShowProgress();
+
         OkHttpClient mOkHttpClient = new OkHttpClient();
 //创建一个Request
         FormEncodingBuilder builder = new FormEncodingBuilder();
-        builder.add("ID","2016");
-        builder.add("account",PreferenceUtil.getUserName());
-        builder.add("token",SystemUtils.getNetToken());
+        builder.add("ID", "2016");
+        builder.add("account", PreferenceUtil.getUserName());
+        builder.add("token", SystemUtils.getNetToken());
         final Request request = new Request.Builder()
                 .url("http://app.yumanc.1home1shop.com/V1_0/marketlist.aspx").post(builder.build())
                 .build();
@@ -69,13 +91,11 @@ public class SuperMarket extends myBaseActivity {
 
             @Override
             public void onResponse(final Response response) throws IOException {
-                final String htmlStr =  response.body().string().replace("\\","");
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        txtdata.setText(htmlStr);
-                    }
-                });
+                final String htmlStr = response.body().string().replace("\\", "");
+                Message msg = handler.obtainMessage();
+                msg.what = 1;
+                msg.obj = htmlStr;
+                msg.sendToTarget();
             }
         });
     }
@@ -89,21 +109,20 @@ public class SuperMarket extends myBaseActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 1) {
-                Frame frame = (Frame) msg.obj;
-                String[] results = frame.strData.split("\t");
-                String ret = generalhelper.getSocketeStringResult(frame.strData);
-                Log.i(TAG, frame.subCmd + "  " + ret);
-
-                if (frame.subCmd == 40) {
-                    if (results[0].equals("0") && results[1].equals("2016")) {
-                        try {
-
-                        } catch (Exception ex) {
-                            android.os.Message msg1 = new android.os.Message();
-                            msg1.what = 0;
-                            msg1.obj = ex.getMessage();
-                            handler.sendMessage(msg1);
+                String data = msg.obj.toString();
+                if (!data.isEmpty()) {
+                    try {
+                        String result = new JSONObject(data).get("result").toString();
+                        String errmsg = new JSONObject(data).get("msg").toString();
+                        if (result.equals("0")) {
+                            list = dal.getList(data);
+                            bindData();
                         }
+                    } catch (JSONException jse) {
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+
                     }
                 }
                 toCloseProgress();
@@ -114,5 +133,17 @@ public class SuperMarket extends myBaseActivity {
     @Override
     public void ViewClick(View v) {
 
+    }
+    //商品列表适配器
+    class sm_product_Adapter {
+        class ViewHoler extends RecyclerView.ViewHolder
+        {
+            ImageView img_product,btn_add;
+            TextView txt_name,txt_price,txt_oldprice1,txt_oldprice2;
+            LinearLayout ll_types;
+            public ViewHoler(View itemView) {
+                super(itemView);
+            }
+        }
     }
 }
