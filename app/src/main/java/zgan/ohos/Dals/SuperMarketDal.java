@@ -1,5 +1,7 @@
 package zgan.ohos.Dals;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -103,6 +105,51 @@ public class SuperMarketDal extends ZGbaseDal<SuperMarketM> {
         return list;
     }
 
+    public List<SM_GoodsM>getGoodsList(String xmlString)
+    {
+        List<SM_GoodsM> goodsMs = new ArrayList<>();
+        try {
+            JSONArray goods = new JSONObject(xmlString).getJSONArray("data");
+
+            for (int g = 0; g < goods.length(); g++) {
+                JSONObject go = (JSONObject) goods.opt(g);
+                SM_GoodsM sm_goodsM = new SM_GoodsM();
+                try {
+                    String gname = go.getString("name");
+                    String product_id = go.getString("product_id");
+                    String pic_url = go.getString("pic_url");
+                    String oldprice = go.getString("oldprice");
+                    String specification = go.getString("specification");
+                    JSONArray typelist = go.getJSONArray("type_list");
+                    sm_goodsM.setname(gname);
+                    sm_goodsM.setproduct_id(product_id);
+                    sm_goodsM.setpic_url(pic_url);
+                    sm_goodsM.setoldprice(oldprice);
+                    sm_goodsM.setspecification(specification);
+                    List<String> type_list = new ArrayList<>();
+                    for (int t = 0; t < typelist.length(); t++) {
+                        JSONObject type = (JSONObject) typelist.opt(t);
+                        type_list.add(type.getString("type_icon_url"));
+                    }
+                    sm_goodsM.settype_list(type_list);
+                    goodsMs.add(sm_goodsM);
+                } catch (JSONException jse) {
+                    continue;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    continue;
+                }
+            }
+        }
+        catch (JSONException jse) {
+            Log.e("suntest",jse.getMessage());
+            return goodsMs;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return goodsMs;
+        }
+        return goodsMs;
+    }
     public SuperMarketM getItem(String xmlString) {
         return null; //GetSingleModel(xmlString, new SuperMarketM());
     }

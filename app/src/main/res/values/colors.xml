@@ -51,12 +51,16 @@
     <!--首页-->
     <color name="txt_xiaoqu_color">#FFFFFFFF</color>
     <color name="shishiwuye_big_txt_color">#242424</color>
-    <color name= "shishiwuye_sm_txt_color">#5b5858</color>
+    <color name="shishiwuye_sm_txt_color">#5b5858</color>
     <color name="base_func_color">#FFFFFFFF</color>
     <!--留言回复页的背景-->
     <color name="bkg_color_msg_reply">#ece9e7</color>
     <!--手工蛋糕，私人定制提示背景-->
     <color name="bkg_cake_srdz">#a1000000</color>
     <!--个人中心-->
-    <color name="myaccount_icon">#808F8D8E</color>s
+    <color name="myaccount_icon">#808F8D8E</color>
+    <!--超市购普通文字颜色-->
+    <color name="color_sm_normal_txt">#707070</color>
+    <!--超市购一级分类普通背景颜色-->
+    <color name="color_sm_class_bg">#D9D9D9</color>
 </resources>

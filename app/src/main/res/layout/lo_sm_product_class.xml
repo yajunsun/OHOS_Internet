@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:minHeight="100dp"
-    android:background="@color/transparent50"
+    android:layout_height="80dp"
+    android:minHeight="80dp"
+    android:background="@color/color_sm_class_bg"
     android:orientation="horizontal">
 
     <LinearLayout
