@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import zgan.ohos.Dals.SuperMarketDal;
@@ -308,14 +309,14 @@ public class SuperMarket extends myBaseActivity {
             //请求商品数据
             FormEncodingBuilder builder = new FormEncodingBuilder();
             StringBuilder sb = new StringBuilder();
-            sb.append("[{");
-            sb.append("page_id:");
-            sb.append(pageIndex);
-            sb.append(",sub_category_id:");
-            sb.append(cat.getid());
-            sb.append(",category_id:");
-            sb.append(mCurrentClassId);
-            sb.append("}]");
+            sb.append("{");
+            sb.append("\"page_id\":");
+            sb.append("\""+pageIndex+"\"");
+            sb.append(",\"sub_category_id\":");
+            sb.append("\""+cat.getid()+"\"");
+            sb.append(",\"category_id\":");
+            sb.append("\""+mCurrentClassId+"\"");
+            sb.append("}");
             builder.add("account", PreferenceUtil.getUserName());
             builder.add("token", SystemUtils.getNetToken());
             builder.add("data", sb.toString());
