@@ -176,6 +176,8 @@ public class Login extends myBaseActivity {
                         SystemUtils.setIsLogin(true);
                         SystemUtils.setIsCommunityLogin(true);
                         ZganLoginService.toGetServerData(28, 0, PhoneNum, communityHandler);
+                        //获取联网令牌
+                        ZganCommunityService.toGetServerData(43,PhoneNum,communityHandler);
                     } else {
                         Intent intent = new Intent(Login.this, BindDevice.class);
                         intent.putExtra("username", PhoneNum);
@@ -183,7 +185,12 @@ public class Login extends myBaseActivity {
                         intent.putExtra("showcancel", true);
                         startActivityWithAnim(intent);
                     }
-                } else if (frame.subCmd == 28 && results[0].equals("0")) {
+                }
+                else if (frame.subCmd==43&&results[0].equals("0"))
+                {
+                    SystemUtils.setNetToken(results[1]);
+                }
+                else if (frame.subCmd == 28 && results[0].equals("0")) {
                     if (results.length == 2) {
                         PreferenceUtil.setSID(results[1]);
                         logined();

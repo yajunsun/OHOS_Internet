@@ -1,5 +1,6 @@
 package zgan.ohos.Activities;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
@@ -100,6 +101,8 @@ public class SuperMarket extends myBaseActivity {
                     lastClassIndex = i;
                     mCurrentClassId = list.get(i).getid();
                     bindData();
+                    pageIndex=1;
+                    getCatProducts("-1");
                 }
             }
         });
@@ -109,10 +112,9 @@ public class SuperMarket extends myBaseActivity {
         llcategray2 = (LinearLayout) findViewById(R.id.ll_categray2);
         loadData();
     }
-
     //从网络获取数据
     protected void loadData() {
-        toSetProgressText("正在加载...");
+        toSetProgressText();
         toShowProgress();
 
         mOkHttpClient = new OkHttpClient();
@@ -147,7 +149,7 @@ public class SuperMarket extends myBaseActivity {
     void bindData() {
         if (list != null && list.size() > 0) {
             bindClass();
-            mCurrentClassId=list.get(lastClassIndex).getid();
+            mCurrentClassId = list.get(lastClassIndex).getid();
             secondarylst = list.get(lastClassIndex).getcategory();
         }
         if (secondarylst != null && secondarylst.size() > 0) {
@@ -211,7 +213,7 @@ public class SuperMarket extends myBaseActivity {
     //绑定商品列表
     void bindProduct() {
         if (productAdapter == null) {
-            productAdapter = new sm_product_Adapter(goodslst);
+            productAdapter = new sm_product_Adapter();
             rvproducts.setLayoutManager(product_layoutManager);
             rvproducts.setAdapter(productAdapter);
         } else {
@@ -283,6 +285,7 @@ public class SuperMarket extends myBaseActivity {
                         e.printStackTrace();
                     }
                 }
+                toCloseProgress();
             }
         }
     };
@@ -301,56 +304,58 @@ public class SuperMarket extends myBaseActivity {
 
         @Override
         public void onClick(View view) {
+            toShowProgress();
             clearCatStyle();
             TextView v = (TextView) view;
             if (Build.SDK_INT > 15)
                 v.setBackground(getResources().getDrawable(R.drawable.bg_primary_rectangle_border));
             ((TextView) view).setTextColor(getResources().getColor(R.color.primary));
             //请求商品数据
-            FormEncodingBuilder builder = new FormEncodingBuilder();
-            StringBuilder sb = new StringBuilder();
-            sb.append("{");
-            sb.append("\"page_id\":");
-            sb.append("\""+pageIndex+"\"");
-            sb.append(",\"sub_category_id\":");
-            sb.append("\""+cat.getid()+"\"");
-            sb.append(",\"category_id\":");
-            sb.append("\""+mCurrentClassId+"\"");
-            sb.append("}");
-            builder.add("account", PreferenceUtil.getUserName());
-            builder.add("token", SystemUtils.getNetToken());
-            builder.add("data", sb.toString());
-            final Request request = new Request.Builder()
-                    .url("http://app.yumanc.1home1shop.com/V1_0/goodslist.aspx").post(builder.build())
-                    .build();
-            //new call
-            Call call = mOkHttpClient.newCall(request);
-            //请求加入调度
-            call.enqueue(new Callback() {
-                @Override
-                public void onFailure(Request request, IOException e) {
-                }
-
-                @Override
-                public void onResponse(final Response response) throws IOException {
-                    final String htmlStr = response.body().string().replace("\\", "");
-                    Message msg = handler.obtainMessage();
-                    msg.what = 2;
-                    msg.obj = htmlStr;
-                    msg.sendToTarget();
-                }
-            });
-
+            pageIndex=1;
+            getCatProducts(cat.getid());
         }
+    }
+
+
+    void getCatProducts(String catId) {
+        FormEncodingBuilder builder = new FormEncodingBuilder();
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        sb.append("\"page_id\":");
+        sb.append("\"" + pageIndex + "\"");
+        sb.append(",\"sub_category_id\":");
+        sb.append("\"" + mCurrentClassId + "\"");
+        sb.append(",\"category_id\":");
+        sb.append("\"" + catId + "\"");
+        sb.append("}");
+        builder.add("account", PreferenceUtil.getUserName());
+        builder.add("token", SystemUtils.getNetToken());
+        builder.add("data", sb.toString());
+        final Request request = new Request.Builder()
+                .url("http://app.yumanc.1home1shop.com/V1_0/goodslist.aspx").post(builder.build())
+                .build();
+        //new call
+        Call call = mOkHttpClient.newCall(request);
+        //请求加入调度
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+            }
+
+            @Override
+            public void onResponse(final Response response) throws IOException {
+                final String htmlStr = response.body().string().replace("\\", "");
+                Message msg = handler.obtainMessage();
+                msg.what = 2;
+                msg.obj = htmlStr;
+                msg.sendToTarget();
+            }
+        });
     }
 
     //商品列表适配器
     class sm_product_Adapter extends RecyclerView.Adapter<sm_product_Adapter.ViewHoler> {
-        List<SM_GoodsM> goodsMs;
 
-        public sm_product_Adapter(List<SM_GoodsM> _list) {
-            goodsMs = _list;
-        }
 
         @Override
         public ViewHoler onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -359,7 +364,7 @@ public class SuperMarket extends myBaseActivity {
 
         @Override
         public void onBindViewHolder(ViewHoler holder, int position) {
-            SM_GoodsM goodsM = goodsMs.get(position);
+            final SM_GoodsM goodsM = goodslst.get(position);
             ImageLoader.bindBitmap(goodsM.getpic_url(), holder.img_product);
             holder.txt_name.setText(goodsM.getname());
             holder.txt_price.setText(String.valueOf(goodsM.getprice()));
@@ -373,13 +378,32 @@ public class SuperMarket extends myBaseActivity {
                     holder.ll_oldprice1.setVisibility(View.VISIBLE);
                     holder.ll_oldprice2.setVisibility(View.GONE);
                 }
-
             }
+            holder.ll_types.removeAllViews();
+            if (goodsM.gettype_list() != null && goodsM.gettype_list().size() > 0) {
+                int tcount = goodsM.gettype_list().size();
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        Math.round(40 * density), Math.round(20 * density));
+                params.setMargins(Math.round(8 * density), 0, 0, 0);
+                for (int i = 0; i < tcount; i++) {
+                    ImageView iv = new ImageView(SuperMarket.this);
+                    iv.setLayoutParams(params);
+                    ImageLoader.bindBitmap(goodsM.gettype_list().get(i), iv);
+                }
+            }
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(SuperMarket.this,SuperMarketDetail.class);
+                    intent.putExtra("productid",goodsM.getproduct_id());
+                    startActivityWithAnim(intent);
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
-            return goodsMs.size();
+            return goodslst.size();
         }
 
         class ViewHoler extends RecyclerView.ViewHolder {

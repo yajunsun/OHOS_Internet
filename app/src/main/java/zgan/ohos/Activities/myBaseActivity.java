@@ -23,7 +23,7 @@ import zgan.ohos.utils.DataCacheHelper;
 
 /**
  * Created by yajunsun on 2016/1/11.
- *
+ * <p/>
  * 系统内的各activity继承自此activity
  */
 public abstract class myBaseActivity extends AppCompatActivity {
@@ -31,6 +31,7 @@ public abstract class myBaseActivity extends AppCompatActivity {
     protected final static String TAG = "suntest";
     protected TextView txt_net_error;
     protected View ll_net_error;
+    private String processText = "正在加载中，请上等。。。";
     public BroadcastReceiver serviceReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -118,8 +119,12 @@ public abstract class myBaseActivity extends AppCompatActivity {
     }
 
     protected void toSetProgressText(String strMsg) {
-
-        progressDialog.setMessage(strMsg);
+        processText = strMsg;
+        toSetProgressText(processText);
+    }
+    protected  void toSetProgressText()
+    {
+        progressDialog.setMessage(processText);
     }
 
     protected void toCloseProgress() {
@@ -146,7 +151,6 @@ public abstract class myBaseActivity extends AppCompatActivity {
         unregisterReceiver(serviceReceiver);
         Log.v(TAG, "服务错误监听注销");
     }
-
 
 
 }
