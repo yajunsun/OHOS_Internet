@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -31,8 +32,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import zgan.ohos.Dals.SuperMarketDetalDal;
 import zgan.ohos.Models.Advertise;
+import zgan.ohos.Models.SuperMarketDetailM;
 import zgan.ohos.R;
+import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
@@ -42,27 +46,48 @@ public class SuperMarketDetail extends myBaseActivity {
 
     ViewPager adv_pager;
     LinearLayout pager_ind;
-    List<String> advertises;//图片集合
     List<ImageView> imageViews = new ArrayList<>();//显示图片的imageview集合
     OkHttpClient mOkHttpClient;
     String product_id;
-
+    SuperMarketDetalDal dal;
+    SuperMarketDetailM model;
+    float density;
+    TextView txtname,txtprice,txtoldprice,txtcountdown;
+    LinearLayout lltypes;
+    View lloldprice,rldetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_super_market_detail);
-        product_id = getIntent().getStringExtra("productid");
-        loadData();
     }
 
     @Override
     protected void initView() {
+        setContentView(R.layout.activity_super_market_detail);
+        product_id = getIntent().getStringExtra("productid");
+        adv_pager=(ViewPager)findViewById(R.id.adv_pager);
+        pager_ind=(LinearLayout)findViewById(R.id.pager_ind);
+        txtname=(TextView)findViewById(R.id.txt_name);
+        txtprice=(TextView)findViewById(R.id.txt_price);
+        txtoldprice=(TextView)findViewById(R.id.txt_oldprice);
+        txtcountdown=(TextView)findViewById(R.id.txt_count);
+        lltypes=(LinearLayout)findViewById(R.id.ll_types);
+        lloldprice=findViewById(R.id.ll_oldprice2);
+        rldetail=findViewById(R.id.rl_detail);
+        dal=new SuperMarketDetalDal();
+        density= AppUtils.getDensity(SuperMarketDetail.this);
+        View back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        loadData();
     }
 
     void loadData() {
         toSetProgressText();
         toShowProgress();
-
         mOkHttpClient = new OkHttpClient();
         //创建一个Request
         FormEncodingBuilder builder = new FormEncodingBuilder();
@@ -92,16 +117,17 @@ public class SuperMarketDetail extends myBaseActivity {
     }
 
     void bindData() {
-        if (advertises != null) {
+        //加载图片列表
+        if (model.getpic_urls_list() != null) {
             List<View> advPics = new ArrayList<>();
             ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            for (int i = 0; i < advertises.size(); i++) {
+            for (int i = 0; i < model.getpic_urls_list().size(); i++) {
                 ImageView img = new ImageView(SuperMarketDetail.this);
                 img.setLayoutParams(params);
                 img.setScaleType(ImageView.ScaleType.FIT_XY);
                 //取消点击功能
                 //img.setOnClickListener(new adverClick(advertises.get(i)));
-                ImageLoader.bindBitmap(advertises.get(i), img, 500, 500);
+                ImageLoader.bindBitmap(model.getpic_urls_list().get(i), img, 500, 500);
                 advPics.add(img);
                 ImageView simg = new ImageView(SuperMarketDetail.this);
                 simg.setLayoutParams(new ViewGroup.LayoutParams(20, 20));
@@ -116,6 +142,31 @@ public class SuperMarketDetail extends myBaseActivity {
             adv_pager.setAdapter(new AdvAdapter(advPics));
             adv_pager.setOnPageChangeListener(new GuidePageChangeListener());
         }
+        //商品名和价格
+        txtname.setText(model.getname());
+        if (model.gettype_list() != null && model.gettype_list().size() > 0) {
+            lltypes.setVisibility(View.VISIBLE);
+            int tcount = model.gettype_list().size();
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    Math.round(40 * density), Math.round(20 * density));
+            params.setMargins(Math.round(8 * density), 0, 0, 0);
+            for (int i = 0; i < tcount; i++) {
+                ImageView iv = new ImageView(SuperMarketDetail.this);
+                iv.setLayoutParams(params);
+                ImageLoader.bindBitmap(model.gettype_list().get(i), iv);
+            }
+        }
+        txtprice.setText(String.valueOf(model.getprice()));
+        if(!model.getoldprice().equals("")&&!model.getoldprice().equals("0"))
+        {
+            lloldprice.setVisibility(View.VISIBLE);
+            txtoldprice.setText("￥"+model.getoldprice());
+        }
+        else
+        {
+            lloldprice.setVisibility(View.GONE);
+        }
+        txtcountdown.setText(model.getcountdown());
     }
 
     Handler handler = new Handler() {
@@ -131,7 +182,7 @@ public class SuperMarketDetail extends myBaseActivity {
                         String errmsg = new JSONObject(data).get("msg").toString();
                         //获取数据并绑定数据
                         if (result.equals("0")) {
-                            //list = dal.getList(data);
+                            model = dal.Get(data);
                             bindData();
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(SuperMarketDetail.this, "服务器错误:" + errmsg);

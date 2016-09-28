@@ -52,6 +52,7 @@
 
         android:id="@+id/ll_check"
         android:layout_width="match_parent"
+        android:background="@drawable/draw_normalitem_bg"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true">
 
