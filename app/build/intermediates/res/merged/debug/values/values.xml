@@ -70,7 +70,7 @@
     <color name="color_bg_toolbar">@color/colorPrimary</color>
     <color name="color_sc_bg">#33000000</color>
     <color name="color_sc_text_color">#FFFFFF</color>
-    <color name="color_sm_class_bg">#D9D9D9</color>
+    <color name="color_sm_class_bg">#EEEEEE</color>
     <color name="color_sm_normal_txt">#707070</color>
     <color name="color_txt_toobar">@color/md_white_1000</color>
     <color name="dancen">#CCCC33</color>

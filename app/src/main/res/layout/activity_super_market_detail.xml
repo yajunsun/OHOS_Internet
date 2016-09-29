@@ -83,7 +83,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="1dp"
                 android:layout_centerVertical="true"
                 android:background="@color/color_sm_normal_txt"
@@ -232,7 +232,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentRight="true"
                             android:layout_marginTop="10dp"
                             android:text="距结束还剩"
                             android:textColor="@color/primary" />
@@ -241,8 +241,8 @@
                             android:id="@+id/txt_countdown"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
                             android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
                             android:text="23:48:25"
                             android:textSize="18sp" />
                     </RelativeLayout>
@@ -290,6 +290,7 @@
                     android:layout_marginRight="10dp"
                     app:iiv_color="@color/myaccount_icon"
                     app:iiv_icon="gmd-chevron-right" />
+                />
             </RelativeLayout>
 
             <RelativeLayout
@@ -347,19 +348,18 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     app:iiv_color="@color/myaccount_icon"
-                    app:iiv_icon="gmd-chevron-right" />
+                    app:iiv_icon="gmd-chevron-right"/>
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
-
-    <zgan.ohos.ConstomControls.RoundImageViewByXfermode
-        android:id="@+id/img_icon"
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
         android:layout_marginBottom="25dp"
+        android:id="@+id/img_icon"
+        android:scaleType="fitXY"
         android:layout_marginLeft="15dp"
         android:elevation="4dp"
-        android:src="@drawable/call_yijiayidianchaoshi"
-        android:translationZ="10dp" />
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/cartshopping"
+        android:layout_height="50dp" />
 </RelativeLayout>

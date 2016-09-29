@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/solid_white"
     android:orientation="vertical">
 
@@ -85,13 +86,25 @@
         android:layout_toRightOf="@id/img_product"
         android:orientation="horizontal"></LinearLayout>
 
-    <ImageView
+    <com.mikepenz.iconics.view.IconicsImageView
         android:id="@+id/btn_add"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
         android:clickable="true"
-        android:src="@drawable/order_error" />
+        app:iiv_color="@color/solid_white"
+        app:iiv_corner_radius="25dp"
+        app:iiv_background_color="@color/primary"
+        app:iiv_icon="gmd-add-circle-outline" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/color_sm_class_bg"
+        android:layout_alignParentBottom="true"
+        android:layout_height="1dp"></LinearLayout>
 </RelativeLayout>

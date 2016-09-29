@@ -120,7 +120,7 @@ public abstract class myBaseActivity extends AppCompatActivity {
 
     protected void toSetProgressText(String strMsg) {
         processText = strMsg;
-        toSetProgressText(processText);
+        toSetProgressText();
     }
     protected  void toSetProgressText()
     {
