@@ -28,11 +28,15 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
+import zgan.ohos.Contracts.UpdateCartListner;
+import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Dals.SuperMarketDal;
 import zgan.ohos.Models.SM_GoodsM;
 import zgan.ohos.Models.SM_SecondaryM;
+import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.Models.SuperMarketM;
 import zgan.ohos.R;
 import zgan.ohos.utils.AppUtils;
@@ -48,6 +52,7 @@ import zgan.ohos.utils.generalhelper;
  */
 public class SuperMarket extends myBaseActivity {
     SuperMarketDal dal;
+    ShoppingCartDal cartDal;
     ListView lstclass;
     RecyclerView rvproducts;
     LinearLayout llcategray1;
@@ -55,10 +60,12 @@ public class SuperMarket extends myBaseActivity {
     LinearLayout llcate;
     sm_class_Adapter classAdapter;
     sm_product_Adapter productAdapter;
-    RecyclerView.LayoutManager product_layoutManager = new LinearLayoutManager(SuperMarket.this);
+    LinearLayoutManager product_layoutManager = new LinearLayoutManager(SuperMarket.this);
+    boolean isLoadingMore = false;
     List<SuperMarketM> list;
     List<SM_SecondaryM> secondarylst;
     List<SM_GoodsM> goodslst;
+    List<String> mOids;
     //商品列表页码
     int pageIndex = 1;
     //一级分类选择索引
@@ -66,13 +73,19 @@ public class SuperMarket extends myBaseActivity {
     //一级分类当前id
     String mCurrentClassId;
     //二级分类当前id
-    //String mCurrentCatId = "-1";
+    String mCurrentCatId = "-1";
     //二级分类的宽度
     int catParentWidth = 0;
     //屏幕密度
     float density = 1;
     //网络请求api
     OkHttpClient mOkHttpClient;
+    /***
+     * 购物车部分
+     **/
+    TextView txtcount, btncheck, txtoldtotalprice, txttotalprice;
+    View rloldprice;
+
 
     @Override
     protected void initView() {
@@ -84,8 +97,32 @@ public class SuperMarket extends myBaseActivity {
                 finish();
             }
         });
+        View rlsearch = findViewById(R.id.rl_search);
+        rlsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SuperMarket.this, SMSearchResult.class);
+                startActivityWithAnim(intent);
+            }
+        });
+        View btncheck = findViewById(R.id.btn_check);
+        btncheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SuperMarket.this, ShoppingCart.class);
+                startActivityWithAnim(intent);
+            }
+        });
+        //TextView txtcount,txtoldtotalprice,txt_totalprice;
+        //View rl_oldprice;
+        txtcount = (TextView) findViewById(R.id.txt_count);
+        txtoldtotalprice = (TextView) findViewById(R.id.txt_oldtotalprice);
+        txttotalprice = (TextView) findViewById(R.id.txt_totalprice);
+        rloldprice = findViewById(R.id.rl_oldprice);
+
         catParentWidth = (AppUtils.getWindowSize(SuperMarket.this).x / 3) * 2;
         dal = new SuperMarketDal();
+        cartDal = new ShoppingCartDal();
         density = AppUtils.getDensity(SuperMarket.this);
         lstclass = (ListView) findViewById(R.id.lst_class);
         lstclass.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -100,18 +137,36 @@ public class SuperMarket extends myBaseActivity {
                     list.get(i).setIsSelected(1);
                     lastClassIndex = i;
                     mCurrentClassId = list.get(i).getid();
+                    mCurrentCatId = "-1";
                     bindData();
-                    pageIndex=1;
-                    getCatProducts("-1");
+                    pageIndex = 1;
+                    getCatProducts();
                 }
             }
         });
         rvproducts = (RecyclerView) findViewById(R.id.rv_products);
+        rvproducts.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    int lastVisibleItem = product_layoutManager.findLastVisibleItemPosition();
+                    int totalItemCount = product_layoutManager.getItemCount();
+                    //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
+                    // dy>0 表示向下滑动
+                    if (lastVisibleItem == totalItemCount - 1 && isLoadingMore == false) {
+                        loadMoreData();//这里多线程也要手动控制isLoadingMore
+                        isLoadingMore = true;
+                    }
+                }
+            }
+        });
         llcate = (LinearLayout) findViewById(R.id.ll_cate);
         llcategray1 = (LinearLayout) findViewById(R.id.ll_categray1);
         llcategray2 = (LinearLayout) findViewById(R.id.ll_categray2);
         loadData();
     }
+
     //从网络获取数据
     protected void loadData() {
         toSetProgressText();
@@ -145,6 +200,12 @@ public class SuperMarket extends myBaseActivity {
         });
     }
 
+    //加载更多
+    void loadMoreData() {
+        pageIndex++;
+        getCatProducts();
+    }
+
     //绑定数据
     void bindData() {
         if (list != null && list.size() > 0) {
@@ -154,9 +215,12 @@ public class SuperMarket extends myBaseActivity {
         }
         if (secondarylst != null && secondarylst.size() > 0) {
             bindSecodary();
+            mCurrentCatId = "-1";
             goodslst = secondarylst.get(0).getlist();
         }
         if (goodslst != null && goodslst.size() > 0) {
+            mOids = new ArrayList<>();
+            mOids.add(goodslst.get(0).getproduct_id());
             bindProduct();
         }
     }
@@ -219,6 +283,58 @@ public class SuperMarket extends myBaseActivity {
         } else {
             productAdapter.notifyDataSetChanged();
         }
+        isLoadingMore = false;
+    }
+
+    //加载购物车数据
+    void loadShoppingCart() {
+        UpdateCartListner lstner = new UpdateCartListner() {
+            @Override
+            public void onFailure() {
+                generalhelper.ToastShow(SuperMarket.this, "服务器错误!");
+            }
+
+            @Override
+            public void onResponse(String data) {
+                if (!data.isEmpty()) {
+                    try {
+                        String result = new JSONObject(data).get("result").toString();
+                        String errmsg = new JSONObject(data).get("msg").toString();
+                        //获取数据并绑定数据
+                        if (result.equals("0")) {
+                            //list = dal.getGoodsList(data);
+                            List<zgan.ohos.Models.ShoppingCart> lst = cartDal.getList(data);
+                            cartDal.syncCart(lst);
+                            ShoppingCartSummary summary = cartDal.getSCSummary();
+                            Message msg = handler.obtainMessage();
+                            msg.what = 3;
+                            msg.obj = summary;
+                            msg.sendToTarget();
+
+                        } else if (!errmsg.isEmpty()) {
+                            generalhelper.ToastShow(SuperMarket.this, "服务器错误:" + errmsg);
+                        }
+                    } catch (JSONException jse) {
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        cartDal.getCartList(lstner);
+    }
+
+    //绑定购物车数据
+    void bindShoppingCard(ShoppingCartSummary summary) {
+        txtcount.setText(summary.getCount());
+        txttotalprice.setText("￥" + summary.getTotalprice());
+        if (!summary.getOldtotalprice().equals("0")) {
+            txtoldtotalprice.setText("￥" + summary.getOldtotalprice());
+            rloldprice.setVisibility(View.VISIBLE);
+        } else {
+            rloldprice.setVisibility(View.GONE);
+        }
     }
 
     //清除二级分类的选中样式
@@ -254,6 +370,7 @@ public class SuperMarket extends myBaseActivity {
                         if (result.equals("0")) {
                             list = dal.getList(data);
                             bindData();
+                            loadShoppingCart();
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(SuperMarket.this, "服务器错误:" + errmsg);
                         }
@@ -274,7 +391,24 @@ public class SuperMarket extends myBaseActivity {
                         String errmsg = new JSONObject(data).get("msg").toString();
                         //获取数据并绑定数据
                         if (result.equals("0")) {
-                            goodslst = dal.getGoodsList(data);
+                            if (pageIndex == 1) {
+                                goodslst = new ArrayList<>();
+                                mOids = new ArrayList<>();
+                            }
+                            List<SM_GoodsM> templst = dal.getGoodsList(data);
+                            //goodslst = dal.getGoodsList(data);
+                            if (templst.size() > 0) {
+                                //判断本地是否已经有了本次获取的数据
+                                if (mOids.contains(templst.get(0).getproduct_id())) {
+                                    //如果存在就直接忽略此次加载,避免重复
+                                    pageIndex--;
+                                    return;
+                                } else {
+                                    //如果本地没有已有标志,则保存次页数据已存在的标志并加载显示出来
+                                    mOids.add(templst.get(0).getproduct_id());
+                                }
+                            }
+                            goodslst.addAll(templst);
                             bindProduct();
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(SuperMarket.this, "服务器错误:" + errmsg);
@@ -286,7 +420,11 @@ public class SuperMarket extends myBaseActivity {
                     }
                 }
                 toCloseProgress();
+            } else if (msg.what == 3) {
+                ShoppingCartSummary summary = (ShoppingCartSummary) msg.obj;
+                bindShoppingCard(summary);
             }
+
         }
     };
 
@@ -311,13 +449,14 @@ public class SuperMarket extends myBaseActivity {
                 v.setBackground(getResources().getDrawable(R.drawable.bg_primary_rectangle_border));
             ((TextView) view).setTextColor(getResources().getColor(R.color.primary));
             //请求商品数据
-            pageIndex=1;
-            getCatProducts(cat.getid());
+            pageIndex = 1;
+            mCurrentCatId = cat.getid();
+            getCatProducts();
         }
     }
 
-
-    void getCatProducts(String catId) {
+    //获取商品列表
+    void getCatProducts() {
         FormEncodingBuilder builder = new FormEncodingBuilder();
         StringBuilder sb = new StringBuilder();
         sb.append("{");
@@ -326,7 +465,7 @@ public class SuperMarket extends myBaseActivity {
         sb.append(",\"sub_category_id\":");
         sb.append("\"" + mCurrentClassId + "\"");
         sb.append(",\"category_id\":");
-        sb.append("\"" + catId + "\"");
+        sb.append("\"" + mCurrentCatId + "\"");
         sb.append("}");
         builder.add("account", PreferenceUtil.getUserName());
         builder.add("token", SystemUtils.getNetToken());
@@ -352,6 +491,19 @@ public class SuperMarket extends myBaseActivity {
             }
         });
     }
+
+    UpdateCartListner cartChanged = new UpdateCartListner() {
+        @Override
+        public void onFailure() {
+            generalhelper.ToastShow(SuperMarket.this, "加入购物车失败!");
+        }
+
+        @Override
+        public void onResponse(String response) {
+            ShoppingCartSummary summary = cartDal.getSCSummary();
+            bindShoppingCard(summary);
+        }
+    };
 
     //商品列表适配器
     class sm_product_Adapter extends RecyclerView.Adapter<sm_product_Adapter.ViewHoler> {
@@ -394,9 +546,16 @@ public class SuperMarket extends myBaseActivity {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent=new Intent(SuperMarket.this,SuperMarketDetail.class);
-                    intent.putExtra("productid",goodsM.getproduct_id());
+                    Intent intent = new Intent(SuperMarket.this, SuperMarketDetail.class);
+                    intent.putExtra("productid", goodsM.getproduct_id());
                     startActivityWithAnim(intent);
+                }
+            });
+            //添加到购物车
+            holder.btn_add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cartDal.updateCart(ShoppingCartDal.ADDCART, goodsM, 1, cartChanged);
                 }
             });
         }

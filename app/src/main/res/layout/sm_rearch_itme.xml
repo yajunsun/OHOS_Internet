@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/solid_white"
+    android:minHeight="180dp"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/iv_product"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_product"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/txt_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/primary"
+        android:textSize="15sp" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_oldprice"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/txt_price"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:background="@color/color_sm_normal_txt"
+            android:orientation="vertical"></LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_oldprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="￥18"
+            android:textColor="@color/color_sm_normal_txt"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txt_spec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
+    <com.mikepenz.iconics.view.IconicsImageView
+        android:id="@+id/btn_add"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+       
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="30dp"
+        android:clickable="true"
+        android:elevation="4dp"
+        app:iiv_background_color="@color/primary"
+        app:iiv_color="@color/solid_white"
+        app:iiv_corner_radius="25dp"
+        app:iiv_icon="gmd-add-circle-outline" />
+
+</RelativeLayout>

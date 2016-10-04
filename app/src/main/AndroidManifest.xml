@@ -420,7 +420,11 @@
             android:value="561c792105a11c7612f0b876" />
         <!-- </>值来自开发者平台取得的AppKey -->
 
-        <activity android:name=".Activities.SuperMarketDetail"></activity>
+        <activity android:name=".Activities.SuperMarketDetail" />
+        <activity
+            android:name=".Activities.SMSearchResult"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
+        <activity android:name=".Activities.ShoppingCart" />
     </application>
 
 </manifest>

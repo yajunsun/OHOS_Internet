@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="zgan.ohos.Activities.SMSearchResult">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@color/solid_white"
+
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="left">
+
+            <LinearLayout
+                android:id="@+id/back"
+                style="?android:actionButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/back_icon_left_margin"
+                android:clickable="true">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:layout_width="@dimen/back_icon_size"
+                    android:layout_height="@dimen/back_icon_size"
+                    app:iiv_color="@color/color_sm_normal_txt"
+                    app:iiv_icon="gmd-chevron-left" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/back"
+                android:background="@drawable/bg_search"
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/iv_searchicon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="2dp"
+                    android:src="@drawable/searchicon" />
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:id="@+id/btn_clear"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="2dp"
+                    android:clickable="true"
+                    app:iiv_background_color="@color/transparent100"
+                    app:iiv_color="@color/color_sm_normal_txt"
+                    app:iiv_icon="gmd-clear" />
+
+                <EditText
+                    android:id="@+id/txt_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@id/btn_clear"
+                    android:layout_toRightOf="@id/iv_searchicon" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:clickable="true"
+                android:onClick="ViewClick"
+                android:text="搜索"
+                android:textColor="@color/color_sm_normal_txt"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+
+        android:id="@+id/ll_check"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/draw_normalitem_bg">
+
+        <TextView
+            android:id="@+id/txt_totalprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="10dp"
+            android:text="￥16"
+            android:textColor="@color/primary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/txt_totalprice"
+            android:layout_below="@id/txt_totalprice"
+            android:text="免费配送"
+            android:textSize="10sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_oldprice"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/txt_totalprice"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/txt_totalprice"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerVertical="true"
+                android:background="@color/color_sm_normal_txt"
+                android:orientation="vertical"></LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_oldtotalprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="￥18"
+                android:textColor="@color/color_sm_normal_txt" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/btn_check"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/primary"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="去结算"
+            android:textColor="@color/solid_white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_products"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_check"
+        android:layout_below="@id/toolbar">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/bg_circle_trans">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/img_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:scaleType="fitXY"
+            android:src="@drawable/cartshopping" />
+
+        <TextView
+            android:id="@+id/txt_count"
+            android:layout_width="30dp"
+            android:layout_height="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="1dp"
+            android:elevation="6dp"
+            android:gravity="center"
+            android:text="8"
+            android:textColor="@color/solid_white" />
+    </RelativeLayout>
+</RelativeLayout>

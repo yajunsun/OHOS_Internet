@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Created by Administrator on 16-5-3.
+ * Created by yajunsun on 16-5-3.
  */
 public class RecyclerViewItemSpace extends RecyclerView.ItemDecoration {
     private int space;
@@ -17,7 +17,9 @@ public class RecyclerViewItemSpace extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
 
-        if(parent.getChildPosition(view) != 0)
+        if(parent.getChildPosition(view) != 0) {
             outRect.top = space;
+            outRect.left=space;
+        }
     }
 }

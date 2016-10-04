@@ -1,5 +1,6 @@
 package zgan.ohos.Activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,8 +33,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import zgan.ohos.Contracts.UpdateCartListner;
+import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Dals.SuperMarketDetalDal;
 import zgan.ohos.Models.Advertise;
+import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.Models.SuperMarketDetailM;
 import zgan.ohos.R;
 import zgan.ohos.utils.AppUtils;
@@ -50,11 +54,17 @@ public class SuperMarketDetail extends myBaseActivity {
     OkHttpClient mOkHttpClient;
     String product_id;
     SuperMarketDetalDal dal;
+    ShoppingCartDal cartDal;
     SuperMarketDetailM model;
     float density;
-    TextView txtname,txtprice,txtoldprice,txtcountdown;
+    TextView txtname,txtprice,txtoldprice;
     LinearLayout lltypes;
     View lloldprice,rldetail;
+    /***
+     * 购物车部分
+     **/
+    TextView txtcount, btnadd2cart,btnbuynow, txtoldtotalprice, txttotalprice;
+    View rloldprice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,11 +79,19 @@ public class SuperMarketDetail extends myBaseActivity {
         txtname=(TextView)findViewById(R.id.txt_name);
         txtprice=(TextView)findViewById(R.id.txt_price);
         txtoldprice=(TextView)findViewById(R.id.txt_oldprice);
-        txtcountdown=(TextView)findViewById(R.id.txt_count);
+        //txtcountdown=(TextView)findViewById(R.id.txt_count);
         lltypes=(LinearLayout)findViewById(R.id.ll_types);
-        lloldprice=findViewById(R.id.ll_oldprice2);
+        lloldprice=findViewById(R.id.ll_oldprice);
         rldetail=findViewById(R.id.rl_detail);
+        //购物车
+        txtcount=(TextView)findViewById(R.id.txt_count);
+        txtoldtotalprice=(TextView)findViewById(R.id.txt_oldtotalprice);
+        rloldprice=findViewById(R.id.rl_oldprice);
+        txttotalprice=(TextView)findViewById(R.id.txt_totalprice);
+                btnadd2cart=(TextView)findViewById(R.id.btn_add2cart);
+        btnbuynow=(TextView)findViewById(R.id.btn_buynow);
         dal=new SuperMarketDetalDal();
+        cartDal=new ShoppingCartDal();
         density= AppUtils.getDensity(SuperMarketDetail.this);
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +100,13 @@ public class SuperMarketDetail extends myBaseActivity {
                 finish();
             }
         });
+//        View btncheck=findViewById(R.id.btn_check);
+//        btncheck.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent=new Intent(SuperMarketDetail.this,ShoppingCart.class);
+//            }
+//        });
         loadData();
     }
 
@@ -166,9 +191,58 @@ public class SuperMarketDetail extends myBaseActivity {
         {
             lloldprice.setVisibility(View.GONE);
         }
-        txtcountdown.setText(model.getcountdown());
     }
 
+    //加载购物车数据
+    void loadShoppingCart() {
+        UpdateCartListner lstner = new UpdateCartListner() {
+            @Override
+            public void onFailure() {
+                generalhelper.ToastShow(SuperMarketDetail.this, "服务器错误!");
+            }
+
+            @Override
+            public void onResponse(String data) {
+                if (!data.isEmpty()) {
+                    try {
+                        String result = new JSONObject(data).get("result").toString();
+                        String errmsg = new JSONObject(data).get("msg").toString();
+                        //获取数据并绑定数据
+                        if (result.equals("0")) {
+                            //list = dal.getGoodsList(data);
+                            List<zgan.ohos.Models.ShoppingCart> lst = cartDal.getList(data);
+                            cartDal.syncCart(lst);
+                            ShoppingCartSummary summary = cartDal.getSCSummary();
+                            Message msg = handler.obtainMessage();
+                            msg.what = 3;
+                            msg.obj = summary;
+                            msg.sendToTarget();
+
+                        } else if (!errmsg.isEmpty()) {
+                            generalhelper.ToastShow(SuperMarketDetail.this, "服务器错误:" + errmsg);
+                        }
+                    } catch (JSONException jse) {
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        cartDal.getCartList(lstner);
+    }
+
+    //绑定购物车数据
+    void bindShoppingCard(ShoppingCartSummary summary) {
+        txtcount.setText(summary.getCount());
+        txttotalprice.setText("￥" + summary.getTotalprice());
+        if (!summary.getOldtotalprice().equals("0")) {
+            txtoldtotalprice.setText("￥" + summary.getOldtotalprice());
+            rloldprice.setVisibility(View.VISIBLE);
+        } else {
+            rloldprice.setVisibility(View.GONE);
+        }
+    }
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -184,6 +258,7 @@ public class SuperMarketDetail extends myBaseActivity {
                         if (result.equals("0")) {
                             model = dal.Get(data);
                             bindData();
+                            loadShoppingCart();
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(SuperMarketDetail.this, "服务器错误:" + errmsg);
                         }
@@ -195,10 +270,27 @@ public class SuperMarketDetail extends myBaseActivity {
                 }
                 toCloseProgress();
             }
+            if(msg.what==3)
+            {
+                ShoppingCartSummary summary=(ShoppingCartSummary)msg.obj;
+                bindShoppingCard(summary);
+            }
 
         }
     };
 
+    UpdateCartListner cartChanged =new UpdateCartListner() {
+        @Override
+        public void onFailure() {
+            generalhelper.ToastShow(SuperMarketDetail.this, "加入购物车失败!");
+        }
+
+        @Override
+        public void onResponse(String response) {
+            ShoppingCartSummary summary=cartDal.getSCSummary();
+            bindShoppingCard(summary);
+        }
+    };
     @Override
     public void ViewClick(View v) {
     }

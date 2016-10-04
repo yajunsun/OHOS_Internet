@@ -1,6 +1,8 @@
 package zgan.ohos.Dals;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -169,5 +171,73 @@ public class ZGbaseDal<T extends BaseModel> {
         if (list != null && list.size() > 0)
             return list.get(0);
         return null;
+    }
+    public String getNullableString(JSONObject obj, String name, String nullValue)
+    {
+        String result=nullValue;
+        try
+        {
+            result=obj.getString(name);
+        }
+        catch (JSONException jse)
+        {
+            jse.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public int getNullableInt(JSONObject obj, String name, int nullValue)
+    {
+        int result=nullValue;
+        try
+        {
+            result=obj.getInt(name);
+        }
+        catch (JSONException jse)
+        {
+            jse.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public JSONArray getNullableArr(JSONObject obj, String name)
+    {
+        JSONArray jsonArray=new JSONArray();
+        try
+        {
+            jsonArray=obj.getJSONArray(name);
+        }
+        catch (JSONException jse)
+        {
+            jse.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return jsonArray;
+    }
+    public JSONObject getNullableObj(JSONObject obj, String name)
+    {
+        JSONObject jobj=new JSONObject();
+        try
+        {
+            jobj=obj.getJSONObject(name);
+        }
+        catch (JSONException jse)
+        {
+            jse.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return jobj;
     }
 }
