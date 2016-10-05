@@ -91,7 +91,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="70dp"
             android:layout_marginTop="10dp"
-            android:text="￥16"
             android:textColor="@color/primary"
             android:textSize="20sp" />
 
@@ -125,7 +124,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="￥18"
                 android:textColor="@color/color_sm_normal_txt" />
         </RelativeLayout>
 
@@ -221,7 +219,6 @@
             android:layout_marginTop="1dp"
             android:elevation="6dp"
             android:gravity="center"
-            android:text="8"
             android:textColor="@color/solid_white" />
     </RelativeLayout>
 </RelativeLayout>

@@ -14,8 +14,10 @@ public class SM_GoodsM extends BaseGoods implements Serializable {
     private String oldprice;
     //规格
     private String specification;
-
+    //标签
     private List<String> type_list;
+    //是否选中
+    private boolean isSelect=false;
 
     public String getname() {
         return name;
@@ -49,6 +51,13 @@ public class SM_GoodsM extends BaseGoods implements Serializable {
         this.type_list = type_list;
     }
 
+    public boolean getSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
     @Override
     public SM_GoodsM getnewinstance() {
         return new SM_GoodsM();

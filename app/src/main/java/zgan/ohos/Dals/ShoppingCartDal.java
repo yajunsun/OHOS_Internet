@@ -20,7 +20,7 @@ import java.util.List;
 
 import zgan.ohos.Contracts.UpdateCartListner;
 import zgan.ohos.Models.SM_GoodsM;
-import zgan.ohos.Models.ShoppingCart;
+import zgan.ohos.Models.ShoppingCartM;
 import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
@@ -35,16 +35,16 @@ public class ShoppingCartDal extends ZGbaseDal {
     public final static String DELETECART = "delete";
     OkHttpClient mOkHttpClient;
     public static ArrayList<SM_GoodsM> mOrderIDs;
-    public static ArrayList<ShoppingCart> localCarts;
+    public static ArrayList<ShoppingCartM> localCarts;
     DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
-    public List<ShoppingCart> getList(String xmlString) {
-        List<ShoppingCart> carts = new ArrayList<>();
+    public List<ShoppingCartM> getList(String xmlString) {
+        List<ShoppingCartM> carts = new ArrayList<>();
         try {
             JSONArray cartarr = new JSONObject(xmlString).getJSONArray("data");
             for (int i = 0; i < cartarr.length(); i++) {
                 try {
                     JSONObject jcart = (JSONObject) cartarr.opt(i);
-                    ShoppingCart cart = new ShoppingCart();
+                    ShoppingCartM cart = new ShoppingCartM();
                     String distributionType = getNullableString(jcart, "distributionType", "");
                     String distribution_Icon_url = getNullableString(jcart, "distribution_Icon_url", "");
                     JSONArray goods = getNullableArr(jcart, "productArray");
@@ -200,7 +200,7 @@ public class ShoppingCartDal extends ZGbaseDal {
     }
 
     //同步网络购物车和本地购物车
-    public void syncCart(List<ShoppingCart> carts) {
+    public void syncCart(List<ShoppingCartM> carts) {
         localCarts = new ArrayList<>();
         if (carts != null && carts.size() > 0) {
             localCarts.addAll(carts);

@@ -36,9 +36,7 @@ import java.util.TimerTask;
 import zgan.ohos.Contracts.UpdateCartListner;
 import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Dals.SuperMarketDetalDal;
-import zgan.ohos.Models.Advertise;
-import zgan.ohos.Models.ShoppingCartSummary;
-import zgan.ohos.Models.SuperMarketDetailM;
+import zgan.ohos.Models.*;
 import zgan.ohos.R;
 import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.ImageLoader;
@@ -46,25 +44,26 @@ import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 
-public class SuperMarketDetail extends myBaseActivity {
+public class SuperMarketDetail extends myBaseActivity implements View.OnClickListener {
 
     ViewPager adv_pager;
     LinearLayout pager_ind;
     List<ImageView> imageViews = new ArrayList<>();//显示图片的imageview集合
     OkHttpClient mOkHttpClient;
-    String product_id;
+    SM_GoodsM product;
     SuperMarketDetalDal dal;
     ShoppingCartDal cartDal;
     SuperMarketDetailM model;
     float density;
-    TextView txtname,txtprice,txtoldprice;
+    TextView txtname, txtprice, txtoldprice;
     LinearLayout lltypes;
-    View lloldprice,rldetail;
+    View lloldprice, rldetail;
     /***
      * 购物车部分
      **/
-    TextView txtcount, btnadd2cart,btnbuynow, txtoldtotalprice, txttotalprice;
+    TextView txtcount, btnadd2cart, btnbuynow, txtoldtotalprice, txttotalprice;
     View rloldprice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,26 +72,28 @@ public class SuperMarketDetail extends myBaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_super_market_detail);
-        product_id = getIntent().getStringExtra("productid");
-        adv_pager=(ViewPager)findViewById(R.id.adv_pager);
-        pager_ind=(LinearLayout)findViewById(R.id.pager_ind);
-        txtname=(TextView)findViewById(R.id.txt_name);
-        txtprice=(TextView)findViewById(R.id.txt_price);
-        txtoldprice=(TextView)findViewById(R.id.txt_oldprice);
+        product = (SM_GoodsM) getIntent().getSerializableExtra("product");
+        adv_pager = (ViewPager) findViewById(R.id.adv_pager);
+        pager_ind = (LinearLayout) findViewById(R.id.pager_ind);
+        txtname = (TextView) findViewById(R.id.txt_name);
+        txtprice = (TextView) findViewById(R.id.txt_price);
+        txtoldprice = (TextView) findViewById(R.id.txt_oldprice);
         //txtcountdown=(TextView)findViewById(R.id.txt_count);
-        lltypes=(LinearLayout)findViewById(R.id.ll_types);
-        lloldprice=findViewById(R.id.ll_oldprice);
-        rldetail=findViewById(R.id.rl_detail);
+        lltypes = (LinearLayout) findViewById(R.id.ll_types);
+        lloldprice = findViewById(R.id.ll_oldprice);
+        rldetail = findViewById(R.id.rl_detail);
         //购物车
-        txtcount=(TextView)findViewById(R.id.txt_count);
-        txtoldtotalprice=(TextView)findViewById(R.id.txt_oldtotalprice);
-        rloldprice=findViewById(R.id.rl_oldprice);
-        txttotalprice=(TextView)findViewById(R.id.txt_totalprice);
-                btnadd2cart=(TextView)findViewById(R.id.btn_add2cart);
-        btnbuynow=(TextView)findViewById(R.id.btn_buynow);
-        dal=new SuperMarketDetalDal();
-        cartDal=new ShoppingCartDal();
-        density= AppUtils.getDensity(SuperMarketDetail.this);
+        txtcount = (TextView) findViewById(R.id.txt_count);
+        txtoldtotalprice = (TextView) findViewById(R.id.txt_oldtotalprice);
+        rloldprice = findViewById(R.id.rl_oldprice);
+        txttotalprice = (TextView) findViewById(R.id.txt_totalprice);
+        btnadd2cart = (TextView) findViewById(R.id.btn_add2cart);
+        btnbuynow = (TextView) findViewById(R.id.btn_buynow);
+        btnadd2cart.setOnClickListener(this);
+        btnbuynow.setOnClickListener(this);
+        dal = new SuperMarketDetalDal();
+        cartDal = new ShoppingCartDal();
+        density = AppUtils.getDensity(SuperMarketDetail.this);
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +117,7 @@ public class SuperMarketDetail extends myBaseActivity {
         mOkHttpClient = new OkHttpClient();
         //创建一个Request
         FormEncodingBuilder builder = new FormEncodingBuilder();
-        builder.add("data", "{\"product_id\":\"" + product_id + "\"}");
+        builder.add("data", "{\"product_id\":\"" + product.getproduct_id() + "\"}");
         builder.add("account", PreferenceUtil.getUserName());
         builder.add("token", SystemUtils.getNetToken());
         final Request request = new Request.Builder()
@@ -182,13 +183,10 @@ public class SuperMarketDetail extends myBaseActivity {
             }
         }
         txtprice.setText(String.valueOf(model.getprice()));
-        if(!model.getoldprice().equals("")&&!model.getoldprice().equals("0"))
-        {
+        if (!model.getoldprice().equals("") && !model.getoldprice().equals("0")) {
             lloldprice.setVisibility(View.VISIBLE);
-            txtoldprice.setText("￥"+model.getoldprice());
-        }
-        else
-        {
+            txtoldprice.setText("￥" + model.getoldprice());
+        } else {
             lloldprice.setVisibility(View.GONE);
         }
     }
@@ -210,7 +208,7 @@ public class SuperMarketDetail extends myBaseActivity {
                         //获取数据并绑定数据
                         if (result.equals("0")) {
                             //list = dal.getGoodsList(data);
-                            List<zgan.ohos.Models.ShoppingCart> lst = cartDal.getList(data);
+                            List<zgan.ohos.Models.ShoppingCartM> lst = cartDal.getList(data);
                             cartDal.syncCart(lst);
                             ShoppingCartSummary summary = cartDal.getSCSummary();
                             Message msg = handler.obtainMessage();
@@ -243,6 +241,7 @@ public class SuperMarketDetail extends myBaseActivity {
             rloldprice.setVisibility(View.GONE);
         }
     }
+
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -270,16 +269,15 @@ public class SuperMarketDetail extends myBaseActivity {
                 }
                 toCloseProgress();
             }
-            if(msg.what==3)
-            {
-                ShoppingCartSummary summary=(ShoppingCartSummary)msg.obj;
+            if (msg.what == 3) {
+                ShoppingCartSummary summary = (ShoppingCartSummary) msg.obj;
                 bindShoppingCard(summary);
             }
 
         }
     };
 
-    UpdateCartListner cartChanged =new UpdateCartListner() {
+    UpdateCartListner cartChanged = new UpdateCartListner() {
         @Override
         public void onFailure() {
             generalhelper.ToastShow(SuperMarketDetail.this, "加入购物车失败!");
@@ -287,12 +285,28 @@ public class SuperMarketDetail extends myBaseActivity {
 
         @Override
         public void onResponse(String response) {
-            ShoppingCartSummary summary=cartDal.getSCSummary();
-            bindShoppingCard(summary);
+            ShoppingCartSummary summary = cartDal.getSCSummary();
+            Message msg = handler.obtainMessage();
+            msg.what = 3;
+            msg.obj = summary;
+            msg.sendToTarget();
         }
     };
+
     @Override
     public void ViewClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_add2cart:
+                cartDal.updateCart(ShoppingCartDal.ADDCART,product,1,cartChanged);
+                break;
+            case R.id.btn_buynow:
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        ViewClick(v);
     }
 
     private final class AdvAdapter extends PagerAdapter {

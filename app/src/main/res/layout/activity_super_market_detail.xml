@@ -53,8 +53,8 @@
         android:id="@+id/ll_check"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/draw_normalitem_bg"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/draw_normalitem_bg">
 
         <TextView
             android:id="@+id/txt_totalprice"
@@ -62,7 +62,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="70dp"
             android:layout_marginTop="10dp"
-            android:text="￥16"
             android:textColor="@color/primary"
             android:textSize="20sp" />
 
@@ -75,11 +74,11 @@
             android:textSize="10sp" />
 
         <RelativeLayout
+            android:id="@+id/rl_oldprice"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/txt_totalprice"
             android:layout_marginLeft="5dp"
-            android:id="@+id/rl_oldprice"
             android:layout_toRightOf="@id/txt_totalprice"
             android:orientation="vertical">
 
@@ -95,13 +94,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="￥18"
                 android:textColor="@color/color_sm_normal_txt" />
         </RelativeLayout>
 
 
         <TextView
-            android:id="@+id/btn_add2cart"
+            android:id="@+id/btn_buynow"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -111,12 +109,13 @@
             android:text="立即购买"
             android:textColor="@color/solid_white"
             android:textSize="@dimen/toolbar_title_size" />
+
         <TextView
-            android:id="@+id/btn_buynow"
+            android:id="@+id/btn_add2cart"
             android:layout_width="100dp"
             android:layout_height="match_parent"
 
-            android:layout_toLeftOf="@id/btn_add2cart"
+            android:layout_toLeftOf="@id/btn_buynow"
             android:background="@color/primary_light"
             android:clickable="true"
             android:gravity="center"
@@ -255,8 +254,8 @@
                             android:id="@+id/txt_countdown"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
                             android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
                             android:text="23:48:25"
                             android:textSize="18sp" />
                     </RelativeLayout>
@@ -331,17 +330,16 @@
 
                 <RatingBar
                     android:id="@+id/rbar_evalue"
-                    style="?android:attr/ratingBarStyleIndicator"
+                    style="@style/RatingStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_toRightOf="@id/txt3"
-                    android:isIndicator="true"
                     android:maxHeight="20dp"
-                    android:maxWidth="20dp"
-                    android:numStars="5"
-                    android:soundEffectsEnabled="true" />
+                    android:minHeight="20dp"
+                    android:layout_toRightOf="@id/txt3"
+                    android:layout_centerVertical="true"
+                    android:rating="3.5"
+                    android:soundEffectsEnabled="false"
+                    android:stepSize="0.5" />
 
 
                 <TextView
@@ -362,10 +360,11 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     app:iiv_color="@color/myaccount_icon"
-                    app:iiv_icon="gmd-chevron-right"/>
+                    app:iiv_icon="gmd-chevron-right" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
+
     <RelativeLayout
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -390,7 +389,6 @@
             android:layout_marginTop="1dp"
             android:elevation="6dp"
             android:gravity="center"
-            android:text="8"
             android:textColor="@color/solid_white" />
     </RelativeLayout>
 </RelativeLayout>

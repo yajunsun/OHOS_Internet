@@ -187,7 +187,7 @@ public class SMSearchResult extends myBaseActivity {
                         //获取数据并绑定数据
                         if (result.equals("0")) {
                             //list = dal.getGoodsList(data);
-                            List<zgan.ohos.Models.ShoppingCart> lst = cartDal.getList(data);
+                            List<zgan.ohos.Models.ShoppingCartM> lst = cartDal.getList(data);
                             cartDal.syncCart(lst);
                             ShoppingCartSummary summary = cartDal.getSCSummary();
                             Message msg = handler.obtainMessage();
@@ -274,8 +274,11 @@ public class SMSearchResult extends myBaseActivity {
 
         @Override
         public void onResponse(String response) {
-            ShoppingCartSummary summary=cartDal.getSCSummary();
-            bindShoppingCard(summary);
+            ShoppingCartSummary summary = cartDal.getSCSummary();
+            Message msg=handler.obtainMessage();
+            msg.what=3;
+            msg.obj=summary;
+            msg.sendToTarget();
         }
     };
     class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHolder>

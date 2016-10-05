@@ -1,6 +1,7 @@
 package zgan.ohos.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
@@ -303,7 +304,7 @@ public class SuperMarket extends myBaseActivity {
                         //获取数据并绑定数据
                         if (result.equals("0")) {
                             //list = dal.getGoodsList(data);
-                            List<zgan.ohos.Models.ShoppingCart> lst = cartDal.getList(data);
+                            List<zgan.ohos.Models.ShoppingCartM> lst = cartDal.getList(data);
                             cartDal.syncCart(lst);
                             ShoppingCartSummary summary = cartDal.getSCSummary();
                             Message msg = handler.obtainMessage();
@@ -501,7 +502,11 @@ public class SuperMarket extends myBaseActivity {
         @Override
         public void onResponse(String response) {
             ShoppingCartSummary summary = cartDal.getSCSummary();
-            bindShoppingCard(summary);
+            Message msg=handler.obtainMessage();
+            msg.what=3;
+            msg.obj=summary;
+            msg.sendToTarget();
+            //bindShoppingCard(summary);
         }
     };
 
@@ -547,7 +552,9 @@ public class SuperMarket extends myBaseActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(SuperMarket.this, SuperMarketDetail.class);
-                    intent.putExtra("productid", goodsM.getproduct_id());
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable("product",goodsM);
+                    intent.putExtras(bundle);
                     startActivityWithAnim(intent);
                 }
             });
