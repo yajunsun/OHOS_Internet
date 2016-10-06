@@ -28,7 +28,7 @@ public class MySelectCount extends LinearLayout implements View.OnClickListener 
     EditText edinput;
     int mCount = 0;
     int mRestrict = 200;
-    int size = 20;
+    int size = 15;
     int minValue = 0;
     boolean caninput = false;
 
@@ -52,9 +52,9 @@ public class MySelectCount extends LinearLayout implements View.OnClickListener 
 
         View v = LayoutInflater.from(context).inflate(R.layout.control_selectcount, this, true);
         ivadd = (IconicsImageView) v.findViewById(R.id.iv_add);
-        ivadd.setImageDrawable(new IconicsDrawable(context, GoogleMaterial.Icon.gmd_add).sizePx(size));
+        ivadd.setImageDrawable(new IconicsDrawable(context, GoogleMaterial.Icon.gmd_add).sizePx(Math.round(size*3/4)));
         ivremove = (IconicsImageView) v.findViewById(R.id.iv_remove);
-        ivremove.setImageDrawable(new IconicsDrawable(context, GoogleMaterial.Icon.gmd_remove).sizePx(size));
+        ivremove.setImageDrawable(new IconicsDrawable(context, GoogleMaterial.Icon.gmd_remove).sizePx(Math.round(size*3/4)));
         edinput = (EditText) v.findViewById(R.id.ed_input);
         edinput.setEnabled(caninput);
 

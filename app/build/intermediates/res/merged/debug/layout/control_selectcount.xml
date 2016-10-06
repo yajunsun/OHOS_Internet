@@ -9,8 +9,8 @@
     <com.mikepenz.iconics.view.IconicsImageView
         android:id="@+id/iv_remove"
         android:background="@drawable/bg_black_rectangle_border"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:clickable="true"
         app:iiv_color="@color/solid_black"
         app:iiv_icon="gmd-remove" />
@@ -25,8 +25,8 @@
 
     <com.mikepenz.iconics.view.IconicsImageView
         android:id="@+id/iv_add"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:background="@drawable/bg_black_rectangle_border"
         android:clickable="true"
         android:layout_marginLeft="-1px"

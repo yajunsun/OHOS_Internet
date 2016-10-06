@@ -211,7 +211,7 @@ public class SMSearchResult extends myBaseActivity {
 
     //绑定购物车数据
     void bindShoppingCard(ShoppingCartSummary summary) {
-        txtcount.setText(summary.getCount());
+        txtcount.setText(summary.getTotalcount());
         txttotalprice.setText("￥" + summary.getTotalprice());
         if (!summary.getOldtotalprice().equals("0")) {
             txtoldtotalprice.setText("￥" + summary.getOldtotalprice());

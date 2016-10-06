@@ -8,6 +8,9 @@ public class ShoppingCartSummary {
     public String totalprice;
     public String oldtotalprice;
 
+
+    public  String totalcount;
+
     public String getCount() {
         return count;
     }
@@ -30,5 +33,12 @@ public class ShoppingCartSummary {
 
     public void setOldtotalprice(String oldtotalprice) {
         this.oldtotalprice = oldtotalprice;
+    }
+    public String getTotalcount() {
+        return totalcount;
+    }
+
+    public void setTotalcount(String totalcount) {
+        this.totalcount = totalcount;
     }
 }

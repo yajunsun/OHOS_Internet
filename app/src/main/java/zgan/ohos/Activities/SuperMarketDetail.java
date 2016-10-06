@@ -232,7 +232,7 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
 
     //绑定购物车数据
     void bindShoppingCard(ShoppingCartSummary summary) {
-        txtcount.setText(summary.getCount());
+        txtcount.setText(summary.getTotalcount());
         txttotalprice.setText("￥" + summary.getTotalprice());
         if (!summary.getOldtotalprice().equals("0")) {
             txtoldtotalprice.setText("￥" + summary.getOldtotalprice());
@@ -300,6 +300,8 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
                 cartDal.updateCart(ShoppingCartDal.ADDCART,product,1,cartChanged);
                 break;
             case R.id.btn_buynow:
+                Intent intent=new Intent(SuperMarketDetail.this,ShoppingCart.class);
+                startActivityWithAnim(intent);
                 break;
         }
     }

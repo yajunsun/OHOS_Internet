@@ -31,12 +31,13 @@ import zgan.ohos.utils.SystemUtils;
 public class ShoppingCartDal extends ZGbaseDal {
 
     public final static String ADDCART = "add";
-    public final static String UPDATECART = "update";
-    public final static String DELETECART = "delete";
+    public final static String UPDATECART = "upd";
+    public final static String DELETECART = "del";
     OkHttpClient mOkHttpClient;
     public static ArrayList<SM_GoodsM> mOrderIDs;
     public static ArrayList<ShoppingCartM> localCarts;
     DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+
     public List<ShoppingCartM> getList(String xmlString) {
         List<ShoppingCartM> carts = new ArrayList<>();
         try {
@@ -55,12 +56,14 @@ public class ShoppingCartDal extends ZGbaseDal {
                         try {
                             String gname = getNullableString(go, "name", "");
                             String product_id = getNullableString(go, "product_id", "");
-                            String price=getNullableString(go,"price","0");
+                            int count = getNullableInt(go, "count", 1);
+                            String price = getNullableString(go, "price", "0");
                             String pic_url = getNullableString(go, "pic_url", "");
                             String oldprice = getNullableString(go, "oldprice", "");
                             String specification = getNullableString(go, "specification", "");
                             JSONArray typelist = getNullableArr(go, "type_list");
                             sm_goodsM.setname(gname);
+                            sm_goodsM.setcount(count);
                             sm_goodsM.setproduct_id(product_id);
                             sm_goodsM.setpic_url(pic_url);
                             sm_goodsM.setprice(price);
@@ -124,7 +127,7 @@ public class ShoppingCartDal extends ZGbaseDal {
     }
 
     //修改购物车
-    public void updateCart(String method, final SM_GoodsM goodsM, int count,final UpdateCartListner listner) {
+    public void updateCart(String method, final SM_GoodsM goodsM, int count, final UpdateCartListner listner) {
 
         //当传入的是新增或修改的时候遍历本地购物车
         if (method.equals(ADDCART) || method.equals(UPDATECART))
@@ -177,10 +180,8 @@ public class ShoppingCartDal extends ZGbaseDal {
 
             @Override
             public void onResponse(final Response response) throws IOException {
-                if (listner != null) {
                     final String htmlStr = response.body().string().replace("\\", "");
-                    if (listner != null)
-                        listner.onResponse(htmlStr);
+
                     if (finalMethod.equals(ADDCART)) {
                         mOrderIDs.add(goodsM);
                     } else if (finalMethod.equals(DELETECART)) {
@@ -194,7 +195,8 @@ public class ShoppingCartDal extends ZGbaseDal {
                                 m.setcount(finalcount);
                         }
                     }
-                }
+                    if (listner != null)
+                        listner.onResponse(htmlStr);
             }
         });
     }
@@ -211,16 +213,18 @@ public class ShoppingCartDal extends ZGbaseDal {
     public ShoppingCartSummary getSCSummary() {
         ShoppingCartSummary summary = new ShoppingCartSummary();
         int i = 0;
+        int tcount = 0;
         double totalprice = 0.0;
         double oldtotalprice = 0.0;
         for (SM_GoodsM m : mOrderIDs) {
             i++;
-            totalprice += m.getprice();
+            tcount += m.getcount();
+            totalprice += m.getprice() * m.getcount();
             if (!m.getoldprice().equals("") && !m.getoldprice().equals("0"))
-                oldtotalprice += Double.parseDouble(m.getoldprice());
+                oldtotalprice += Double.parseDouble(m.getoldprice()) * m.getcount();
         }
-        if (i > 0)
-            summary.setCount(String.valueOf(i));
+        summary.setCount(String.valueOf(i));
+        summary.setTotalcount(String.valueOf(tcount));
         summary.setTotalprice(decimalFormat.format(totalprice));
         if (oldtotalprice == 0.0)
             summary.setOldtotalprice("0");
@@ -237,5 +241,98 @@ public class ShoppingCartDal extends ZGbaseDal {
                 mOrderIDs.addAll(localCarts.get(i).getproductArray());
             }
         }
+    }
+
+    public void verifyGoods(List<SM_GoodsM> goodsMs) {
+        //验证商品
+        mOkHttpClient = new OkHttpClient();
+        //创建一个Request
+        FormEncodingBuilder builder = new FormEncodingBuilder();
+        StringBuilder sb = new StringBuilder();
+        StringBuilder subsb = new StringBuilder();
+        sb.append("[");
+        for (SM_GoodsM goodsM : goodsMs) {
+            subsb.append("{");
+            subsb.append("\"product_id\":");
+            subsb.append("\"" + goodsM.getproduct_id() + "\",");
+            subsb.append("\"price\":");
+            subsb.append("\"" + goodsM.getprice() + "\"");
+            subsb.append("},");
+        }
+        String substr = subsb.substring(0, subsb.length() - 1);
+        sb.append(substr);
+        sb.append("]");
+        builder.add("account", PreferenceUtil.getUserName());
+        builder.add("token", SystemUtils.getNetToken());
+        builder.add("data", sb.toString());
+        final Request request = new Request.Builder()
+                .url("http://app.yumanc.1home1shop.com/V1_0/verifygoodsinfo.aspx").post(builder.build())
+                .build();
+        //new call
+        Call call = mOkHttpClient.newCall(request);
+        //请求加入调度
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Log.i("suntest", e.getMessage());
+            }
+
+            @Override
+            public void onResponse(final Response response) throws IOException {
+                final String htmlStr = response.body().string().replace("\\", "");
+                Log.i("suntext", htmlStr);
+            }
+        });
+    }
+
+    //提交购物车订单
+    public void commitCart(List<SM_GoodsM> goodsMs, ShoppingCartSummary summary, String dilivertime, UpdateCartListner listner) {
+        dilivertime = "0";
+        //验证商品
+        mOkHttpClient = new OkHttpClient();
+        //创建一个Request
+        FormEncodingBuilder builder = new FormEncodingBuilder();
+        StringBuilder sb = new StringBuilder();
+        StringBuilder subsb = new StringBuilder();
+        sb.append("{");
+        sb.append("\"diliver_time\":");
+        sb.append("\"" + dilivertime + "\",");
+        sb.append("\"goods_list\":");
+        sb.append("[");
+        for (SM_GoodsM goodsM : goodsMs) {
+            subsb.append("{");
+            subsb.append("\"product_id\":");
+            subsb.append("\"" + goodsM.getproduct_id() + "\",");
+            subsb.append("\"price\":");
+            subsb.append("\"" + goodsM.getprice() + "\",");
+            subsb.append("\"count\":");
+            subsb.append("\"" + goodsM.getcount() + "\"");
+            subsb.append("},");
+        }
+        String substr = subsb.substring(0, subsb.length() - 1);
+        sb.append(substr);
+        sb.append("]");
+        sb.append("}");
+        builder.add("account", PreferenceUtil.getUserName());
+        builder.add("token", SystemUtils.getNetToken());
+        builder.add("data", sb.toString());
+        final Request request = new Request.Builder()
+                .url("http://app.yumanc.1home1shop.com/V1_0/verifygoodsinfo.aspx").post(builder.build())
+                .build();
+        //new call
+        Call call = mOkHttpClient.newCall(request);
+        //请求加入调度
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Log.i("suntest", e.getMessage());
+            }
+
+            @Override
+            public void onResponse(final Response response) throws IOException {
+                final String htmlStr = response.body().string().replace("\\", "");
+                Log.i("suntext", htmlStr);
+            }
+        });
     }
 }

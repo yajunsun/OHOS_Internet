@@ -24,6 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import zgan.ohos.ConstomControls.MySelectCount;
@@ -42,31 +44,45 @@ import zgan.ohos.utils.generalhelper;
 /**
  * Created by yajunsun on 16/10/3.
  */
-public class ShoppingCart extends myBaseActivity {
+public class ShoppingCart extends myBaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     OkHttpClient mOkHttpClient;
     TextView txtcontent;
     RecyclerView rvcarts;
     ShoppingCartDal cartDal;
     List<ShoppingCartM> list;
+    List<SM_GoodsM> opGoods;
+    ShoppingCartSummary summary;
     cartAdapter cAdapter;
     LinearLayoutManager cartLayoutManager;
     float density;
+    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+    //结算
+    CheckBox selectall;
+    TextView txttotalprice, txtoldtotalprice, btncheck;
+    View rloldprice;
 
     @Override
     protected void initView() {
         setContentView(R.layout.fragment_fg_shopping_cart);
         cartDal = new ShoppingCartDal();
-        View back =findViewById(R.id.back);
+        View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        rvcarts=(RecyclerView)findViewById(R.id.rv_carts);
-        cartLayoutManager=new LinearLayoutManager(this);
-
-        density= AppUtils.getDensity(ShoppingCart.this);
+        rvcarts = (RecyclerView) findViewById(R.id.rv_carts);
+        cartLayoutManager = new LinearLayoutManager(this);
+        selectall = (CheckBox) findViewById(R.id.selectall);
+        txttotalprice = (TextView) findViewById(R.id.txt_totalprice);
+        txtoldtotalprice = (TextView) findViewById(R.id.txt_oldtotalprice);
+        rloldprice = findViewById(R.id.rl_oldprice);
+        btncheck = (TextView) findViewById(R.id.btn_check);
+        btncheck.setOnClickListener(this);
+        selectall.setOnCheckedChangeListener(this);
+        density = AppUtils.getDensity(ShoppingCart.this);
+        opGoods = new ArrayList<>();
         loadData();
     }
 
@@ -89,15 +105,48 @@ public class ShoppingCart extends myBaseActivity {
     }
 
     void bindData() {
-        if(cAdapter==null)
-        {
+        if (cAdapter == null) {
             rvcarts.setLayoutManager(cartLayoutManager);
-            cAdapter=new cartAdapter();
+            cAdapter = new cartAdapter();
             rvcarts.setAdapter(cAdapter);
-        }
-        else
-        {
+        } else {
             cAdapter.notifyDataSetChanged();
+        }
+    }
+
+    void summaryCart() {
+        summary = new ShoppingCartSummary();
+        int i = 0;
+        int tcount=0;
+        double totalprice = 0.0;
+        double oldtotalprice = 0.0;
+        for (SM_GoodsM m : opGoods) {
+            i++;
+            tcount+=m.getcount();
+            totalprice += m.getprice() * m.getcount();
+            if (!m.getoldprice().equals("") && !m.getoldprice().equals("0"))
+                oldtotalprice += Double.parseDouble(m.getoldprice()) * m.getcount();
+        }
+        //if (i > 0)
+        summary.setTotalcount(String.valueOf(tcount));
+        summary.setCount(String.valueOf(i));
+        summary.setTotalprice(decimalFormat.format(totalprice));
+        if (oldtotalprice == 0.0)
+            summary.setOldtotalprice("0");
+        else
+            summary.setOldtotalprice(decimalFormat.format(oldtotalprice));
+        bindShoppingCard(summary);
+    }
+
+    //绑定购物车数据
+    void bindShoppingCard(ShoppingCartSummary summary) {
+        btncheck.setText("去结算(" + summary.getCount() + ")");
+        txttotalprice.setText("￥" + summary.getTotalprice());
+        if (!summary.getOldtotalprice().equals("0")) {
+            txtoldtotalprice.setText("￥" + summary.getOldtotalprice());
+            rloldprice.setVisibility(View.VISIBLE);
+        } else {
+            rloldprice.setVisibility(View.GONE);
         }
     }
 
@@ -116,6 +165,7 @@ public class ShoppingCart extends myBaseActivity {
                         if (result.equals("0")) {
                             list = cartDal.getList(data);
                             bindData();
+                            selectall.setChecked(true);
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(ShoppingCart.this, "服务器错误:" + errmsg);
                         }
@@ -129,21 +179,38 @@ public class ShoppingCart extends myBaseActivity {
         }
     };
 
-    //    UpdateCartListner cartChanged =new UpdateCartListner() {
-//        @Override
-//        public void onFailure() {
-//            generalhelper.ToastShow(SuperMarket.this, "加入购物车失败!");
-//        }
-//
-//        @Override
-//        public void onResponse(String response) {
-//            ShoppingCartSummary summary=cartDal.getSCSummary();
-//            bindShoppingCard(summary);
-//        }
-//    };
     @Override
     public void ViewClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_check:
+               cartDal.commitCart(opGoods, summary,"0", new UpdateCartListner() {
+                   @Override
+                   public void onFailure() {
 
+                   }
+
+                   @Override
+                   public void onResponse(String response) {
+
+                   }
+               });
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        ViewClick(v);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        for (ShoppingCartM m : list) {
+            m.setSelect(isChecked);
+        }
+        cAdapter.notifyDataSetChanged();
+        opGoods = new ArrayList<>();
+        summaryCart();
     }
 
     class cartAdapter extends RecyclerView.Adapter<cartAdapter.ViewHolder> {
@@ -157,8 +224,8 @@ public class ShoppingCart extends myBaseActivity {
         public void onBindViewHolder(ViewHolder holder, int position) {
             final ShoppingCartM cartM = list.get(position);
             final productAdapter pAdapter = new productAdapter(cartM.getproductArray());
-            LinearLayout.LayoutParams params=new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT,
-                   Math.round(pAdapter.getItemCount()*120*density));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    Math.round(pAdapter.getItemCount() * 120 * density));
 
             LinearLayoutManager layoutManager = new LinearLayoutManager(ShoppingCart.this);
             holder.rvproducts.setLayoutManager(layoutManager);
@@ -170,9 +237,14 @@ public class ShoppingCart extends myBaseActivity {
                     for (SM_GoodsM goodsM : cartM.getproductArray()) {
                         goodsM.setSelect(isChecked);
                     }
+                    if (!isChecked) {
+                        opGoods.removeAll(cartM.getproductArray());
+                        summaryCart();
+                    }
                     pAdapter.notifyDataSetChanged();
                 }
             });
+            holder.rballproduct.setChecked(cartM.getSelect());
         }
 
         @Override
@@ -202,17 +274,48 @@ public class ShoppingCart extends myBaseActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_scart_subitem, null,false));
+            return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_scart_subitem, null, false));
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            SM_GoodsM goodsM = goodsMs.get(position);
+            final SM_GoodsM goodsM = goodsMs.get(position);
             ImageLoader.bindBitmap(goodsM.getpic_url(), holder.imgproduct);
             holder.txtname.setText(goodsM.getname());
             holder.txtspec.setText("规格:" + goodsM.getspecification());
             holder.txtprice.setText("￥" + String.valueOf(goodsM.getprice()));
             holder.selectcount.setCount(goodsM.getcount());
+
+            holder.rbproduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        opGoods.add(goodsM);
+                    } else {
+                        opGoods.remove(goodsM);
+                    }
+                    summaryCart();
+                }
+            });
+            holder.selectcount.setOnchangeListener(new MySelectCount.IonChanged() {
+                @Override
+                public void onAddition(int count) {
+                    goodsM.setcount(count);
+                    if (!opGoods.contains(goodsM))
+                        opGoods.add(goodsM);
+                    summaryCart();
+                }
+
+                @Override
+                public void onReduction(int count) {
+                    if (count == 0) {
+                        opGoods.remove(goodsM);
+                    } else {
+                        goodsM.setcount(count);
+                    }
+                    summaryCart();
+                }
+            });
             holder.rbproduct.setChecked(goodsM.getSelect());
         }
 

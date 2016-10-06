@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,6 +16,9 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginBottom="10dp"
+
+            android:layout_marginTop="5dp"
             android:gravity="left">
 
             <LinearLayout
@@ -71,7 +73,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="center"
                     android:text="超市购"
-                    android:textColor="#C6C6C6"
+                    android:textColor="@color/color_sm_normal_txt"
                     android:textSize="@dimen/toolbar_title_size" />
             </RelativeLayout>
         </RelativeLayout>
@@ -103,14 +105,14 @@
             android:textSize="10sp" />
 
         <RelativeLayout
-            android:layout_width="50dp"
             android:id="@+id/rl_oldprice"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/txt_totalprice"
             android:layout_marginLeft="5dp"
-            android:visibility="gone"
             android:layout_toRightOf="@id/txt_totalprice"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -151,8 +153,9 @@
             android:id="@+id/lst_class"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:divider="@drawable/dush_divider"></ListView>
+            android:dividerHeight="1dp"
+            android:divider="@drawable/dushline"
+            android:layout_weight="3"></ListView>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -106,7 +106,7 @@
             android:background="@color/primary"
             android:clickable="true"
             android:gravity="center"
-            android:text="立即购买"
+            android:text="去结算"
             android:textColor="@color/solid_white"
             android:textSize="@dimen/toolbar_title_size" />
 
