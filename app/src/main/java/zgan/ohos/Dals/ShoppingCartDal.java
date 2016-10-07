@@ -266,7 +266,7 @@ public class ShoppingCartDal extends ZGbaseDal {
         builder.add("token", SystemUtils.getNetToken());
         builder.add("data", sb.toString());
         final Request request = new Request.Builder()
-                .url("http://app.yumanc.1home1shop.com/V1_0/verifygoodsinfo.aspx").post(builder.build())
+                .url("http://app.yumanc.1home1shop.com/V1_0/goodscartorder.aspx").post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -317,7 +317,7 @@ public class ShoppingCartDal extends ZGbaseDal {
         builder.add("token", SystemUtils.getNetToken());
         builder.add("data", sb.toString());
         final Request request = new Request.Builder()
-                .url("http://app.yumanc.1home1shop.com/V1_0/verifygoodsinfo.aspx").post(builder.build())
+                .url("http://app.yumanc.1home1shop.com/V1_0/goodscartorder.aspx").post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);

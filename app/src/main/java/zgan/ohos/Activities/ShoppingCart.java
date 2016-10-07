@@ -183,17 +183,18 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     public void ViewClick(View v) {
         switch (v.getId()) {
             case R.id.btn_check:
-               cartDal.commitCart(opGoods, summary,"0", new UpdateCartListner() {
-                   @Override
-                   public void onFailure() {
-
-                   }
-
-                   @Override
-                   public void onResponse(String response) {
-
-                   }
-               });
+//               cartDal.commitCart(opGoods, summary,"0", new UpdateCartListner() {
+//                   @Override
+//                   public void onFailure() {
+//
+//                   }
+//
+//                   @Override
+//                   public void onResponse(String response) {
+//
+//                   }
+//               });
+                cartDal.verifyGoods(opGoods);
                 break;
         }
     }
