@@ -303,7 +303,6 @@
                     android:layout_marginRight="10dp"
                     app:iiv_color="@color/myaccount_icon"
                     app:iiv_icon="gmd-chevron-right" />
-                />
             </RelativeLayout>
 
             <RelativeLayout

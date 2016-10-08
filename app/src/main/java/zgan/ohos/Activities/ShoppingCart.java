@@ -45,8 +45,6 @@ import zgan.ohos.utils.generalhelper;
  * Created by yajunsun on 16/10/3.
  */
 public class ShoppingCart extends myBaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-    OkHttpClient mOkHttpClient;
-    TextView txtcontent;
     RecyclerView rvcarts;
     ShoppingCartDal cartDal;
     List<ShoppingCartM> list;
@@ -117,12 +115,12 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     void summaryCart() {
         summary = new ShoppingCartSummary();
         int i = 0;
-        int tcount=0;
+        int tcount = 0;
         double totalprice = 0.0;
         double oldtotalprice = 0.0;
         for (SM_GoodsM m : opGoods) {
             i++;
-            tcount+=m.getcount();
+            tcount += m.getcount();
             totalprice += m.getprice() * m.getcount();
             if (!m.getoldprice().equals("") && !m.getoldprice().equals("0"))
                 oldtotalprice += Double.parseDouble(m.getoldprice()) * m.getcount();
@@ -301,9 +299,11 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             holder.selectcount.setOnchangeListener(new MySelectCount.IonChanged() {
                 @Override
                 public void onAddition(int count) {
+
                     goodsM.setcount(count);
                     if (!opGoods.contains(goodsM))
                         opGoods.add(goodsM);
+                    cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, null);
                     summaryCart();
                 }
 
@@ -314,6 +314,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                     } else {
                         goodsM.setcount(count);
                     }
+                    cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, null);
                     summaryCart();
                 }
             });
