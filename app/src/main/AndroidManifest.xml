@@ -425,6 +425,7 @@
             android:name=".Activities.SMSearchResult"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name=".Activities.ShoppingCart" />
+        <activity android:name=".Activities.CommitCartOrder"></activity>
     </application>
 
 </manifest>

@@ -144,6 +144,7 @@ public class ShoppingCartDal extends ZGbaseDal {
                         if (count == 0) {
                             method = DELETECART;
                             count = m.getcount();
+                            break;
                         }
                     }
                 }
@@ -176,6 +177,7 @@ public class ShoppingCartDal extends ZGbaseDal {
                 if (listner != null) {
                     listner.onFailure();
                 }
+                e.printStackTrace();
             }
 
             @Override
@@ -186,13 +188,17 @@ public class ShoppingCartDal extends ZGbaseDal {
                         mOrderIDs.add(goodsM);
                     } else if (finalMethod.equals(DELETECART)) {
                         for (SM_GoodsM m : mOrderIDs) {
-                            if (m.getproduct_id().equals(goodsM.getproduct_id()))
+                            if (m.getproduct_id().equals(goodsM.getproduct_id())) {
                                 mOrderIDs.remove(m);
+                                break;
+                            }
                         }
                     } else {
                         for (SM_GoodsM m : mOrderIDs) {
-                            if (m.getproduct_id().equals(goodsM.getproduct_id()))
+                            if (m.getproduct_id().equals(goodsM.getproduct_id())) {
                                 m.setcount(finalcount);
+                                break;
+                            }
                         }
                     }
                     if (listner != null)

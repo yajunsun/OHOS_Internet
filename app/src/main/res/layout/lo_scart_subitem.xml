@@ -65,6 +65,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignBottom="@id/txt_price"
         android:layout_marginRight="10dp"
-        app:minValue="0"
+        app:minValue="1"
         app:size="@integer/vegetable_select_count_size" />
 </RelativeLayout>
