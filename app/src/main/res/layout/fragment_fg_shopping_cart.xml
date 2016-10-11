@@ -42,6 +42,16 @@
                 android:layout_centerInParent="true"
                 android:textColor="@color/color_txt_toobar"
                 android:textSize="@dimen/toolbar_title_size" />
+            <ToggleButton
+                android:layout_width="60dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/tg_edit"
+                android:textOn="完成"
+                android:background="@color/transparent100"
+                android:textColor="@color/solid_white"
+                android:textOff="编辑"
+                android:layout_marginRight="10dp"
+                android:layout_height="40dp" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
     <RelativeLayout

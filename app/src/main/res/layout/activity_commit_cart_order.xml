@@ -85,7 +85,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_below="@id/ll_info"
                     android:background="@drawable/bg_rect_border"
                     android:clickable="true"
                     android:onClick="ViewClick"

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
@@ -45,6 +46,7 @@ import zgan.ohos.utils.generalhelper;
  * Created by yajunsun on 16/10/3.
  */
 public class ShoppingCart extends myBaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+    ToggleButton tgedit;
     RecyclerView rvcarts;
     ShoppingCartDal cartDal;
     List<ShoppingCartM> list;
@@ -71,6 +73,14 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             }
         });
         rvcarts = (RecyclerView) findViewById(R.id.rv_carts);
+        tgedit=(ToggleButton)findViewById(R.id.tg_edit);
+        tgedit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                //编辑
+                //完成
+            }
+        });
         cartLayoutManager = new LinearLayoutManager(this);
         selectall = (CheckBox) findViewById(R.id.selectall);
         txttotalprice = (TextView) findViewById(R.id.txt_totalprice);
@@ -290,8 +300,10 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         opGoods.add(goodsM);
+                        cartDal.updateCart(ShoppingCartDal.SELECTCART,goodsM,1,null);
                     } else {
                         opGoods.remove(goodsM);
+                        cartDal.updateCart(ShoppingCartDal.SELECTCART,goodsM,0,null);
                     }
                     summaryCart();
                 }

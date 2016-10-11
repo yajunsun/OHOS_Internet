@@ -33,6 +33,7 @@ public class ShoppingCartDal extends ZGbaseDal {
     public final static String ADDCART = "add";
     public final static String UPDATECART = "upd";
     public final static String DELETECART = "del";
+    public final static String SELECTCART="select";
     OkHttpClient mOkHttpClient;
     public static ArrayList<SM_GoodsM> mOrderIDs;
     public static ArrayList<ShoppingCartM> localCarts;
@@ -61,6 +62,7 @@ public class ShoppingCartDal extends ZGbaseDal {
                             String pic_url = getNullableString(go, "pic_url", "");
                             String oldprice = getNullableString(go, "oldprice", "");
                             String specification = getNullableString(go, "specification", "");
+                            int can_handsel=getNullableInt(go,"can_handsel",0);
                             JSONArray typelist = getNullableArr(go, "type_list");
                             sm_goodsM.setname(gname);
                             sm_goodsM.setcount(count);
@@ -69,6 +71,7 @@ public class ShoppingCartDal extends ZGbaseDal {
                             sm_goodsM.setprice(price);
                             sm_goodsM.setoldprice(oldprice);
                             sm_goodsM.setspecification(specification);
+                            sm_goodsM.setcan_handsel(can_handsel);
                             List<String> type_list = new ArrayList<>();
                             for (int t = 0; t < typelist.length(); t++) {
                                 JSONObject type = (JSONObject) typelist.opt(t);
@@ -126,9 +129,10 @@ public class ShoppingCartDal extends ZGbaseDal {
 
     }
 
-    //修改购物车
+    //修改购物车（新增、修改、删除、状态改变）
     public void updateCart(String method, final SM_GoodsM goodsM, int count, final UpdateCartListner listner) {
-
+          if(goodsM==null)
+              return;
         //当传入的是新增或修改的时候遍历本地购物车
         if (method.equals(ADDCART) || method.equals(UPDATECART))
             for (SM_GoodsM m : mOrderIDs) {
@@ -139,14 +143,15 @@ public class ShoppingCartDal extends ZGbaseDal {
                         method = UPDATECART;
                         count = m.getcount() + 1;
                         break;
-                    } else {
-                        //如果是修改并且修改值为0,则将操作改为删除
-                        if (count == 0) {
-                            method = DELETECART;
-                            count = m.getcount();
-                            break;
-                        }
                     }
+//                    else {
+//                        //如果是修改并且修改值为0,则将操作改为删除
+//                        if (count == 0) {
+//                            method = DELETECART;
+//                            count = m.getcount();
+//                            break;
+//                        }
+//                    }
                 }
             }
         final String finalMethod = method;
@@ -193,7 +198,7 @@ public class ShoppingCartDal extends ZGbaseDal {
                                 break;
                             }
                         }
-                    } else {
+                    } else if(finalMethod.equals(UPDATECART)) {
                         for (SM_GoodsM m : mOrderIDs) {
                             if (m.getproduct_id().equals(goodsM.getproduct_id())) {
                                 m.setcount(finalcount);
@@ -203,6 +208,78 @@ public class ShoppingCartDal extends ZGbaseDal {
                     }
                     if (listner != null)
                         listner.onResponse(htmlStr);
+            }
+        });
+    }
+
+    //修改购物车（选中状态改变和批量删除）
+    public void updateCart(String method, final List<SM_GoodsM> goodsMs, int count, final UpdateCartListner listner) {
+        if(goodsMs==null||goodsMs.size()==0)
+            return;
+        final String finalMethod = method;
+        final int finalcount = count;
+        //网络请求api
+        mOkHttpClient = new OkHttpClient();
+        FormEncodingBuilder builder = new FormEncodingBuilder();
+        StringBuilder sb = new StringBuilder();
+        StringBuilder subsb=new StringBuilder();
+        sb.append("[");
+        for (SM_GoodsM goodsM:goodsMs) {
+            subsb.append("{");
+            subsb.append("\"method\":");
+            subsb.append("\"" + finalMethod + "\",");
+            subsb.append("\"product_id\":");
+            subsb.append("\"" + goodsM.getproduct_id() + "\",");
+            subsb.append("\"count\":");
+            subsb.append("\"" + finalcount + "\"},");
+        }
+        sb.append(subsb.substring(0,subsb.length()-1));
+        sb.append("]");
+        builder.add("data", sb.toString());
+        builder.add("account", PreferenceUtil.getUserName());
+        builder.add("token", SystemUtils.getNetToken());
+        final Request request = new Request.Builder()
+                .url("http://app.yumanc.1home1shop.com/V1_0/updateshoppingcart.aspx").post(builder.build())
+                .build();
+        //new call
+        Call call = mOkHttpClient.newCall(request);
+        //请求加入调度
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                if (listner != null) {
+                    listner.onFailure();
+                }
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(final Response response) throws IOException {
+                final String htmlStr = response.body().string().replace("\\", "");
+
+              if (finalMethod.equals(DELETECART)) {
+                    for (SM_GoodsM m : mOrderIDs) {
+                        for(SM_GoodsM m1:goodsMs) {
+                            if (m.getproduct_id().equals(m1.getproduct_id())) {
+                                mOrderIDs.remove(m);
+                                break;
+                            }
+                        }
+                    }
+                } else if(finalMethod.equals(SELECTCART)) {
+                  boolean isselected=finalcount==1;
+                    for (SM_GoodsM m : mOrderIDs) {
+                        for(SM_GoodsM m1:goodsMs) {
+                            if (m.getproduct_id().equals(m1.getproduct_id())) {
+                                m.setSelect(isselected);
+                                m.setcan_handsel(finalcount);
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (listner != null)
+                    listner.onResponse(htmlStr);
             }
         });
     }
