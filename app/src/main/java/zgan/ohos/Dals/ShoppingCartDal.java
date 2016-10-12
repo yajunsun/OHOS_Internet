@@ -160,13 +160,13 @@ public class ShoppingCartDal extends ZGbaseDal {
         mOkHttpClient = new OkHttpClient();
         FormEncodingBuilder builder = new FormEncodingBuilder();
         StringBuilder sb = new StringBuilder();
-        sb.append("{");
+        sb.append("[{");
         sb.append("\"method\":");
         sb.append("\"" + finalMethod + "\",");
         sb.append("\"product_id\":");
         sb.append("\"" + goodsM.getproduct_id() + "\",");
         sb.append("\"count\":");
-        sb.append("\"" + finalcount + "\"}");
+        sb.append("\"" + finalcount + "\"}]");
         builder.add("data", sb.toString());
         builder.add("account", PreferenceUtil.getUserName());
         builder.add("token", SystemUtils.getNetToken());

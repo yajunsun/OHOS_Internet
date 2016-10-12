@@ -67,6 +67,7 @@ public class SM_GoodsM extends BaseGoods implements Serializable {
 
     public void setcan_handsel(int can_handsel) {
         this.can_handsel = can_handsel;
+        setSelect(can_handsel==1);
     }
 
     @Override
