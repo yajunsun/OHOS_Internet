@@ -40,6 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:text="购物车"
                 android:textColor="@color/color_txt_toobar"
                 android:textSize="@dimen/toolbar_title_size" />
             <ToggleButton

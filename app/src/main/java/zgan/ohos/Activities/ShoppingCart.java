@@ -63,7 +63,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     List<SM_GoodsM> delItems;
     Dialog delDialog;
     //商品列表数据notify的次数
-    boolean isFirstload = true;
+    //boolean isFirstload = true;
 
     @Override
     protected void initView() {
@@ -86,22 +86,22 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                     llcheck.setVisibility(View.GONE);
                     lloption.setVisibility(View.VISIBLE);
                     //编辑模式下全部默认未选中
-                    selectall1.setChecked(false);
-                    for(ShoppingCartM m:list)
-                    {
-                        for(SM_GoodsM goodsM:m.getproductArray())
-                        {
-                            goodsM.setSelected(false);
+                    //selectall1.setChecked(false);
+                    for (ShoppingCartM m : list) {
+                        m.setSelect(false);
+                        for (SM_GoodsM goodsM : m.getproductArray()) {
+                            goodsM.setSelect(false);
                         }
                     }
-                    delItems = new ArrayList<SM_GoodsM>();
-                    bindData(); 
+                    delItems = new ArrayList<>();
+                    bindData();
                 } else {//非编辑模式
                     isEdit = false;
                     llcheck.setVisibility(View.VISIBLE);
                     lloption.setVisibility(View.GONE);
                     delItems = null;
-                    isFirstload = true;
+                    //isFirstload = true;
+                    opGoods = new ArrayList<>();
                     loadData();//重新加载
                 }
             }
@@ -151,8 +151,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
         } else {
             cAdapter.notifyDataSetChanged();
         }
-        if(!isEdit)
-        {
+        if (!isEdit) {
             summaryCart();
         }
     }
@@ -219,6 +218,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                     }
                 }
             }
+
         }
     };
 
@@ -256,7 +256,14 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
 
                             @Override
                             public void onResponse(String response) {
-                                delItems = new ArrayList<SM_GoodsM>();//清空删除列表
+                                opGoods.removeAll(delItems);
+                                delItems = new ArrayList<>();//清空删除列表
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        bindData();
+                                    }
+                                });
                             }
                         });
                     }
@@ -314,10 +321,10 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             holder.rballproduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    /*if (!isReload)//编辑过后重新加载时不将所有数据选中，选中状态来自服务器
-                        for (SM_GoodsM goodsM : cartM.getproductArray()) {
-                            goodsM.setSelect(isChecked);
-                        }*///不需要默认修改选中状态
+                    //if (!isReload)//编辑过后重新加载时不将所有数据选中，选中状态来自服务器
+                    for (SM_GoodsM goodsM : cartM.getproductArray()) {
+                        goodsM.setSelect(isChecked);
+                    }//不需要默认修改选中状态
                     if (!isChecked) {//取消选中
                         if (isEdit)//编辑状态
                         {
@@ -386,23 +393,26 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                     if (isChecked) {
                         if (!isEdit) {//非编辑状态
 //                            holder.selectcount.setVisibility(View.VISIBLE);//显示数量操作
-                            opGoods.add(goodsM);
-                            if(goodsM.getcan_handsel()!=1&&isFirstload==false)
+                            if (!opGoods.contains(goodsM))
+                                opGoods.add(goodsM);
+                            if (goodsM.getcan_handsel() != 1)//&& isFirstload == false
                             {
-                            cartDal.updateCart(ShoppingCartDal.SELECTCART, goodsM, 1, null);//更新服务器选中状态
+                                cartDal.updateCart(ShoppingCartDal.SELECTCART, goodsM, 1, null);//更新服务器选中状态
                             }
-                            else
-                            {        isFirstload = false;}
+//                            else {
+//                                isFirstload = false;
+//                            }
                         } else {//编辑状态
                             //holder.selectcount.setVisibility(View.GONE);//隐藏数量操作
-                            delItems.add(goodsM);//加入删除列表
+                            if (!delItems.contains(goodsM))
+                                delItems.add(goodsM);//加入删除列表
                         }
                     } else {//取消选中
                         if (!isEdit) {//非编辑状态
                             //holder.selectcount.setVisibility(View.VISIBLE);
                             opGoods.remove(goodsM);
-                            if(goodsM.getcan_handsel()==1)
-                            cartDal.updateCart(ShoppingCartDal.SELECTCART, goodsM, 0, null);
+                            if (goodsM.getcan_handsel() == 1)
+                                cartDal.updateCart(ShoppingCartDal.SELECTCART, goodsM, 0, null);
                         } else {//编辑状态
                             //holder.selectcount.setVisibility(View.GONE);//隐藏数量操作
                             if (delItems.contains(goodsM))//删除列表包含当前商品
@@ -435,6 +445,12 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                 }
             });
             holder.rbproduct.setChecked(goodsM.getSelect());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    holder.rbproduct.setChecked(!holder.rbproduct.isChecked());
+                }
+            });
         }
 
         @Override
