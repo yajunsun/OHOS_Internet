@@ -63,7 +63,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     List<SM_GoodsM> delItems;
     Dialog delDialog;
     //商品列表数据notify的次数
-    boolean isReload = false;
+    boolean isFirstload = true;
 
     @Override
     protected void initView() {
@@ -92,7 +92,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                     llcheck.setVisibility(View.VISIBLE);
                     lloption.setVisibility(View.GONE);
                     delItems = null;
-                    isReload = true;
+                    isFirstload = true;
                     loadData();//重新加载
                 }
             }
@@ -311,6 +311,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                             delItems.removeAll(cartM.getproductArray());
                         } else {
                             opGoods.removeAll(cartM.getproductArray());
+                            cartDal.updateCart(ShoppingCartDal.SELECTCART, cartM.getproductArray(), 0, null);
                             summaryCart();
                         }
                     }
@@ -318,6 +319,11 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                 }
             });
             holder.rballproduct.setChecked(cartM.getSelect());
+            /*//数据加载完成后更新isFirstload = false,之后商品列表上的选中状态就会更新到服务器（商品在加载的时候选中状态是不需要更新到服务器上的）
+            if(position+1==list.size())
+            {
+            isFirstload = false;
+            }*/
         }
 
         @Override
@@ -368,7 +374,12 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                         if (!isEdit) {//非编辑状态
 //                            holder.selectcount.setVisibility(View.VISIBLE);//显示数量操作
                             opGoods.add(goodsM);
+                            if(goodsM.getcan_handsel()!=1&&isFirstload==false)
+                            {
                             cartDal.updateCart(ShoppingCartDal.SELECTCART, goodsM, 1, null);//更新服务器选中状态
+                            }
+                            else
+                            {        isFirstload = false;}
                         } else {//编辑状态
                             //holder.selectcount.setVisibility(View.GONE);//隐藏数量操作
                             delItems.add(goodsM);//加入删除列表
@@ -377,6 +388,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                         if (!isEdit) {//非编辑状态
                             //holder.selectcount.setVisibility(View.VISIBLE);
                             opGoods.remove(goodsM);
+                            if(goodsM.getcan_handsel()==1)
                             cartDal.updateCart(ShoppingCartDal.SELECTCART, goodsM, 0, null);
                         } else {//编辑状态
                             //holder.selectcount.setVisibility(View.GONE);//隐藏数量操作
