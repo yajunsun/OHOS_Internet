@@ -85,8 +85,17 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                     isEdit = true;
                     llcheck.setVisibility(View.GONE);
                     lloption.setVisibility(View.VISIBLE);
-                    selectall.setChecked(false);
+                    //编辑模式下全部默认未选中
+                    selectall1.setChecked(false);
+                    for(ShoppingCartM m:list)
+                    {
+                        for(SM_GoodsM goodsM:m.getproductArray())
+                        {
+                            goodsM.setSelected(false);
+                        }
+                    }
                     delItems = new ArrayList<SM_GoodsM>();
+                    bindData(); 
                 } else {//非编辑模式
                     isEdit = false;
                     llcheck.setVisibility(View.VISIBLE);
@@ -142,6 +151,10 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
         } else {
             cAdapter.notifyDataSetChanged();
         }
+        if(!isEdit)
+        {
+            summaryCart();
+        }
     }
 
     void summaryCart() {
@@ -195,7 +208,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                         if (result.equals("0")) {
                             list = cartDal.getList(data);
                             bindData();
-                            selectall.setChecked(true);
+                            //selectall.setChecked(true);
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(ShoppingCart.this, "服务器错误:" + errmsg);
                         }
