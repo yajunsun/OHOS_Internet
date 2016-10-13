@@ -16,10 +16,10 @@ public class SM_GoodsM extends BaseGoods implements Serializable {
     private String specification;
     //标签
     private List<String> type_list;
-    //是否选中
+    //是否选中 和can_handsel有关联
     private boolean isSelect=false;
-    //选中为1 未选中为0
-    private int can_handsel=0;
+    //选中为1 未选中为0  默认为选中
+    private int can_handsel=1;
 
     public String getname() {
         return name;
