@@ -301,10 +301,10 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             holder.rballproduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (!isReload)//编辑过后重新加载时不将所有数据选中，选中状态来自服务器
+                    /*if (!isReload)//编辑过后重新加载时不将所有数据选中，选中状态来自服务器
                         for (SM_GoodsM goodsM : cartM.getproductArray()) {
                             goodsM.setSelect(isChecked);
-                        }
+                        }*///不需要默认修改选中状态
                     if (!isChecked) {//取消选中
                         if (isEdit)//编辑状态
                         {
