@@ -38,6 +38,7 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
+import zgan.ohos.utils.resultCodes;
 
 public class SMSearchResult extends myBaseActivity {
 
@@ -105,7 +106,7 @@ public class SMSearchResult extends myBaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SMSearchResult.this, ShoppingCart.class);
-                startActivityWithAnim(intent);
+                startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
             }
         });
         //TextView txtcount,txtoldtotalprice,txt_totalprice;
@@ -281,6 +282,20 @@ public class SMSearchResult extends myBaseActivity {
             msg.sendToTarget();
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==resultCodes.TOSHOPPINGCART)
+        {
+            ShoppingCartSummary summary = cartDal.getSCSummary();
+            Message msg=handler.obtainMessage();
+            msg.what=3;
+            msg.obj=summary;
+            msg.sendToTarget();
+        }
+    }
+
     class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHolder>
     {
         @Override

@@ -190,6 +190,7 @@ public class ShoppingCartDal extends ZGbaseDal {
                     final String htmlStr = response.body().string().replace("\\", "");
 
                     if (finalMethod.equals(ADDCART)) {
+                        goodsM.setcount(1);
                         mOrderIDs.add(goodsM);
                     } else if (finalMethod.equals(DELETECART)) {
                         for (SM_GoodsM m : mOrderIDs) {
@@ -258,14 +259,16 @@ public class ShoppingCartDal extends ZGbaseDal {
                 final String htmlStr = response.body().string().replace("\\", "");
 
               if (finalMethod.equals(DELETECART)) {
-                    for (SM_GoodsM m : mOrderIDs) {
+                  List<SM_GoodsM>deleteItems=new ArrayList<>();
+                    for (SM_GoodsM m:mOrderIDs) {
                         for(SM_GoodsM m1:goodsMs) {
                             if (m.getproduct_id().equals(m1.getproduct_id())) {
-                                mOrderIDs.remove(m);
+                                deleteItems.add(m);
                                 break;
                             }
                         }
                     }
+                  mOrderIDs.removeAll(deleteItems);
                 } else if(finalMethod.equals(SELECTCART)) {
                   boolean isselected=finalcount==1;
                     for (SM_GoodsM m : mOrderIDs) {

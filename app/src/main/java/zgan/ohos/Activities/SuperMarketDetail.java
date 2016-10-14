@@ -43,6 +43,7 @@ import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
+import zgan.ohos.utils.resultCodes;
 
 public class SuperMarketDetail extends myBaseActivity implements View.OnClickListener {
 
@@ -301,11 +302,22 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
                 break;
             case R.id.btn_buynow:
                 Intent intent=new Intent(SuperMarketDetail.this,ShoppingCart.class);
-                startActivityWithAnim(intent);
+                startActivityWithAnimForResult(intent,resultCodes.TOSHOPPINGCART);
                 break;
         }
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==resultCodes.TOSHOPPINGCART)
+        {
+            ShoppingCartSummary summary = cartDal.getSCSummary();
+            Message msg=handler.obtainMessage();
+            msg.what=3;
+            msg.obj=summary;
+            msg.sendToTarget();
+        }
+    }
     @Override
     public void onClick(View v) {
         ViewClick(v);

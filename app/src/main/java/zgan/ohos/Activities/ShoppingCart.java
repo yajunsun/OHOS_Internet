@@ -33,6 +33,7 @@ import zgan.ohos.R;
 import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.generalhelper;
+import zgan.ohos.utils.resultCodes;
 
 /**
  * Created by yajunsun on 16/10/3.
@@ -123,6 +124,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
         density = AppUtils.getDensity(ShoppingCart.this);
         opGoods = new ArrayList<>();
         loadData();
+        setResult(resultCodes.TOSHOPPINGCART);
     }
 
     void loadData() {
@@ -249,23 +251,50 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         cartDal.updateCart(ShoppingCartDal.DELETECART, delItems, 0, new UpdateCartListner() {
-                            @Override
-                            public void onFailure() {
-
-                            }
-
-                            @Override
-                            public void onResponse(String response) {
-                                opGoods.removeAll(delItems);
-                                delItems = new ArrayList<>();//清空删除列表
-                                handler.post(new Runnable() {
                                     @Override
-                                    public void run() {
-                                        bindData();
+                                    public void onFailure() {
+
                                     }
-                                });
-                            }
-                        });
+
+                                    @Override
+                                    public void onResponse(String response) {
+                                        opGoods.removeAll(delItems);
+                                        while (delItems.size() > 0) {
+                                            SM_GoodsM m = delItems.get(0);
+                                            cart:
+                                            for (int c = 0; c < list.size(); c++) {
+                                                List<SM_GoodsM> tempgoods = list.get(c).getproductArray();
+                                                product:
+                                                for (int g = 0; g < tempgoods.size(); g++) {
+                                                    if (tempgoods.size() == 0)
+                                                        break;
+                                                    if (m.getproduct_id().equals(tempgoods.get(g).getproduct_id())) {
+                                                        list.get(c).getproductArray().remove(g);
+                                                        delItems.remove(m);
+                                                        break product;
+                                                    }
+                                                }
+                                                if (list.get(c).getproductArray().size() == 0) {
+                                                    list.remove(c);
+                                                    break cart;
+                                                }
+                                            }
+                                        }
+                                        //delItems = new ArrayList<>();//清空删除列表
+                                        handler.post(new
+
+                                                             Runnable() {
+                                                                 @Override
+                                                                 public void run() {
+                                                                     bindData();
+                                                                 }
+                                                             }
+
+                                        );
+                                    }
+                                }
+
+                        );
                     }
                 }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -318,6 +347,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             holder.rvproducts.setLayoutManager(layoutManager);
             holder.rvproducts.setAdapter(pAdapter);
             holder.rvproducts.setLayoutParams(params);
+            holder.rballproduct.setText(cartM.getdistributionType());
             holder.rballproduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
