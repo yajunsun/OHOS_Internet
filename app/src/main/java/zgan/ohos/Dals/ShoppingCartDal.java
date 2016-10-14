@@ -287,6 +287,7 @@ public class ShoppingCartDal extends ZGbaseDal {
     //同步网络购物车和本地购物车
     public void syncCart(List<ShoppingCartM> carts) {
         localCarts = new ArrayList<>();
+        mOrderIDs = new ArrayList<>();
         if (carts != null && carts.size() > 0) {
             localCarts.addAll(carts);
             inimOrderIDs();
@@ -319,7 +320,6 @@ public class ShoppingCartDal extends ZGbaseDal {
     private void inimOrderIDs() {
 
         if (localCarts != null) {
-            mOrderIDs = new ArrayList<>();
             for (int i = 0; i < localCarts.size(); i++) {
                 mOrderIDs.addAll(localCarts.get(i).getproductArray());
             }
