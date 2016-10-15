@@ -2,6 +2,8 @@ package zgan.ohos.Activities;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
@@ -25,8 +27,11 @@ import java.util.List;
 
 import zgan.ohos.ConstomControls.MySelectCount;
 import zgan.ohos.Contracts.UpdateCartListner;
+import zgan.ohos.Dals.SM_OrderPayDal;
 import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Models.SM_GoodsM;
+import zgan.ohos.Models.SM_OrderPayInfo;
+import zgan.ohos.Models.SM_Payway;
 import zgan.ohos.Models.ShoppingCartM;
 import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.R;
@@ -42,6 +47,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     ToggleButton tgedit;
     RecyclerView rvcarts;
     ShoppingCartDal cartDal;
+    SM_OrderPayDal orderDal;
     List<ShoppingCartM> list;
     List<SM_GoodsM> opGoods;
     ShoppingCartSummary summary;
@@ -70,6 +76,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     protected void initView() {
         setContentView(R.layout.fragment_fg_shopping_cart);
         cartDal = new ShoppingCartDal();
+        orderDal = new SM_OrderPayDal();
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,8 +226,14 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                         e.printStackTrace();
                     }
                 }
+            } else if (msg.what == 2) {
+                SM_Payway payway = orderDal.getPayWays(msg.obj.toString());
+                Intent intent = new Intent(ShoppingCart.this, CommitCartOrder.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("payways", payway);
+                intent.putExtras(bundle);
+                startActivityWithAnim(intent);
             }
-
         }
     };
 
@@ -228,17 +241,20 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     public void ViewClick(View v) {
         switch (v.getId()) {
             case R.id.btn_check:
-//               cartDal.commitCart(opGoods, summary,"0", new UpdateCartListner() {
-//                   @Override
-//                   public void onFailure() {
-//
-//                   }
-//
-//                   @Override
-//                   public void onResponse(String response) {
-//
-//                   }
-//               });
+                orderDal.ComfirmOrder(opGoods, new UpdateCartListner() {
+                    @Override
+                    public void onFailure() {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        Message msg = handler.obtainMessage();
+                        msg.what =2;
+                        msg.obj=response;
+                        msg.sendToTarget();
+                    }
+                });
                 cartDal.verifyGoods(opGoods);//验证
                 break;
             case R.id.btn_delete://删除

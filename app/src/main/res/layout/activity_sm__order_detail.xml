@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="zgan.ohos.Activities.CommitCartOrder">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -48,26 +46,122 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    <include
-        android:id="@+id/check"
-        layout="@layout/lo_goods_check"
+    <LinearLayout
+        android:id="@+id/l_option"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_alignParentBottom="true"></include>
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_rect_border"
+        android:gravity="center_vertical|right"
+        android:paddingBottom="5dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_deleteorder"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_rect_border"
+            android:text="删除订单"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_checkshipping"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/bg_rect_border"
+            android:text="查看物流"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_payimmediatly"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/bg_rect_border"
+            android:text="立即付款"
+            android:textColor="@color/primary"
+            android:textSize="20sp"
+            android:visibility="gone" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/check"
+        android:layout_above="@id/l_option"
         android:layout_below="@id/toolbar">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/lordernum"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_ordernum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="asdfasdf"
+                    android:textColor="@color/solid_black"
+                    android:textSize="@dimen/CommitOrder_txt_ordernum" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_detail"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_rect_border"
+                    android:clickable="true"
+                    android:onClick="ViewClick"
+                    android:paddingLeft="10dp">
+
+                    <TextView
+                        android:id="@+id/txt_orderstatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:text="订单状态 : "
+                        android:textSize="18sp" />
+
+
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:id="@+id/iv_detail"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        app:iiv_color="@color/myaccount_icon"
+                        app:iiv_icon="gmd-chevron-right" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l1"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/lordernum"
+                android:background="@color/myaccount_icon"
+                android:orientation="horizontal" />
+
             <LinearLayout
                 android:id="@+id/laddress"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
+                android:layout_below="@id/l1"
                 android:orientation="vertical"
                 android:padding="10dp">
 
@@ -96,8 +190,6 @@
                 android:layout_below="@id/laddress">
 
             </android.support.v7.widget.RecyclerView>
-
-
             <RelativeLayout
                 android:id="@+id/lpaytype"
                 android:layout_width="match_parent"
@@ -120,8 +212,6 @@
                     android:layout_below="@id/txt1"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
-
-
                 </LinearLayout>
 
             </RelativeLayout>
@@ -134,126 +224,49 @@
                 android:background="@color/myaccount_icon"
                 android:orientation="horizontal" />
 
-            <LinearLayout
-                android:id="@+id/llshipping"
+            <RelativeLayout
+                android:id="@+id/lshippingtime"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/CommitOrder_shipping_height"
                 android:layout_below="@id/l2"
-                android:orientation="vertical">
+                android:padding="10dp">
 
-                <RelativeLayout
-                    android:id="@+id/lshippingtime"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/CommitOrder_shipping_height"
-                    android:layout_below="@id/l2"
-                    android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="配送信息"
+                    android:id="@+id/txt_infotext"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="一家一店到家"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/txt_shippingtime"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/txt_infotext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="配送时间"
+                    android:textColor="@color/solid_black"
+                    android:textSize="@dimen/front_text_size" />
 
-                    <TextView
-                        android:id="@+id/btnshippingimediatly"
-                        android:layout_width="80dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/bg_rect_border"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:text="立即上门"
-                        android:textColor="@color/primary"
-                        android:textIsSelectable="true"
-                        android:textSize="@dimen/front_text_size" />
-
-                    <TextView
-                        android:id="@+id/btnshippingdelay"
-                        android:layout_width="80dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@id/btnshippingimediatly"
-                        android:background="@drawable/bg_rect_border"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:text="选择时间"
-                        android:textIsSelectable="false"
-                        android:textSize="@dimen/front_text_size" />
-
-                    <TextView
-                        android:id="@+id/txtshippingtime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/btnshippingdelay"
-                        android:layout_marginTop="10dp"
-                        android:text="送货时间"
-                        android:textColor="@color/solid_black"
-                        android:textSize="@dimen/front_text_size" />
-
-                    <TextView
-                        android:id="@+id/txt_besttime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:text="adfasdf"
-                        android:textColor="@color/md_red_400"
-                        android:textSize="@dimen/front_text_size" />
-
-
-                    <ImageView
-                        android:id="@+id/ivshippingdelay"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:clickable="true"
-                        android:src="@drawable/calender" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/lshippingtime2"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/CommitOrder_shipping_height"
-                    android:layout_below="@id/l2"
-                    android:padding="10dp"
-                    android:visibility="gone">
-
-
-                    <TextView
-                        android:id="@+id/txtshippingtime2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="送货时间"
-                        android:textColor="@color/solid_black"
-                        android:textSize="@dimen/front_text_size" />
-
-                    <TextView
-                        android:id="@+id/txt_besttime2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txtshippingtime2"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/md_red_400"
-                        android:textSize="@dimen/front_text_size" />
-
-                    <TextView
-                        android:id="@+id/txt_note2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txt_besttime2"
-                        android:layout_marginTop="10dp"
-                        android:text="进口商品周末暂不送货"
-                        android:textColor="@color/md_red_400"
-                        android:textSize="@dimen/front_text_size" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/l3"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_below="@id/llshipping"
-                android:background="@color/myaccount_icon"
-                android:orientation="horizontal" />
+                <TextView
+                    android:id="@+id/txt_shiper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_shippingtime"
+                    android:layout_marginTop="10dp"
+                    android:text="配送人员:素还真"
+                    android:textColor="@color/md_red_400"
+                    android:textSize="@dimen/front_text_size" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/ll_totalprice"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_below="@id/l3"
+                android:layout_below="@id/lshippingtime"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -310,20 +323,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_below="@id/ll_downprice">
+
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:textColor="@color/primary"
                     android:id="@+id/txt_payfee"
-                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_height="wrap_content" />
+                    android:textColor="@color/primary"
+                    android:textSize="20sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
-                    android:textSize="20sp"
-                    android:text="实付款:"
-                    android:layout_toLeftOf="@id/txt_payfee"
+                    android:layout_height="wrap_content"
                     android:layout_alignBaseline="@id/txt_payfee"
-                    android:layout_height="wrap_content" />
+                    android:layout_toLeftOf="@id/txt_payfee"
+                    android:text="实付款:"
+                    android:textSize="20sp" />
+                <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/txt_ordertime"
+                android:text="下单时间："
+                android:textSize="10sp"
+                android:layout_below="@id/txt_payfee"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content" />
             </RelativeLayout>
         </RelativeLayout>
 
