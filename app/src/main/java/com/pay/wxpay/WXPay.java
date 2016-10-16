@@ -26,6 +26,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import zgan.ohos.Models.MyOrder;
+import zgan.ohos.Models.SM_OrderPayInfo;
 import zgan.ohos.Models.WXPayM;
 import zgan.ohos.utils.NetUtils;
 import zgan.ohos.utils.XmlParser_model;
@@ -82,6 +83,36 @@ public class WXPay {
 
 
         key = Constants.Key;
+        sign = getpreSIGN();
+    }
+
+    public void setOrder(SM_OrderPayInfo order) {
+        Calendar c = Calendar.getInstance();
+        //订单时间
+        final Date d = c.getTime();
+        c.add(Calendar.MINUTE, 30);
+        final Date e = c.getTime();
+
+        appid = Constants.APP_ID;
+        attach = "一家一店在线支付-微信支付";
+        body = "一家一店在线支付-微信支付"; //order.toString();
+        mch_id = order.getpay_ways().getpay_account();
+        nonce_str = getRandomString(32).toUpperCase();
+        device_info = "WEB";
+        out_trade_no = order.getpay_order_sn();
+        total_fee = String.valueOf( Math.round(Double.parseDouble( order.gettotal_price()) * 100));
+        trade_type = "APP";
+        notify_url =order.getpay_ways().getpusiness_notice_url();
+        detail = "一家一店在线支付-微信支付";
+        fee_type = "CNY";
+        spbill_create_ip = "192.168.0.155";
+        time_start = generalhelper.getStringFromDate(d, "yyyyMMddHHmmss");
+        time_expire = generalhelper.getStringFromDate(e, "yyyyMMddHHmmss");
+        goods_tag = "WXG";
+        limit_pay = "no_credit";
+
+
+        key = order.getpay_ways().getPay_key();
         sign = getpreSIGN();
     }
 

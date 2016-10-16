@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.CycleInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,6 +37,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import zgan.ohos.ConstomControls.SM_CartCountDown;
 import zgan.ohos.Contracts.UpdateCartListner;
 import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Dals.SuperMarketDetalDal;
@@ -59,11 +64,13 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
     TextView txtname, txtprice, txtoldprice;
     LinearLayout lltypes;
     View lloldprice, rldetail;
+    FloatingActionButton fab;
     /***
      * 购物车部分
      **/
     TextView txtcount, btnadd2cart, btnbuynow, txtoldtotalprice, txttotalprice;
     View rloldprice;
+    SM_CartCountDown countdown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +86,12 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
         txtname = (TextView) findViewById(R.id.txt_name);
         txtprice = (TextView) findViewById(R.id.txt_price);
         txtoldprice = (TextView) findViewById(R.id.txt_oldprice);
-        //txtcountdown=(TextView)findViewById(R.id.txt_count);
+        countdown=(SM_CartCountDown) findViewById(R.id.txt_countdown);
         lltypes = (LinearLayout) findViewById(R.id.ll_types);
         lloldprice = findViewById(R.id.ll_oldprice);
         rldetail = findViewById(R.id.rl_detail);
         //购物车
+        fab=(FloatingActionButton)findViewById(R.id.img_icon);
         txtcount = (TextView) findViewById(R.id.txt_count);
         txtoldtotalprice = (TextView) findViewById(R.id.txt_oldtotalprice);
         rloldprice = findViewById(R.id.rl_oldprice);
@@ -182,6 +190,15 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
                 iv.setLayoutParams(params);
                 ImageLoader.bindBitmap(model.gettype_list().get(i), iv);
             }
+        }
+        if(model.getcountdown()>0)
+        {
+            countdown.setVisibility(View.VISIBLE);
+            countdown.StartCount(model.getcountdown());
+        }
+        else
+        {
+            countdown.setVisibility(View.GONE);
         }
         txtprice.setText(String.valueOf(model.getprice()));
         if (!model.getoldprice().equals("") && !model.getoldprice().equals("0")) {
@@ -299,6 +316,10 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.btn_add2cart:
                 cartDal.updateCart(ShoppingCartDal.ADDCART,product,1,cartChanged);
+                Animation translateAnimation = new TranslateAnimation(0, 10, 0, 10);
+                translateAnimation.setInterpolator(new CycleInterpolator(5));
+                translateAnimation.setDuration(300);
+                fab.startAnimation(translateAnimation);
                 break;
             case R.id.btn_buynow:
                 Intent intent=new Intent(SuperMarketDetail.this,ShoppingCart.class);

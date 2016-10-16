@@ -99,7 +99,7 @@ public class AppUtils {
             mainActivity.finish();
     }
     public final static String P_FRONT = "1001";//专题内容（旧）
-    public final static String P_ADVER = "1002";//广告
+    public final static String P_ADVER = "3002";//"1002";//广告
     public final static String P_CAKELIST = "1003";
     public final static String P_CAKEDETAIL = "1004";
     public final static String P_VIGTABLE ="1005";
@@ -122,7 +122,7 @@ public class AppUtils {
     public final static String P_INTEGERUSEINFO ="1023";
     public final static String P_INTEGER ="1024";
     //功能区
-    public final static String P_FUNCPAGE ="100102";
+    public final static String P_FUNCPAGE ="300102";//"100102";
     public final static String P_GVNEWS ="2001";
     public final static String P_ZONENEWS ="2002";
     public final static String P_NEWDETAIL ="2003";
@@ -135,5 +135,5 @@ public class AppUtils {
     public final static String P_CALLOUT ="2010";
 
     public  final static String P_FRONTITMES1="100103";
-    public final static String P_FRONTITMES2="100104";
+    public final static String P_FRONTITMES2="300104";//"100104";
 }

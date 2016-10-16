@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.squareup.okhttp.Call;
@@ -20,6 +23,7 @@ import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import com.tencent.mm.sdk.constants.Build;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +31,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 
+import zgan.ohos.Contracts.IAddShopListener;
 import zgan.ohos.Contracts.UpdateCartListner;
 import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Dals.SuperMarketDal;
@@ -34,6 +39,7 @@ import zgan.ohos.Models.SM_GoodsM;
 import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.R;
 import zgan.ohos.adapters.RecyclerViewItemSpace;
+import zgan.ohos.utils.Add2cartAnimUtil;
 import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
@@ -48,6 +54,7 @@ public class SMSearchResult extends myBaseActivity {
     //网络请求api
     OkHttpClient mOkHttpClient;
     EditText txtsearch;
+    FloatingActionButton fab;
 
     RecyclerView rvproducts;
     GridLayoutManager product_layoutManager;
@@ -115,6 +122,7 @@ public class SMSearchResult extends myBaseActivity {
         txtoldtotalprice = (TextView) findViewById(R.id.txt_oldtotalprice);
         txttotalprice = (TextView) findViewById(R.id.txt_totalprice);
         rloldprice = findViewById(R.id.rl_oldprice);
+        fab=(FloatingActionButton)findViewById(R.id.img_icon) ;
         ShoppingCartSummary summary=cartDal.getSCSummary();
         bindShoppingCard(summary);
     }
@@ -304,7 +312,7 @@ public class SMSearchResult extends myBaseActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder, int position) {
             final SM_GoodsM goodsM=list.get(position);
             ImageLoader.bindBitmap(goodsM.getpic_url(),holder.ivproduct);
             holder.txtname.setText(goodsM.getname());
@@ -322,6 +330,20 @@ public class SMSearchResult extends myBaseActivity {
             holder.btnadd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (Build.SDK_INT > 13) {
+                        final ImageView imageView = new ImageView(SMSearchResult.this);
+                        imageView.setLayoutParams(new LinearLayout.LayoutParams(30, 60));
+                        imageView.setImageDrawable(holder.ivproduct.getDrawable());
+                        Add2cartAnimUtil mAnimUtils = new Add2cartAnimUtil(SMSearchResult.this, holder.btnadd, fab, imageView);
+
+                        mAnimUtils.addShopCart(new IAddShopListener() {
+
+                            @Override
+                            public void addSucess() {
+                                Toast.makeText(SMSearchResult.this, "添加了一个商品", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                     cartDal.updateCart(ShoppingCartDal.ADDCART, goodsM, 1, cartChanged);
                 }
             });

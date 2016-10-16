@@ -1,795 +1,799 @@
 -- Merging decision tree log ---
 manifest
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:2:1-431:12
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:2:1-432:12
 	package
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:3:5-24
-		INJECTED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml
-		INJECTED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:3:5-24
+		INJECTED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml
 	android:versionName
-		INJECTED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml
-		INJECTED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml
+		INJECTED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:2:11-69
 	android:versionCode
-		INJECTED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml
-		INJECTED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml
+		INJECTED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml
 permission#zgan.ohos.permission.JPUSH_MESSAGE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:5:5-7:47
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:5:5-7:47
 	android:protectionLevel
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:7:9-44
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:7:9-44
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:6:9-58
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:6:9-58
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:9:5-81
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:9:5-81
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:9:22-78
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:9:22-78
 uses-permission#android.permission.CHANGE_WIFI_STATE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:10:5-76
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:10:5-76
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:10:22-73
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:10:22-73
 uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:11:5-79
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:11:5-79
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:11:22-76
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:11:22-76
 uses-permission#android.permission.ACCESS_LOCATION_EXTRA_COMMANDS
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:12:5-89
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:12:5-89
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:12:22-86
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:12:22-86
 uses-permission#android.permission.CHANGE_NETWORK_STATE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:13:5-79
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:13:5-79
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:13:22-76
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:13:22-76
 uses-permission#zgan.ohos.permission.JPUSH_MESSAGE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:15:5-74
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:15:5-74
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:15:22-71
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:15:22-71
 uses-permission#android.permission.RECEIVE_USER_PRESENT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:16:5-79
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:16:5-79
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:16:22-76
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:16:22-76
 uses-permission#android.permission.WAKE_LOCK
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:19:5-68
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:19:5-68
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:19:22-65
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:19:22-65
 uses-permission#android.permission.INTERNET
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:20:5-67
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:20:5-67
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:20:22-64
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:20:22-64
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:21:5-81
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:21:5-81
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:21:22-78
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:21:22-78
 uses-permission#android.permission.WRITE_SETTINGS
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:22:5-73
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:22:5-73
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:22:22-70
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:22:22-70
 uses-permission#android.permission.READ_PHONE_STATE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:23:5-75
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:23:5-75
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:23:22-72
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:23:22-72
 uses-permission#android.permission.CAMERA
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:24:5-65
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:24:5-65
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:24:22-62
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:24:22-62
 uses-permission#android.permission.RECORD_AUDIO
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:25:5-71
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:25:5-71
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:25:22-68
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:25:22-68
 uses-permission#android.permission.MODIFY_AUDIO_SETTINGS
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:26:5-80
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:26:5-80
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:26:22-77
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:26:22-77
 uses-permission#android.permission.SYSTEM_ALERT_WINDOW
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:27:5-78
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:27:5-78
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:27:22-75
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:27:22-75
 uses-permission#android.permission.VIBRATE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:28:5-66
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:28:5-66
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:28:22-63
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:28:22-63
 uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:29:5-84
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:29:5-84
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:29:22-81
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:29:22-81
 uses-permission#android.permission.DISABLE_KEYGUARD
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:32:5-75
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:32:5-75
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:32:22-72
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:32:22-72
 uses-permission#android.permission.READ_PROFILE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:36:5-71
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:36:5-71
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:36:22-68
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:36:22-68
 uses-permission#android.permission.ACCESS_WIFI_STATE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:38:5-76
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:38:5-76
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:38:22-73
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:38:22-73
 uses-permission#android.permission.CALL_PHONE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:39:5-69
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:39:5-69
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:39:22-66
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:39:22-66
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:40:5-79
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:40:5-79
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:40:22-76
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:40:22-76
 application
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:42:5-429:19
-MERGED from [com.mikepenz:aboutlibraries:5.2.5] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\aboutlibraries\5.2.5\AndroidManifest.xml:11:5-13:19
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:cardview-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:cardview-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:design:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.mikepenz:google-material-typeface:1.2.0.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\google-material-typeface\1.2.0.1\AndroidManifest.xml:27:5-20
-MERGED from [com.mikepenz:octicons-typeface:3.0.0.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\octicons-typeface\3.0.0.1\AndroidManifest.xml:27:5-20
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:42:5-430:19
+MERGED from [com.mikepenz:aboutlibraries:5.2.5] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/AndroidManifest.xml:11:5-13:19
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:cardview-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:cardview-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.mikepenz:google-material-typeface:1.2.0.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/google-material-typeface/1.2.0.1/AndroidManifest.xml:27:5-20
+MERGED from [com.mikepenz:octicons-typeface:3.0.0.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/octicons-typeface/3.0.0.1/AndroidManifest.xml:27:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
 	android:label
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:47:9-41
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:47:9-41
 	android:supportsRtl
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:49:9-35
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:49:9-35
 	android:hardwareAccelerated
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:45:9-43
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:45:9-43
 	android:allowBackup
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:44:9-35
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:44:9-35
 	android:icon
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:46:9-42
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:46:9-42
 	android:largeHeap
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:48:9-33
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:48:9-33
 	android:theme
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:50:9-42
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:50:9-42
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:43:9-38
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:43:9-38
 receiver#zgan.ohos.Receivers.AppRegister
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:57:9-61:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:57:9-61:20
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:57:19-56
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:57:19-56
 intent-filter#com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:58:13-60:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:58:13-60:29
 action#com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:59:17-100
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:59:17-100
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:59:25-97
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:59:25-97
 service#zgan.ohos.services.login.ZganLoginService
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:63:9-68
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:63:9-68
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:63:18-65
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:63:18-65
 service#zgan.ohos.services.community.ZganCommunityService
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:64:9-76
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:64:9-76
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:64:18-73
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:64:18-73
 receiver#zgan.ohos.Receivers.AuotOpenDoor
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:66:9-72:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:66:9-72:20
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:66:19-57
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:66:19-57
 intent-filter#android.net.wifi.RSSI_CHANGED+android.net.wifi.STATE_CHANGE+android.net.wifi.WIFI_STATE_CHANGED
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:67:13-71:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:67:13-71:29
 action#android.net.wifi.RSSI_CHANGED
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:68:17-72
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:68:17-72
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:68:25-69
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:68:25-69
 action#android.net.wifi.STATE_CHANGE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:69:17-72
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:69:17-72
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:69:25-69
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:69:25-69
 action#android.net.wifi.WIFI_STATE_CHANGED
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:70:17-78
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:70:17-78
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:70:25-75
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:70:25-75
 activity#zgan.ohos.Activities.UserCommSelect
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:74:9-63
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:74:9-63
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:74:19-60
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:74:19-60
 activity#zgan.ohos.Activities.Login
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:75:9-77:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:75:9-77:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:77:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:77:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:76:13-45
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:76:13-45
 activity#zgan.ohos.Activities.Register
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:78:9-80:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:78:9-80:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:80:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:80:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:79:13-48
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:79:13-48
 activity#zgan.ohos.Activities.MessageActivity
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:81:9-91:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:81:9-91:20
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:84:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:84:13-49
 	android:label
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:83:13-53
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:83:13-53
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:82:13-55
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:82:13-55
 intent-filter#Page.2001+Page.2002+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:85:13-90:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:85:13-90:29
 action#Page.2001
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:86:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:86:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:86:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:86:25-49
 action#Page.2002
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:87:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:87:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:87:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:87:25-49
 category#android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:89:17-76
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:89:17-76
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:89:27-73
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:89:27-73
 activity#zgan.ohos.Activities.MainActivity
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:92:9-95:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:92:9-95:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:95:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:95:13-49
 	android:launchMode
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:94:13-44
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:94:13-44
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:93:13-52
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:93:13-52
 activity#zgan.ohos.Activities.SplashActivity
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:96:9-104:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:96:9-104:20
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:98:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:98:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:97:13-54
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:97:13-54
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:99:13-103:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:99:13-103:29
 action#android.intent.action.MAIN
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:100:17-69
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:100:17-69
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:100:25-66
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:100:25-66
 category#android.intent.category.LAUNCHER
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:102:17-77
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:102:17-77
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:102:27-74
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:102:27-74
 activity#zgan.ohos.Activities.RegisterStep1
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:105:9-107:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:105:9-107:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:107:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:107:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:106:13-53
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:106:13-53
 activity#zgan.ohos.Activities.UpdatePassword
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:108:9-110:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:108:9-110:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:110:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:110:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:109:13-54
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:109:13-54
 activity#zgan.ohos.GuideIndexActivity
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:111:9-113:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:111:9-113:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:113:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:113:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:112:13-47
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:112:13-47
 activity#zgan.ohos.Activities.MessageDetailActivity
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:114:9-122:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:114:9-122:20
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:116:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:116:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:115:13-61
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:115:13-61
 intent-filter#Page.2003+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:117:13-121:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:117:13-121:29
 action#Page.2003
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:118:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:118:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:118:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:118:25-49
 activity#zgan.ohos.Activities.EventFrontPage
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:123:9-125:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:123:9-125:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:125:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:125:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:124:13-54
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:124:13-54
 activity#zgan.ohos.Activities.EventList
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:126:9-128:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:126:9-128:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:128:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:128:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:127:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:127:13-49
 activity#zgan.ohos.Activities.EventPreCheck
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:129:9-131:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:129:9-131:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:131:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:131:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:130:13-53
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:130:13-53
 activity#zgan.ohos.Activities.GoodsItemDetail
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:132:9-134:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:132:9-134:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:134:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:134:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:133:13-55
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:133:13-55
 activity#zgan.ohos.Activities.HouseHolderService
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:135:9-143:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:135:9-143:20
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:137:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:137:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:136:13-58
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:136:13-58
 intent-filter#Page.2013+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:138:13-142:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:138:13-142:29
 action#Page.2013
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:139:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:139:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:139:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:139:25-49
 activity#zgan.ohos.Activities.BindDevice
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:144:9-59
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:144:9-59
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:144:19-56
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:144:19-56
 activity#zgan.ohos.Activities.LeaveMessages
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:145:9-151:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:145:9-151:20
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:145:19-59
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:145:19-59
 intent-filter#Page.2004+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:146:13-150:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:146:13-150:29
 action#Page.2004
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:147:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:147:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:147:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:147:25-49
 activity#zgan.ohos.Activities.ReplyMessages
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:152:9-161:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:152:9-161:20
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:154:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:154:13-49
 	android:windowSoftInputMode
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:155:13-64
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:155:13-64
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:153:13-53
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:153:13-53
 intent-filter#Page.2006+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:156:13-160:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:156:13-160:29
 action#Page.2006
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:157:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:157:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:157:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:157:25-49
 activity#zgan.ohos.Activities.CakeList
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:162:9-170:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:162:9-170:20
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:164:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:164:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:163:13-48
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:163:13-48
 intent-filter#Page.1003+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:165:13-169:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:165:13-169:29
 action#Page.1003
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:166:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:166:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:166:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:166:25-49
 activity#zgan.ohos.Activities.CakeDetail
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:171:9-174:67
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:171:9-174:67
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:173:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:173:13-49
 	android:windowSoftInputMode
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:174:13-64
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:174:13-64
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:172:13-50
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:172:13-50
 activity#zgan.ohos.Activities.HightQualityService
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:175:9-183:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:175:9-183:20
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:177:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:177:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:176:13-59
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:176:13-59
 intent-filter#Page.2015+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:178:13-182:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:178:13-182:29
 action#Page.2015
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:179:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:179:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:179:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:179:25-49
 activity#zgan.ohos.Activities.HightQualityDetail
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:184:9-186:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:184:9-186:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:186:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:186:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:185:13-58
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:185:13-58
 activity#zgan.ohos.Activities.VegetableMart
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:187:9-195:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:187:9-195:20
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:189:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:189:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:188:13-53
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:188:13-53
 intent-filter#Page.2014+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:190:13-194:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:190:13-194:29
 action#Page.2014
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:191:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:191:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:191:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:191:25-49
 activity#zgan.ohos.Activities.ProLaundry
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:197:9-205:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:197:9-205:20
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:199:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:199:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:198:13-50
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:198:13-50
 intent-filter#Page.2012+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:200:13-204:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:200:13-204:29
 action#Page.2012
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:201:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:201:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:201:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:201:25-49
 activity#zgan.ohos.Activities.SuperMarket
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:206:9-214:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:206:9-214:20
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:208:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:208:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:207:13-51
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:207:13-51
 intent-filter#Page.2016+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:209:13-213:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:209:13-213:29
 action#Page.2016
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:210:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:210:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:210:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:210:25-49
 activity#zgan.ohos.Activities.CommitOrder
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:225:9-227:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:225:9-227:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:227:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:227:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:226:13-51
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:226:13-51
 activity#zgan.ohos.Activities.SMSValidationStep1
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:228:9-230:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:228:9-230:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:230:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:230:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:229:13-58
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:229:13-58
 activity#zgan.ohos.Activities.SMSValidationStep2
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:231:9-233:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:231:9-233:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:233:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:233:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:232:13-58
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:232:13-58
 activity#zgan.ohos.Activities.UpdatePassword2
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:234:9-236:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:234:9-236:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:236:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:236:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:235:13-55
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:235:13-55
 activity#zgan.ohos.Activities.MyPakages
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:237:9-239:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:237:9-239:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:239:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:239:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:238:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:238:13-49
 activity#zgan.ohos.Activities.OrderList
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:240:9-242:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:240:9-242:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:242:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:242:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:241:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:241:13-49
 activity#zgan.ohos.Activities.CallOut
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:243:9-251:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:243:9-251:20
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:245:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:245:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:244:13-47
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:244:13-47
 intent-filter#Page.2010+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:246:13-250:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:246:13-250:29
 action#Page.2010
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:247:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:247:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:247:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:247:25-49
 activity#zgan.ohos.Activities.bitmaptshow
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:252:9-254:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:252:9-254:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:254:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:254:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:253:13-51
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:253:13-51
 activity#zgan.ohos.Activities.AdvertiseDetail
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:255:9-257:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:255:9-257:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:257:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:257:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:256:13-55
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:256:13-55
 activity#zgan.ohos.Activities.OrderDetail
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:258:9-260:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:258:9-260:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:260:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:260:13-49
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:259:13-51
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:259:13-51
 activity#zgan.ohos.wxapi.WXPayEntryActivity
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:261:9-265:52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:261:9-265:52
 	android:screenOrientation
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:265:13-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:265:13-49
 	android:launchMode
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:264:13-43
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:264:13-43
 	android:exported
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:263:13-36
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:263:13-36
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:262:13-53
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:262:13-53
 activity#zgan.ohos.Activities.CreditsRule
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:276:9-60
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:276:9-60
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:276:19-57
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:276:19-57
 activity#zgan.ohos.Activities.CreditsDetail
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:277:9-62
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:277:9-62
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:277:19-59
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:277:19-59
 activity#zgan.ohos.Activities.Express_out
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:278:9-284:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:278:9-284:20
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:278:19-57
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:278:19-57
 intent-filter#Page.2008+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:279:13-283:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:279:13-283:29
 action#Page.2008
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:280:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:280:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:280:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:280:25-49
 activity#zgan.ohos.Activities.Express_in
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:285:9-291:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:285:9-291:20
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:285:19-56
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:285:19-56
 intent-filter#Page.2009+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:286:13-290:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:286:13-290:29
 action#Page.2009
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:287:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:287:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:287:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:287:25-49
 activity#zgan.ohos.Activities.HotProvideSpecial
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:292:9-298:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:292:9-298:20
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:292:19-63
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:292:19-63
 intent-filter#Page.2017+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:293:13-297:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:293:13-297:29
 action#Page.2017
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:294:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:294:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:294:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:294:25-49
 activity#zgan.ohos.Activities.HotProductSpecial
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:299:9-305:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:299:9-305:20
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:299:19-63
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:299:19-63
 intent-filter#Page.2018+android.intent.category.DEFAULT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:300:13-304:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:300:13-304:29
 action#Page.2018
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:301:17-52
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:301:17-52
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:301:25-49
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:301:25-49
 activity#zgan.ohos.Activities.BindCommunity
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:306:9-62
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:306:9-62
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:306:19-59
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:306:19-59
 activity#zgan.ohos.Activities.SortCommunityList
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:307:9-66
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:307:9-66
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:307:19-63
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:307:19-63
 activity#cn.jpush.android.ui.PopWinActivity
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:310:9-315:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:310:9-315:20
 	android:exported
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:312:13-37
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:312:13-37
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:311:13-62
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:311:13-62
 activity#cn.jpush.android.ui.PushActivity
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:318:9-329:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:318:9-329:20
 	android:exported
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:321:13-37
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:321:13-37
 	android:configChanges
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:320:13-63
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:320:13-63
 	android:theme
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:322:13-60
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:322:13-60
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:319:13-60
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:319:13-60
 intent-filter#android.intent.category.DEFAULT+cn.jpush.android.ui.PushActivity+zgan.ohos
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:323:13-328:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:323:13-328:29
 action#cn.jpush.android.ui.PushActivity
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:324:17-75
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:324:17-75
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:324:25-72
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:324:25-72
 category#zgan.ohos
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:327:17-54
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:327:17-54
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:327:27-51
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:327:27-51
 service#cn.jpush.android.service.DownloadService
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:331:9-334:40
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:331:9-334:40
 	android:enabled
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:333:13-35
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:333:13-35
 	android:exported
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:334:13-37
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:334:13-37
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:332:13-68
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:332:13-68
 service#cn.jpush.android.service.PushService
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:338:9-348:19
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:338:9-348:19
 	android:enabled
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:340:13-35
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:340:13-35
 	android:exported
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:341:13-37
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:341:13-37
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:339:13-64
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:339:13-64
 intent-filter#cn.jpush.android.intent.PUSH_TIME+cn.jpush.android.intent.PushService+cn.jpush.android.intent.REGISTER+cn.jpush.android.intent.REPORT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:342:13-347:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:342:13-347:29
 action#cn.jpush.android.intent.REGISTER
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:343:17-75
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:343:17-75
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:343:25-72
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:343:25-72
 action#cn.jpush.android.intent.REPORT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:344:17-73
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:344:17-73
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:344:25-70
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:344:25-70
 action#cn.jpush.android.intent.PushService
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:345:17-78
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:345:17-78
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:345:25-75
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:345:25-75
 action#cn.jpush.android.intent.PUSH_TIME
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:346:17-76
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:346:17-76
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:346:25-73
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:346:25-73
 service#cn.jpush.android.service.DaemonService
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:352:9-361:19
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:352:9-361:19
 	android:enabled
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:354:13-35
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:354:13-35
 	android:exported
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:355:13-36
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:355:13-36
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:353:13-66
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:353:13-66
 intent-filter#cn.jpush.android.intent.DaemonService+zgan.ohos
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:356:13-360:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:356:13-360:29
 action#cn.jpush.android.intent.DaemonService
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:357:17-80
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:357:17-80
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:357:25-77
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:357:25-77
 receiver#cn.jpush.android.service.PushReceiver
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:364:9-384:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:364:9-384:20
 	android:enabled
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:366:13-35
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:366:13-35
 	android:exported
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:367:13-37
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:367:13-37
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:365:13-65
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:365:13-65
 intent-filter#cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY+zgan.ohos
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:368:13-372:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:368:13-372:29
 	android:priority
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:368:28-51
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:368:28-51
 action#cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:369:17-94
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:369:17-94
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:369:25-91
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:369:25-91
 intent-filter#android.intent.action.USER_PRESENT+android.net.conn.CONNECTIVITY_CHANGE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:373:13-376:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:373:13-376:29
 action#android.intent.action.USER_PRESENT
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:374:17-77
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:374:17-77
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:374:25-74
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:374:25-74
 action#android.net.conn.CONNECTIVITY_CHANGE
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:375:17-79
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:375:17-79
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:375:25-76
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:375:25-76
 intent-filter#android.intent.action.PACKAGE_ADDED+android.intent.action.PACKAGE_REMOVED
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:378:13-383:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:378:13-383:29
 action#android.intent.action.PACKAGE_ADDED
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:379:17-78
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:379:17-78
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:379:25-75
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:379:25-75
 action#android.intent.action.PACKAGE_REMOVED
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:380:17-80
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:380:17-80
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:380:25-77
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:380:25-77
 data
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:382:17-50
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:382:17-50
 	android:scheme
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:382:23-47
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:382:23-47
 receiver#cn.jpush.android.service.AlarmReceiver
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:387:9-389:40
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:387:9-389:40
 	android:exported
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:389:13-37
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:389:13-37
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:388:13-66
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:388:13-66
 receiver#zgan.ohos.Receivers.JReceiver
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:392:9-412:20
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:392:9-412:20
 	android:enabled
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:394:13-35
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:394:13-35
 	android:exported
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:395:13-37
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:395:13-37
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:393:13-48
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:393:13-48
 intent-filter#cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK+cn.jpush.android.intent.CONNECTION+cn.jpush.android.intent.MESSAGE_RECEIVED+cn.jpush.android.intent.NOTIFICATION_OPENED+cn.jpush.android.intent.NOTIFICATION_RECEIVED+cn.jpush.android.intent.REGISTRATION+cn.jpush.android.intent.UNREGISTRATION+zgan.ohos
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:396:13-411:29
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:396:13-411:29
 action#cn.jpush.android.intent.REGISTRATION
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:397:17-79
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:397:17-79
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:397:25-76
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:397:25-76
 action#cn.jpush.android.intent.UNREGISTRATION
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:399:17-81
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:399:17-81
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:399:25-78
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:399:25-78
 action#cn.jpush.android.intent.MESSAGE_RECEIVED
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:400:17-83
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:400:17-83
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:400:25-80
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:400:25-80
 action#cn.jpush.android.intent.NOTIFICATION_RECEIVED
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:402:17-88
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:402:17-88
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:402:25-85
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:402:25-85
 action#cn.jpush.android.intent.NOTIFICATION_OPENED
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:404:17-86
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:404:17-86
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:404:25-83
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:404:25-83
 action#cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:406:17-91
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:406:17-91
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:406:25-88
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:406:25-88
 action#cn.jpush.android.intent.CONNECTION
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:408:17-77
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:408:17-77
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:408:25-74
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:408:25-74
 meta-data#JPUSH_CHANNEL
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:415:9-417:49
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:415:9-417:49
 	android:value
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:417:13-46
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:417:13-46
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:416:13-41
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:416:13-41
 meta-data#JPUSH_APPKEY
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:418:9-420:56
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:418:9-420:56
 	android:value
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:420:13-53
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:420:13-53
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:419:13-40
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:419:13-40
 activity#zgan.ohos.Activities.SuperMarketDetail
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:423:9-66
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:423:9-66
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:423:19-63
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:423:19-63
 activity#zgan.ohos.Activities.SMSearchResult
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:424:9-426:68
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:424:9-426:68
 	android:windowSoftInputMode
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:426:13-65
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:426:13-65
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:425:13-54
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:425:13-54
 activity#zgan.ohos.Activities.ShoppingCart
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:427:9-61
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:427:9-61
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:427:19-58
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:427:19-58
 activity#zgan.ohos.Activities.CommitCartOrder
-ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:428:9-73
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:428:9-64
 	android:name
-		ADDED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml:428:19-61
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:428:19-61
+activity#zgan.ohos.Activities.SM_OrderDetail
+ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:429:9-72
+	android:name
+		ADDED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml:429:19-60
 uses-sdk
-INJECTED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-MERGED from [com.mikepenz:aboutlibraries:5.2.5] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\aboutlibraries\5.2.5\AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:cardview-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.mikepenz:materialdrawer:4.6.2] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\materialdrawer\4.6.2\AndroidManifest.xml:8:5-10:41
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.mikepenz:materialize:0.5.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\materialize\0.5.1\AndroidManifest.xml:8:5-10:41
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.mikepenz:iconics-core:2.5.2] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\iconics-core\2.5.2\AndroidManifest.xml:8:5-10:41
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:cardview-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:design:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.mikepenz:crossfader:1.1.3] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\crossfader\1.1.3\AndroidManifest.xml:8:5-10:41
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.mikepenz:iconics-core:2.5.2] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\iconics-core\2.5.2\AndroidManifest.xml:8:5-10:41
-MERGED from [com.android.support:appcompat-v7:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.mikepenz:google-material-typeface:1.2.0.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\google-material-typeface\1.2.0.1\AndroidManifest.xml:23:5-25:41
-MERGED from [com.mikepenz:fontawesome-typeface:4.4.0.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\fontawesome-typeface\4.4.0.1\AndroidManifest.xml:8:5-10:41
-MERGED from [com.mikepenz:octicons-typeface:3.0.0.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\octicons-typeface\3.0.0.1\AndroidManifest.xml:23:5-25:41
-MERGED from [com.android.support:support-v4:23.1.1] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
+INJECTED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.mikepenz:aboutlibraries:5.2.5] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:cardview-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.mikepenz:materialdrawer:4.6.2] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/materialdrawer/4.6.2/AndroidManifest.xml:8:5-10:41
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.mikepenz:materialize:0.5.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/materialize/0.5.1/AndroidManifest.xml:8:5-10:41
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.mikepenz:iconics-core:2.5.2] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/iconics-core/2.5.2/AndroidManifest.xml:8:5-10:41
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:cardview-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:design:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.mikepenz:crossfader:1.1.3] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/crossfader/1.1.3/AndroidManifest.xml:8:5-10:41
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.mikepenz:iconics-core:2.5.2] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/iconics-core/2.5.2/AndroidManifest.xml:8:5-10:41
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.mikepenz:google-material-typeface:1.2.0.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/google-material-typeface/1.2.0.1/AndroidManifest.xml:23:5-25:41
+MERGED from [com.mikepenz:fontawesome-typeface:4.4.0.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/fontawesome-typeface/4.4.0.1/AndroidManifest.xml:8:5-10:41
+MERGED from [com.mikepenz:octicons-typeface:3.0.0.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/octicons-typeface/3.0.0.1/AndroidManifest.xml:23:5-25:41
+MERGED from [com.android.support:support-v4:23.1.1] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
 	android:targetSdkVersion
-		INJECTED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml
-		INJECTED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml
+		INJECTED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml
-		INJECTED from K:\androidDev\OHOS_Internet\app\src\main\AndroidManifest.xml
+		INJECTED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/src/main/AndroidManifest.xml
 activity#com.mikepenz.aboutlibraries.ui.LibsActivity
-ADDED from [com.mikepenz:aboutlibraries:5.2.5] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\aboutlibraries\5.2.5\AndroidManifest.xml:12:9-80
+ADDED from [com.mikepenz:aboutlibraries:5.2.5] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/AndroidManifest.xml:12:9-80
 	android:name
-		ADDED from [com.mikepenz:aboutlibraries:5.2.5] K:\androidDev\OHOS_Internet\app\build\intermediates\exploded-aar\com.mikepenz\aboutlibraries\5.2.5\AndroidManifest.xml:12:19-77
+		ADDED from [com.mikepenz:aboutlibraries:5.2.5] /Users/apple/Desktop/OHOS_Internet/OHOS_Internet/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/AndroidManifest.xml:12:19-77

@@ -12,7 +12,7 @@ public class SM_OrderPayInfo extends BaseModel implements Serializable {
     private String pay_order_sn;// 支付订单号
     private int pay_way;// 支付方式
     private String total_price;//  商品总价
-    private List<SM_OrderPayDetail> pay_ways;//  支付返回对象
+    private SM_OrderPayDetail pay_ways;//  支付返回对象
 
     public String getorder_sn() {
         return order_sn;
@@ -54,11 +54,11 @@ public class SM_OrderPayInfo extends BaseModel implements Serializable {
         this.total_price = total_price;
     }
 
-    public List<SM_OrderPayDetail> getpay_ways() {
+    public SM_OrderPayDetail getpay_ways() {
         return pay_ways;
     }
 
-    public void setpay_ways(List<SM_OrderPayDetail> pay_ways) {
+    public void setpay_ways(SM_OrderPayDetail pay_ways) {
         this.pay_ways = pay_ways;
     }
 

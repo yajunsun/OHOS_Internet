@@ -30,7 +30,6 @@ import zgan.ohos.Contracts.UpdateCartListner;
 import zgan.ohos.Dals.SM_OrderPayDal;
 import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Models.SM_GoodsM;
-import zgan.ohos.Models.SM_OrderPayInfo;
 import zgan.ohos.Models.SM_Payway;
 import zgan.ohos.Models.ShoppingCartM;
 import zgan.ohos.Models.ShoppingCartSummary;
@@ -135,6 +134,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     }
 
     void loadData() {
+        toShowProgress();
         UpdateCartListner listner = new UpdateCartListner() {
             @Override
             public void onFailure() {
@@ -153,6 +153,19 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     }
 
     void bindData() {
+        if(list==null||list.size()==0) {
+            btncheck.setEnabled(false);
+            btndelete.setEnabled(false);
+            btncheck.setBackgroundColor(getResources().getColor(R.color.color_sm_normal_txt));
+            btndelete.setBackgroundColor(getResources().getColor(R.color.color_sm_normal_txt));
+        }
+        else
+        {
+            btncheck.setEnabled(true);
+            btndelete.setEnabled(true);
+            btncheck.setBackgroundColor(getResources().getColor(R.color.primary));
+            btndelete.setBackgroundColor(getResources().getColor(R.color.primary));
+        }
         if (cAdapter == null) {
             rvcarts.setLayoutManager(cartLayoutManager);
             cAdapter = new cartAdapter();
@@ -163,6 +176,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
         if (!isEdit) {
             summaryCart();
         }
+        toCloseProgress();
     }
 
     void summaryCart() {
@@ -227,6 +241,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                     }
                 }
             } else if (msg.what == 2) {
+                toCloseProgress();
                 SM_Payway payway = orderDal.getPayWays(msg.obj.toString());
                 Intent intent = new Intent(ShoppingCart.this, CommitCartOrder.class);
                 Bundle bundle = new Bundle();
@@ -241,6 +256,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     public void ViewClick(View v) {
         switch (v.getId()) {
             case R.id.btn_check:
+                toShowProgress();
                 orderDal.ComfirmOrder(opGoods, new UpdateCartListner() {
                     @Override
                     public void onFailure() {
@@ -255,7 +271,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                         msg.sendToTarget();
                     }
                 });
-                cartDal.verifyGoods(opGoods);//验证
+               //验证
                 break;
             case R.id.btn_delete://删除
                 if (delItems == null || delItems.size() == 0) {

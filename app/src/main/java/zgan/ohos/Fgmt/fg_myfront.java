@@ -74,7 +74,7 @@ import zgan.ohos.utils.resultCodes;
  */
 public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     LinearLayout ll_shequgrid;
-    RecyclerView rv_grid;
+    //RecyclerView rv_grid;
     LinearLayout ll_shequhuodong;
     AlertDialog opendialog;
     ScrollViewWithCallBack sscontent;
@@ -175,7 +175,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                         //功能区
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FUNCPAGE, "@id=22", "22"), handler);
                         //专题内容1
-                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES1, "@id=22", "22"), handler);
+                        //ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES1, "@id=22", "22"), handler);
                         //专题内容2
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES2, "@id=22", "22"), handler);
                     } else {
@@ -228,40 +228,40 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         func_pager = (ViewPager) v.findViewById(R.id.func_pager);
         func_ind = (LinearLayout) v.findViewById(R.id.func_ind);
         //3+1表格功能区
-        iv_gridtitle = (ImageView) v.findViewById(R.id.iv_gridtitle);
-        ll_shequgrid = (LinearLayout) v.findViewById(R.id.ll_shequgrid);
-        rv_grid = (RecyclerView) v.findViewById(R.id.rv_grid);
+//        iv_gridtitle = (ImageView) v.findViewById(R.id.iv_gridtitle);
+//        ll_shequgrid = (LinearLayout) v.findViewById(R.id.ll_shequgrid);
+        //rv_grid = (RecyclerView) v.findViewById(R.id.rv_grid);
     }
 //加载功能区
     private void loadFuncData() {
         List<View> views = new ArrayList<>();
         int funcCount = funcPages.size();
         int pageCount = 0;
-        if (funcCount % 8 != 0)
-            pageCount = funcCount / 8 + 1;
-        else pageCount = funcCount / 8;
+        if (funcCount % 10 != 0)
+            pageCount = funcCount / 10 + 1;
+        else pageCount = funcCount / 10;
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         for (int i = 0; i < pageCount; i++) {
             List<FrontItem> fps = new ArrayList<>();
-            if (funcCount > 8 && i < pageCount - 1) {
-                int b = i * 8;
-                int e = (i + 1) * 8;
+            if (funcCount > 10 && i < pageCount - 1) {
+                int b = i * 10;
+                int e = (i + 1) * 10;
                 for (int j = b; j < e; j++) {
                     fps.add(funcPages.get(j));
                 }
-            } else if (funcCount <= 8) {
+            } else if (funcCount <= 10) {
                 for (int j = 0; j < funcCount; j++) {
                     fps.add(funcPages.get(j));
                 }
             } else if (i == pageCount - 1) {
-                int l = funcCount % 8;
+                int l = funcCount % 10;
                 for (int j = funcCount - l; j < funcCount; j++) {
                     fps.add(funcPages.get(j));
                 }
             }
             RecyclerView funcV = new RecyclerView(getActivity());
             funcV.setLayoutParams(params);
-            funcV.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+            funcV.setLayoutManager(new GridLayoutManager(getActivity(), 5));
             funcV.setAdapter(new funcAdapter(fps));
             views.add(funcV);
             ImageView simg = new ImageView(getActivity());
@@ -357,7 +357,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
     }
 //加载活动专区
-    private void loadGridItems() {
+    /*private void loadGridItems() {
         List<List<FrontItem>> set = new ArrayList<>();
         gridItemLayoutmanger = new LinearLayoutManager(getActivity());
         rv_grid.setLayoutManager(gridItemLayoutmanger);
@@ -380,7 +380,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         //params.addRule(RelativeLayout.BELOW,R.id.ll_messages);
         ll_shequgrid.setMinimumHeight(120);
         rv_grid.setMinimumHeight(100);
-    }
+    }*/
 //加载超市购首页项目
     private void loadSqhdData() {
         int int_marginTop = getResources().getInteger(R.integer.front_item_marginTop);
@@ -569,7 +569,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                             } else if (results[1].equals(AppUtils.P_FRONTITMES1)) {
                                 if (datastr.length() > 0) {
                                     frontItems1 = frontItemDal.getList(datastr);
-                                    loadGridItems();
+                                    //loadGridItems();
                                     if (frame.platform != 0) {
                                         addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES1, "@id=22", "22"), frame.strData);
                                     }

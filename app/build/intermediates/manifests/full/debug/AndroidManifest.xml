@@ -432,6 +432,7 @@
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name="zgan.ohos.Activities.ShoppingCart" />
         <activity android:name="zgan.ohos.Activities.CommitCartOrder" />
+        <activity android:name="zgan.ohos.Activities.SM_OrderDetail" />
         <activity android:name="com.mikepenz.aboutlibraries.ui.LibsActivity" />
     </application>
 

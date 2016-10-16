@@ -1,20 +1,28 @@
 package zgan.ohos.Activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
@@ -32,6 +40,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import zgan.ohos.Contracts.IAddShopListener;
 import zgan.ohos.Contracts.UpdateCartListner;
 import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Dals.SuperMarketDal;
@@ -40,6 +49,7 @@ import zgan.ohos.Models.SM_SecondaryM;
 import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.Models.SuperMarketM;
 import zgan.ohos.R;
+import zgan.ohos.utils.Add2cartAnimUtil;
 import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
@@ -88,6 +98,10 @@ public class SuperMarket extends myBaseActivity {
     TextView txtcount, btncheck, txtoldtotalprice, txttotalprice;
     View rloldprice;
 
+    int lbpxWidth = 0, lbpxHeight = 0;
+    FloatingActionButton fab;
+    Point MlcartIcon;
+
 
     @Override
     protected void initView() {
@@ -122,10 +136,13 @@ public class SuperMarket extends myBaseActivity {
         txttotalprice = (TextView) findViewById(R.id.txt_totalprice);
         rloldprice = findViewById(R.id.rl_oldprice);
 
+        fab = (FloatingActionButton) findViewById(R.id.img_icon);
         catParentWidth = (AppUtils.getWindowSize(SuperMarket.this).x / 3) * 2;
         dal = new SuperMarketDal();
         cartDal = new ShoppingCartDal();
         density = AppUtils.getDensity(SuperMarket.this);
+        lbpxWidth = Math.round(40 * density);
+        lbpxHeight = Math.round(20 * density);
         lstclass = (ListView) findViewById(R.id.lst_class);
         lstclass.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -221,6 +238,8 @@ public class SuperMarket extends myBaseActivity {
             goodslst = secondarylst.get(0).getlist();
         }
         if (goodslst != null && goodslst.size() > 0) {
+            MlcartIcon = new Point();
+            MlcartIcon.set(Math.round(fab.getX()), Math.round(fab.getY()));
             mOids = new ArrayList<>();
             mOids.add(goodslst.get(0).getproduct_id());
             bindProduct();
@@ -429,18 +448,19 @@ public class SuperMarket extends myBaseActivity {
 
         }
     };
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==resultCodes.TOSHOPPINGCART)
-        {
+        if (resultCode == resultCodes.TOSHOPPINGCART) {
             ShoppingCartSummary summary = cartDal.getSCSummary();
-            Message msg=handler.obtainMessage();
-            msg.what=3;
-            msg.obj=summary;
+            Message msg = handler.obtainMessage();
+            msg.what = 3;
+            msg.obj = summary;
             msg.sendToTarget();
         }
     }
+
     @Override
     public void ViewClick(View v) {
 
@@ -514,9 +534,9 @@ public class SuperMarket extends myBaseActivity {
         @Override
         public void onResponse(String response) {
             ShoppingCartSummary summary = cartDal.getSCSummary();
-            Message msg=handler.obtainMessage();
-            msg.what=3;
-            msg.obj=summary;
+            Message msg = handler.obtainMessage();
+            msg.what = 3;
+            msg.obj = summary;
             msg.sendToTarget();
             //bindShoppingCard(summary);
         }
@@ -532,13 +552,15 @@ public class SuperMarket extends myBaseActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHoler holder, int position) {
+        public void onBindViewHolder(final ViewHoler holder, int position) {
             final SM_GoodsM goodsM = goodslst.get(position);
             ImageLoader.bindBitmap(goodsM.getpic_url(), holder.img_product);
             holder.txt_name.setText(goodsM.getname());
             holder.txt_price.setText(String.valueOf(goodsM.getprice()));
             holder.txt_oldprice1.setText(goodsM.getoldprice());
             holder.txt_oldprice2.setText(goodsM.getoldprice());
+            holder.ll_oldprice1.setVisibility(View.GONE);
+            holder.ll_oldprice2.setVisibility(View.GONE);
             if (!goodsM.getoldprice().equals("") && !goodsM.getoldprice().equals("0")) {
                 if (goodsM.gettype_list() != null && goodsM.gettype_list().size() > 0) {
                     holder.ll_oldprice1.setVisibility(View.GONE);
@@ -548,24 +570,25 @@ public class SuperMarket extends myBaseActivity {
                     holder.ll_oldprice2.setVisibility(View.GONE);
                 }
             }
-            holder.ll_types.removeAllViews();
+            //holder.ll_types.removeAllViews();
             if (goodsM.gettype_list() != null && goodsM.gettype_list().size() > 0) {
                 int tcount = goodsM.gettype_list().size();
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        Math.round(40 * density), Math.round(20 * density));
+                        lbpxWidth, lbpxHeight);
                 params.setMargins(Math.round(8 * density), 0, 0, 0);
                 for (int i = 0; i < tcount; i++) {
                     ImageView iv = new ImageView(SuperMarket.this);
                     iv.setLayoutParams(params);
-                    ImageLoader.bindBitmap(goodsM.gettype_list().get(i), iv);
+                    ImageLoader.bindBitmap(goodsM.gettype_list().get(i), iv, lbpxWidth, lbpxHeight);
+                    holder.ll_types.addView(iv);
                 }
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(SuperMarket.this, SuperMarketDetail.class);
-                    Bundle bundle=new Bundle();
-                    bundle.putSerializable("product",goodsM);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("product", goodsM);
                     intent.putExtras(bundle);
                     startActivityWithAnim(intent);
                 }
@@ -574,8 +597,22 @@ public class SuperMarket extends myBaseActivity {
             holder.btn_add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (Build.SDK_INT > 13) {
+                        final ImageView imageView = new ImageView(SuperMarket.this);
+                        imageView.setLayoutParams(new LinearLayout.LayoutParams(30, 60));
+                        imageView.setImageDrawable(holder.img_product.getDrawable());
+                        Add2cartAnimUtil mAnimUtils = new Add2cartAnimUtil(SuperMarket.this, holder.btn_add, fab, imageView);
 
+                        mAnimUtils.addShopCart(new IAddShopListener() {
+
+                            @Override
+                            public void addSucess() {
+                                Toast.makeText(SuperMarket.this, "添加了一个商品", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                     cartDal.updateCart(ShoppingCartDal.ADDCART, goodsM, 1, cartChanged);
+
                 }
             });
         }

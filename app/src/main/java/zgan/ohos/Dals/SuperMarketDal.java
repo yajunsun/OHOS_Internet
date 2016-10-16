@@ -59,12 +59,14 @@ public class SuperMarketDal extends ZGbaseDal<SuperMarketM> {
                                     String product_id=go.getString("product_id");
                                     String pic_url=go.getString("pic_url");
                                     String oldprice=go.getString("oldprice");
+                                    String price=getNullableString(go,"price","0");
                                     String specification=go.getString("specification");
                                     JSONArray typelist=go.getJSONArray("type_list");
                                     sm_goodsM.setname(gname);
                                     sm_goodsM.setproduct_id(product_id);
                                     sm_goodsM.setpic_url(pic_url);
                                     sm_goodsM.setoldprice(oldprice);
+                                    sm_goodsM.setprice(price);
                                     sm_goodsM.setspecification(specification);
                                     List<String> type_list=new ArrayList<>();
                                     for (int t=0;t<typelist.length();t++)
@@ -119,12 +121,14 @@ public class SuperMarketDal extends ZGbaseDal<SuperMarketM> {
                     String product_id = go.getString("product_id");
                     String pic_url = go.getString("pic_url");
                     String oldprice = go.getString("oldprice");
+                    String price =getNullableString(go,"price","0");
                     String specification = go.getString("specification");
                     JSONArray typelist = go.getJSONArray("type_list");
                     sm_goodsM.setname(gname);
                     sm_goodsM.setproduct_id(product_id);
                     sm_goodsM.setpic_url(pic_url);
                     sm_goodsM.setoldprice(oldprice);
+                    sm_goodsM.setprice(price);
                     sm_goodsM.setspecification(specification);
                     List<String> type_list = new ArrayList<>();
                     for (int t = 0; t < typelist.length(); t++) {

@@ -250,13 +250,12 @@
                             android:text="距结束还剩"
                             android:textColor="@color/primary" />
 
-                        <TextView
+                        <SM_CartCountDown
                             android:id="@+id/txt_countdown"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentRight="true"
-                            android:text="23:48:25"
                             android:textSize="18sp" />
                     </RelativeLayout>
                 </RelativeLayout>
