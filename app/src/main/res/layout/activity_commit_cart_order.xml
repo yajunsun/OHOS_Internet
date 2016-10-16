@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="zgan.ohos.Activities.CommitCartOrder">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="fill_parent"
@@ -63,70 +64,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/lordernum"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txt_ordernum"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="asdfasdf"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/solid_black"
-                    android:textSize="@dimen/CommitOrder_txt_ordernum" />
-                <RelativeLayout
-                    android:id="@+id/rl_detail"
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_below="@id/ll_info"
-                    android:background="@drawable/bg_rect_border"
-                    android:clickable="true"
-                    android:onClick="ViewClick"
-                    android:paddingLeft="10dp">
-                    <TextView
-                        android:id="@+id/txt_orderstatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:gravity="center_vertical"
-                        android:text="订单状态 : "
-                        android:textSize="18sp" />
-
-
-
-                    <com.mikepenz.iconics.view.IconicsImageView
-                        android:id="@+id/iv_detail"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        app:iiv_color="@color/myaccount_icon"
-                        app:iiv_icon="gmd-chevron-right" />
-
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/l1"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_below="@id/lordernum"
-                android:background="@color/myaccount_icon"
-                android:orientation="horizontal" />
-
             <LinearLayout
                 android:id="@+id/laddress"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:layout_below="@id/l1"
                 android:orientation="vertical"
                 android:padding="10dp">
 
@@ -149,7 +90,7 @@
 
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_goods"
+                android:id="@+id/rv_cart"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_below="@id/laddress">
@@ -161,7 +102,7 @@
                 android:id="@+id/lpaytype"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/CommitOrder_paytype_height"
-                android:layout_below="@id/rv_goods"
+                android:layout_below="@id/rv_cart"
                 android:padding="10dp">
 
                 <TextView
@@ -309,7 +250,7 @@
                 android:orientation="horizontal" />
 
             <LinearLayout
-                android:id="@+id/lpaymount"
+                android:id="@+id/ll_totalprice"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@id/l3"
@@ -321,11 +262,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="待付款"
+                    android:text="商品总额"
                     android:textSize="@dimen/CommitOrder_txt_ordernum" />
 
                 <TextView
-                    android:id="@+id/txt_payfee"
+                    android:id="@+id/txt_totalprice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -335,6 +276,56 @@
                     android:textColor="@color/primary"
                     android:textSize="@dimen/CommitOrder_txt_ordernum" />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_downprice"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/ll_totalprice"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="商品优惠"
+                    android:textSize="@dimen/CommitOrder_txt_ordernum" />
+
+                <TextView
+                    android:id="@+id/txt_downprice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="￥300"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/CommitOrder_txt_ordernum" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_payment"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@id/ll_downprice">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/primary"
+                    android:id="@+id/txt_payfee"
+                    android:textSize="20sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="20sp"
+                    android:text="实付款:"
+                    android:layout_toLeftOf="@id/txt_payfee"
+                    android:layout_alignBaseline="@id/txt_payfee"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
         </RelativeLayout>
+
     </ScrollView>
 </RelativeLayout>

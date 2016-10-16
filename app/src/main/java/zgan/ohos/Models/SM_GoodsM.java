@@ -16,8 +16,10 @@ public class SM_GoodsM extends BaseGoods implements Serializable {
     private String specification;
     //标签
     private List<String> type_list;
-    //是否选中
+    //是否选中 和can_handsel有关联
     private boolean isSelect=false;
+    //选中为1 未选中为0  默认为选中
+    private int can_handsel=1;
 
     public String getname() {
         return name;
@@ -58,6 +60,16 @@ public class SM_GoodsM extends BaseGoods implements Serializable {
     public void setSelect(boolean select) {
         isSelect = select;
     }
+
+    public int getcan_handsel() {
+        return can_handsel;
+    }
+
+    public void setcan_handsel(int can_handsel) {
+        this.can_handsel = can_handsel;
+        setSelect(can_handsel==1);
+    }
+
     @Override
     public SM_GoodsM getnewinstance() {
         return new SM_GoodsM();

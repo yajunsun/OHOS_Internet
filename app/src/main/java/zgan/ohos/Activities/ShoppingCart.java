@@ -1,7 +1,12 @@
 package zgan.ohos.Activities;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,43 +15,39 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
-
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import android.widget.ToggleButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import zgan.ohos.ConstomControls.MySelectCount;
 import zgan.ohos.Contracts.UpdateCartListner;
+import zgan.ohos.Dals.SM_OrderPayDal;
 import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Models.SM_GoodsM;
+import zgan.ohos.Models.SM_OrderPayInfo;
+import zgan.ohos.Models.SM_Payway;
 import zgan.ohos.Models.ShoppingCartM;
 import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.R;
 import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.ImageLoader;
-import zgan.ohos.utils.PreferenceUtil;
-import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
+import zgan.ohos.utils.resultCodes;
 
 /**
  * Created by yajunsun on 16/10/3.
  */
 public class ShoppingCart extends myBaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+    ToggleButton tgedit;
     RecyclerView rvcarts;
     ShoppingCartDal cartDal;
+    SM_OrderPayDal orderDal;
     List<ShoppingCartM> list;
     List<SM_GoodsM> opGoods;
     ShoppingCartSummary summary;
@@ -55,14 +56,27 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     float density;
     DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
     //结算
+    View llcheck;
     CheckBox selectall;
     TextView txttotalprice, txtoldtotalprice, btncheck;
     View rloldprice;
+    //删除
+    View lloption;
+    CheckBox selectall1;
+    TextView btndelete;
+
+    //是否编辑模式 true是 false否
+    boolean isEdit = false;
+    List<SM_GoodsM> delItems;
+    Dialog delDialog;
+    //商品列表数据notify的次数
+    //boolean isFirstload = true;
 
     @Override
     protected void initView() {
         setContentView(R.layout.fragment_fg_shopping_cart);
         cartDal = new ShoppingCartDal();
+        orderDal = new SM_OrderPayDal();
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +85,37 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             }
         });
         rvcarts = (RecyclerView) findViewById(R.id.rv_carts);
+        tgedit = (ToggleButton) findViewById(R.id.tg_edit);
+        tgedit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {//编辑模式
+                    isEdit = true;
+                    llcheck.setVisibility(View.GONE);
+                    lloption.setVisibility(View.VISIBLE);
+                    //编辑模式下全部默认未选中
+                    //selectall1.setChecked(false);
+                    for (ShoppingCartM m : list) {
+                        m.setSelect(false);
+                        for (SM_GoodsM goodsM : m.getproductArray()) {
+                            goodsM.setSelect(false);
+                        }
+                    }
+                    delItems = new ArrayList<>();
+                    bindData();
+                } else {//非编辑模式
+                    isEdit = false;
+                    llcheck.setVisibility(View.VISIBLE);
+                    lloption.setVisibility(View.GONE);
+                    delItems = null;
+                    //isFirstload = true;
+                    opGoods = new ArrayList<>();
+                    loadData();//重新加载
+                }
+            }
+        });
         cartLayoutManager = new LinearLayoutManager(this);
+        llcheck = findViewById(R.id.ll_check);
         selectall = (CheckBox) findViewById(R.id.selectall);
         txttotalprice = (TextView) findViewById(R.id.txt_totalprice);
         txtoldtotalprice = (TextView) findViewById(R.id.txt_oldtotalprice);
@@ -79,9 +123,15 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
         btncheck = (TextView) findViewById(R.id.btn_check);
         btncheck.setOnClickListener(this);
         selectall.setOnCheckedChangeListener(this);
+        lloption = findViewById(R.id.ll_option);
+        selectall1 = (CheckBox) findViewById(R.id.selectall1);
+        btndelete = (TextView) findViewById(R.id.btn_delete);
+        selectall1.setOnCheckedChangeListener(this);
+        btndelete.setOnClickListener(this);
         density = AppUtils.getDensity(ShoppingCart.this);
         opGoods = new ArrayList<>();
         loadData();
+        setResult(resultCodes.TOSHOPPINGCART);
     }
 
     void loadData() {
@@ -109,6 +159,9 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             rvcarts.setAdapter(cAdapter);
         } else {
             cAdapter.notifyDataSetChanged();
+        }
+        if (!isEdit) {
+            summaryCart();
         }
     }
 
@@ -163,7 +216,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                         if (result.equals("0")) {
                             list = cartDal.getList(data);
                             bindData();
-                            selectall.setChecked(true);
+                            //selectall.setChecked(true);
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(ShoppingCart.this, "服务器错误:" + errmsg);
                         }
@@ -173,6 +226,13 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                         e.printStackTrace();
                     }
                 }
+            } else if (msg.what == 2) {
+                SM_Payway payway = orderDal.getPayWays(msg.obj.toString());
+                Intent intent = new Intent(ShoppingCart.this, CommitCartOrder.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("payways", payway);
+                intent.putExtras(bundle);
+                startActivityWithAnim(intent);
             }
         }
     };
@@ -181,18 +241,85 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     public void ViewClick(View v) {
         switch (v.getId()) {
             case R.id.btn_check:
-//               cartDal.commitCart(opGoods, summary,"0", new UpdateCartListner() {
-//                   @Override
-//                   public void onFailure() {
-//
-//                   }
-//
-//                   @Override
-//                   public void onResponse(String response) {
-//
-//                   }
-//               });
-                cartDal.verifyGoods(opGoods);
+                orderDal.ComfirmOrder(opGoods, new UpdateCartListner() {
+                    @Override
+                    public void onFailure() {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        Message msg = handler.obtainMessage();
+                        msg.what =2;
+                        msg.obj=response;
+                        msg.sendToTarget();
+                    }
+                });
+                cartDal.verifyGoods(opGoods);//验证
+                break;
+            case R.id.btn_delete://删除
+                if (delItems == null || delItems.size() == 0) {
+                    generalhelper.ToastShow(ShoppingCart.this, "还没有选择商品哦！");
+                    break;
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(ShoppingCart.this);
+                builder.setMessage(String.format("确认要删除这%s中商品吗?", delItems.size())).setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        cartDal.updateCart(ShoppingCartDal.DELETECART, delItems, 0, new UpdateCartListner() {
+                                    @Override
+                                    public void onFailure() {
+
+                                    }
+
+                                    @Override
+                                    public void onResponse(String response) {
+                                        opGoods.removeAll(delItems);
+                                        while (delItems.size() > 0) {
+                                            SM_GoodsM m = delItems.get(0);
+                                            cart:
+                                            for (int c = 0; c < list.size(); c++) {
+                                                List<SM_GoodsM> tempgoods = list.get(c).getproductArray();
+                                                product:
+                                                for (int g = 0; g < tempgoods.size(); g++) {
+                                                    if (tempgoods.size() == 0)
+                                                        break;
+                                                    if (m.getproduct_id().equals(tempgoods.get(g).getproduct_id())) {
+                                                        list.get(c).getproductArray().remove(g);
+                                                        delItems.remove(m);
+                                                        break product;
+                                                    }
+                                                }
+                                                if (list.get(c).getproductArray().size() == 0) {
+                                                    list.remove(c);
+                                                    break cart;
+                                                }
+                                            }
+                                        }
+                                        //delItems = new ArrayList<>();//清空删除列表
+                                        handler.post(new
+
+                                                             Runnable() {
+                                                                 @Override
+                                                                 public void run() {
+                                                                     bindData();
+                                                                 }
+                                                             }
+
+                                        );
+                                    }
+                                }
+
+                        );
+                    }
+                }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        delDialog.dismiss();
+                    }
+                });
+                delDialog = builder.create();
+                delDialog.show();
                 break;
         }
     }
@@ -208,8 +335,14 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             m.setSelect(isChecked);
         }
         cAdapter.notifyDataSetChanged();
-        opGoods = new ArrayList<>();
-        summaryCart();
+        if (isEdit) {
+            if (!isChecked) {
+                delItems = new ArrayList<>();
+            }
+        } else {
+            opGoods = new ArrayList<>();
+            summaryCart();
+        }
     }
 
     class cartAdapter extends RecyclerView.Adapter<cartAdapter.ViewHolder> {
@@ -230,20 +363,33 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             holder.rvproducts.setLayoutManager(layoutManager);
             holder.rvproducts.setAdapter(pAdapter);
             holder.rvproducts.setLayoutParams(params);
+            holder.rballproduct.setText(cartM.getdistributionType());
             holder.rballproduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    //if (!isReload)//编辑过后重新加载时不将所有数据选中，选中状态来自服务器
                     for (SM_GoodsM goodsM : cartM.getproductArray()) {
                         goodsM.setSelect(isChecked);
-                    }
-                    if (!isChecked) {
-                        opGoods.removeAll(cartM.getproductArray());
-                        summaryCart();
+                    }//不需要默认修改选中状态
+                    if (!isChecked) {//取消选中
+                        if (isEdit)//编辑状态
+                        {
+                            delItems.removeAll(cartM.getproductArray());
+                        } else {
+                            opGoods.removeAll(cartM.getproductArray());
+                            cartDal.updateCart(ShoppingCartDal.SELECTCART, cartM.getproductArray(), 0, null);
+                            summaryCart();
+                        }
                     }
                     pAdapter.notifyDataSetChanged();
                 }
             });
             holder.rballproduct.setChecked(cartM.getSelect());
+            /*//数据加载完成后更新isFirstload = false,之后商品列表上的选中状态就会更新到服务器（商品在加载的时候选中状态是不需要更新到服务器上的）
+            if(position+1==list.size())
+            {
+            isFirstload = false;
+            }*/
         }
 
         @Override
@@ -277,23 +423,49 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder, int position) {
             final SM_GoodsM goodsM = goodsMs.get(position);
             ImageLoader.bindBitmap(goodsM.getpic_url(), holder.imgproduct);
             holder.txtname.setText(goodsM.getname());
             holder.txtspec.setText("规格:" + goodsM.getspecification());
             holder.txtprice.setText("￥" + String.valueOf(goodsM.getprice()));
             holder.selectcount.setCount(goodsM.getcount());
-
+            if (isEdit)
+                holder.selectcount.setVisibility(View.GONE);
             holder.rbproduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    //选中
                     if (isChecked) {
-                        opGoods.add(goodsM);
-                    } else {
-                        opGoods.remove(goodsM);
+                        if (!isEdit) {//非编辑状态
+//                            holder.selectcount.setVisibility(View.VISIBLE);//显示数量操作
+                            if (!opGoods.contains(goodsM))
+                                opGoods.add(goodsM);
+                            if (goodsM.getcan_handsel() != 1)//&& isFirstload == false
+                            {
+                                cartDal.updateCart(ShoppingCartDal.SELECTCART, goodsM, 1, null);//更新服务器选中状态
+                            }
+//                            else {
+//                                isFirstload = false;
+//                            }
+                        } else {//编辑状态
+                            //holder.selectcount.setVisibility(View.GONE);//隐藏数量操作
+                            if (!delItems.contains(goodsM))
+                                delItems.add(goodsM);//加入删除列表
+                        }
+                    } else {//取消选中
+                        if (!isEdit) {//非编辑状态
+                            //holder.selectcount.setVisibility(View.VISIBLE);
+                            opGoods.remove(goodsM);
+                            if (goodsM.getcan_handsel() == 1)
+                                cartDal.updateCart(ShoppingCartDal.SELECTCART, goodsM, 0, null);
+                        } else {//编辑状态
+                            //holder.selectcount.setVisibility(View.GONE);//隐藏数量操作
+                            if (delItems.contains(goodsM))//删除列表包含当前商品
+                                delItems.remove(goodsM);//从删除列表移除
+                        }
                     }
-                    summaryCart();
+                    summaryCart();//更新商品总量和价格
                 }
             });
             holder.selectcount.setOnchangeListener(new MySelectCount.IonChanged() {
@@ -319,6 +491,12 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                 }
             });
             holder.rbproduct.setChecked(goodsM.getSelect());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    holder.rbproduct.setChecked(!holder.rbproduct.isChecked());
+                }
+            });
         }
 
         @Override

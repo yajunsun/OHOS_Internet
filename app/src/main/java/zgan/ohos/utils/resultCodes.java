@@ -128,4 +128,8 @@ public final class resultCodes {
      * 查看详细
      */
     public final static int DETAIL=10030;
+    /**
+     * 前往购物车
+     */
+    public final static int TOSHOPPINGCART=10031;
 }
