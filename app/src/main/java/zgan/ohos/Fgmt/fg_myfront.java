@@ -216,6 +216,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     private void initView(View v) {
         p = AppUtils.getWindowSize(getActivity());
         txt_xiaoqu = (TextView) v.findViewById(R.id.txt_xiaoqu);
+        txt_xiaoqu.setOnClickListner(this);
         sscontent = (ScrollViewWithCallBack) v.findViewById(R.id.ll_content);
         ll_shequhuodong = (LinearLayout) v.findViewById(R.id.ll_shequhuodong);
         adv_pager = (ViewPager) v.findViewById(R.id.adv_pager);
@@ -531,12 +532,18 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (!SystemUtils.getIsCommunityLogin()) {
+    if(view.getId==R.id.txt_xiaoqu)
+    {
+       Intent intent=new Intent();
+       Intent.setClass(getActivity(),SMSearchResult.class);
+       startActivity();
+    }
+/*        if (!SystemUtils.getIsCommunityLogin()) {
             opendialog.show();
         } else {
-//            ViewClick(view);
+            ViewClick(view);
         }
-    }
+    }*/
 
 //数据处理handler
     private void iniHandler() {
@@ -607,7 +614,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         SystemUtils.setShop(shop);
                                         SystemUtils.setProperty(property);
                                         SystemUtils.setFname(Fname);
-                                        txt_xiaoqu.setText(village);
+                                        //txt_xiaoqu.setText(village);
                                         String ALIPAYurl = obj.get("ALIPAYurl").toString();
                                         String WPAYurl = obj.get("WPAYurl").toString();
                                         SystemUtils.setALIPAYurl(ALIPAYurl);
