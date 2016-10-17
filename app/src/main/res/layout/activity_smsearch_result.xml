@@ -124,6 +124,7 @@
             android:layout_alignBottom="@id/txt_totalprice"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/txt_totalprice"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <LinearLayout

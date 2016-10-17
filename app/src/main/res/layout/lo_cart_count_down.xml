@@ -1,43 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<TextView
-    android:layout_width="30dp"
-    android:id="@+id/txt_hour"
-    android:gravity="center"
-    android:background="@color/primary"
-    android:textColor="@color/solid_white"
-    android:text="01"
-    android:layout_height="30dp" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
     <TextView
-    android:layout_width="10dp"
-    android:id="@+id/txt1"
-    android:gravity="center"
-    android:textColor="@color/primary"
-    android:text=":"
-    android:layout_height="30dp" />
-    <TextView
+        android:id="@+id/txt_hour"
         android:layout_width="30dp"
-        android:id="@+id/txt_minutes"
+        android:layout_height="30dp"
+
+        android:background="@drawable/bg_color_orange"
         android:gravity="center"
-        android:background="@color/primary"
-        android:textColor="@color/solid_white"
-        android:text="20"
-        android:layout_height="30dp" />
+        android:text="01"
+        android:textColor="@color/solid_white" />
+
     <TextView
+        android:id="@+id/txt1"
         android:layout_width="10dp"
-        android:id="@+id/txt2"
+        android:layout_height="30dp"
         android:gravity="center"
-        android:textColor="@color/primary"
         android:text=":"
-        android:layout_height="30dp" />
+        android:textColor="@color/primary" />
+
     <TextView
+        android:id="@+id/txt_minutes"
         android:layout_width="30dp"
-        android:id="@+id/txt_seconds"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_color_orange"
         android:gravity="center"
-        android:background="@color/primary"
-        android:textColor="@color/solid_white"
         android:text="20"
-        android:layout_height="30dp" />
+        android:textColor="@color/solid_white" />
+
+    <TextView
+        android:id="@+id/txt2"
+        android:layout_width="10dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text=":"
+        android:textColor="@color/primary" />
+
+    <TextView
+        android:id="@+id/txt_seconds"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_color_orange"
+        android:gravity="center"
+        android:text="20"
+        android:textColor="@color/solid_white" />
 </LinearLayout>

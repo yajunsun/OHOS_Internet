@@ -65,17 +65,13 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
     LinearLayout lltypes;
     View lloldprice, rldetail;
     FloatingActionButton fab;
+    View rl_countdown;
     /***
      * 购物车部分
      **/
     TextView txtcount, btnadd2cart, btnbuynow, txtoldtotalprice, txttotalprice;
     View rloldprice;
     SM_CartCountDown countdown;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     protected void initView() {
@@ -90,6 +86,7 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
         lltypes = (LinearLayout) findViewById(R.id.ll_types);
         lloldprice = findViewById(R.id.ll_oldprice);
         rldetail = findViewById(R.id.rl_detail);
+        rl_countdown=findViewById(R.id.rl_countdown);
         //购物车
         fab=(FloatingActionButton)findViewById(R.id.img_icon);
         txtcount = (TextView) findViewById(R.id.txt_count);
@@ -193,12 +190,12 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
         }
         if(model.getcountdown()>0)
         {
-            countdown.setVisibility(View.VISIBLE);
+            rl_countdown.setVisibility(View.VISIBLE);
             countdown.StartCount(model.getcountdown());
         }
         else
         {
-            countdown.setVisibility(View.GONE);
+            rl_countdown.setVisibility(View.GONE);
         }
         txtprice.setText(String.valueOf(model.getprice()));
         if (!model.getoldprice().equals("") && !model.getoldprice().equals("0")) {

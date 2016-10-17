@@ -44,6 +44,7 @@ import zgan.ohos.Contracts.IAddShopListener;
 import zgan.ohos.Contracts.UpdateCartListner;
 import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Dals.SuperMarketDal;
+import zgan.ohos.Models.FrontItem;
 import zgan.ohos.Models.SM_GoodsM;
 import zgan.ohos.Models.SM_SecondaryM;
 import zgan.ohos.Models.ShoppingCartSummary;
@@ -106,7 +107,7 @@ public class SuperMarket extends myBaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_super_market);
-        PageId=getIntent().getStringExtra("item");
+        PageId=((FrontItem)getIntent().getSerializableExtra("item")).getpage_id().replace("'","");
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -488,7 +489,6 @@ public class SuperMarket extends myBaseActivity {
             getCatProducts();
         }
     }
-
     //获取商品列表
     void getCatProducts() {
         FormEncodingBuilder builder = new FormEncodingBuilder();
@@ -602,15 +602,9 @@ public class SuperMarket extends myBaseActivity {
                         final ImageView imageView = new ImageView(SuperMarket.this);
                         imageView.setLayoutParams(new LinearLayout.LayoutParams(30, 60));
                         imageView.setImageDrawable(holder.img_product.getDrawable());
-                        Add2cartAnimUtil mAnimUtils = new Add2cartAnimUtil(SuperMarket.this, holder.btn_add, fab, imageView);
+                        Add2cartAnimUtil mAnimUtils = new Add2cartAnimUtil(SuperMarket.this,holder.img_product.getDrawable());
 
-                        mAnimUtils.addShopCart(new IAddShopListener() {
-
-                            @Override
-                            public void addSucess() {
-                                Toast.makeText(SuperMarket.this, "添加了一个商品", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        mAnimUtils.startAnim(holder.itemView,fab);
                     }
                     cartDal.updateCart(ShoppingCartDal.ADDCART, goodsM, 1, cartChanged);
 

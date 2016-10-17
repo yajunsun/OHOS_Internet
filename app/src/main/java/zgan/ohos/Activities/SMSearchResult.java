@@ -58,7 +58,7 @@ public class SMSearchResult extends myBaseActivity {
 
     RecyclerView rvproducts;
     GridLayoutManager product_layoutManager;
-     List<SM_GoodsM> list;
+    List<SM_GoodsM> list;
     SuperMarketDal dal;
     ShoppingCartDal cartDal;
     productAdapter adapter;
@@ -66,7 +66,7 @@ public class SMSearchResult extends myBaseActivity {
      * 购物车部分
      **/
     TextView txtcount, btncheck, txtoldtotalprice, txttotalprice;
-    View rloldprice;
+    View rloldprice1;
 
     @Override
     protected void initView() {
@@ -79,15 +79,15 @@ public class SMSearchResult extends myBaseActivity {
                 finish();
             }
         });
-        final View clear=findViewById(R.id.btn_clear);
+        final View clear = findViewById(R.id.btn_clear);
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 txtsearch.setText("");
             }
         });
-        dal=new SuperMarketDal();
-        cartDal=new ShoppingCartDal();
+        dal = new SuperMarketDal();
+        cartDal = new ShoppingCartDal();
         rvproducts = (RecyclerView) findViewById(R.id.rv_products);
         product_layoutManager = new GridLayoutManager(SMSearchResult.this, 2);
         rvproducts.setLayoutManager(product_layoutManager);
@@ -121,10 +121,29 @@ public class SMSearchResult extends myBaseActivity {
         txtcount = (TextView) findViewById(R.id.txt_count);
         txtoldtotalprice = (TextView) findViewById(R.id.txt_oldtotalprice);
         txttotalprice = (TextView) findViewById(R.id.txt_totalprice);
-        rloldprice = findViewById(R.id.rl_oldprice);
-        fab=(FloatingActionButton)findViewById(R.id.img_icon) ;
-        ShoppingCartSummary summary=cartDal.getSCSummary();
-        bindShoppingCard(summary);
+        rloldprice1 = findViewById(R.id.rl_oldprice);
+        fab = (FloatingActionButton) findViewById(R.id.img_icon);
+        if (ShoppingCartDal.mOrderIDs == null)
+            cartDal.getCartList(new UpdateCartListner() {
+                @Override
+                public void onFailure() {
+
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    cartDal.syncCart(null);
+                    final ShoppingCartSummary summary = cartDal.getSCSummary();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            bindShoppingCard(summary);
+                        }
+                    });
+                }
+            });
+
+
     }
 
     //从网络获取数据
@@ -166,19 +185,17 @@ public class SMSearchResult extends myBaseActivity {
     }
 
     void bindData() {
-        if(adapter==null)
-        {
-            adapter=new productAdapter();
+        if (adapter == null) {
+            adapter = new productAdapter();
             rvproducts.setAdapter(adapter);
-        }
-        else
-        {
+        } else {
             adapter.notifyDataSetChanged();
         }
     }
 
     void loadMoreData() {
     }
+
     //加载购物车数据
     void loadShoppingCart() {
         UpdateCartListner lstner = new UpdateCartListner() {
@@ -224,21 +241,21 @@ public class SMSearchResult extends myBaseActivity {
         txttotalprice.setText("￥" + summary.getTotalprice());
         if (!summary.getOldtotalprice().equals("0")) {
             txtoldtotalprice.setText("￥" + summary.getOldtotalprice());
-            rloldprice.setVisibility(View.VISIBLE);
+            rloldprice1.setVisibility(View.VISIBLE);
         } else {
-            rloldprice.setVisibility(View.GONE);
+            rloldprice1.setVisibility(View.GONE);
         }
     }
+
     @Override
     public void ViewClick(View v) {
-      switch (v.getId())
-      {
-          case R.id.btn_search:
-              if(txtsearch.getText().toString().trim().equals(""))
-                  return;
-              loadData();
-              break;
-      }
+        switch (v.getId()) {
+            case R.id.btn_search:
+                if (txtsearch.getText().toString().trim().equals(""))
+                    return;
+                loadData();
+                break;
+        }
     }
 
     Handler handler = new Handler() {
@@ -266,16 +283,14 @@ public class SMSearchResult extends myBaseActivity {
                     }
                 }
                 toCloseProgress();
-            }
-            else  if(msg.what==3)
-            {
-                ShoppingCartSummary summary=(ShoppingCartSummary)msg.obj;
+            } else if (msg.what == 3) {
+                ShoppingCartSummary summary = (ShoppingCartSummary) msg.obj;
                 bindShoppingCard(summary);
             }
         }
     };
 
-    UpdateCartListner cartChanged =new UpdateCartListner() {
+    UpdateCartListner cartChanged = new UpdateCartListner() {
         @Override
         public void onFailure() {
             generalhelper.ToastShow(SMSearchResult.this, "加入购物车失败!");
@@ -284,9 +299,9 @@ public class SMSearchResult extends myBaseActivity {
         @Override
         public void onResponse(String response) {
             ShoppingCartSummary summary = cartDal.getSCSummary();
-            Message msg=handler.obtainMessage();
-            msg.what=3;
-            msg.obj=summary;
+            Message msg = handler.obtainMessage();
+            msg.what = 3;
+            msg.obj = summary;
             msg.sendToTarget();
         }
     };
@@ -294,35 +309,30 @@ public class SMSearchResult extends myBaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==resultCodes.TOSHOPPINGCART)
-        {
+        if (resultCode == resultCodes.TOSHOPPINGCART) {
             ShoppingCartSummary summary = cartDal.getSCSummary();
-            Message msg=handler.obtainMessage();
-            msg.what=3;
-            msg.obj=summary;
+            Message msg = handler.obtainMessage();
+            msg.what = 3;
+            msg.obj = summary;
             msg.sendToTarget();
         }
     }
 
-    class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHolder>
-    {
+    class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHolder> {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(getLayoutInflater().inflate(R.layout.sm_rearch_itme,parent,false));
+            return new ViewHolder(getLayoutInflater().inflate(R.layout.sm_rearch_itme, parent, false));
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            final SM_GoodsM goodsM=list.get(position);
-            ImageLoader.bindBitmap(goodsM.getpic_url(),holder.ivproduct);
+            final SM_GoodsM goodsM = list.get(position);
+            ImageLoader.bindBitmap(goodsM.getpic_url(), holder.ivproduct);
             holder.txtname.setText(goodsM.getname());
-            holder.txtprice.setText("￥"+goodsM.getprice());
-            if(goodsM.getoldprice().equals("")||goodsM.getoldprice().equals("0"))
-            {
+            holder.txtprice.setText("￥" + goodsM.getprice());
+            if (goodsM.getoldprice().equals("") || goodsM.getoldprice().equals("0")) {
                 holder.rloldprice.setVisibility(View.GONE);
-            }
-            else
-            {
+            } else {
                 holder.rloldprice.setVisibility(View.VISIBLE);
                 holder.txtoldprice.setText(goodsM.getoldprice());
             }
@@ -334,15 +344,9 @@ public class SMSearchResult extends myBaseActivity {
                         final ImageView imageView = new ImageView(SMSearchResult.this);
                         imageView.setLayoutParams(new LinearLayout.LayoutParams(30, 60));
                         imageView.setImageDrawable(holder.ivproduct.getDrawable());
-                        Add2cartAnimUtil mAnimUtils = new Add2cartAnimUtil(SMSearchResult.this, holder.btnadd, fab, imageView);
+                        Add2cartAnimUtil mAnimUtils = new Add2cartAnimUtil(SMSearchResult.this, holder.ivproduct.getDrawable());
 
-                        mAnimUtils.addShopCart(new IAddShopListener() {
-
-                            @Override
-                            public void addSucess() {
-                                Toast.makeText(SMSearchResult.this, "添加了一个商品", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        mAnimUtils.startAnim(holder.ivproduct, fab);
                     }
                     cartDal.updateCart(ShoppingCartDal.ADDCART, goodsM, 1, cartChanged);
                 }
@@ -350,8 +354,8 @@ public class SMSearchResult extends myBaseActivity {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(SMSearchResult.this,SuperMarketDetail.class);
-                    intent.putExtra("productid",goodsM.getproduct_id());
+                    Intent intent = new Intent(SMSearchResult.this, SuperMarketDetail.class);
+                    intent.putExtra("productid", goodsM.getproduct_id());
                     startActivityWithAnim(intent);
                 }
             });
@@ -362,20 +366,21 @@ public class SMSearchResult extends myBaseActivity {
             return list.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder{
+        class ViewHolder extends RecyclerView.ViewHolder {
             ImageView ivproduct;
-            TextView txtname,txtprice,txtoldprice,txtspec;
+            TextView txtname, txtprice, txtoldprice, txtspec;
             View rloldprice;
             IconicsImageView btnadd;
+
             public ViewHolder(View itemView) {
                 super(itemView);
-                ivproduct=(ImageView)itemView.findViewById(R.id.iv_product);
-                txtname=(TextView)itemView.findViewById(R.id.txt_name);
-                txtprice=(TextView)itemView.findViewById(R.id.txt_price);
-                txtoldprice=(TextView)itemView.findViewById(R.id.txt_oldprice);
-                txtspec=(TextView)itemView.findViewById(R.id.txt_spec);
-                rloldprice=itemView.findViewById(R.id.rl_oldprice);
-                btnadd=(IconicsImageView)itemView.findViewById(R.id.btn_add);
+                ivproduct = (ImageView) itemView.findViewById(R.id.iv_product);
+                txtname = (TextView) itemView.findViewById(R.id.txt_name);
+                txtprice = (TextView) itemView.findViewById(R.id.txt_price);
+                txtoldprice = (TextView) itemView.findViewById(R.id.txt_oldprice);
+                txtspec = (TextView) itemView.findViewById(R.id.txt_spec);
+                rloldprice = itemView.findViewById(R.id.rl_oldprice);
+                btnadd = (IconicsImageView) itemView.findViewById(R.id.btn_add);
             }
         }
     }

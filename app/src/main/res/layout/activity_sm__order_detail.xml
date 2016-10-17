@@ -132,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:gravity="center_vertical"
-                        android:text="订单状态 : "
+                        android:text="订单状态 : 成功下单"
                         android:textSize="18sp" />
 
 
@@ -193,7 +193,7 @@
             <RelativeLayout
                 android:id="@+id/lpaytype"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/CommitOrder_paytype_height"
+                android:layout_height="40dp"
                 android:layout_below="@id/rv_cart"
                 android:padding="10dp">
 
@@ -205,14 +205,12 @@
                     android:textColor="@color/solid_black"
                     android:textSize="14sp" />
 
-                <LinearLayout
-                    android:id="@+id/lpaytypes"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_below="@id/txt1"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
-                </LinearLayout>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:id="@+id/txt_paytype"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginRight="10dp"
+                   android:layout_height="wrap_content" />
 
             </RelativeLayout>
 
@@ -335,6 +333,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:layout_alignBaseline="@id/txt_payfee"
                     android:layout_toLeftOf="@id/txt_payfee"
                     android:text="实付款:"

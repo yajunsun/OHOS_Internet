@@ -423,8 +423,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                     startActivityIfLogin(intent, 0);
                 else {
                     //generalhelper.ToastShow(getActivity(), "即将上线~");
-                    intent=new Intent(getActivity(), SuperMarket.class);
-                    startActivityWithAnim(getActivity(), intent);
+//                    intent=new Intent(getActivity(), SuperMarket.class);
+//                    startActivityWithAnim(getActivity(), intent);
                 }
             } catch (ActivityNotFoundException anfe) {
                Intent  intent=new Intent(getActivity(), SuperMarket.class);

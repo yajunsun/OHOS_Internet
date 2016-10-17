@@ -196,7 +196,7 @@ public class SM_OrderPayDal extends ZGbaseDal {
             int pay_way = getNullableInt(obj, "pay_way", -1);
             double total_price = Double.parseDouble(getNullableString(obj, "total_price", "0.0"));
             SM_OrderPayDetail pay_ways = new SM_OrderPayDetail();
-            JSONObject payways = obj.getJSONObject("pay_ways");
+            JSONObject payways =getNullableObj(obj,"pay_ways") ;
             String pay_account = getNullableString(payways, "pay_account", "");
             String pay_key = getNullableString(payways, "pay_key", "");
             String pay_user = getNullableString(payways, "pay_user", "");

@@ -176,7 +176,7 @@
             android:name=".Activities.HightQualityService"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="Page.2015" />
+                <action android:name="Page.3016" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -207,7 +207,7 @@
             android:name=".Activities.SuperMarket"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="Page.2016" />
+                <action android:name="Page.3015" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

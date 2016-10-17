@@ -238,8 +238,10 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rl_countdown"
                         android:layout_width="120dp"
                         android:layout_height="match_parent"
+                        android:visibility="gone"
                         android:layout_alignParentRight="true">
 
                         <TextView
@@ -250,13 +252,12 @@
                             android:text="距结束还剩"
                             android:textColor="@color/primary" />
 
-                        <SM_CartCountDown
+                        <zgan.ohos.ConstomControls.SM_CartCountDown
                             android:id="@+id/txt_countdown"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
-                            android:layout_alignParentRight="true"
-                            android:textSize="18sp" />
+                            android:layout_alignParentRight="true" />
                     </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>

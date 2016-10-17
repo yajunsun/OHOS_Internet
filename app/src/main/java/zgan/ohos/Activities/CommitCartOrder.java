@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +30,7 @@ import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +39,10 @@ import zgan.ohos.ConstomControls.MySelectCount;
 import zgan.ohos.ConstomControls.PayPwdEditText;
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Contracts.UpdateCartListner;
+import zgan.ohos.Dals.RequstResultDal;
 import zgan.ohos.Dals.SM_OrderPayDal;
 import zgan.ohos.Dals.ShoppingCartDal;
+import zgan.ohos.Models.RequstResultM;
 import zgan.ohos.Models.SM_GoodsM;
 import zgan.ohos.Models.SM_OrderPayInfo;
 import zgan.ohos.Models.SM_Payway;
@@ -258,7 +262,7 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
         dialog = builder.create();
 
         txt_payresult.setText(result ? "支付订单成功" : "支付订单失败");
-        txt_payid.setText("支付方式：" + mPaytypeNames[orderPayInfo.getpay_way()]);
+        txt_payid.setText("支付方式：" + mPaytypeNames[payType]);
         txt_payfee.setText("订单金额：￥" + orderPayInfo.gettotal_price());
         if (result) {
             imageLoader.loadDrawableRS(this, R.drawable.order_success, iv_result, new IImageloader() {
@@ -432,10 +436,21 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
                     break;
                 case 2:
                     String data = msg.obj.toString();
+                    //RequstResultM result = new RequstResultDal().getItem(data);
                     orderPayInfo = payDal.getPayInfo(data);
-                    if (!orderPayInfo.getorder_sn().equals(""))
-                        OrderSN = orderPayInfo.getorder_sn();
-                    pay();
+                    if (payType == 3 || payType == 4) {
+                        //if (result.equals("0")) {
+
+                            if (!orderPayInfo.getorder_sn().equals(""))
+                                OrderSN = orderPayInfo.getorder_sn();
+
+                            pay();
+//                        } else {
+//                            generalhelper.ToastShow(CommitCartOrder.this, result.getmsg());
+//                        }
+                    } else if (payType == 1) {
+                        handler.sendEmptyMessage(resultCodes.PAYCOMPLETE);
+                    }
                     break;
                 case resultCodes.PAYCOMPLETE:
                     paymentSelectDialog.dismiss();
@@ -467,7 +482,7 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
                     //order.setConfirm_time(generalhelper.getStringFromDate(new Date()));
                     //dal.mConfirmedOrders.add(order);
                     //buildDialog(true);
-                    payType = 3;
+                    payType = 1;
                     commit();
                 }
                 break;
@@ -502,14 +517,27 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_complete:
+
                 dialog.dismiss();
                 paymentSelectDialog.dismiss();
-                intent = new Intent(this, SuperMarket.class);
+                intent = new Intent(CommitCartOrder.this, SM_OrderDetail.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("payways", payways);
+                bundle.putSerializable("payinfo",orderPayInfo);
+                bundle.putSerializable("carts",(Serializable)list);
+                intent.putExtras(bundle);
                 startActivityWithAnim(intent);
                 finish();
                 break;
             case R.id.txt_toorder:
-                intent = new Intent(this, SuperMarket.class);
+                dialog.dismiss();
+                paymentSelectDialog.dismiss();
+                intent = new Intent(CommitCartOrder.this, SM_OrderDetail.class);
+                Bundle bundle1=new Bundle();
+                bundle1.putSerializable("payways", payways);
+                bundle1.putSerializable("payinfo",orderPayInfo);
+                bundle1.putSerializable("carts",(Serializable)list);
+                intent.putExtras(bundle1);
                 startActivityWithAnim(intent);
                 finish();
                 break;

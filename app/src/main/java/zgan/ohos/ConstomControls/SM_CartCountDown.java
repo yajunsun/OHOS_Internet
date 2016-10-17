@@ -2,6 +2,7 @@ package zgan.ohos.ConstomControls;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -34,7 +35,7 @@ public class SM_CartCountDown extends LinearLayout {
 
     public SM_CartCountDown(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        View v = LayoutInflater.from(context).inflate(R.layout.lo_cart_count_down, null);
+        View v = LayoutInflater.from(context).inflate(R.layout.lo_cart_count_down, this,true);
         txthour = (TextView) v.findViewById(R.id.txt_hour);
         txtminutes = (TextView) v.findViewById(R.id.txt_minutes);
         txtseconds = (TextView) v.findViewById(R.id.txt_seconds);
@@ -69,7 +70,7 @@ public class SM_CartCountDown extends LinearLayout {
         }, 0, 1000);
     }
 
-    Handler handler = new Handler() {
+    Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
