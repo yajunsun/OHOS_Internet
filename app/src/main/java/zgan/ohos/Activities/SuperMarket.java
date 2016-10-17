@@ -101,11 +101,12 @@ public class SuperMarket extends myBaseActivity {
     int lbpxWidth = 0, lbpxHeight = 0;
     FloatingActionButton fab;
     Point MlcartIcon;
-
+    String PageId;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_super_market);
+        PageId=getIntent.getStringExtra("item");
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,7 +195,7 @@ public class SuperMarket extends myBaseActivity {
         mOkHttpClient = new OkHttpClient();
         //创建一个Request
         FormEncodingBuilder builder = new FormEncodingBuilder();
-        builder.add("ID", "2016");
+        builder.add("ID", PageId);
         builder.add("account", PreferenceUtil.getUserName());
         builder.add("token", SystemUtils.getNetToken());
         final Request request = new Request.Builder()
