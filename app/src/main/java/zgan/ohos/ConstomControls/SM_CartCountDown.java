@@ -52,9 +52,9 @@ public class SM_CartCountDown extends LinearLayout {
             @Override
             public void run() {
                 //holder.txttimer.setText(""+day+"天"+hour+"小时"+min+"分"+s+"秒");
-                long hour = (mTotalSenconds / (60 * 60));
-                long min = ((mTotalSenconds / 60) - hour * 60);
-                long s = (mTotalSenconds - hour * 60 * 60 - min * 60);
+                int hour =Math.round (mTotalSenconds / (60 * 60));
+                int min =Math.round ((mTotalSenconds / 60) - hour * 60);
+                int s =Math.round (mTotalSenconds - hour * 60 * 60 - min * 60);
                 Message msg = handler.obtainMessage();
                 msg.what = 3;
                 //msg.obj = min + "分" + s + "秒";

@@ -51,6 +51,7 @@ import zgan.ohos.Activities.Express_in;
 import zgan.ohos.Activities.Express_out;
 import zgan.ohos.Activities.Login;
 import zgan.ohos.Activities.MessageActivity;
+import zgan.ohos.Activities.SMSearchResult;
 import zgan.ohos.Activities.SuperMarket;
 import zgan.ohos.ConstomControls.ScrollViewWithCallBack;
 import zgan.ohos.Contracts.IImageloader;
@@ -216,7 +217,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     private void initView(View v) {
         p = AppUtils.getWindowSize(getActivity());
         txt_xiaoqu = (TextView) v.findViewById(R.id.txt_xiaoqu);
-        txt_xiaoqu.setOnClickListner(this);
+        txt_xiaoqu.setOnClickListener(this);
         sscontent = (ScrollViewWithCallBack) v.findViewById(R.id.ll_content);
         ll_shequhuodong = (LinearLayout) v.findViewById(R.id.ll_shequhuodong);
         adv_pager = (ViewPager) v.findViewById(R.id.adv_pager);
@@ -532,19 +533,17 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-    if(view.getId==R.id.txt_xiaoqu)
-    {
-       Intent intent=new Intent();
-       Intent.setClass(getActivity(),SMSearchResult.class);
-       startActivity();
-    }
+        if (view.getId() == R.id.txt_xiaoqu) {
+            Intent intent = new Intent(getActivity(), SMSearchResult.class);
+            startActivity(intent);
+        }
 /*        if (!SystemUtils.getIsCommunityLogin()) {
             opendialog.show();
         } else {
             ViewClick(view);
         }
     }*/
-
+    }
 //数据处理handler
     private void iniHandler() {
         handler = new Handler() {

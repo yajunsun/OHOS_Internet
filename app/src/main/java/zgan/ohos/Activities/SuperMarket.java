@@ -106,7 +106,7 @@ public class SuperMarket extends myBaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_super_market);
-        PageId=getIntent.getStringExtra("item");
+        PageId=getIntent().getStringExtra("item");
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -43,6 +43,9 @@ public class Add2cartAnimUtil {
     private LinearLayout animLayout;
 
     float a = -1f / 75f;
+    float v=0;//平抛X方向速度
+    float g=0;//平抛重力参数
+
 
     private ObjectAnimator mObjectAnimator;
 
@@ -85,8 +88,11 @@ public class Add2cartAnimUtil {
      * @return
      */
     private float getY(float x) {
-        return a * x * x + 4 * x;
+        //return a * x * x + 4 * x;
         //return 0-(x*addP.y/shopP.x);
+        //return (g/(2*v*v))*x*x;
+        x=x-shopP.x;
+        return (g/(2*v*v))*x*x+shopP.y;
     }
 
     public void addShopCart(final IAddShopListener listener) {
@@ -102,27 +108,33 @@ public class Add2cartAnimUtil {
         mShopCartView.getLocationInWindow(end_location);
         addP=new Point(Math.round(mShopCartView.getX()),Math.round(mShopCartView.getY()));
 
+        setV(start_location[0] ,end_location[0]);
+        setG(end_location[1],start_location[1]);
         float count = 300;
-        Keyframe[] keyframes = new Keyframe[(int) count];
+        Keyframe[] xkeyframes = new Keyframe[(int) count];//x帧集合
+        Keyframe[] ykeyframes = new Keyframe[(int) count];//y帧集合
         final float keyStep = 1f / (float) count;
         float f = (float) (start_location[0] - end_location[0]) / count;
+        //X
         float key = keyStep;
         for (int i = 0; i < count; ++i) {
-            keyframes[i] = Keyframe.ofFloat(key, -i * f);
+            xkeyframes[i] = Keyframe.ofFloat(key, -i * f);
             key += keyStep;
         }
 
         PropertyValuesHolder pvhX = PropertyValuesHolder.ofKeyframe(
-                "translationX", keyframes);
+                "translationX", xkeyframes);
+        //y
         key = keyStep;
 
         for (int i = 0; i < count; ++i) {
-            keyframes[i] = Keyframe.ofFloat(key, -getY(i + 1));
+            //keyframes[i] = Keyframe.ofFloat(key, -getY(i + 1));
+            ykeyframes[i] = Keyframe.ofFloat(key, -getY((float)xkeyframes[i].ofFloat(key).getValue()));
             key += keyStep;
         }
 
         PropertyValuesHolder pvhY = PropertyValuesHolder.ofKeyframe(
-                "translationY", keyframes);
+                "translationY", ykeyframes);
         PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat("scaleX",
                 1f, 0.5f);
         PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat("scaleY",
@@ -180,6 +192,12 @@ public class Add2cartAnimUtil {
         lp.topMargin = y;
         view.setLayoutParams(lp);
         return view;
+    }
+    private void setV(int xs,int xe){
+        v=Math.round((xe-xs)/1.5);
+    }
+    private void setG(int ys,int ye){
+        g=Math.round((ye-ys)*2/(2.25));
     }
 
 }

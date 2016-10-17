@@ -54,14 +54,14 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:background="@color/transparent50"
+
                 android:gravity="center"
-                android:background="@drawable/bg_rect"
+                android:background="@drawable/bg_rectangle_shadow"
                 android:textColor="@color/solid_black"
                 android:textSize="@dimen/txt_xiaoqu_size" />
                 
                 <com.mikepenz.iconics.view.IconicsImageView
-                android:id="@+id/iv_location"
+                android:id="@+id/iv_searchicon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
