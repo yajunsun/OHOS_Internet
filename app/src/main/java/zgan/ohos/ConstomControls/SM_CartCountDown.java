@@ -44,16 +44,16 @@ public class SM_CartCountDown extends LinearLayout {
         mTotalSenconds = totalSeconds;
         //long day = mTotalSenconds / (24 * 60 * 60 );
         //long hour = (mTotalSenconds / (60 * 60 ) - day * 24);
-        long hour = (mTotalSenconds / (60 * 60));
-        long min = ((mTotalSenconds / (60)) - hour * 60);
-        long s = (mTotalSenconds - hour * 60 * 60 - min * 60);
+        //long hour = (mTotalSenconds / (60 * 60));
+        //long min = ((mTotalSenconds / (60)) - hour * 60);
+        //long s = (mTotalSenconds - hour * 60 * 60 - min * 60);
         timer = new Timer(true);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 //holder.txttimer.setText(""+day+"天"+hour+"小时"+min+"分"+s+"秒");
                 long hour = (mTotalSenconds / (60 * 60));
-                long min = ((mTotalSenconds / (60)) - hour * 60);
+                long min = ((mTotalSenconds / 60) - hour * 60);
                 long s = (mTotalSenconds - hour * 60 * 60 - min * 60);
                 Message msg = handler.obtainMessage();
                 msg.what = 3;
@@ -80,6 +80,7 @@ public class SM_CartCountDown extends LinearLayout {
                 txtseconds.setText(mSecondes);
             } else if (msg.what == 0) {
                 //计数完成do something
+               
             }
 
         }
