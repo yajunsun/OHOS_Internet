@@ -40,6 +40,32 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_shopcart"
+            style="?android:attr/actionButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="ViewClick"
+            android:orientation="vertical">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/iv_shopcart"
+                android:layout_width="@dimen/navigation_icon_size"
+                android:layout_height="@dimen/navigation_icon_size"
+                android:src="@drawable/shopcarticon_g" />
+
+            <TextView
+                android:id="@+id/txt_shopcart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="购物车"
+                android:textColor="@color/navigation_txt_color"
+                android:textSize="@dimen/navigation_txt_size" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/ll_order"
             style="?android:attr/actionButtonStyle"
             android:layout_width="match_parent"
@@ -90,6 +116,7 @@
                 android:textColor="@color/navigation_txt_color"
                 android:textSize="@dimen/navigation_txt_size" />
         </LinearLayout>
+
     </LinearLayout>
     <include
         layout="@layout/net_status_error"

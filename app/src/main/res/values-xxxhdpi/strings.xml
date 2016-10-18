@@ -2,4 +2,6 @@
     <string name="adv_pager_height_num">100</string>
     <!--个人中心-->
     <string name="myaccount_header_Height">190</string>
+<!--超市购二级分类字体参数-->
+    <string name="sd_txt_parm">3.5</string>
 </resources>

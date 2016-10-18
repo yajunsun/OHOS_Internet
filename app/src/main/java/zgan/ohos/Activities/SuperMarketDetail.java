@@ -60,6 +60,7 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
     SuperMarketDetalDal dal;
     ShoppingCartDal cartDal;
     SuperMarketDetailM model;
+    FrontItem item;
     float density;
     TextView txtname, txtprice, txtoldprice;
     LinearLayout lltypes;
@@ -72,23 +73,36 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
     TextView txtcount, btnadd2cart, btnbuynow, txtoldtotalprice, txttotalprice;
     View rloldprice;
     SM_CartCountDown countdown;
+    String productid;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_super_market_detail);
-        product = (SM_GoodsM) getIntent().getSerializableExtra("product");
+        Intent request = getIntent();
+        if (request.hasExtra("product")) {
+            product = (SM_GoodsM) getIntent().getSerializableExtra("product");
+            productid = product.getproduct_id();
+        } else if (request.hasExtra("item")) {
+            item = (FrontItem) request.getSerializableExtra("item");
+            productid = item.getpage_id().replace("'", "");
+        } else {
+            generalhelper.ToastShow(SuperMarketDetail.this, "敬请期待");
+            finish();
+            return;
+        }
         adv_pager = (ViewPager) findViewById(R.id.adv_pager);
         pager_ind = (LinearLayout) findViewById(R.id.pager_ind);
         txtname = (TextView) findViewById(R.id.txt_name);
         txtprice = (TextView) findViewById(R.id.txt_price);
         txtoldprice = (TextView) findViewById(R.id.txt_oldprice);
-        countdown=(SM_CartCountDown) findViewById(R.id.txt_countdown);
+        countdown = (SM_CartCountDown) findViewById(R.id.txt_countdown);
         lltypes = (LinearLayout) findViewById(R.id.ll_types);
         lloldprice = findViewById(R.id.ll_oldprice);
         rldetail = findViewById(R.id.rl_detail);
-        rl_countdown=findViewById(R.id.rl_countdown);
+        rldetail.setOnClickListener(this);
+        rl_countdown = findViewById(R.id.rl_countdown);
         //购物车
-        fab=(FloatingActionButton)findViewById(R.id.img_icon);
+        fab = (FloatingActionButton) findViewById(R.id.img_icon);
         txtcount = (TextView) findViewById(R.id.txt_count);
         txtoldtotalprice = (TextView) findViewById(R.id.txt_oldtotalprice);
         rloldprice = findViewById(R.id.rl_oldprice);
@@ -115,6 +129,7 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
 //            }
 //        });
         loadData();
+        setResult(resultCodes.TOSHOPPINGCART);
     }
 
     void loadData() {
@@ -123,7 +138,7 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
         mOkHttpClient = new OkHttpClient();
         //创建一个Request
         FormEncodingBuilder builder = new FormEncodingBuilder();
-        builder.add("data", "{\"product_id\":\"" + product.getproduct_id() + "\"}");
+        builder.add("data", "{\"product_id\":\"" + productid + "\"}");
         builder.add("account", PreferenceUtil.getUserName());
         builder.add("token", SystemUtils.getNetToken());
         final Request request = new Request.Builder()
@@ -188,13 +203,10 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
                 ImageLoader.bindBitmap(model.gettype_list().get(i), iv);
             }
         }
-        if(model.getcountdown()>0)
-        {
+        if (model.getcountdown() > 0) {
             rl_countdown.setVisibility(View.VISIBLE);
             countdown.StartCount(model.getcountdown());
-        }
-        else
-        {
+        } else {
             rl_countdown.setVisibility(View.GONE);
         }
         txtprice.setText(String.valueOf(model.getprice()));
@@ -271,6 +283,8 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
                         //获取数据并绑定数据
                         if (result.equals("0")) {
                             model = dal.Get(data);
+                            if (product == null)
+                                product = model;
                             bindData();
                             loadShoppingCart();
                         } else if (!errmsg.isEmpty()) {
@@ -310,32 +324,40 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
 
     @Override
     public void ViewClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.btn_add2cart:
-                cartDal.updateCart(ShoppingCartDal.ADDCART,product,1,cartChanged);
+                cartDal.updateCart(ShoppingCartDal.ADDCART, product, 1, cartChanged);
                 Animation translateAnimation = new TranslateAnimation(0, 10, 0, 10);
                 translateAnimation.setInterpolator(new CycleInterpolator(5));
                 translateAnimation.setDuration(300);
                 fab.startAnimation(translateAnimation);
                 break;
             case R.id.btn_buynow:
-                Intent intent=new Intent(SuperMarketDetail.this,ShoppingCart.class);
-                startActivityWithAnimForResult(intent,resultCodes.TOSHOPPINGCART);
+                intent = new Intent(SuperMarketDetail.this, ShoppingCart.class);
+                startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
+                break;
+            case R.id.rl_detail:
+                intent = new Intent(SuperMarketDetail.this, SM_GoodsDetail.class);
+                intent.putExtra("detailtype", model.getgoodsdetail().getdetailtype());
+                intent.putExtra("detailview", model.getgoodsdetail().getdetailtype() == 1 ? model.getgoodsdetail().getdetail_url() : model.getgoodsdetail().getdetail_pic_url());
+                startActivityWithAnim(intent);
                 break;
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==resultCodes.TOSHOPPINGCART)
-        {
+        if (resultCode == resultCodes.TOSHOPPINGCART) {
             ShoppingCartSummary summary = cartDal.getSCSummary();
-            Message msg=handler.obtainMessage();
-            msg.what=3;
-            msg.obj=summary;
+            Message msg = handler.obtainMessage();
+            msg.what = 3;
+            msg.obj = summary;
             msg.sendToTarget();
         }
     }
+
     @Override
     public void onClick(View v) {
         ViewClick(v);

@@ -43,18 +43,20 @@
                 android:text="购物车"
                 android:textColor="@color/color_txt_toobar"
                 android:textSize="@dimen/toolbar_title_size" />
+
             <ToggleButton
-                android:layout_width="60dp"
-                android:layout_alignParentRight="true"
                 android:id="@+id/tg_edit"
-                android:textOn="完成"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
                 android:background="@color/transparent100"
                 android:textColor="@color/solid_white"
                 android:textOff="编辑"
-                android:layout_marginRight="10dp"
-                android:layout_height="40dp" />
+                android:textOn="完成" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
+
     <RelativeLayout
 
         android:id="@+id/ll_check"
@@ -62,21 +64,22 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/draw_normalitem_bg">
+
         <CheckBox
-            android:layout_width="60dp"
-            style="@style/CustomCheckboxTheme"
-            android:layout_marginLeft="10dp"
-            android:text="全选"
-            android:layout_centerVertical="true"
             android:id="@+id/selectall"
-            android:layout_height="wrap_content" />
+            style="@style/CustomCheckboxTheme"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="全选" />
 
         <TextView
             android:id="@+id/txt_totalprice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/selectall"
             android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/selectall"
             android:textColor="@color/primary"
             android:textSize="20sp" />
 
@@ -88,8 +91,8 @@
             android:layout_alignBottom="@id/txt_totalprice"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/txt_totalprice"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="50dp"
@@ -125,17 +128,19 @@
         android:id="@+id/ll_option"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:visibility="gone"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/draw_normalitem_bg">
+        android:background="@drawable/draw_normalitem_bg"
+        android:visibility="gone">
+
         <CheckBox
-            android:layout_width="60dp"
-            style="@style/CustomCheckboxTheme"
-            android:layout_marginLeft="10dp"
-            android:text="全选"
-            android:layout_centerVertical="true"
             android:id="@+id/selectall1"
-            android:layout_height="wrap_content" />
+            style="@style/CustomCheckboxTheme"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="全选" />
+
         <TextView
             android:id="@+id/btn_delete"
             android:layout_width="100dp"
@@ -150,10 +155,17 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_carts"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshview"
         android:layout_width="match_parent"
-        android:layout_marginBottom="60dp"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"></android.support.v7.widget.RecyclerView>
+        android:layout_below="@id/toolbar"
+        android:layout_marginBottom="60dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_carts"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

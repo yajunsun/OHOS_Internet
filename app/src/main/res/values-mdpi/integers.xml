@@ -10,4 +10,10 @@
     <integer name="front_item_marginTop">1</integer>
     <!--按首字母检索中的字母大小-->
     <integer name="search_index_size">20</integer>
+    <!--超市购-->
+    <!--二级分类-->
+    <integer name="margin_left">20</integer>
+    <integer name="margin_top">10</integer>
+    <integer name="sd_txt_size">10</integer>
+    <integer name="sd_txt_parm">2</integer>
 </resources>

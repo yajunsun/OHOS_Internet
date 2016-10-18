@@ -626,6 +626,7 @@
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
     <dimen name="edittext_height">40dp</dimen>
     <dimen name="expressout_button_margintop">-120dp</dimen>
+    <dimen name="fab_size">50dp</dimen>
     <dimen name="front_ads_height">200dp</dimen>
     <dimen name="header_size">100dp</dimen>
     <item format="float" name="highlight_alpha_material_colored" type="dimen">0.26</item>
@@ -729,6 +730,9 @@
     <dimen name="notification_subtext_size">12dp</dimen>
     <dimen name="order_sheet_height">160dp</dimen>
     <dimen name="order_text_size">18sp</dimen>
+    <dimen name="search_height">50dp</dimen>
+    <dimen name="sm_fab_icon_mg_lft">15dp</dimen>
+    <dimen name="sm_fab_mg_btm">25dp</dimen>
     <dimen name="textSizeLarge_openSource">20sp</dimen>
     <dimen name="textSizeSmall_openSource">14sp</dimen>
     <dimen name="tool_bar_top_padding">0dp</dimen>

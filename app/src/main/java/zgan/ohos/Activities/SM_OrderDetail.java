@@ -404,7 +404,7 @@ public class SM_OrderDetail extends myBaseActivity implements View.OnClickListen
                 aliPay.Pay(orderPayInfo);
                 break;
             case 4:
-                toSetProgressText("正在启动微信支付请稍等");
+                toSetProgressText("正在启动微信支付请稍等...");
                 toShowProgress();
                 new Thread(new Runnable() {
                     @Override

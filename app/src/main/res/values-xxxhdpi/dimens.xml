@@ -98,4 +98,10 @@
     <dimen name="expressin_second_line_size">13sp</dimen>
     <!--选择小区layout高度-->
     <dimen name="bindcommunity_item_height">60dp</dimen>
+    <!--超市购-->
+    <!--购物车图标区域大小-->
+    <dimen name="fab_size">50dp</dimen>
+    <dimen name="search_height">50dp</dimen>
+    <dimen name="sm_fab_mg_btm">25dp</dimen>
+    <dimen name="sm_fab_icon_mg_lft">15dp</dimen>
 </resources>

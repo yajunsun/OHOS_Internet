@@ -392,7 +392,7 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
                 aliPay.Pay(orderPayInfo);
                 break;
             case 4:
-                toSetProgressText("正在启动微信支付请稍等");
+                toSetProgressText("正在启动微信支付请稍等...");
                 toShowProgress();
                 new Thread(new Runnable() {
                     @Override
@@ -606,7 +606,7 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_scart_subitem, null, false));
+            return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_scart_detialitem, null, false));
         }
 
         @Override
@@ -614,11 +614,9 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
             final SM_GoodsM goodsM = goodsMs.get(position);
             ImageLoader.bindBitmap(goodsM.getpic_url(), holder.imgproduct);
             holder.txtname.setText(goodsM.getname());
+            holder.txtitemcount.setText("*"+goodsM.getcount());
             holder.txtspec.setText("规格:" + goodsM.getspecification());
             holder.txtprice.setText("￥" + String.valueOf(goodsM.getprice()));
-            holder.selectcount.setCount(goodsM.getcount());
-            holder.selectcount.setVisibility(View.GONE);
-            holder.rbproduct.setVisibility(View.GONE);
         }
 
         @Override
@@ -627,21 +625,18 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
-            CheckBox rbproduct;
             ImageView imgproduct;
-            TextView txtname, txtspec, txtprice;
+            TextView txtname, txtspec, txtprice,txtitemcount;
             LinearLayout lltypes;
-            MySelectCount selectcount;
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                rbproduct = (CheckBox) itemView.findViewById(R.id.rb_product);
                 imgproduct = (ImageView) itemView.findViewById(R.id.img_product);
                 txtname = (TextView) itemView.findViewById(R.id.txt_name);
                 txtspec = (TextView) itemView.findViewById(R.id.txt_spec);
                 txtprice = (TextView) itemView.findViewById(R.id.txt_price);
+                txtitemcount=(TextView)itemView.findViewById(R.id.txt_itemcount);
                 lltypes = (LinearLayout) itemView.findViewById(R.id.ll_types);
-                selectcount = (MySelectCount) itemView.findViewById(R.id.selectcount);
             }
         }
     }

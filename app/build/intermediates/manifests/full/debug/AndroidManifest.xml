@@ -182,7 +182,7 @@
             android:name="zgan.ohos.Activities.HightQualityService"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="Page.3016" />
+                <action android:name="Page.2015" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -426,13 +426,22 @@
             android:value="561c792105a11c7612f0b876" />
         <!-- </>值来自开发者平台取得的AppKey -->
 
-        <activity android:name="zgan.ohos.Activities.SuperMarketDetail" />
+        <activity android:name="zgan.ohos.Activities.SuperMarketDetail" >
+            <intent-filter>
+                <action android:name="Page.3016" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="zgan.ohos.Activities.SMSearchResult"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name="zgan.ohos.Activities.ShoppingCart" />
         <activity android:name="zgan.ohos.Activities.CommitCartOrder" />
-        <activity android:name="zgan.ohos.Activities.SM_OrderDetail" />
+        <activity android:name="zgan.ohos.Activities.SM_OrderDetail" >
+        </activity>
+        <activity android:name="zgan.ohos.Activities.SM_GoodsDetail" />
         <activity android:name="com.mikepenz.aboutlibraries.ui.LibsActivity" />
     </application>
 

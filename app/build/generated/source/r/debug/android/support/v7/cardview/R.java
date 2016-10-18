@@ -27,9 +27,9 @@ public final class R {
 		public static final int cardview_shadow_start_color = 0x7f0d002c;
 	}
 	public static final class dimen {
-		public static final int cardview_compat_inset_shadow = 0x7f0a00b2;
-		public static final int cardview_default_elevation = 0x7f0a00b3;
-		public static final int cardview_default_radius = 0x7f0a00b4;
+		public static final int cardview_compat_inset_shadow = 0x7f0a00b6;
+		public static final int cardview_default_elevation = 0x7f0a00b7;
+		public static final int cardview_default_radius = 0x7f0a00b8;
 	}
 	public static final class style {
 		public static final int CardView = 0x7f0c00c7;

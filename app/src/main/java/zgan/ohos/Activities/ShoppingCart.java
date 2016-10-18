@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -51,6 +52,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     List<SM_GoodsM> opGoods;
     ShoppingCartSummary summary;
     cartAdapter cAdapter;
+    SwipeRefreshLayout refreshview;
     LinearLayoutManager cartLayoutManager;
     float density;
     DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
@@ -81,6 +83,17 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        refreshview = (SwipeRefreshLayout) findViewById(R.id.refreshview);
+        refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+//                pageIndex = 1;
+//                isLoadingMore = false;
+                loadData();
+                //adapter.notifyDataSetChanged();
+
             }
         });
         rvcarts = (RecyclerView) findViewById(R.id.rv_carts);
@@ -176,6 +189,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
         if (!isEdit) {
             summaryCart();
         }
+        refreshview.setRefreshing(false);
         toCloseProgress();
     }
 

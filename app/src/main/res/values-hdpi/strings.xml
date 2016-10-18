@@ -8,4 +8,6 @@
     <string name="cake_select_count_size">20</string>
     <!--蔬菜的数量框大小-->
     <string name="vegetable_select_count_size">20</string>
+    <!--超市购二级分类字体参数-->
+    <string name="sd_txt_parm">1.5</string>
 </resources>

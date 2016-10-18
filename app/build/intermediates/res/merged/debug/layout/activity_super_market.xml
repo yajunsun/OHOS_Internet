@@ -5,79 +5,78 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:background="@color/solid_white"
+    android:id="@+id/toolbar"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/toolbar_height"
+    android:background="@color/solid_white"
 
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    android:fitsSystemWindows="true"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:gravity="left">
+
+        <LinearLayout
+            android:id="@+id/back"
+            style="?android:actionButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/back_icon_left_margin"
+            android:clickable="true">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:layout_width="@dimen/back_icon_size"
+                android:layout_height="@dimen/back_icon_size"
+                app:iiv_color="@color/color_sm_normal_txt"
+                app:iiv_icon="gmd-chevron-left" />
+        </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginBottom="10dp"
+            android:id="@+id/rl_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@id/back"
+            android:background="@drawable/bg_search"
+            android:clickable="true"
+            android:onClick="ViewClick">
 
-            android:layout_marginTop="5dp"
-            android:gravity="left">
-
-            <LinearLayout
-                android:id="@+id/back"
-                style="?android:actionButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
+            <ImageView
+                android:id="@+id/iv_searchicon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/back_icon_left_margin"
-                android:clickable="true">
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/searchicon" />
 
-                <com.mikepenz.iconics.view.IconicsImageView
-                    android:layout_width="@dimen/back_icon_size"
-                    android:layout_height="@dimen/back_icon_size"
-                    app:iiv_color="@color/color_sm_normal_txt"
-                    app:iiv_icon="gmd-chevron-left" />
-            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/iv_searchicon"
+                android:text="Search"
+                android:textColor="@color/color_sm_normal_txt"
+                android:textSize="18sp" />
 
-            <RelativeLayout
-                android:id="@+id/rl_search"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="1dp"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@id/back"
-                android:background="@drawable/bg_search"
-                android:clickable="true"
-                android:onClick="ViewClick">
-
-                <ImageView
-                    android:id="@+id/iv_searchicon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/searchicon" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/iv_searchicon"
-                    android:text="Search"
-                    android:textColor="@color/color_sm_normal_txt"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:text="超市购"
-                    android:textColor="@color/color_sm_normal_txt"
-                    android:textSize="@dimen/toolbar_title_size" />
-            </RelativeLayout>
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="超市购"
+                android:textColor="@color/color_sm_normal_txt"
+                android:textSize="@dimen/toolbar_title_size" />
         </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>
 
     <RelativeLayout
 
@@ -153,9 +152,9 @@
             android:id="@+id/lst_class"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="1dp"
+            android:layout_weight="3"
             android:divider="@drawable/dushline"
-            android:layout_weight="3"></ListView>
+            android:dividerHeight="1dp"></ListView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -190,27 +189,30 @@
                 android:layout_height="1dp"
                 android:background="@color/color_sm_class_bg"
                 android:orientation="vertical"></LinearLayout>
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refreshview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/toolbar">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_products"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+       </android.support.v4.widget.SwipeRefreshLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="25dp"
-        android:layout_marginLeft="15dp"
-        android:background="@drawable/bg_circle_trans">
+
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/img_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/sm_fab_mg_btm"
 
+            android:layout_marginLeft="@dimen/sm_fab_icon_mg_lft"
             android:scaleType="fitXY"
             android:src="@drawable/cartshopping" />
 
@@ -218,10 +220,11 @@
             android:id="@+id/txt_count"
             android:layout_width="30dp"
             android:layout_height="16dp"
-            android:layout_centerHorizontal="true"
+            android:layout_above="@id/img_icon"
             android:layout_marginTop="1dp"
             android:elevation="6dp"
+            android:visibility="gone"
             android:gravity="center"
             android:textColor="@color/solid_white" />
-    </RelativeLayout>
+
 </RelativeLayout>

@@ -214,12 +214,13 @@
 
                     <RelativeLayout
                         android:id="@+id/ll_oldprice"
-                        android:layout_width="50dp"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/txt_price"
+
                         android:layout_marginLeft="10dp"
+                        android:layout_alignBottom="@id/txt_price"
                         android:layout_toRightOf="@id/txt_price"
-                        android:visibility="gone">
+                        >
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -364,30 +365,25 @@
         </RelativeLayout>
     </ScrollView>
 
-    <RelativeLayout
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/img_icon"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="25dp"
-        android:layout_marginLeft="15dp"
-        android:background="@drawable/bg_circle_trans">
+        android:layout_marginBottom="@dimen/sm_fab_mg_btm"
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/img_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        android:layout_marginLeft="@dimen/sm_fab_icon_mg_lft"
+        android:scaleType="fitXY"
+        android:src="@drawable/cartshopping" />
 
-            android:scaleType="fitXY"
-            android:src="@drawable/cartshopping" />
-
-        <TextView
-            android:id="@+id/txt_count"
-            android:layout_width="30dp"
-            android:layout_height="16dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="1dp"
-            android:elevation="6dp"
-            android:gravity="center"
-            android:textColor="@color/solid_white" />
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/txt_count"
+        android:layout_width="30dp"
+        android:layout_height="16dp"
+        android:layout_above="@id/img_icon"
+        android:layout_marginTop="1dp"
+        android:elevation="6dp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:textColor="@color/solid_white" />
 </RelativeLayout>

@@ -191,6 +191,7 @@ public class ShoppingCartDal extends ZGbaseDal {
 
                     if (finalMethod.equals(ADDCART)) {
                         goodsM.setcount(1);
+                        goodsM.setcan_handsel(1);
                         mOrderIDs.add(goodsM);
                     } else if (finalMethod.equals(DELETECART)) {
                         for (SM_GoodsM m : mOrderIDs) {
@@ -203,6 +204,15 @@ public class ShoppingCartDal extends ZGbaseDal {
                         for (SM_GoodsM m : mOrderIDs) {
                             if (m.getproduct_id().equals(goodsM.getproduct_id())) {
                                 m.setcount(finalcount);
+                                break;
+                            }
+                        }
+                    }
+                else if(finalMethod.equals(SELECTCART))
+                    {
+                        for (SM_GoodsM m : mOrderIDs) {
+                            if (m.getproduct_id().equals(goodsM.getproduct_id())) {
+                                m.setcan_handsel(finalcount);
                                 break;
                             }
                         }
@@ -304,11 +314,13 @@ public class ShoppingCartDal extends ZGbaseDal {
         double totalprice = 0.0;
         double oldtotalprice = 0.0;
         for (SM_GoodsM m : mOrderIDs) {
-            i++;
-            tcount += m.getcount();
-            totalprice += m.getprice() * m.getcount();
-            if (!m.getoldprice().equals("") && !m.getoldprice().equals("0"))
-                oldtotalprice += Double.parseDouble(m.getoldprice()) * m.getcount();
+            if(m.getSelect()) {
+                i++;
+                tcount += m.getcount();
+                totalprice += m.getprice() * m.getcount();
+                if (!m.getoldprice().equals("") && !m.getoldprice().equals("0"))
+                    oldtotalprice += Double.parseDouble(m.getoldprice()) * m.getcount();
+            }
         }
         summary.setCount(String.valueOf(i));
         summary.setTotalcount(String.valueOf(tcount));

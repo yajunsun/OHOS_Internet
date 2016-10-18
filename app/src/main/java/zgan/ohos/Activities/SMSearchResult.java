@@ -2,10 +2,10 @@
 package zgan.ohos.Activities;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.squareup.okhttp.Call;
@@ -31,7 +30,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 
-import zgan.ohos.Contracts.IAddShopListener;
 import zgan.ohos.Contracts.UpdateCartListner;
 import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Dals.SuperMarketDal;
@@ -58,6 +56,7 @@ public class SMSearchResult extends myBaseActivity {
 
     RecyclerView rvproducts;
     GridLayoutManager product_layoutManager;
+    SwipeRefreshLayout refreshview;
     List<SM_GoodsM> list;
     SuperMarketDal dal;
     ShoppingCartDal cartDal;
@@ -90,6 +89,17 @@ public class SMSearchResult extends myBaseActivity {
         cartDal = new ShoppingCartDal();
         rvproducts = (RecyclerView) findViewById(R.id.rv_products);
         product_layoutManager = new GridLayoutManager(SMSearchResult.this, 2);
+        refreshview = (SwipeRefreshLayout) findViewById(R.id.refreshview);
+        refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pageIndex = 1;
+                isLoadingMore = false;
+                loadData();
+                //adapter.notifyDataSetChanged();
+
+            }
+        });
         rvproducts.setLayoutManager(product_layoutManager);
         rvproducts.addItemDecoration(new RecyclerViewItemSpace(20));
         rvproducts.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -124,26 +134,17 @@ public class SMSearchResult extends myBaseActivity {
         rloldprice1 = findViewById(R.id.rl_oldprice);
         fab = (FloatingActionButton) findViewById(R.id.img_icon);
         if (ShoppingCartDal.mOrderIDs == null)
-            cartDal.getCartList(new UpdateCartListner() {
+            loadShoppingCart();
+        else {
+            final ShoppingCartSummary summary = cartDal.getSCSummary();
+            handler.post(new Runnable() {
                 @Override
-                public void onFailure() {
-
-                }
-
-                @Override
-                public void onResponse(String response) {
-                    cartDal.syncCart(null);
-                    final ShoppingCartSummary summary = cartDal.getSCSummary();
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            bindShoppingCard(summary);
-                        }
-                    });
+                public void run() {
+                    bindShoppingCard(summary);
                 }
             });
-
-
+        }
+        setResult(resultCodes.TOSHOPPINGCART);
     }
 
     //从网络获取数据
@@ -191,6 +192,8 @@ public class SMSearchResult extends myBaseActivity {
         } else {
             adapter.notifyDataSetChanged();
         }
+        isLoadingMore = false;
+        refreshview.setRefreshing(false);
     }
 
     void loadMoreData() {
@@ -355,7 +358,7 @@ public class SMSearchResult extends myBaseActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(SMSearchResult.this, SuperMarketDetail.class);
-                    intent.putExtra("productid", goodsM.getproduct_id());
+                    intent.putExtra("product", goodsM);
                     startActivityWithAnim(intent);
                 }
             });

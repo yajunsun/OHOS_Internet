@@ -19,6 +19,7 @@ import cn.jpush.android.api.JPushInterface;
 import zgan.ohos.Fgmt.fg_myaccount;
 import zgan.ohos.Fgmt.fg_myfront;
 import zgan.ohos.Fgmt.fg_myorder;
+import zgan.ohos.Fgmt.fg_shoppingcart;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
@@ -50,9 +51,13 @@ public class MainActivity extends myBaseActivity {
     IconicsImageView ivfront;
     IconicsImageView ivorder;
     IconicsImageView ivaccount;
+    IconicsImageView ivshopcart;
     TextView txtfront;
     TextView txtorder;
     TextView txtaccount;
+    TextView txtshopcart;
+
+
     FrameLayout fl_badgeCount;
     /************************/
     /*****
@@ -61,6 +66,7 @@ public class MainActivity extends myBaseActivity {
     fg_myfront myfront;
     fg_myorder myorder;
     fg_myaccount myaccount;
+    fg_shoppingcart mycart;
     FragmentManager fgManager;
 
     @Override
@@ -107,9 +113,11 @@ public class MainActivity extends myBaseActivity {
         transaction.remove(myfront);
         transaction.remove(myorder);
         transaction.remove(myaccount);
+        transaction.remove(mycart);
         myfront = null;
         myorder = null;
         myaccount = null;
+        mycart=null;
     }
 
     @Override
@@ -135,6 +143,17 @@ public class MainActivity extends myBaseActivity {
                     finish();
                 }
                 break;
+            case R.id.ll_shopcart:
+                if (SystemUtils.getIsLogin()) {
+                    setTabSelection(CURRENT_OPTION_SC);
+                } else {
+                    Intent intent = new Intent(this, Login.class);
+                    //intent.putExtra(SystemUtils.FORRESULT, true);
+                    //startActivityWithAnimForResult(intent, resultCodes.MYACCOUNT);
+                    startActivityWithAnim(intent);
+                    finish();
+                }
+                break;
             case R.id.ll_account:
                 if (SystemUtils.getIsLogin()) {
                     setTabSelection(CURRENT_OPTION_MINE);
@@ -155,11 +174,12 @@ public class MainActivity extends myBaseActivity {
         ivfront = (IconicsImageView) findViewById(R.id.iv_front);
         ivorder = (IconicsImageView) findViewById(R.id.iv_order);
         //fl_badgeCount = (FrameLayout) findViewById(R.id.badge_count);
-
+ivshopcart=(IconicsImageView)findViewById(R.id.iv_shopcart);
         ivaccount = (IconicsImageView) findViewById(R.id.iv_account);
         txtfront = (TextView) findViewById(R.id.txt_front);
         txtorder = (TextView) findViewById(R.id.txt_order);
         txtaccount = (TextView) findViewById(R.id.txt_account);
+        txtshopcart=(TextView)findViewById(R.id.txt_shopcart) ;
         current_option_index = 0;
         setTabSelection(CURRENT_OPTION_MAIN);
         Log.v(TAG, "main activity initialed");
@@ -195,9 +215,11 @@ public class MainActivity extends myBaseActivity {
         ivfront.setImageResource(R.drawable.shouye1);
         ivorder.setImageResource(R.drawable.guajia1);
         ivaccount.setImageResource(R.drawable.wo1);
+        ivshopcart.setImageResource(R.drawable.shopcarticon_g);
         txtfront.setTextColor(getResources().getColor(R.color.navigation_txt_color));
         txtorder.setTextColor(getResources().getColor(R.color.navigation_txt_color));
         txtaccount.setTextColor(getResources().getColor(R.color.navigation_txt_color));
+        txtshopcart.setTextColor(getResources().getColor(R.color.navigation_txt_color));
     }
 
 
@@ -233,6 +255,30 @@ public class MainActivity extends myBaseActivity {
                         // // 如果Fragment不为空，则直接将它显示出来
                         transaction.show(myfront);
                         Log.v(TAG, "show old front fragment");
+                    }
+                    transaction.commit();
+                }
+                break;
+            case CURRENT_OPTION_SC:
+                if (current_option_index != CURRENT_OPTION_SC) {
+                    // 每次选中之前先清楚掉上次的选中状态
+                    initialOptions();
+                    // 开启一个Fragment事务
+                    FragmentTransaction transaction = fgManager.beginTransaction();
+                    // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
+                    hideFragments(transaction);
+                    Bundle bundle = new Bundle();
+                    //ivorder.setColorRes(R.color.colorPrimary);
+                    ivshopcart.setImageResource(R.drawable.shopcarticon_p);
+                    txtshopcart.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    if (mycart == null) {
+                        // 如果Fragment为空，则创建一个并添加到界面上
+                        mycart = new fg_shoppingcart();
+                        transaction.add(R.id.content, mycart);
+                    } else {
+                        // // 如果Fragment不为空，则直接将它显示出来
+                        transaction.show(mycart);
+                        mycart.onStart();
                     }
                     transaction.commit();
                 }
@@ -303,6 +349,10 @@ public class MainActivity extends myBaseActivity {
         }
         if (myaccount != null) {
             transaction.hide(myaccount);
+        }
+        if(mycart!=null)
+        {
+            transaction.hide(mycart);
         }
     }
 

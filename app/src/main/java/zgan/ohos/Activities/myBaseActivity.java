@@ -31,7 +31,7 @@ public abstract class myBaseActivity extends AppCompatActivity {
     protected final static String TAG = "suntest";
     protected TextView txt_net_error;
     protected View ll_net_error;
-    private String processText = "正在加载中，请上等。。。";
+    private String processText = "正在加载中，请稍等...";
     public BroadcastReceiver serviceReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

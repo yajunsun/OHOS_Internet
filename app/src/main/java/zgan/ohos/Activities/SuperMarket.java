@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -71,6 +72,7 @@ public class SuperMarket extends myBaseActivity {
     LinearLayout llcategray1;
     LinearLayout llcategray2;
     LinearLayout llcate;
+    SwipeRefreshLayout refreshview;
     sm_class_Adapter classAdapter;
     sm_product_Adapter productAdapter;
     LinearLayoutManager product_layoutManager = new LinearLayoutManager(SuperMarket.this);
@@ -165,6 +167,17 @@ public class SuperMarket extends myBaseActivity {
                 }
             }
         });
+        refreshview = (SwipeRefreshLayout) findViewById(R.id.refreshview);
+        refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pageIndex = 1;
+                isLoadingMore = false;
+                loadData();
+                //adapter.notifyDataSetChanged();
+
+            }
+        });
         rvproducts = (RecyclerView) findViewById(R.id.rv_products);
         rvproducts.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -246,6 +259,7 @@ public class SuperMarket extends myBaseActivity {
             mOids.add(goodslst.get(0).getproduct_id());
             bindProduct();
         }
+
     }
 
     //绑定一级分类
@@ -263,15 +277,21 @@ public class SuperMarket extends myBaseActivity {
     void bindSecodary() {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(50, 30, 0, 30);
-        int usedWidth = 50;
+        //params.setMargins(50, 30, 0, 30);
+        int marginl=getResources().getInteger(R.integer.margin_left);
+        int margint=getResources().getInteger(R.integer.margin_top);
+        params.setMargins(marginl, margint, 0, margint);
+        int usedWidth = marginl;
+        float txtparm=Float.parseFloat(getResources().getString(R.string.sd_txt_parm));
         LinearLayout parent = llcategray1;
-        int txtHeight = Math.round(30 * density);
+        int txtHeight = Math.round(marginl * density);
+        float textsize=getResources().getInteger(R.integer.sd_txt_size)*density;
         for (SM_SecondaryM cat : secondarylst) {
             TextView txt = new TextView(SuperMarket.this);
             txt.setLayoutParams(params);
             txt.setText(cat.getname());
             txt.setPadding(5, 0, 5, 0);
+            txt.setTextSize(textsize);
             txt.setMinHeight(txtHeight);
             txt.setGravity(Gravity.CENTER_VERTICAL);
             txt.setTag(cat.getid());
@@ -286,12 +306,12 @@ public class SuperMarket extends myBaseActivity {
                 txt.setTextColor(getResources().getColor(R.color.color_sm_normal_txt));
             }
             txt.setOnClickListener(new catOnclick(cat));
-            usedWidth += 50 + (cat.getname().length() * 50);
-            if (catParentWidth - usedWidth < 50) {
+            usedWidth += marginl + (cat.getname().length() * textsize*txtparm);
+            if (catParentWidth - usedWidth < marginl) {
                 if (parent.getId() == llcategray2.getId())
                     break;
                 parent = llcategray2;
-                usedWidth = 50 + (cat.getname().length() * 50);
+                usedWidth = marginl + (cat.getname().length() * marginl);
             }
             parent.addView(txt);
         }
@@ -307,6 +327,7 @@ public class SuperMarket extends myBaseActivity {
             productAdapter.notifyDataSetChanged();
         }
         isLoadingMore = false;
+        refreshview.setRefreshing(false);
     }
 
     //加载购物车数据
@@ -557,9 +578,9 @@ public class SuperMarket extends myBaseActivity {
             final SM_GoodsM goodsM = goodslst.get(position);
             ImageLoader.bindBitmap(goodsM.getpic_url(), holder.img_product);
             holder.txt_name.setText(goodsM.getname());
-            holder.txt_price.setText(String.valueOf(goodsM.getprice()));
-            holder.txt_oldprice1.setText(goodsM.getoldprice());
-            holder.txt_oldprice2.setText(goodsM.getoldprice());
+            holder.txt_price.setText("￥"+String.valueOf(goodsM.getprice()));
+            holder.txt_oldprice1.setText("￥"+goodsM.getoldprice());
+            holder.txt_oldprice2.setText("￥"+goodsM.getoldprice());
             holder.ll_oldprice1.setVisibility(View.GONE);
             holder.ll_oldprice2.setVisibility(View.GONE);
             if (!goodsM.getoldprice().equals("") && !goodsM.getoldprice().equals("0")) {

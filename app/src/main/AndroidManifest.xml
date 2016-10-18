@@ -176,7 +176,7 @@
             android:name=".Activities.HightQualityService"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="Page.3016" />
+                <action android:name="Page.2015" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -420,13 +420,23 @@
             android:value="561c792105a11c7612f0b876" />
         <!-- </>值来自开发者平台取得的AppKey -->
 
-        <activity android:name=".Activities.SuperMarketDetail" />
+        <activity android:name=".Activities.SuperMarketDetail" >
+            <intent-filter>
+                <action android:name="Page.3016">
+
+                </action>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            </activity>
         <activity
             android:name=".Activities.SMSearchResult"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name=".Activities.ShoppingCart" />
         <activity android:name=".Activities.CommitCartOrder" />
-        <activity android:name=".Activities.SM_OrderDetail"></activity>
+        <activity android:name=".Activities.SM_OrderDetail">
+
+        </activity>
+        <activity android:name=".Activities.SM_GoodsDetail"></activity>
     </application>
 
 </manifest>
