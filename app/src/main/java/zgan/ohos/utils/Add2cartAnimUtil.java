@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.CycleInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
@@ -221,7 +222,8 @@ public class Add2cartAnimUtil {
 private ImageView buyImg;//播放动画的参照imageview
     private int[] start_location = new int[2];// 这是用来存储动画开始位置的X、Y坐标;
     private int[] end_location = new int[2];// 这是用来存储动画结束位置的X、Y坐标;
-
+    FrameLayout.LayoutParams lp;
+    float density;
     public ViewGroup root;//动画层
     private  Thread //数据操作的非ui线程
 
@@ -250,6 +252,8 @@ private ImageView buyImg;//播放动画的参照imageview
             }
         };
         public Add2cartAnimUtil(Activity activity, Drawable drawable) {
+            density=AppUtils.getDensity(activity);
+            lp=new FrameLayout.LayoutParams(Math.round(30*density),Math.round(30*density));
             buyImg = new ImageView(activity);//buyImg是动画的图片
             buyImg.setImageDrawable(drawable);// 设置buyImg的图片
             //buyImg.setImageBitmap(bitmap);//也可以设置bitmap，可以用商品缩略图来播放动画
@@ -266,15 +270,15 @@ private ImageView buyImg;//播放动画的参照imageview
     private View addViewFromAnimLayout(View view, int[] location) {
         int x = location[0];
         int y = location[1];
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT);
+//        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+//                FrameLayout.LayoutParams.WRAP_CONTENT,
+//                FrameLayout.LayoutParams.WRAP_CONTENT);
         lp.leftMargin = x;
         lp.topMargin = y;
         view.setLayoutParams(lp);
         return view;
     }
-    public void startAnim(View startView, View endView) {
+    public void startAnim(View startView, final View endView) {
         // 这是获取起始目标view在屏幕的X、Y坐标（这也是动画开始的坐标）
         startView.getLocationInWindow(start_location);
         // 购物车结束位置
@@ -309,7 +313,7 @@ private ImageView buyImg;//播放动画的参照imageview
         translateAnimationY.setInterpolator(new AccelerateInterpolator());
         translateAnimationY.setRepeatCount(0);
         translateAnimationX.setFillAfter(true);
-        ScaleAnimation scale = new ScaleAnimation(1f,0.9f,1f,0.9f);
+        //ScaleAnimation scale = new ScaleAnimation(1f,0.9f,1f,0.9f);
 
 
         //将两个动画放在动画播放集合里
@@ -319,7 +323,7 @@ private ImageView buyImg;//播放动画的参照imageview
         set.setFillAfter(false);
         set.addAnimation(translateAnimationY);
         set.addAnimation(translateAnimationX);
-        set.addAnimation(scale);
+        //set.addAnimation(scale);
         set.setDuration(800);// 动画的执行时间
         /**
          * 动画开始播放的时候，参照对象要显示出来，如果不显示的话这个动画会看不到任何东西。
@@ -346,6 +350,10 @@ private ImageView buyImg;//播放动画的参照imageview
             public void onAnimationEnd(Animation animation) {
                 //动画播放完以后，参照对象要隐藏
                 buyImg.setVisibility(View.GONE);
+                Animation translateAnimation = new TranslateAnimation(0, 10, 0, 10);
+                translateAnimation.setInterpolator(new CycleInterpolator(5));
+                translateAnimation.setDuration(200);
+                endView.startAnimation(translateAnimation);
                 //结束后访问数据
                 thread.start();
             }

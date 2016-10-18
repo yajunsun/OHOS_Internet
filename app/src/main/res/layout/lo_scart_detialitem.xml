@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@color/solid_white">
+
+
+    <ImageView
+        android:id="@+id/img_product"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/rb_product" />
+
+    <TextView
+        android:id="@+id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/img_product"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/img_product"
+        android:text="蛋糕"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txt_spec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_name"
+        android:layout_toRightOf="@id/img_product"
+        android:text="规格:135g/袋"
+        android:textColor="@color/color_sm_normal_txt"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/txt_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/img_product"
+        android:layout_toRightOf="@id/img_product"
+        android:text="￥120"
+        android:textColor="@color/primary"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/txt_itemcount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_types"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/txt_spec"
+        android:layout_toRightOf="@id/img_product"
+        android:orientation="horizontal"></LinearLayout>
+
+</RelativeLayout>

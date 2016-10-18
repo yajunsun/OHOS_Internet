@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,28 +18,19 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import zgan.ohos.Activities.CommitCartOrder;
-import zgan.ohos.Activities.SMSearchResult;
-import zgan.ohos.Activities.ShoppingCart;
 import zgan.ohos.ConstomControls.MySelectCount;
 import zgan.ohos.Contracts.UpdateCartListner;
 import zgan.ohos.Dals.SM_OrderPayDal;
@@ -52,15 +42,17 @@ import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.R;
 import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.ImageLoader;
-import zgan.ohos.utils.PreferenceUtil;
-import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
-import zgan.ohos.utils.resultCodes;
 
 /**
  * Created by yajunsun on 16/10/3.
  */
 public class fg_shoppingcart extends myBaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener{
+    @Override
+    public void onStart() {
+        super.onStart();
+        loadData();
+    }
 
     ProgressDialog progressDialog;
     private String processText = "正在加载中，请稍等...";
@@ -115,6 +107,8 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
             public void onRefresh() {
 //                pageIndex = 1;
 //                isLoadingMore = false;
+                //isFirstload = true;
+                opGoods = new ArrayList<>();
                 loadData();
                 //adapter.notifyDataSetChanged();
 
@@ -127,6 +121,7 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {//编辑模式
                     isEdit = true;
+                    refreshview.setEnabled(false);
                     llcheck.setVisibility(View.GONE);
                     lloption.setVisibility(View.VISIBLE);
                     //编辑模式下全部默认未选中
@@ -141,6 +136,7 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
                     bindData();
                 } else {//非编辑模式
                     isEdit = false;
+                    refreshview.setEnabled(true);
                     llcheck.setVisibility(View.VISIBLE);
                     lloption.setVisibility(View.GONE);
                     delItems = null;
@@ -166,7 +162,6 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
         btndelete.setOnClickListener(this);
         density = AppUtils.getDensity(getActivity());
         opGoods = new ArrayList<>();
-        loadData();
         return v;
     }
     protected void toShowProgress() {

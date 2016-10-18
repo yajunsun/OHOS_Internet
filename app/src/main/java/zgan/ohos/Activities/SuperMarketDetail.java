@@ -38,6 +38,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import zgan.ohos.ConstomControls.SM_CartCountDown;
+import zgan.ohos.Contracts.ITimeOutListner;
 import zgan.ohos.Contracts.UpdateCartListner;
 import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Dals.SuperMarketDetalDal;
@@ -205,7 +206,12 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
         }
         if (model.getcountdown() > 0) {
             rl_countdown.setVisibility(View.VISIBLE);
-            countdown.StartCount(model.getcountdown());
+            countdown.StartCount(model.getcountdown(), new ITimeOutListner() {
+                @Override
+                public void onAction() {
+                    loadData();
+                }
+            });
         } else {
             rl_countdown.setVisibility(View.GONE);
         }

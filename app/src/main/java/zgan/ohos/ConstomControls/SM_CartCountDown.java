@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import zgan.ohos.Contracts.ITimeOutListner;
 import zgan.ohos.R;
 
 /**
@@ -41,7 +42,9 @@ public class SM_CartCountDown extends LinearLayout {
         txtseconds = (TextView) v.findViewById(R.id.txt_seconds);
     }
 
-    public void StartCount(long totalSeconds) {
+    ITimeOutListner listner;
+    public void StartCount(long totalSeconds, ITimeOutListner _listner) {
+        listner=_listner;
         mTotalSenconds = totalSeconds;
         //long day = mTotalSenconds / (24 * 60 * 60 );
         //long hour = (mTotalSenconds / (60 * 60 ) - day * 24);
@@ -52,6 +55,7 @@ public class SM_CartCountDown extends LinearLayout {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                mTotalSenconds--;
                 //holder.txttimer.setText(""+day+"天"+hour+"小时"+min+"分"+s+"秒");
                 int hour =Math.round (mTotalSenconds / (60 * 60));
                 int min =Math.round ((mTotalSenconds / 60) - hour * 60);
@@ -66,6 +70,7 @@ public class SM_CartCountDown extends LinearLayout {
                 if (hour == 0 && min == 0 && s == 0) {
                     handler.sendEmptyMessage(0);
                 }
+
             }
         }, 0, 1000);
     }
@@ -81,7 +86,11 @@ public class SM_CartCountDown extends LinearLayout {
                 txtseconds.setText(mSecondes);
             } else if (msg.what == 0) {
                 //计数完成do something
-               
+               if(listner!=null)
+               {
+                   timer.cancel();
+                   listner.onAction();
+               }
             }
 
         }

@@ -91,6 +91,8 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             public void onRefresh() {
 //                pageIndex = 1;
 //                isLoadingMore = false;
+                //isFirstload = true;
+                opGoods = new ArrayList<>();
                 loadData();
                 //adapter.notifyDataSetChanged();
 
@@ -103,6 +105,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {//编辑模式
                     isEdit = true;
+                    refreshview.setEnabled(false);
                     llcheck.setVisibility(View.GONE);
                     lloption.setVisibility(View.VISIBLE);
                     //编辑模式下全部默认未选中
@@ -117,6 +120,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                     bindData();
                 } else {//非编辑模式
                     isEdit = false;
+                    refreshview.setEnabled(true);
                     llcheck.setVisibility(View.VISIBLE);
                     lloption.setVisibility(View.GONE);
                     delItems = null;
