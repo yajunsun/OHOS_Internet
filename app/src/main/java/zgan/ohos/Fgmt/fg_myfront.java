@@ -177,8 +177,10 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FUNCPAGE, "@id=22", "22"), handler);
                         //专题内容1
                         //ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES1, "@id=22", "22"), handler);
-                        //专题内容2
+                        //专题内容2  1020
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES2, "@id=22", "22"), handler);
+                        //超市购的url
+                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_SUPERMARKETURLS, "@id=22", "22"), handler);
                     } else {
                         Log.i(TAG,"连接网络超时，请退出后重新打开应用~");
                         Message msg=handler.obtainMessage();
@@ -596,7 +598,12 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_ADVER, "@id=22", "22"), frame.strData);
                                     }
                                 }
-                            } else if (results[1].equals(AppUtils.P_USERINFO)) {
+                            }
+                            else if(results[1].equals(AppUtils.P_SUPERMARKETURLS))
+                            {
+                                String urls=datastr;
+                            }
+                            else if (results[1].equals(AppUtils.P_USERINFO)) {
                                 if (datastr.length() > 0) {
                                     try {
                                         JSONArray jsonArray = new JSONObject(datastr)

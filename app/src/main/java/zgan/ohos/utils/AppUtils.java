@@ -136,4 +136,6 @@ public class AppUtils {
 
     public  final static String P_FRONTITMES1="100103";
     public final static String P_FRONTITMES2="300104";//"100104";
+    //超市购URLS
+    public final static String P_SUPERMARKETURLS="1020";
 }

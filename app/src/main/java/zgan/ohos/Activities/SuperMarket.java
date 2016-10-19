@@ -51,8 +51,10 @@ import zgan.ohos.Models.SM_SecondaryM;
 import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.Models.SuperMarketM;
 import zgan.ohos.R;
+import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.utils.Add2cartAnimUtil;
 import zgan.ohos.utils.AppUtils;
+import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
@@ -75,7 +77,7 @@ public class SuperMarket extends myBaseActivity {
     SwipeRefreshLayout refreshview;
     sm_class_Adapter classAdapter;
     sm_product_Adapter productAdapter;
-    LinearLayoutManager product_layoutManager = new LinearLayoutManager(SuperMarket.this);
+    LinearLayoutManager product_layoutManager ;
     boolean isLoadingMore = false;
     List<SuperMarketM> list;
     List<SM_SecondaryM> secondarylst;
@@ -109,6 +111,7 @@ public class SuperMarket extends myBaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_super_market);
+        product_layoutManager = new LinearLayoutManager(SuperMarket.this);
         PageId=((FrontItem)getIntent().getSerializableExtra("item")).getpage_id().replace("'","");
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -167,34 +170,10 @@ public class SuperMarket extends myBaseActivity {
                 }
             }
         });
-        refreshview = (SwipeRefreshLayout) findViewById(R.id.refreshview);
-        refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                pageIndex = 1;
-                isLoadingMore = false;
-                loadData();
-                //adapter.notifyDataSetChanged();
 
-            }
-        });
         rvproducts = (RecyclerView) findViewById(R.id.rv_products);
-        rvproducts.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) {
-                    int lastVisibleItem = product_layoutManager.findLastVisibleItemPosition();
-                    int totalItemCount = product_layoutManager.getItemCount();
-                    //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
-                    // dy>0 表示向下滑动
-                    if (lastVisibleItem == totalItemCount - 1 && isLoadingMore == false) {
-                        loadMoreData();//这里多线程也要手动控制isLoadingMore
-                        isLoadingMore = true;
-                    }
-                }
-            }
-        });
+        refreshview = (SwipeRefreshLayout) findViewById(R.id.refreshview);
+
         llcate = (LinearLayout) findViewById(R.id.ll_cate);
         llcategray1 = (LinearLayout) findViewById(R.id.ll_categray1);
         llcategray2 = (LinearLayout) findViewById(R.id.ll_categray2);
@@ -243,20 +222,36 @@ public class SuperMarket extends myBaseActivity {
     //绑定数据
     void bindData() {
         if (list != null && list.size() > 0) {
-            bindClass();
+
             mCurrentClassId = list.get(lastClassIndex).getid();
             secondarylst = list.get(lastClassIndex).getcategory();
         }
+        else
+        {
+            list=new ArrayList<>();
+        }
+        bindClass();
         if (secondarylst != null && secondarylst.size() > 0) {
-            bindSecodary();
-            mCurrentCatId = "-1";
+
             goodslst = secondarylst.get(0).getlist();
         }
+        else
+        {
+            secondarylst=new ArrayList<>();
+        }
+        bindSecodary();
+        mCurrentCatId = "-1";
         if (goodslst != null && goodslst.size() > 0) {
             MlcartIcon = new Point();
             MlcartIcon.set(Math.round(fab.getX()), Math.round(fab.getY()));
             mOids = new ArrayList<>();
             mOids.add(goodslst.get(0).getproduct_id());
+            bindProduct();
+        }
+        else
+        {
+            goodslst=new ArrayList<>();
+            mOids = new ArrayList<>();
             bindProduct();
         }
 
@@ -323,6 +318,33 @@ public class SuperMarket extends myBaseActivity {
             productAdapter = new sm_product_Adapter();
             rvproducts.setLayoutManager(product_layoutManager);
             rvproducts.setAdapter(productAdapter);
+            rvproducts.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    if (dy > 0) {
+                        int lastVisibleItem = product_layoutManager.findLastVisibleItemPosition();
+                        int totalItemCount = product_layoutManager.getItemCount();
+                        //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择
+                        // dy>0 表示向下滑动
+                        if (lastVisibleItem == totalItemCount - 1 && isLoadingMore == false) {
+                            loadMoreData();//这里多线程也要手动控制isLoadingMore
+                            isLoadingMore = true;
+                        }
+                    }
+                }
+            });
+
+            refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    pageIndex = 1;
+                    isLoadingMore = false;
+                    getCatProducts();
+                    //adapter.notifyDataSetChanged();
+
+                }
+            });
         } else {
             productAdapter.notifyDataSetChanged();
         }
@@ -417,6 +439,10 @@ public class SuperMarket extends myBaseActivity {
                             loadShoppingCart();
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(SuperMarket.this, "服务器错误:" + errmsg);
+                            if(errmsg.contains("时间戳"))
+                            {
+                                ZganCommunityService.toGetServerData(43,PreferenceUtil.getUserName(),tokenHandler);
+                            }
                         }
                     } catch (JSONException jse) {
 
@@ -472,6 +498,21 @@ public class SuperMarket extends myBaseActivity {
         }
     };
 
+    Handler tokenHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {
+                Frame frame = (Frame) msg.obj;
+                String result = generalhelper.getSocketeStringResult(frame.strData);
+                String[] results = result.split(",");
+               if (frame.subCmd==43&&results[0].equals("0"))
+                {
+                    SystemUtils.setNetToken(results[1]);
+                }
+            }
+        }
+    };
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

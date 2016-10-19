@@ -135,6 +135,7 @@ public class ShoppingCartDal extends ZGbaseDal {
               return;
         //当传入的是新增或修改的时候遍历本地购物车
         if (method.equals(ADDCART) || method.equals(UPDATECART))
+
             for (SM_GoodsM m : mOrderIDs) {
                 //本地购物车已有需要操作的商品
                 if (m.getproduct_id().equals(goodsM.getproduct_id())) {
@@ -142,6 +143,7 @@ public class ShoppingCartDal extends ZGbaseDal {
                     if (method.equals(ADDCART)) {
                         method = UPDATECART;
                         count = m.getcount() + 1;
+                        m.setcan_handsel(1);
                         break;
                     }
 //                    else {

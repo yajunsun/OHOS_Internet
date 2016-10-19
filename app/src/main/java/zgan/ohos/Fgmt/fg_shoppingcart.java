@@ -40,8 +40,12 @@ import zgan.ohos.Models.SM_Payway;
 import zgan.ohos.Models.ShoppingCartM;
 import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.R;
+import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.utils.AppUtils;
+import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.ImageLoader;
+import zgan.ohos.utils.PreferenceUtil;
+import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 
 /**
@@ -273,6 +277,10 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
                             //selectall.setChecked(true);
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(getActivity(), "服务器错误:" + errmsg);
+                            if(errmsg.contains("时间戳"))
+                            {
+                                ZganCommunityService.toGetServerData(43, PreferenceUtil.getUserName(),tokenHandler);
+                            }
                         }
                     } catch (JSONException jse) {
 
@@ -291,7 +299,21 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
             }
         }
     };
-
+    Handler tokenHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {
+                Frame frame = (Frame) msg.obj;
+                String result = generalhelper.getSocketeStringResult(frame.strData);
+                String[] results = result.split(",");
+                if (frame.subCmd==43&&results[0].equals("0"))
+                {
+                    SystemUtils.setNetToken(results[1]);
+                }
+            }
+        }
+    };
     public void ViewClick(View v) {
         switch (v.getId()) {
             case R.id.btn_check:
@@ -530,7 +552,23 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
                     goodsM.setcount(count);
                     if (!opGoods.contains(goodsM))
                         opGoods.add(goodsM);
-                    cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, null);
+                    cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, new UpdateCartListner() {
+                        @Override
+                        public void onFailure() {
+
+                        }
+
+                        @Override
+                        public void onResponse(String response) {
+                            if (!holder.rbproduct.isChecked())
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        holder.rbproduct.setChecked(true);
+                                    }
+                                });
+                        }
+                    });
                     summaryCart();
                 }
 
@@ -541,7 +579,23 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
                     } else {
                         goodsM.setcount(count);
                     }
-                    cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, null);
+                    cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, new UpdateCartListner() {
+                        @Override
+                        public void onFailure() {
+
+                        }
+
+                        @Override
+                        public void onResponse(String response) {
+                            if (!holder.rbproduct.isChecked())
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        holder.rbproduct.setChecked(true);
+                                    }
+                                });
+                        }
+                    });
                     summaryCart();
                 }
             });

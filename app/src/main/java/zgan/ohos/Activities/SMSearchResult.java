@@ -37,7 +37,9 @@ import zgan.ohos.Models.SM_GoodsM;
 import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.R;
 import zgan.ohos.adapters.RecyclerViewItemSpace;
+import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.utils.Add2cartAnimUtil;
+import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
@@ -278,6 +280,10 @@ public class SMSearchResult extends myBaseActivity {
                             bindData();
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(SMSearchResult.this, "服务器错误:" + errmsg);
+                            if(errmsg.contains("时间戳"))
+                            {
+                                ZganCommunityService.toGetServerData(43, PreferenceUtil.getUserName(),tokenHandler);
+                            }
                         }
                     } catch (JSONException jse) {
 
@@ -292,7 +298,21 @@ public class SMSearchResult extends myBaseActivity {
             }
         }
     };
-
+    Handler tokenHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {
+                Frame frame = (Frame) msg.obj;
+                String result = generalhelper.getSocketeStringResult(frame.strData);
+                String[] results = result.split(",");
+                if (frame.subCmd==43&&results[0].equals("0"))
+                {
+                    SystemUtils.setNetToken(results[1]);
+                }
+            }
+        }
+    };
     UpdateCartListner cartChanged = new UpdateCartListner() {
         @Override
         public void onFailure() {

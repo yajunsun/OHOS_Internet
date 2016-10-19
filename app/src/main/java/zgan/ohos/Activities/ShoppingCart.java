@@ -35,8 +35,12 @@ import zgan.ohos.Models.SM_Payway;
 import zgan.ohos.Models.ShoppingCartM;
 import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.R;
+import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.utils.AppUtils;
+import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.ImageLoader;
+import zgan.ohos.utils.PreferenceUtil;
+import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.resultCodes;
 
@@ -170,14 +174,12 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     }
 
     void bindData() {
-        if(list==null||list.size()==0) {
+        if (list == null || list.size() == 0) {
             btncheck.setEnabled(false);
             btndelete.setEnabled(false);
             btncheck.setBackgroundColor(getResources().getColor(R.color.color_sm_normal_txt));
             btndelete.setBackgroundColor(getResources().getColor(R.color.color_sm_normal_txt));
-        }
-        else
-        {
+        } else {
             btncheck.setEnabled(true);
             btndelete.setEnabled(true);
             btncheck.setBackgroundColor(getResources().getColor(R.color.primary));
@@ -251,6 +253,10 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                             //selectall.setChecked(true);
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(ShoppingCart.this, "服务器错误:" + errmsg);
+                            if(errmsg.contains("时间戳"))
+                            {
+                                ZganCommunityService.toGetServerData(43, PreferenceUtil.getUserName(),tokenHandler);
+                            }
                         }
                     } catch (JSONException jse) {
 
@@ -269,7 +275,21 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             }
         }
     };
-
+    Handler tokenHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {
+                Frame frame = (Frame) msg.obj;
+                String result = generalhelper.getSocketeStringResult(frame.strData);
+                String[] results = result.split(",");
+                if (frame.subCmd==43&&results[0].equals("0"))
+                {
+                    SystemUtils.setNetToken(results[1]);
+                }
+            }
+        }
+    };
     @Override
     public void ViewClick(View v) {
         switch (v.getId()) {
@@ -284,12 +304,12 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                     @Override
                     public void onResponse(String response) {
                         Message msg = handler.obtainMessage();
-                        msg.what =2;
-                        msg.obj=response;
+                        msg.what = 2;
+                        msg.obj = response;
                         msg.sendToTarget();
                     }
                 });
-               //验证
+                //验证
                 break;
             case R.id.btn_delete://删除
                 if (delItems == null || delItems.size() == 0) {
@@ -509,7 +529,23 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                     goodsM.setcount(count);
                     if (!opGoods.contains(goodsM))
                         opGoods.add(goodsM);
-                    cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, null);
+                    cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, new UpdateCartListner() {
+                        @Override
+                        public void onFailure() {
+
+                        }
+
+                        @Override
+                        public void onResponse(String response) {
+                            if (!holder.rbproduct.isChecked())
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        holder.rbproduct.setChecked(true);
+                                    }
+                                });
+                        }
+                    });
                     summaryCart();
                 }
 
@@ -520,7 +556,23 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                     } else {
                         goodsM.setcount(count);
                     }
-                    cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, null);
+                    cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, new UpdateCartListner() {
+                        @Override
+                        public void onFailure() {
+
+                        }
+
+                        @Override
+                        public void onResponse(String response) {
+                            if (!holder.rbproduct.isChecked())
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        holder.rbproduct.setChecked(true);
+                                    }
+                                });
+                        }
+                    });
                     summaryCart();
                 }
             });
