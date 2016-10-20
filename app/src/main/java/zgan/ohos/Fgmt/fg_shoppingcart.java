@@ -55,6 +55,7 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
     @Override
     public void onStart() {
         super.onStart();
+        opGoods = new ArrayList<>();
         loadData();
     }
 
