@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -76,6 +77,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     Dialog delDialog;
     //商品列表数据notify的次数
     //boolean isFirstload = true;
+    int lbpxWidth = 0, lbpxHeight = 0;
 
     @Override
     protected void initView() {
@@ -134,6 +136,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                 }
             }
         });
+
         cartLayoutManager = new LinearLayoutManager(this);
         llcheck = findViewById(R.id.ll_check);
         selectall = (CheckBox) findViewById(R.id.selectall);
@@ -149,6 +152,8 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
         selectall1.setOnCheckedChangeListener(this);
         btndelete.setOnClickListener(this);
         density = AppUtils.getDensity(ShoppingCart.this);
+        lbpxWidth = Math.round(40 * density);
+        lbpxHeight = Math.round(20 * density);
         opGoods = new ArrayList<>();
         loadData();
         setResult(resultCodes.TOSHOPPINGCART);
@@ -294,6 +299,10 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     public void ViewClick(View v) {
         switch (v.getId()) {
             case R.id.btn_check:
+                if(opGoods==null||opGoods.size()==0) {
+                    generalhelper.ToastShow(ShoppingCart.this, "还没有选择商品哦！");
+                    break;
+                }
                 toShowProgress();
                 orderDal.ComfirmOrder(opGoods, new UpdateCartListner() {
                     @Override
@@ -484,6 +493,20 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             holder.txtspec.setText("规格:" + goodsM.getspecification());
             holder.txtprice.setText("￥" + String.valueOf(goodsM.getprice()));
             holder.selectcount.setCount(goodsM.getcount());
+            holder.lltypes.removeAllViews();
+            if (goodsM.gettype_list() != null && goodsM.gettype_list().size() > 0) {
+                holder.lltypes.setVisibility(View.VISIBLE);
+                int tcount = goodsM.gettype_list().size();
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        lbpxWidth, lbpxHeight);
+                params.setMargins(Math.round(1 * density), 0, 0, 0);
+                for (int i = 0; i < tcount; i++) {
+                    ImageView iv = new ImageView(ShoppingCart.this);
+                    iv.setLayoutParams(params);
+                    ImageLoader.bindBitmap(goodsM.gettype_list().get(i), iv, lbpxWidth, lbpxHeight);
+                    holder.lltypes.addView(iv);
+                }
+            }
             if (isEdit)
                 holder.selectcount.setVisibility(View.GONE);
             holder.rbproduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -577,7 +600,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                 }
             });
             holder.rbproduct.setChecked(goodsM.getSelect());
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.flouter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     holder.rbproduct.setChecked(!holder.rbproduct.isChecked());
@@ -596,6 +619,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             TextView txtname, txtspec, txtprice;
             LinearLayout lltypes;
             MySelectCount selectcount;
+            View flouter;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -606,6 +630,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                 txtprice = (TextView) itemView.findViewById(R.id.txt_price);
                 lltypes = (LinearLayout) itemView.findViewById(R.id.ll_types);
                 selectcount = (MySelectCount) itemView.findViewById(R.id.selectcount);
+flouter=itemView.findViewById(R.id.fl_outer);
             }
         }
     }

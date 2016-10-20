@@ -23,6 +23,7 @@ public class SystemUtils {
     private static String Fname;
     private static String ALIPAYurl;
     private static String WPAYurl;
+    private static String Appurl;
 
     public static String getShop() {
         return shop;
@@ -113,6 +114,12 @@ public class SystemUtils {
     public static void setNetToken(String token) {
         if (!token.isEmpty())
             NET_TOKEN = token;
+    }
+    public static String getAppurl(){return Appurl;}
+
+    public static void setAppurl(String appurl){
+        if(!appurl.isEmpty())
+            Appurl=appurl;
     }
 
     public static Integer getIntValue(String strValue) {

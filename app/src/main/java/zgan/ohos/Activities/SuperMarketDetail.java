@@ -145,7 +145,7 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
         builder.add("account", PreferenceUtil.getUserName());
         builder.add("token", SystemUtils.getNetToken());
         final Request request = new Request.Builder()
-                .url("http://app.yumanc.1home1shop.com/V1_0/goodsinfo.aspx").post(builder.build())
+                .url(String.format("%s/V1_0/goodsinfo.aspx",SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -194,16 +194,18 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
         }
         //商品名和价格
         txtname.setText(model.getname());
+        lltypes.removeAllViews();
         if (model.gettype_list() != null && model.gettype_list().size() > 0) {
             lltypes.setVisibility(View.VISIBLE);
             int tcount = model.gettype_list().size();
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     Math.round(40 * density), Math.round(20 * density));
-            params.setMargins(Math.round(8 * density), 0, 0, 0);
+            params.setMargins(Math.round(1 * density), 0, 0, 0);
             for (int i = 0; i < tcount; i++) {
                 ImageView iv = new ImageView(SuperMarketDetail.this);
                 iv.setLayoutParams(params);
                 ImageLoader.bindBitmap(model.gettype_list().get(i), iv);
+                lltypes.addView(iv);
             }
         }
         if (model.getcountdown() > 0) {

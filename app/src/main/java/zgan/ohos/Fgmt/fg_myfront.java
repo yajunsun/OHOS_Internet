@@ -171,16 +171,15 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                         Log.i(TAG, "小区云登陆成功开始拉取数据！!");
                         //用户信息（地址、积分等）
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_USERINFO, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), handler);
+                        //ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_USERINFO, "@id=22", "22"), handler);
                         //顶部滚动广告
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_ADVER, "@id=22", "22"), handler);
                         //功能区
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FUNCPAGE, "@id=22", "22"), handler);
                         //专题内容1
                         //ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES1, "@id=22", "22"), handler);
-                        //专题内容2  1020
+                        //专题内容2
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES2, "@id=22", "22"), handler);
-                        //超市购的url
-                        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_SUPERMARKETURLS, "@id=22", "22"), handler);
                     } else {
                         Log.i(TAG,"连接网络超时，请退出后重新打开应用~");
                         Message msg=handler.obtainMessage();
@@ -599,10 +598,6 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                     }
                                 }
                             }
-                            else if(results[1].equals(AppUtils.P_SUPERMARKETURLS))
-                            {
-                                String urls=datastr;
-                            }
                             else if (results[1].equals(AppUtils.P_USERINFO)) {
                                 if (datastr.length() > 0) {
                                     try {
@@ -614,6 +609,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         String shop = obj.get("shop").toString();
                                         String property = obj.get("property").toString();
                                         String Fname = obj.get("Fname").toString();
+                                        String appurl=obj.get("Appurl").toString();
 
                                         SystemUtils.setAddress(address);
                                         SystemUtils.setVillage(village);
@@ -625,6 +621,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         String WPAYurl = obj.get("WPAYurl").toString();
                                         SystemUtils.setALIPAYurl(ALIPAYurl);
                                         SystemUtils.setWPAYurl(WPAYurl);
+                                        SystemUtils.setAppurl(appurl);
                                         if (frame.platform != 0) {
                                             addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_USERINFO, String.format("@id=22,@account=%s", PreferenceUtil.getUserName()), "22"), frame.strData);
                                         }

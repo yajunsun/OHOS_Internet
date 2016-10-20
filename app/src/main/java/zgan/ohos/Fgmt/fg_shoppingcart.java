@@ -90,6 +90,7 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
     //boolean isFirstload = true;
     
     OkHttpClient mOkHttpClient;
+    int lbpxWidth = 0, lbpxHeight = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
@@ -165,6 +166,8 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
         selectall1.setOnCheckedChangeListener(this);
         btndelete.setOnClickListener(this);
         density = AppUtils.getDensity(getActivity());
+        lbpxWidth = Math.round(40 * density);
+        lbpxHeight = Math.round(20 * density);
         opGoods = new ArrayList<>();
         return v;
     }
@@ -273,6 +276,7 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
                         //获取数据并绑定数据
                         if (result.equals("0")) {
                             list = cartDal.getList(data);
+                            cartDal.syncCart(list);
                             bindData();
                             //selectall.setChecked(true);
                         } else if (!errmsg.isEmpty()) {
@@ -317,6 +321,10 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
     public void ViewClick(View v) {
         switch (v.getId()) {
             case R.id.btn_check:
+                if(opGoods==null||opGoods.size()==0) {
+                    generalhelper.ToastShow(getActivity(), "还没有选择商品哦！");
+                    break;
+                }
                 toShowProgress();
                 orderDal.ComfirmOrder(opGoods, new UpdateCartListner() {
                     @Override
@@ -507,6 +515,20 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
             holder.txtspec.setText("规格:" + goodsM.getspecification());
             holder.txtprice.setText("￥" + String.valueOf(goodsM.getprice()));
             holder.selectcount.setCount(goodsM.getcount());
+            holder.lltypes.removeAllViews();
+            if (goodsM.gettype_list() != null && goodsM.gettype_list().size() > 0) {
+                holder.lltypes.setVisibility(View.VISIBLE);
+                int tcount = goodsM.gettype_list().size();
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        lbpxWidth, lbpxHeight);
+                params.setMargins(Math.round(1 * density), 0, 0, 0);
+                for (int i = 0; i < tcount; i++) {
+                    ImageView iv = new ImageView(getActivity());
+                    iv.setLayoutParams(params);
+                    ImageLoader.bindBitmap(goodsM.gettype_list().get(i), iv, lbpxWidth, lbpxHeight);
+                    holder.lltypes.addView(iv);
+                }
+            }
             if (isEdit)
                 holder.selectcount.setVisibility(View.GONE);
             holder.rbproduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

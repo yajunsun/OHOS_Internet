@@ -166,7 +166,7 @@ public class SMSearchResult extends myBaseActivity {
         builder.add("token", SystemUtils.getNetToken());
         builder.add("data", sb.toString());
         final Request request = new Request.Builder()
-                .url("http://app.yumanc.1home1shop.com/V1_0/searchgoodslist.aspx").post(builder.build())
+                .url(String.format("%s/V1_0/searchgoodslist.aspx",SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);

@@ -4,6 +4,10 @@
     android:background="@color/solid_white"
     android:layout_height="120dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/fl_outer"
+        android:layout_height="match_parent">
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_marginLeft="10dp"
@@ -18,16 +22,17 @@
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/rb_product"
         android:layout_centerVertical="true"
+
         android:layout_height="100dp"
         android:layout_margin="10dp" />
-
+    </RelativeLayout>
     <TextView
         android:id="@+id/txt_name"
         android:layout_marginRight="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/img_product"
-        android:layout_toRightOf="@id/img_product"
+        android:layout_alignTop="@id/fl_outer"
+        android:layout_toRightOf="@id/fl_outer"
         android:text="蛋糕"
         android:textSize="18sp" />
 
@@ -36,7 +41,7 @@
         android:layout_height="wrap_content"
         android:text="规格:135g/袋"
         android:id="@+id/txt_spec"
-        android:layout_toRightOf="@id/img_product"
+        android:layout_toRightOf="@id/fl_outer"
         android:layout_below="@id/txt_name"
         android:textColor="@color/color_sm_normal_txt"
         android:textSize="15sp" />
@@ -45,8 +50,8 @@
         android:id="@+id/txt_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/img_product"
-        android:layout_toRightOf="@id/img_product"
+        android:layout_alignBottom="@id/fl_outer"
+        android:layout_toRightOf="@id/fl_outer"
         android:text="￥120"
         android:textColor="@color/primary"
         android:textSize="15sp" />
@@ -56,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_below="@id/txt_spec"
-        android:layout_toRightOf="@id/img_product"
+        android:layout_toRightOf="@id/fl_outer"
         android:orientation="horizontal"></LinearLayout>
     <zgan.ohos.ConstomControls.MySelectCount
         android:id="@+id/selectcount"

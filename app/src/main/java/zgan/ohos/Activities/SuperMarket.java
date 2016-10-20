@@ -192,7 +192,7 @@ public class SuperMarket extends myBaseActivity {
         builder.add("account", PreferenceUtil.getUserName());
         builder.add("token", SystemUtils.getNetToken());
         final Request request = new Request.Builder()
-                .url("http://app.yumanc.1home1shop.com/V1_0/marketlist.aspx").post(builder.build())
+                .url(String.format("%s/V1_0/marketlist.aspx",SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -567,7 +567,7 @@ public class SuperMarket extends myBaseActivity {
         builder.add("token", SystemUtils.getNetToken());
         builder.add("data", sb.toString());
         final Request request = new Request.Builder()
-                .url("http://app.yumanc.1home1shop.com/V1_0/goodslist.aspx").post(builder.build())
+                .url(String.format("%s/V1_0/goodslist.aspx",SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -633,12 +633,12 @@ public class SuperMarket extends myBaseActivity {
                     holder.ll_oldprice2.setVisibility(View.GONE);
                 }
             }
-            //holder.ll_types.removeAllViews();
+            holder.ll_types.removeAllViews();
             if (goodsM.gettype_list() != null && goodsM.gettype_list().size() > 0) {
                 int tcount = goodsM.gettype_list().size();
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         lbpxWidth, lbpxHeight);
-                params.setMargins(Math.round(8 * density), 0, 0, 0);
+                params.setMargins(Math.round(1 * density), 0, 0, 0);
                 for (int i = 0; i < tcount; i++) {
                     ImageView iv = new ImageView(SuperMarket.this);
                     iv.setLayoutParams(params);

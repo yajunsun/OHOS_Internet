@@ -98,6 +98,7 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
     float density;
     String mTotalprice = "0";
     String OrderSN = "";
+    int lbpxWidth = 0, lbpxHeight = 0;
 
     @Override
     protected void initView() {
@@ -115,6 +116,8 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
         cartLayoutManager = new LinearLayoutManager(CommitCartOrder.this);
 
         density = AppUtils.getDensity(CommitCartOrder.this);
+        lbpxWidth = Math.round(40 * density);
+        lbpxHeight = Math.round(20 * density);
         gdcount = (TextView) findViewById(R.id.gdcount);
         totalpay = (TextView) findViewById(R.id.totalpay);
         btncheck = (TextView) findViewById(R.id.btn_check);
@@ -130,7 +133,8 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
         });
 
         btncheck.setOnClickListener(this);
-
+        lbpxWidth = Math.round(40 * density);
+        lbpxHeight = Math.round(20 * density);
         initialPage();
         mVialiabelTypes = payways.getpay_ways();
         IntentFilter filter = new IntentFilter();
@@ -617,6 +621,20 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
             holder.txtitemcount.setText("*"+goodsM.getcount());
             holder.txtspec.setText("规格:" + goodsM.getspecification());
             holder.txtprice.setText("￥" + String.valueOf(goodsM.getprice()));
+            holder.lltypes.removeAllViews();
+            if (goodsM.gettype_list() != null && goodsM.gettype_list().size() > 0) {
+                holder.lltypes.setVisibility(View.VISIBLE);
+                int tcount = goodsM.gettype_list().size();
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        lbpxWidth, lbpxHeight);
+                params.setMargins(Math.round(1 * density), 0, 0, 0);
+                for (int i = 0; i < tcount; i++) {
+                    ImageView iv = new ImageView(CommitCartOrder.this);
+                    iv.setLayoutParams(params);
+                    ImageLoader.bindBitmap(goodsM.gettype_list().get(i), iv, lbpxWidth, lbpxHeight);
+                    holder.lltypes.addView(iv);
+                }
+            }
         }
 
         @Override

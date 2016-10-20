@@ -108,7 +108,7 @@ public class ShoppingCartDal extends ZGbaseDal {
         builder.add("account", PreferenceUtil.getUserName());
         builder.add("token", SystemUtils.getNetToken());
         final Request request = new Request.Builder()
-                .url("http://app.yumanc.1home1shop.com/V1_0/shoppingcartlist.aspx").post(builder.build())
+                .url(String.format("%s/V1_0/shoppingcartlist.aspx",SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -173,7 +173,7 @@ public class ShoppingCartDal extends ZGbaseDal {
         builder.add("account", PreferenceUtil.getUserName());
         builder.add("token", SystemUtils.getNetToken());
         final Request request = new Request.Builder()
-                .url("http://app.yumanc.1home1shop.com/V1_0/updateshoppingcart.aspx").post(builder.build())
+                .url(String.format("%s/V1_0/updateshoppingcart.aspx",SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -252,7 +252,7 @@ public class ShoppingCartDal extends ZGbaseDal {
         builder.add("account", PreferenceUtil.getUserName());
         builder.add("token", SystemUtils.getNetToken());
         final Request request = new Request.Builder()
-                .url("http://app.yumanc.1home1shop.com/V1_0/updateshoppingcart.aspx").post(builder.build())
+                .url(String.format("%s/V1_0/updateshoppingcart.aspx",SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -366,7 +366,7 @@ public class ShoppingCartDal extends ZGbaseDal {
         builder.add("token", SystemUtils.getNetToken());
         builder.add("data", sb.toString());
         final Request request = new Request.Builder()
-                .url("http://app.yumanc.1home1shop.com/V1_0/goodscartorder.aspx").post(builder.build())
+                .url(String.format("%s/V1_0/goodscartorder.aspx",SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -417,7 +417,7 @@ public class ShoppingCartDal extends ZGbaseDal {
         builder.add("token", SystemUtils.getNetToken());
         builder.add("data", sb.toString());
         final Request request = new Request.Builder()
-                .url("http://app.yumanc.1home1shop.com/V1_0/goodscartorder.aspx").post(builder.build())
+                .url(String.format("%s/V1_0/goodscartorder.aspx",SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);

@@ -3,7 +3,6 @@ package zgan.ohos.utils;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Environment;
@@ -16,10 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -27,12 +22,12 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
@@ -330,7 +325,24 @@ public final class ImageLoader {
         BufferedOutputStream out = null;
         BufferedInputStream in = null;
         try {
-            final URL url = new URL( urlString);
+            char[] chars = urlString.toCharArray();
+            StringBuilder utf8Url = new StringBuilder();
+            final int charCount = chars.length;
+            for (int i = 0; i < charCount; i++) {
+                byte[] bytes = ("" + chars[i]).getBytes();
+                if (bytes.length == 1) {
+                    utf8Url.append(chars[i]);
+                }else{
+                    try {
+                        utf8Url.append(URLEncoder.encode(String.valueOf(chars[i]), "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            final URL url = new URL(utf8Url.toString());
             urlConnection = (HttpURLConnection) url.openConnection();
             in = new BufferedInputStream(urlConnection.getInputStream(), IO_BUFFER_SIZE);
             out = new BufferedOutputStream(outputStream, IO_BUFFER_SIZE);
@@ -357,7 +369,23 @@ public final class ImageLoader {
         HttpURLConnection urlConnection = null;
         BufferedInputStream in = null;
         try {
-            final URL url = new URL(uri);
+            char[] chars = uri.toCharArray();
+            StringBuilder utf8Url = new StringBuilder();
+            final int charCount = chars.length;
+            for (int i = 0; i < charCount; i++) {
+                byte[] bytes = ("" + chars[i]).getBytes();
+                if (bytes.length == 1) {
+                    utf8Url.append(chars[i]);
+                }else{
+                    try {
+                        utf8Url.append(URLEncoder.encode(String.valueOf(chars[i]), "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+            final URL url = new URL(utf8Url.toString());
             urlConnection = (HttpURLConnection) url.openConnection();
             in = new BufferedInputStream(urlConnection.getInputStream(), IO_BUFFER_SIZE);
             bitmap = BitmapFactory.decodeStream(in);
