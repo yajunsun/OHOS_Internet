@@ -190,6 +190,7 @@
                 android:layout_below="@id/laddress">
 
             </android.support.v7.widget.RecyclerView>
+
             <RelativeLayout
                 android:id="@+id/lpaytype"
                 android:layout_width="match_parent"
@@ -205,12 +206,12 @@
                     android:textColor="@color/solid_black"
                     android:textSize="14sp" />
 
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:id="@+id/txt_paytype"
-                   android:layout_alignParentRight="true"
-                   android:layout_marginRight="10dp"
-                   android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/txt_paytype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp" />
 
             </RelativeLayout>
 
@@ -230,21 +231,23 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:text="配送信息"
                     android:id="@+id/txt_infotext"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="一家一店到家"
-                    android:layout_alignParentRight="true"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/txt_shippingtime"
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@id/txt_infotext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="配送信息" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="一家一店到家" />
+
+                <TextView
+                    android:id="@+id/txt_shippingtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_infotext"
+                    android:layout_marginTop="10dp"
                     android:text="配送时间"
                     android:textColor="@color/solid_black"
                     android:textSize="@dimen/front_text_size" />
@@ -327,25 +330,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
                     android:textColor="@color/primary"
                     android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
                     android:layout_alignBaseline="@id/txt_payfee"
+                    android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@id/txt_payfee"
                     android:text="实付款:"
                     android:textSize="20sp" />
+
                 <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/txt_ordertime"
-                android:text="下单时间："
-                android:textSize="10sp"
-                android:layout_below="@id/txt_payfee"
-                android:layout_alignParentRight="true"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/txt_ordertime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/txt_payfee"
+                    android:layout_marginRight="10dp"
+                    android:text="下单时间："
+                    android:textSize="10sp" />
             </RelativeLayout>
         </RelativeLayout>
 
