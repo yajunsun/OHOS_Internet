@@ -33,8 +33,10 @@ import java.util.List;
 import zgan.ohos.Activities.CommitCartOrder;
 import zgan.ohos.ConstomControls.MySelectCount;
 import zgan.ohos.Contracts.UpdateCartListner;
+import zgan.ohos.Dals.RequstResultDal;
 import zgan.ohos.Dals.SM_OrderPayDal;
 import zgan.ohos.Dals.ShoppingCartDal;
+import zgan.ohos.Models.RequstResultM;
 import zgan.ohos.Models.SM_GoodsM;
 import zgan.ohos.Models.SM_Payway;
 import zgan.ohos.Models.ShoppingCartM;
@@ -335,10 +337,23 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
 
                     @Override
                     public void onResponse(String response) {
-                        Message msg = handler.obtainMessage();
-                        msg.what =2;
-                        msg.obj=response;
-                        msg.sendToTarget();
+                        final RequstResultM result=new RequstResultDal().getItem("{data:["+response+"]}");
+                        if(result.getresult().equals("0")) {
+                            Message msg = handler.obtainMessage();
+                            msg.what = 2;
+                            msg.obj = response;
+                            msg.sendToTarget();
+                        }
+                        else
+                        {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    generalhelper.ToastShow(getActivity(),result.getmsg());
+                                    toCloseProgress();
+                                }
+                            });
+                        }
                     }
                 });
                 //验证
