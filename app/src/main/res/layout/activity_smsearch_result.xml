@@ -41,9 +41,9 @@
                 android:id="@+id/rl_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="2dp"
                 android:layout_marginRight="60dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:layout_toRightOf="@id/back"
                 android:background="@drawable/bg_search"
                 android:clickable="true">
@@ -72,6 +72,7 @@
                     android:id="@+id/txt_search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    style="@null"
                     android:layout_toLeftOf="@id/btn_clear"
                     android:layout_toRightOf="@id/iv_searchicon" />
 

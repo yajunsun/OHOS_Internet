@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -26,6 +27,7 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import zgan.ohos.ConstomControls.MySelectCount;
 import zgan.ohos.Contracts.UpdateCartListner;
@@ -52,13 +54,13 @@ import zgan.ohos.utils.resultCodes;
  */
 public class ShoppingCart extends myBaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     ToggleButton tgedit;
-    RecyclerView rvcarts;
+    LinearLayout rvcarts;
     ShoppingCartDal cartDal;
     SM_OrderPayDal orderDal;
     List<ShoppingCartM> list;
     List<SM_GoodsM> opGoods;
     ShoppingCartSummary summary;
-    cartAdapter cAdapter;
+    //cartAdapter cAdapter;
     SwipeRefreshLayout refreshview;
     LinearLayoutManager cartLayoutManager;
     float density;
@@ -80,6 +82,8 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     //商品列表数据notify的次数
     //boolean isFirstload = true;
     int lbpxWidth = 0, lbpxHeight = 0;
+    View llselectall;
+    boolean ModifyChild = true;
 
     @Override
     protected void initView() {
@@ -106,7 +110,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
 
             }
         });
-        rvcarts = (RecyclerView) findViewById(R.id.rv_carts);
+        rvcarts = (LinearLayout) findViewById(R.id.rv_carts);
         tgedit = (ToggleButton) findViewById(R.id.tg_edit);
         tgedit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -139,8 +143,9 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             }
         });
 
-        cartLayoutManager = new LinearLayoutManager(this);
+
         llcheck = findViewById(R.id.ll_check);
+        llselectall = findViewById(R.id.llselectall);
         selectall = (CheckBox) findViewById(R.id.selectall);
         txttotalprice = (TextView) findViewById(R.id.txt_totalprice);
         txtoldtotalprice = (TextView) findViewById(R.id.txt_oldtotalprice);
@@ -148,6 +153,13 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
         btncheck = (TextView) findViewById(R.id.btn_check);
         btncheck.setOnClickListener(this);
         selectall.setOnCheckedChangeListener(this);
+        llselectall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ModifyChild=true;
+                selectall.setChecked(!selectall.isChecked());
+            }
+        });
         lloption = findViewById(R.id.ll_option);
         selectall1 = (CheckBox) findViewById(R.id.selectall1);
         btndelete = (TextView) findViewById(R.id.btn_delete);
@@ -157,10 +169,14 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
         lbpxWidth = Math.round(40 * density);
         lbpxHeight = Math.round(20 * density);
         opGoods = new ArrayList<>();
-        loadData();
         setResult(resultCodes.TOSHOPPINGCART);
     }
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        opGoods = new ArrayList<>();
+        loadData();
+    }
     void loadData() {
         toShowProgress();
         UpdateCartListner listner = new UpdateCartListner() {
@@ -181,6 +197,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     }
 
     void bindData() {
+        boolean checkallC = true;
         if (list == null || list.size() == 0) {
             btncheck.setEnabled(false);
             btndelete.setEnabled(false);
@@ -192,19 +209,164 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             btncheck.setBackgroundColor(getResources().getColor(R.color.primary));
             btndelete.setBackgroundColor(getResources().getColor(R.color.primary));
         }
-        if (cAdapter == null) {
-            rvcarts.setLayoutManager(cartLayoutManager);
-            cAdapter = new cartAdapter();
-            rvcarts.setAdapter(cAdapter);
-        } else {
-            cAdapter.notifyDataSetChanged();
+        rvcarts.removeAllViews();
+        for (final ShoppingCartM cartM : list) {
+            boolean checkallP = true;
+            //boolean isAll = true;
+            final ViewGroup cv = (ViewGroup) LayoutInflater.from(ShoppingCart.this).inflate(R.layout.lo_scart_item, null, false);
+            final CheckBox rballproduct = (CheckBox) cv.findViewById(R.id.rb_allproduct);
+            rballproduct.setText(cartM.getdistributionType());
+            View allproduct = cv.findViewById(R.id.ll_allproduct);
+            final LinearLayout pView = (LinearLayout) cv.findViewById(R.id.pView);
+            for (final SM_GoodsM goodsM : cartM.getproductArray()) {
+                final ViewGroup v = (ViewGroup) LayoutInflater.from(ShoppingCart.this).inflate(R.layout.lo_scart_subitem, pView, false);
+                final CheckBox rbproduct = (CheckBox) v.findViewById(R.id.rb_product);
+                ImageView imgproduct = (ImageView) v.findViewById(R.id.img_product);
+                final TextView txtname = (TextView) v.findViewById(R.id.txt_name);
+                TextView txtspec = (TextView) v.findViewById(R.id.txt_spec);
+                TextView txtprice = (TextView) v.findViewById(R.id.txt_price);
+                LinearLayout lltypes = (LinearLayout) v.findViewById(R.id.ll_types);
+                MySelectCount selectcount = (MySelectCount) v.findViewById(R.id.selectcount);
+                View flouter = v.findViewById(R.id.fl_outer);
+                ImageLoader.bindBitmap(goodsM.getpic_url(), imgproduct);
+                txtname.setText(goodsM.getname());
+                txtspec.setText("规格:" + goodsM.getspecification());
+                txtprice.setText("￥" + String.valueOf(goodsM.getprice()));
+                selectcount.setCount(goodsM.getcount());
+                lltypes.removeAllViews();
+                if (goodsM.gettype_list() != null && goodsM.gettype_list().size() > 0) {
+                    lltypes.setVisibility(View.VISIBLE);
+                    int tcount = goodsM.gettype_list().size();
+                    LinearLayout.LayoutParams vparams = new LinearLayout.LayoutParams(
+                            lbpxWidth, lbpxHeight);
+                    vparams.setMargins(Math.round(1 * density), 0, 0, 0);
+                    for (int i = 0; i < tcount; i++) {
+                        ImageView iv = new ImageView(ShoppingCart.this);
+                        iv.setLayoutParams(vparams);
+                        ImageLoader.bindBitmap(goodsM.gettype_list().get(i), iv, lbpxWidth, lbpxHeight);
+                        lltypes.addView(iv);
+                    }
+                }
+                if (isEdit)
+                    selectcount.setVisibility(View.GONE);
+                rbproduct.setOnCheckedChangeListener(new productCheckListner(cv, goodsM, cartM.getproductArray().size()));
+                selectcount.setOnchangeListener(new MySelectCount.IonChanged() {
+                    @Override
+                    public void onAddition(int count) {
+
+                        goodsM.setcount(count);
+                        if (!opGoods.contains(goodsM))
+                            opGoods.add(goodsM);
+                        cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, new UpdateCartListner() {
+                            @Override
+                            public void onFailure() {
+
+                            }
+
+                            @Override
+                            public void onResponse(String response) {
+                                if (!rbproduct.isChecked())
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            rbproduct.setChecked(true);
+                                        }
+                                    });
+                            }
+                        });
+                        summaryCart();
+                    }
+
+                    @Override
+                    public void onReduction(int count) {
+                        if (count == 0) {
+                            opGoods.remove(goodsM);
+                        } else {
+                            goodsM.setcount(count);
+                        }
+                        cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, new UpdateCartListner() {
+                            @Override
+                            public void onFailure() {
+
+                            }
+
+                            @Override
+                            public void onResponse(String response) {
+                                if (!rbproduct.isChecked())
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            rbproduct.setChecked(true);
+                                        }
+                                    });
+                            }
+                        });
+                        summaryCart();
+                    }
+                });
+                if (goodsM.getSelect()) {
+                    rbproduct.setChecked(true);
+                } else {
+                    rbproduct.setChecked(false);
+                    checkallP = false;
+                }
+                flouter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rbproduct.setChecked(!rbproduct.isChecked());
+                    }
+                });
+                pView.addView(v);
+            }
+            allproduct.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ModifyChild = true;
+                    rballproduct.setChecked(!rballproduct.isChecked());
+                }
+            });
+            rballproduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (!ModifyChild) {
+                        return;
+                    }
+                    ModifyChild = true;
+                    int c = pView.getChildCount();
+                    for (int i = 0; i < c; i++) {
+                        CheckBox checkBox = (CheckBox) pView.getChildAt(i).findViewById(R.id.rb_product);
+                        checkBox.setChecked(isChecked);
+                    }
+                    if (!isChecked) {//取消选中
+                        if (isEdit)//编辑状态
+                        {
+                            delItems.removeAll(cartM.getproductArray());
+                        } else {
+                            opGoods.removeAll(cartM.getproductArray());
+                            cartDal.updateCart(ShoppingCartDal.SELECTCART, cartM.getproductArray(), 0, null);
+                            summaryCart();
+                        }
+                    }
+                }
+            });
+            //rballproduct.setChecked(cartM.getSelect());
+            //rballproduct.setChecked(isAll);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
+                    (ViewGroup.LayoutParams.MATCH_PARENT, Math.round((cartM.getproductArray().size() * 120 * density) + 50 * density));
+            cv.setLayoutParams(params);
+            if (!checkallP)
+                checkallC = false;
+            rballproduct.setChecked(checkallP);
+            rvcarts.addView(cv);
         }
+        selectall.setChecked(checkallC);
         if (!isEdit) {
             summaryCart();
         }
         refreshview.setRefreshing(false);
         toCloseProgress();
     }
+
 
     void summaryCart() {
         summary = new ShoppingCartSummary();
@@ -240,6 +402,23 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
         } else {
             rloldprice.setVisibility(View.GONE);
         }
+        setViewChecked();
+    }
+
+    void setViewChecked() {
+        boolean allcartChecked = true;
+        int c = rvcarts.getChildCount();
+        for (int i = 0; i < c; i++) {
+            ViewGroup vg = (ViewGroup) rvcarts.getChildAt(i);
+            //这里写死了,布局不能变
+            CheckBox b = (CheckBox) vg.findViewById(R.id.rb_allproduct); //(CheckBox) ((ViewGroup) vg.getChildAt(0)).getChildAt(0);
+
+            if (!b.isChecked()) {
+                allcartChecked = false;
+            }
+        }
+        ModifyChild = false;
+        selectall.setChecked(allcartChecked);
     }
 
     Handler handler = new Handler() {
@@ -260,9 +439,8 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                             //selectall.setChecked(true);
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(ShoppingCart.this, "服务器错误:" + errmsg);
-                            if(errmsg.contains("时间戳"))
-                            {
-                                ZganCommunityService.toGetServerData(43, PreferenceUtil.getUserName(),tokenHandler);
+                            if (errmsg.contains("时间戳")) {
+                                ZganCommunityService.toGetServerData(43, PreferenceUtil.getUserName(), tokenHandler);
                             }
                         }
                     } catch (JSONException jse) {
@@ -282,7 +460,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             }
         }
     };
-    Handler tokenHandler=new Handler(){
+    Handler tokenHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -290,18 +468,18 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                 Frame frame = (Frame) msg.obj;
                 String result = generalhelper.getSocketeStringResult(frame.strData);
                 String[] results = result.split(",");
-                if (frame.subCmd==43&&results[0].equals("0"))
-                {
+                if (frame.subCmd == 43 && results[0].equals("0")) {
                     SystemUtils.setNetToken(results[1]);
                 }
             }
         }
     };
+
     @Override
     public void ViewClick(View v) {
         switch (v.getId()) {
             case R.id.btn_check:
-                if(opGoods==null||opGoods.size()==0) {
+                if (opGoods == null || opGoods.size() == 0) {
                     generalhelper.ToastShow(ShoppingCart.this, "还没有选择商品哦！");
                     break;
                 }
@@ -314,22 +492,20 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
 
                     @Override
                     public void onResponse(String response) {
-                       final RequstResultM result=new RequstResultDal().getItem("{data:["+response+"]}");
-                        if(result.getresult().equals("0")) {
+                        final RequstResultM result = new RequstResultDal().getItem("{data:[" + response + "]}");
+                        if (result.getresult().equals("0")) {
                             Message msg = handler.obtainMessage();
                             msg.what = 2;
                             msg.obj = response;
                             msg.sendToTarget();
-                        }
-                        else
-                        {
-                           handler.post(new Runnable() {
-                               @Override
-                               public void run() {
-                                   generalhelper.ToastShow(ShoppingCart.this,result.getmsg());
-                                   toCloseProgress();
-                               }
-                           });
+                        } else {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    generalhelper.ToastShow(ShoppingCart.this, result.getmsg());
+                                    toCloseProgress();
+                                }
+                            });
                         }
                     }
                 });
@@ -406,247 +582,98 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     public void onClick(View v) {
         ViewClick(v);
     }
+    class productCheckListner implements CompoundButton.OnCheckedChangeListener {
+        SM_GoodsM goodsM;
+        ViewGroup parentV;
+        CheckBox pcb;
+        int c = 0;
 
+        public productCheckListner(ViewGroup _parent, SM_GoodsM _goodsM, int _c) {
+            parentV = _parent;
+            goodsM = _goodsM;
+            c = _c;
+            pcb = (CheckBox) parentV.findViewById(R.id.rb_allproduct);
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            //选中
+            if (isChecked) {
+                if (!isEdit) {//非编辑状态
+                    if (!opGoods.contains(goodsM))
+                        opGoods.add(goodsM);
+                    if (goodsM.getcan_handsel() != 1)//&& isFirstload == false
+                    {
+                        cartDal.updateCart(ShoppingCartDal.SELECTCART, goodsM, 1, null);//更新服务器选中状态
+                    }
+                } else {//编辑状态
+                    if (!delItems.contains(goodsM))
+                        delItems.add(goodsM);//加入删除列表
+                }
+
+                int count = 0;
+                for (int i = 0; i < c; i++) {
+                    View vg = ((ViewGroup) parentV.getChildAt(1)).getChildAt(i);
+                    if (vg == null)
+                        return;
+                    CheckBox checkBox = (CheckBox) vg.findViewById(R.id.rb_product);
+                    if (checkBox != null && checkBox.isChecked())
+                        count++;
+                }
+                if (count == c) {
+                    ModifyChild = false;
+                    pcb.setChecked(true);
+                } else {
+                    ModifyChild = false;
+                    pcb.setChecked(false);
+                }
+
+            } else {//取消选中
+                if (!isEdit) {//非编辑状态
+                    //holder.selectcount.setVisibility(View.VISIBLE);
+                    opGoods.remove(goodsM);
+                    if (goodsM.getcan_handsel() == 1)
+                        cartDal.updateCart(ShoppingCartDal.SELECTCART, goodsM, 0, null);
+                } else {//编辑状态
+                    //holder.selectcount.setVisibility(View.GONE);//隐藏数量操作
+                    if (delItems.contains(goodsM))//删除列表包含当前商品
+                        delItems.remove(goodsM);//从删除列表移除
+                }
+                ModifyChild = false;
+                pcb.setChecked(false);
+                selectall.setChecked(false);
+
+            }
+            summaryCart();//更新商品总量和价格
+        }
+    }
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        for (ShoppingCartM m : list) {
-            m.setSelect(isChecked);
+        //        for (ShoppingCartM m : list) {
+//            if (isChecked) {
+//                opGoods.addAll(m.getproductArray());
+//            }
+//            m.setSelect(isChecked);
+//        }
+        if (!ModifyChild) {
+            return;
         }
-        cAdapter.notifyDataSetChanged();
+
+        int c = rvcarts.getChildCount();
+        for (int i = 0; i < c; i++) {
+            ModifyChild = true;
+            ViewGroup vg = (ViewGroup) rvcarts.getChildAt(i);
+            //这里写死了,布局不能变
+            CheckBox b = (CheckBox) vg.findViewById(R.id.rb_allproduct); //(CheckBox) ((ViewGroup) vg.getChildAt(0)).getChildAt(0);
+            b.setChecked(isChecked);
+        }
         if (isEdit) {
             if (!isChecked) {
                 delItems = new ArrayList<>();
             }
         } else {
-            opGoods = new ArrayList<>();
+            //opGoods = new ArrayList<>();
             summaryCart();
-        }
-    }
-
-    class cartAdapter extends RecyclerView.Adapter<cartAdapter.ViewHolder> {
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_scart_item, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            final ShoppingCartM cartM = list.get(position);
-            final productAdapter pAdapter = new productAdapter(cartM.getproductArray());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    Math.round(pAdapter.getItemCount() * 120 * density));
-
-            LinearLayoutManager layoutManager = new LinearLayoutManager(ShoppingCart.this);
-            holder.rvproducts.setLayoutManager(layoutManager);
-            holder.rvproducts.setAdapter(pAdapter);
-            holder.rvproducts.setLayoutParams(params);
-            holder.rballproduct.setText(cartM.getdistributionType());
-            holder.rballproduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    //if (!isReload)//编辑过后重新加载时不将所有数据选中，选中状态来自服务器
-                    for (SM_GoodsM goodsM : cartM.getproductArray()) {
-                        goodsM.setSelect(isChecked);
-                    }//不需要默认修改选中状态
-                    if (!isChecked) {//取消选中
-                        if (isEdit)//编辑状态
-                        {
-                            delItems.removeAll(cartM.getproductArray());
-                        } else {
-                            opGoods.removeAll(cartM.getproductArray());
-                            cartDal.updateCart(ShoppingCartDal.SELECTCART, cartM.getproductArray(), 0, null);
-                            summaryCart();
-                        }
-                    }
-                    pAdapter.notifyDataSetChanged();
-                }
-            });
-            holder.rballproduct.setChecked(cartM.getSelect());
-            /*//数据加载完成后更新isFirstload = false,之后商品列表上的选中状态就会更新到服务器（商品在加载的时候选中状态是不需要更新到服务器上的）
-            if(position+1==list.size())
-            {
-            isFirstload = false;
-            }*/
-        }
-
-        @Override
-        public int getItemCount() {
-            return list.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            CheckBox rballproduct;
-            RecyclerView rvproducts;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                rballproduct = (CheckBox) itemView.findViewById(R.id.rb_allproduct);
-                rvproducts = (RecyclerView) itemView.findViewById(R.id.rv_products);
-            }
-        }
-    }
-
-    class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHolder> {
-
-        List<SM_GoodsM> goodsMs;
-
-        public productAdapter(List<SM_GoodsM> _list) {
-            goodsMs = _list;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_scart_subitem, null, false));
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            final SM_GoodsM goodsM = goodsMs.get(position);
-            ImageLoader.bindBitmap(goodsM.getpic_url(), holder.imgproduct);
-            holder.txtname.setText(goodsM.getname());
-            holder.txtspec.setText("规格:" + goodsM.getspecification());
-            holder.txtprice.setText("￥" + String.valueOf(goodsM.getprice()));
-            holder.selectcount.setCount(goodsM.getcount());
-            holder.lltypes.removeAllViews();
-            if (goodsM.gettype_list() != null && goodsM.gettype_list().size() > 0) {
-                holder.lltypes.setVisibility(View.VISIBLE);
-                int tcount = goodsM.gettype_list().size();
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        lbpxWidth, lbpxHeight);
-                params.setMargins(Math.round(1 * density), 0, 0, 0);
-                for (int i = 0; i < tcount; i++) {
-                    ImageView iv = new ImageView(ShoppingCart.this);
-                    iv.setLayoutParams(params);
-                    ImageLoader.bindBitmap(goodsM.gettype_list().get(i), iv, lbpxWidth, lbpxHeight);
-                    holder.lltypes.addView(iv);
-                }
-            }
-            if (isEdit)
-                holder.selectcount.setVisibility(View.GONE);
-            holder.rbproduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    //选中
-                    if (isChecked) {
-                        if (!isEdit) {//非编辑状态
-//                            holder.selectcount.setVisibility(View.VISIBLE);//显示数量操作
-                            if (!opGoods.contains(goodsM))
-                                opGoods.add(goodsM);
-                            if (goodsM.getcan_handsel() != 1)//&& isFirstload == false
-                            {
-                                cartDal.updateCart(ShoppingCartDal.SELECTCART, goodsM, 1, null);//更新服务器选中状态
-                            }
-//                            else {
-//                                isFirstload = false;
-//                            }
-                        } else {//编辑状态
-                            //holder.selectcount.setVisibility(View.GONE);//隐藏数量操作
-                            if (!delItems.contains(goodsM))
-                                delItems.add(goodsM);//加入删除列表
-                        }
-                    } else {//取消选中
-                        if (!isEdit) {//非编辑状态
-                            //holder.selectcount.setVisibility(View.VISIBLE);
-                            opGoods.remove(goodsM);
-                            if (goodsM.getcan_handsel() == 1)
-                                cartDal.updateCart(ShoppingCartDal.SELECTCART, goodsM, 0, null);
-                        } else {//编辑状态
-                            //holder.selectcount.setVisibility(View.GONE);//隐藏数量操作
-                            if (delItems.contains(goodsM))//删除列表包含当前商品
-                                delItems.remove(goodsM);//从删除列表移除
-                        }
-                    }
-                    summaryCart();//更新商品总量和价格
-                }
-            });
-            holder.selectcount.setOnchangeListener(new MySelectCount.IonChanged() {
-                @Override
-                public void onAddition(int count) {
-
-                    goodsM.setcount(count);
-                    if (!opGoods.contains(goodsM))
-                        opGoods.add(goodsM);
-                    cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, new UpdateCartListner() {
-                        @Override
-                        public void onFailure() {
-
-                        }
-
-                        @Override
-                        public void onResponse(String response) {
-                            if (!holder.rbproduct.isChecked())
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        holder.rbproduct.setChecked(true);
-                                    }
-                                });
-                        }
-                    });
-                    summaryCart();
-                }
-
-                @Override
-                public void onReduction(int count) {
-                    if (count == 0) {
-                        opGoods.remove(goodsM);
-                    } else {
-                        goodsM.setcount(count);
-                    }
-                    cartDal.updateCart(ShoppingCartDal.UPDATECART, goodsM, count, new UpdateCartListner() {
-                        @Override
-                        public void onFailure() {
-
-                        }
-
-                        @Override
-                        public void onResponse(String response) {
-                            if (!holder.rbproduct.isChecked())
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        holder.rbproduct.setChecked(true);
-                                    }
-                                });
-                        }
-                    });
-                    summaryCart();
-                }
-            });
-            holder.rbproduct.setChecked(goodsM.getSelect());
-            holder.flouter.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    holder.rbproduct.setChecked(!holder.rbproduct.isChecked());
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return goodsMs.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            CheckBox rbproduct;
-            ImageView imgproduct;
-            TextView txtname, txtspec, txtprice;
-            LinearLayout lltypes;
-            MySelectCount selectcount;
-            View flouter;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                rbproduct = (CheckBox) itemView.findViewById(R.id.rb_product);
-                imgproduct = (ImageView) itemView.findViewById(R.id.img_product);
-                txtname = (TextView) itemView.findViewById(R.id.txt_name);
-                txtspec = (TextView) itemView.findViewById(R.id.txt_spec);
-                txtprice = (TextView) itemView.findViewById(R.id.txt_price);
-                lltypes = (LinearLayout) itemView.findViewById(R.id.ll_types);
-                selectcount = (MySelectCount) itemView.findViewById(R.id.selectcount);
-flouter=itemView.findViewById(R.id.fl_outer);
-            }
         }
     }
 }

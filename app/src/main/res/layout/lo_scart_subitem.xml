@@ -72,4 +72,12 @@
         android:layout_marginRight="10dp"
         app:minValue="1"
         app:size="@integer/vegetable_select_count_size" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/transparent80"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_height="1.5dp">
+
+    </LinearLayout>
 </RelativeLayout>

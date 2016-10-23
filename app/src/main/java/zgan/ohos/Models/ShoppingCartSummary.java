@@ -4,12 +4,12 @@ package zgan.ohos.Models;
  * Created by yajunsun on 16/10/4.
  */
 public class ShoppingCartSummary {
-    public String count;
-    public String totalprice;
-    public String oldtotalprice;
+    public String count="0";
+    public String totalprice="0";
+    public String oldtotalprice="0";
 
 
-    public  String totalcount;
+    public  String totalcount="0";
 
     public String getCount() {
         return count;

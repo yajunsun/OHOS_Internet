@@ -59,5 +59,13 @@
         android:layout_below="@id/txt_spec"
         android:layout_toRightOf="@id/img_product"
         android:orientation="horizontal"></LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/transparent80"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_height="1.5dp">
+
+    </LinearLayout>
 
 </RelativeLayout>

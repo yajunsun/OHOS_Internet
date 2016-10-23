@@ -65,21 +65,30 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/draw_normalitem_bg">
 
-        <CheckBox
-            android:id="@+id/selectall"
-            style="@style/CustomCheckboxTheme"
+        <LinearLayout
             android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:text="全选" />
+            android:clickable="true"
+            android:gravity="center"
+            android:id="@+id/llselectall"
+            android:layout_marginLeft="10dp">
+
+            <CheckBox
+                android:id="@+id/selectall"
+                style="@style/CustomCheckboxTheme"
+                android:layout_width="60dp"
+                android:clickable="false"
+                android:layout_height="wrap_content"
+                android:text="全选" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txt_totalprice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/selectall"
+            android:layout_toRightOf="@id/llselectall"
             android:textColor="@color/primary"
             android:textSize="20sp" />
 
@@ -162,10 +171,21 @@
         android:layout_below="@id/toolbar"
         android:layout_marginBottom="60dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_carts"
+        <ScrollView
+            android:id="@+id/scview"
             android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:id="@+id/rv_carts"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:minHeight="170dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+        </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

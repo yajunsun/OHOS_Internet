@@ -144,6 +144,7 @@ public class ShoppingCartDal extends ZGbaseDal {
                         method = UPDATECART;
                         count = m.getcount() + 1;
                         m.setcan_handsel(1);
+                        goodsM.setcan_handsel(1);
                         break;
                     }
 //                    else {
@@ -215,6 +216,7 @@ public class ShoppingCartDal extends ZGbaseDal {
                         for (SM_GoodsM m : mOrderIDs) {
                             if (m.getproduct_id().equals(goodsM.getproduct_id())) {
                                 m.setcan_handsel(finalcount);
+                                goodsM.setcan_handsel(finalcount);
                                 break;
                             }
                         }
