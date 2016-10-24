@@ -33,7 +33,7 @@ public class ShoppingCartDal extends ZGbaseDal {
     public final static String ADDCART = "add";
     public final static String UPDATECART = "upd";
     public final static String DELETECART = "del";
-    public final static String SELECTCART="select";
+    public final static String SELECTCART = "select";
     OkHttpClient mOkHttpClient;
     public static ArrayList<SM_GoodsM> mOrderIDs;
     public static ArrayList<ShoppingCartM> localCarts;
@@ -62,7 +62,7 @@ public class ShoppingCartDal extends ZGbaseDal {
                             String pic_url = getNullableString(go, "pic_url", "");
                             String oldprice = getNullableString(go, "oldprice", "");
                             String specification = getNullableString(go, "specification", "");
-                            int can_handsel=getNullableInt(go,"can_handsel",0);
+                            int can_handsel = getNullableInt(go, "can_handsel", 0);
                             JSONArray typelist = getNullableArr(go, "type_list");
                             sm_goodsM.setname(gname);
                             sm_goodsM.setcount(count);
@@ -108,7 +108,7 @@ public class ShoppingCartDal extends ZGbaseDal {
         builder.add("account", PreferenceUtil.getUserName());
         builder.add("token", SystemUtils.getNetToken());
         final Request request = new Request.Builder()
-                .url(String.format("%s/V1_0/shoppingcartlist.aspx",SystemUtils.getAppurl())).post(builder.build())
+                .url(String.format("%s/V1_0/shoppingcartlist.aspx", SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -131,8 +131,8 @@ public class ShoppingCartDal extends ZGbaseDal {
 
     //修改购物车（新增、修改、删除、状态改变）
     public void updateCart(String method, final SM_GoodsM goodsM, int count, final UpdateCartListner listner) {
-          if(goodsM==null)
-              return;
+        if (goodsM == null)
+            return;
         //当传入的是新增或修改的时候遍历本地购物车
         if (method.equals(ADDCART) || method.equals(UPDATECART))
 
@@ -174,87 +174,7 @@ public class ShoppingCartDal extends ZGbaseDal {
         builder.add("account", PreferenceUtil.getUserName());
         builder.add("token", SystemUtils.getNetToken());
         final Request request = new Request.Builder()
-                .url(String.format("%s/V1_0/updateshoppingcart.aspx",SystemUtils.getAppurl())).post(builder.build())
-                .build();
-        //new call
-        Call call = mOkHttpClient.newCall(request);
-        //请求加入调度
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-                if (listner != null) {
-                    listner.onFailure();
-                }
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(final Response response) throws IOException {
-                    final String htmlStr = response.body().string().replace("\\", "");
-
-                    if (finalMethod.equals(ADDCART)) {
-                        goodsM.setcount(1);
-                        goodsM.setcan_handsel(1);
-                        mOrderIDs.add(goodsM);
-                    } else if (finalMethod.equals(DELETECART)) {
-                        for (SM_GoodsM m : mOrderIDs) {
-                            if (m.getproduct_id().equals(goodsM.getproduct_id())) {
-                                mOrderIDs.remove(m);
-                                break;
-                            }
-                        }
-                    } else if(finalMethod.equals(UPDATECART)) {
-                        for (SM_GoodsM m : mOrderIDs) {
-                            if (m.getproduct_id().equals(goodsM.getproduct_id())) {
-                                m.setcount(finalcount);
-                                break;
-                            }
-                        }
-                    }
-                else if(finalMethod.equals(SELECTCART))
-                    {
-                        for (SM_GoodsM m : mOrderIDs) {
-                            if (m.getproduct_id().equals(goodsM.getproduct_id())) {
-                                m.setcan_handsel(finalcount);
-                                goodsM.setcan_handsel(finalcount);
-                                break;
-                            }
-                        }
-                    }
-                    if (listner != null)
-                        listner.onResponse(htmlStr);
-            }
-        });
-    }
-
-    //修改购物车（选中状态改变和批量删除）
-    public void updateCart(String method, final List<SM_GoodsM> goodsMs, int count, final UpdateCartListner listner) {
-        if(goodsMs==null||goodsMs.size()==0)
-            return;
-        final String finalMethod = method;
-        final int finalcount = count;
-        //网络请求api
-        mOkHttpClient = new OkHttpClient();
-        FormEncodingBuilder builder = new FormEncodingBuilder();
-        StringBuilder sb = new StringBuilder();
-        StringBuilder subsb=new StringBuilder();
-        sb.append("[");
-        for (SM_GoodsM goodsM:goodsMs) {
-            subsb.append("{");
-            subsb.append("\"method\":");
-            subsb.append("\"" + finalMethod + "\",");
-            subsb.append("\"product_id\":");
-            subsb.append("\"" + goodsM.getproduct_id() + "\",");
-            subsb.append("\"count\":");
-            subsb.append("\"" + finalcount + "\"},");
-        }
-        sb.append(subsb.substring(0,subsb.length()-1));
-        sb.append("]");
-        builder.add("data", sb.toString());
-        builder.add("account", PreferenceUtil.getUserName());
-        builder.add("token", SystemUtils.getNetToken());
-        final Request request = new Request.Builder()
-                .url(String.format("%s/V1_0/updateshoppingcart.aspx",SystemUtils.getAppurl())).post(builder.build())
+                .url(String.format("%s/V1_0/updateshoppingcart.aspx", SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -272,21 +192,99 @@ public class ShoppingCartDal extends ZGbaseDal {
             public void onResponse(final Response response) throws IOException {
                 final String htmlStr = response.body().string().replace("\\", "");
 
-              if (finalMethod.equals(DELETECART)) {
-                  List<SM_GoodsM>deleteItems=new ArrayList<>();
-                    for (SM_GoodsM m:mOrderIDs) {
-                        for(SM_GoodsM m1:goodsMs) {
+                if (finalMethod.equals(ADDCART)) {
+                    goodsM.setcount(1);
+                    goodsM.setcan_handsel(1);
+                    mOrderIDs.add(goodsM);
+                } else if (finalMethod.equals(DELETECART)) {
+                    for (SM_GoodsM m : mOrderIDs) {
+                        if (m.getproduct_id().equals(goodsM.getproduct_id())) {
+                            mOrderIDs.remove(m);
+                            break;
+                        }
+                    }
+                } else if (finalMethod.equals(UPDATECART)) {
+                    for (SM_GoodsM m : mOrderIDs) {
+                        if (m.getproduct_id().equals(goodsM.getproduct_id())) {
+                            m.setcount(finalcount);
+                            break;
+                        }
+                    }
+                } else if (finalMethod.equals(SELECTCART)) {
+                    for (SM_GoodsM m : mOrderIDs) {
+                        if (m.getproduct_id().equals(goodsM.getproduct_id())) {
+                            m.setcan_handsel(finalcount);
+                            goodsM.setcan_handsel(finalcount);
+                            break;
+                        }
+                    }
+                }
+                if (listner != null)
+                    listner.onResponse(htmlStr);
+            }
+        });
+    }
+
+    //修改购物车（选中状态改变和批量删除）
+    public void updateCart(String method, final List<SM_GoodsM> goodsMs, int count, final UpdateCartListner listner) {
+        if (goodsMs == null || goodsMs.size() == 0)
+            return;
+        final String finalMethod = method;
+        final int finalcount = count;
+        //网络请求api
+        mOkHttpClient = new OkHttpClient();
+        FormEncodingBuilder builder = new FormEncodingBuilder();
+        StringBuilder sb = new StringBuilder();
+        StringBuilder subsb = new StringBuilder();
+        sb.append("[");
+        for (SM_GoodsM goodsM : goodsMs) {
+            subsb.append("{");
+            subsb.append("\"method\":");
+            subsb.append("\"" + finalMethod + "\",");
+            subsb.append("\"product_id\":");
+            subsb.append("\"" + goodsM.getproduct_id() + "\",");
+            subsb.append("\"count\":");
+            subsb.append("\"" + finalcount + "\"},");
+        }
+        sb.append(subsb.substring(0, subsb.length() - 1));
+        sb.append("]");
+        builder.add("data", sb.toString());
+        builder.add("account", PreferenceUtil.getUserName());
+        builder.add("token", SystemUtils.getNetToken());
+        final Request request = new Request.Builder()
+                .url(String.format("%s/V1_0/updateshoppingcart.aspx", SystemUtils.getAppurl())).post(builder.build())
+                .build();
+        //new call
+        Call call = mOkHttpClient.newCall(request);
+        //请求加入调度
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                if (listner != null) {
+                    listner.onFailure();
+                }
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(final Response response) throws IOException {
+                final String htmlStr = response.body().string().replace("\\", "");
+
+                if (finalMethod.equals(DELETECART)) {
+                    List<SM_GoodsM> deleteItems = new ArrayList<>();
+                    for (SM_GoodsM m : mOrderIDs) {
+                        for (SM_GoodsM m1 : goodsMs) {
                             if (m.getproduct_id().equals(m1.getproduct_id())) {
                                 deleteItems.add(m);
                                 break;
                             }
                         }
                     }
-                  mOrderIDs.removeAll(deleteItems);
-                } else if(finalMethod.equals(SELECTCART)) {
-                  boolean isselected=finalcount==1;
+                    mOrderIDs.removeAll(deleteItems);
+                } else if (finalMethod.equals(SELECTCART)) {
+                    boolean isselected = finalcount == 1;
                     for (SM_GoodsM m : mOrderIDs) {
-                        for(SM_GoodsM m1:goodsMs) {
+                        for (SM_GoodsM m1 : goodsMs) {
                             if (m.getproduct_id().equals(m1.getproduct_id())) {
                                 m.setSelect(isselected);
                                 m.setcan_handsel(finalcount);
@@ -318,7 +316,7 @@ public class ShoppingCartDal extends ZGbaseDal {
         double totalprice = 0.0;
         double oldtotalprice = 0.0;
         for (SM_GoodsM m : mOrderIDs) {
-            if(m.getSelect()) {
+            if (m.getSelect()) {
                 i++;
                 tcount += m.getcount();
                 totalprice += m.getprice() * m.getcount();
@@ -368,7 +366,7 @@ public class ShoppingCartDal extends ZGbaseDal {
         builder.add("token", SystemUtils.getNetToken());
         builder.add("data", sb.toString());
         final Request request = new Request.Builder()
-                .url(String.format("%s/V1_0/goodscartorder.aspx",SystemUtils.getAppurl())).post(builder.build())
+                .url(String.format("%s/V1_0/goodscartorder.aspx", SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -419,7 +417,7 @@ public class ShoppingCartDal extends ZGbaseDal {
         builder.add("token", SystemUtils.getNetToken());
         builder.add("data", sb.toString());
         final Request request = new Request.Builder()
-                .url(String.format("%s/V1_0/goodscartorder.aspx",SystemUtils.getAppurl())).post(builder.build())
+                .url(String.format("%s/V1_0/goodscartorder.aspx", SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -436,5 +434,57 @@ public class ShoppingCartDal extends ZGbaseDal {
                 Log.i("suntext", htmlStr);
             }
         });
+    }
+
+    //获取搜索关键字
+    public void getSearchKeys(String key, final UpdateCartListner listner) {
+        mOkHttpClient = new OkHttpClient();
+        //创建一个Request
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        sb.append("\"search_str\":");
+        sb.append("\"" + key + "\"");
+        sb.append("}");
+        FormEncodingBuilder builder = new FormEncodingBuilder();
+        builder.add("account", PreferenceUtil.getUserName());
+        builder.add("token", SystemUtils.getNetToken());
+        builder.add("data", sb.toString());
+        final Request request = new Request.Builder()
+                .url(String.format("%s/V1_0/searchgoodstitle.aspx", SystemUtils.getAppurl())).post(builder.build())
+                .build();
+        //new call
+        Call call = mOkHttpClient.newCall(request);
+        //请求加入调度
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                if (listner != null)
+                    listner.onFailure();
+            }
+
+            @Override
+            public void onResponse(final Response response) throws IOException {
+                final String htmlStr = response.body().string().replace("\\", "");
+                listner.onResponse(htmlStr);
+            }
+        });
+    }
+
+    public List<String> getStringList(String json) {
+        List<String> result = new ArrayList<>();
+        if (json.isEmpty())
+            return result;
+        try {
+            JSONArray array = new JSONObject(json).getJSONArray("data");
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject obj = (JSONObject) array.opt(i);
+                result.add(getNullableString(obj, "name", ""));
+            }
+        } catch (JSONException je) {
+            je.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

@@ -8,11 +8,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mikepenz.iconics.view.IconicsImageView;
@@ -31,14 +34,17 @@ import java.io.IOException;
 import java.util.List;
 
 import zgan.ohos.Contracts.UpdateCartListner;
+import zgan.ohos.Dals.RequstResultDal;
 import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Dals.SuperMarketDal;
+import zgan.ohos.Models.RequstResultM;
 import zgan.ohos.Models.SM_GoodsM;
 import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.R;
 import zgan.ohos.adapters.RecyclerViewItemSpace;
 import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.utils.Add2cartAnimUtil;
+import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
@@ -63,11 +69,15 @@ public class SMSearchResult extends myBaseActivity {
     SuperMarketDal dal;
     ShoppingCartDal cartDal;
     productAdapter adapter;
+    float density;
+    int keyLayoutH;
     /***
      * 购物车部分
      **/
     TextView txtcount, btncheck, txtoldtotalprice, txttotalprice;
     View rloldprice1;
+
+    LinearLayout llkeys;
 
     @Override
     protected void initView() {
@@ -89,6 +99,8 @@ public class SMSearchResult extends myBaseActivity {
         });
         dal = new SuperMarketDal();
         cartDal = new ShoppingCartDal();
+        density = AppUtils.getDensity(SMSearchResult.this);
+        keyLayoutH = Math.round(density * 30);
         rvproducts = (RecyclerView) findViewById(R.id.rv_products);
         product_layoutManager = new GridLayoutManager(SMSearchResult.this, 2);
         refreshview = (SwipeRefreshLayout) findViewById(R.id.refreshview);
@@ -146,6 +158,41 @@ public class SMSearchResult extends myBaseActivity {
                 }
             });
         }
+        llkeys = (LinearLayout) findViewById(R.id.ll_keys);
+        txtsearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                cartDal.getSearchKeys(String.valueOf(s), new UpdateCartListner() {
+                    @Override
+                    public void onFailure() {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        //RequstResultM m=new RequstResultDal().getItem(response);
+                        if (response.isEmpty())
+                            return;
+                        List<String> keys = cartDal.getStringList(response);
+                        Message msg = handler.obtainMessage();
+                        msg.what = 2;
+                        msg.obj = keys;
+                        msg.sendToTarget();
+                    }
+                });
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                llkeys.setVisibility(View.GONE);
+            }
+        });
         setResult(resultCodes.TOSHOPPINGCART);
     }
 
@@ -166,7 +213,7 @@ public class SMSearchResult extends myBaseActivity {
         builder.add("token", SystemUtils.getNetToken());
         builder.add("data", sb.toString());
         final Request request = new Request.Builder()
-                .url(String.format("%s/V1_0/searchgoodslist.aspx",SystemUtils.getAppurl())).post(builder.build())
+                .url(String.format("%s/V1_0/searchgoodslist.aspx", SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -185,6 +232,7 @@ public class SMSearchResult extends myBaseActivity {
                 msg.sendToTarget();
             }
         });
+
     }
 
     void bindData() {
@@ -196,6 +244,7 @@ public class SMSearchResult extends myBaseActivity {
         }
         isLoadingMore = false;
         refreshview.setRefreshing(false);
+        llkeys.setVisibility(View.GONE);
     }
 
     void loadMoreData() {
@@ -252,6 +301,42 @@ public class SMSearchResult extends myBaseActivity {
         }
     }
 
+    void bindKeys(List<String> keys) {
+        llkeys.removeAllViews();
+        if (keys != null && keys.size() > 0) {
+            int leftm=Math.round(10*density);
+            RelativeLayout.LayoutParams keysPa = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, keys.size() * (keyLayoutH+10));
+            LinearLayout.LayoutParams keyPa = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, keyLayoutH);
+            keyPa.setMargins(leftm,leftm,0,0);
+            keysPa.addRule(RelativeLayout.BELOW,R.id.toolbar);
+            llkeys.setLayoutParams(keysPa);
+            llkeys.setVisibility(View.VISIBLE);
+            for (int i = 0; i < keys.size(); i++) {
+                TextView tv = new TextView(SMSearchResult.this);
+                tv.setLayoutParams(keyPa);
+                tv.setText(keys.get(i));
+                tv.setClickable(true);
+                tv.setOnClickListener(new keyClick(keys.get(i)));
+                llkeys.addView(tv);
+            }
+        }
+    }
+
+    class keyClick implements View.OnClickListener {
+        String key;
+
+        public keyClick(String _key) {
+            key = _key;
+        }
+
+        @Override
+        public void onClick(View v) {
+            txtsearch.setText(key);
+            llkeys.setVisibility(View.GONE);
+            loadData();
+        }
+    }
+
     @Override
     public void ViewClick(View v) {
         switch (v.getId()) {
@@ -277,12 +362,14 @@ public class SMSearchResult extends myBaseActivity {
                         //获取数据并绑定数据
                         if (result.equals("0")) {
                             list = dal.getGoodsList(data);
+                            if (list == null || list.size() == 0) {
+                                generalhelper.ToastShow(SMSearchResult.this, String.format("没有找到\"%s\"相关的商品", txtsearch.getText()));
+                            }
                             bindData();
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(SMSearchResult.this, "服务器错误:" + errmsg);
-                            if(errmsg.contains("时间戳"))
-                            {
-                                ZganCommunityService.toGetServerData(43, PreferenceUtil.getUserName(),tokenHandler);
+                            if (errmsg.contains("时间戳")) {
+                                ZganCommunityService.toGetServerData(43, PreferenceUtil.getUserName(), tokenHandler);
                             }
                         }
                     } catch (JSONException jse) {
@@ -292,13 +379,16 @@ public class SMSearchResult extends myBaseActivity {
                     }
                 }
                 toCloseProgress();
+            } else if (msg.what == 2) {
+                List<String> keys = (List<String>) msg.obj;
+                bindKeys(keys);
             } else if (msg.what == 3) {
                 ShoppingCartSummary summary = (ShoppingCartSummary) msg.obj;
                 bindShoppingCard(summary);
             }
         }
     };
-    Handler tokenHandler=new Handler(){
+    Handler tokenHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -306,8 +396,7 @@ public class SMSearchResult extends myBaseActivity {
                 Frame frame = (Frame) msg.obj;
                 String result = generalhelper.getSocketeStringResult(frame.strData);
                 String[] results = result.split(",");
-                if (frame.subCmd==43&&results[0].equals("0"))
-                {
+                if (frame.subCmd == 43 && results[0].equals("0")) {
                     SystemUtils.setNetToken(results[1]);
                 }
             }
