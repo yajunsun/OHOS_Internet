@@ -56,10 +56,10 @@
                 android:layout_marginRight="40dp"
 
                 android:gravity="center"
-                android:background="@drawable/bg_rectangle_shadow"
+                android:background="@color/transparent50"
                 android:textColor="@color/solid_black"
                 android:textSize="@dimen/txt_xiaoqu_size" />
-                
+
                 <com.mikepenz.iconics.view.IconicsImageView
                 android:id="@+id/iv_searchicon"
                 android:layout_width="20dp"

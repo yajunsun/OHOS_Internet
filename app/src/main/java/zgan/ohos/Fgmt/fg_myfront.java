@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.view.IconicsImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -103,6 +104,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     ImageView iv_bottom1, iv_bottom2, iv_bottom3;
     Point p;
     TextView txt_xiaoqu;
+    IconicsImageView ivsearchicon;
     boolean LOAD_SUCCESS = false;
     private Handler handler;
     Timer timer;
@@ -218,7 +220,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     private void initView(View v) {
         p = AppUtils.getWindowSize(getActivity());
         txt_xiaoqu = (TextView) v.findViewById(R.id.txt_xiaoqu);
-        txt_xiaoqu.setOnClickListener(this);
+        ivsearchicon=(IconicsImageView)v.findViewById(R.id.iv_searchicon);
+        ivsearchicon.setOnClickListener(this);
         sscontent = (ScrollViewWithCallBack) v.findViewById(R.id.ll_content);
         ll_shequhuodong = (LinearLayout) v.findViewById(R.id.ll_shequhuodong);
         adv_pager = (ViewPager) v.findViewById(R.id.adv_pager);
@@ -534,7 +537,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.txt_xiaoqu) {
+        if (view.getId() == R.id.iv_searchicon) {
             Intent intent = new Intent(getActivity(), SMSearchResult.class);
             startActivity(intent);
         }
@@ -616,7 +619,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         SystemUtils.setShop(shop);
                                         SystemUtils.setProperty(property);
                                         SystemUtils.setFname(Fname);
-                                        //txt_xiaoqu.setText(village);
+                                        txt_xiaoqu.setText(village);
                                         String ALIPAYurl = obj.get("ALIPAYurl").toString();
                                         String WPAYurl = obj.get("WPAYurl").toString();
                                         SystemUtils.setALIPAYurl(ALIPAYurl);

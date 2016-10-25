@@ -49,7 +49,8 @@
         android:layout_width="match_parent"
         android:layout_below="@id/toolbar"
         android:id="@+id/iv_preview"
+        android:scaleType="fitStart"
         android:adjustViewBounds="true"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

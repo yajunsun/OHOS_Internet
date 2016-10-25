@@ -22,7 +22,7 @@
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/rb_product"
         android:layout_centerVertical="true"
-
+android:scaleType="fitXY"
         android:layout_height="100dp"
         android:layout_margin="10dp" />
     </RelativeLayout>
@@ -50,9 +50,10 @@
         android:id="@+id/txt_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/fl_outer"
+        android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/fl_outer"
         android:text="￥120"
+        android:layout_marginBottom="10dp"
         android:textColor="@color/primary"
         android:textSize="15sp" />
 
@@ -68,8 +69,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignBottom="@id/txt_price"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         app:minValue="1"
         app:size="@integer/vegetable_select_count_size" />
     <LinearLayout

@@ -114,6 +114,7 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
         btnbuynow = (TextView) findViewById(R.id.btn_buynow);
         btnadd2cart.setOnClickListener(this);
         btnbuynow.setOnClickListener(this);
+        fab.setOnClickListener(this);
         dal = new SuperMarketDetalDal();
         cartDal = new ShoppingCartDal();
         density = AppUtils.getDensity(SuperMarketDetail.this);
@@ -270,7 +271,7 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
     //绑定购物车数据
     void bindShoppingCard(ShoppingCartSummary summary) {
         txtcount.setText(summary.getTotalcount());
-        txttotalprice.setText("￥" + summary.getTotalprice());
+        txttotalprice.setText("合计 ￥" + summary.getTotalprice());
         if (!summary.getOldtotalprice().equals("0")) {
             txtoldtotalprice.setText("￥" + summary.getOldtotalprice());
             rloldprice.setVisibility(View.VISIBLE);
@@ -361,7 +362,8 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
                 translateAnimation.setDuration(300);
                 fab.startAnimation(translateAnimation);
                 break;
-            case R.id.btn_buynow:
+            //case R.id.btn_buynow:
+            case R.id.img_icon:
                 intent = new Intent(SuperMarketDetail.this, ShoppingCart.class);
                 startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
                 break;
@@ -369,6 +371,7 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
                 intent = new Intent(SuperMarketDetail.this, SM_GoodsDetail.class);
                 intent.putExtra("detailtype", model.getgoodsdetail().getdetailtype());
                 intent.putExtra("detailview", model.getgoodsdetail().getdetailtype() == 1 ? model.getgoodsdetail().getdetail_url() : model.getgoodsdetail().getdetail_pic_url());
+                intent.putExtra("name",model.getname());
                 startActivityWithAnim(intent);
                 break;
         }

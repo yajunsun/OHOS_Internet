@@ -250,6 +250,7 @@ public class SuperMarket extends myBaseActivity {
         }
         else
         {
+
             goodslst=new ArrayList<>();
             mOids = new ArrayList<>();
             bindProduct();
@@ -314,7 +315,12 @@ public class SuperMarket extends myBaseActivity {
 
     //绑定商品列表
     void bindProduct() {
+
         if (productAdapter == null) {
+            if(goodslst==null||goodslst.size()==0)
+            {
+                generalhelper.ToastShow(SuperMarket.this,"没有更多商品啦~");
+            }
             productAdapter = new sm_product_Adapter();
             rvproducts.setLayoutManager(product_layoutManager);
             rvproducts.setAdapter(productAdapter);
@@ -394,7 +400,7 @@ public class SuperMarket extends myBaseActivity {
     //绑定购物车数据
     void bindShoppingCard(ShoppingCartSummary summary) {
         txtcount.setText(summary.getTotalcount());
-        txttotalprice.setText("￥" + summary.getTotalprice());
+        txttotalprice.setText("合计 ￥" + summary.getTotalprice());
         if (!summary.getOldtotalprice().equals("0")) {
             txtoldtotalprice.setText("￥" + summary.getOldtotalprice());
             rloldprice.setVisibility(View.VISIBLE);
@@ -477,6 +483,9 @@ public class SuperMarket extends myBaseActivity {
                                     //如果本地没有已有标志,则保存次页数据已存在的标志并加载显示出来
                                     mOids.add(templst.get(0).getproduct_id());
                                 }
+                            }
+                            else {
+                                generalhelper.ToastShow(SuperMarket.this,"没有更多商品啦~");
                             }
                             goodslst.addAll(templst);
                             bindProduct();

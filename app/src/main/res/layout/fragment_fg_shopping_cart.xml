@@ -50,6 +50,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
                 android:background="@color/transparent100"
                 android:textColor="@color/solid_white"
                 android:textOff="编辑"
@@ -80,7 +81,7 @@
                 android:layout_width="60dp"
                 android:clickable="false"
                 android:layout_height="wrap_content"
-                android:text="全选" />
+                android:text=" 全选" />
         </LinearLayout>
 
         <TextView
@@ -88,6 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@id/llselectall"
             android:textColor="@color/primary"
             android:textSize="20sp" />
@@ -148,7 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:text="全选" />
+            android:text=" 全选" />
 
         <TextView
             android:id="@+id/btn_delete"

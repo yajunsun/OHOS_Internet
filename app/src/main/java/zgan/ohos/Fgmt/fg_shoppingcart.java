@@ -416,7 +416,7 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
     //绑定购物车数据
     void bindShoppingCard(ShoppingCartSummary summary) {
         btncheck.setText("去结算(" + summary.getCount() + ")");
-        txttotalprice.setText("￥" + summary.getTotalprice());
+        txttotalprice.setText("合计 ￥" + summary.getTotalprice());
         if (!summary.getOldtotalprice().equals("0")) {
             txtoldtotalprice.setText("￥" + summary.getOldtotalprice());
             rloldprice.setVisibility(View.VISIBLE);

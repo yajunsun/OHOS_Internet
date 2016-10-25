@@ -17,21 +17,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f4f9001-aaf4-4093-85b7-3b483d077202" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/res/drawable-xhdpi/commentstar_gray.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/res/drawable-xhdpi/commentstar_halfgray.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/res/drawable-xhdpi/commentstar_yellow.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/res/resources-debug-androidTest.ap_" afterPath="$PROJECT_DIR$/build/intermediates/res/resources-debug-androidTest.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/res/resources-debug.ap_" afterPath="$PROJECT_DIR$/build/intermediates/res/resources-debug.ap_" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/drawable-hdpi/commentstar_gray.png" afterPath="$PROJECT_DIR$/src/main/res/drawable-hdpi/commentstar_gray.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/drawable-hdpi/commentstar_halfgray.png" afterPath="$PROJECT_DIR$/src/main/res/drawable-hdpi/commentstar_halfgray.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/drawable-hdpi/commentstar_yellow.png" afterPath="$PROJECT_DIR$/src/main/res/drawable-hdpi/commentstar_yellow.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.iml" afterPath="$PROJECT_DIR$/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/source/r/debug/android/support/design/R.java" afterPath="$PROJECT_DIR$/build/generated/source/r/debug/android/support/design/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/source/r/debug/android/support/v7/appcompat/R.java" afterPath="$PROJECT_DIR$/build/generated/source/r/debug/android/support/v7/appcompat/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/source/r/debug/com/mikepenz/aboutlibraries/R.java" afterPath="$PROJECT_DIR$/build/generated/source/r/debug/com/mikepenz/aboutlibraries/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/source/r/debug/com/mikepenz/crossfader/R.java" afterPath="$PROJECT_DIR$/build/generated/source/r/debug/com/mikepenz/crossfader/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/source/r/debug/com/mikepenz/iconics/core/R.java" afterPath="$PROJECT_DIR$/build/generated/source/r/debug/com/mikepenz/iconics/core/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/source/r/debug/com/mikepenz/materialdrawer/R.java" afterPath="$PROJECT_DIR$/build/generated/source/r/debug/com/mikepenz/materialdrawer/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/source/r/debug/com/mikepenz/materialize/R.java" afterPath="$PROJECT_DIR$/build/generated/source/r/debug/com/mikepenz/materialize/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/source/r/debug/zgan/ohos/R.java" afterPath="$PROJECT_DIR$/build/generated/source/r/debug/zgan/ohos/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/build/intermediates/symbols/debug/R.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/res/merged/debug/layout/fragment_my_front.xml" afterPath="$PROJECT_DIR$/build/intermediates/res/merged/debug/layout/fragment_my_front.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SMSearchResult.java" afterPath="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SMSearchResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/zgan/ohos/Dals/ShoppingCartDal.java" afterPath="$PROJECT_DIR$/src/main/java/zgan/ohos/Dals/ShoppingCartDal.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_smsearch_result.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_smsearch_result.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SM_GoodsDetail.java" afterPath="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SM_GoodsDetail.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/ShoppingCart.java" afterPath="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/ShoppingCart.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarket.java" afterPath="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarket.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarketDetail.java" afterPath="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarketDetail.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_myfront.java" afterPath="$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_myfront.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_shoppingcart.java" afterPath="$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_shoppingcart.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_sm_goods_detail.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_sm_goods_detail.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_super_market_detail.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_super_market_detail.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_fg_shopping_cart.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_fg_shopping_cart.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_my_front.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_my_front.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/lo_scart_detialitem.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/lo_scart_detialitem.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/lo_scart_subitem.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/lo_scart_subitem.xml" />
     </list>
     <ignored path="app.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,127 +61,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ShoppingCart.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/ShoppingCart.java">
+      <file leaf-file-name="SuperMarket.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarket.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="648" column="5" selection-start-line="648" selection-start-column="5" selection-end-line="648" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.32668328">
+              <caret line="319" column="50" selection-start-line="319" selection-start-column="50" selection-end-line="319" selection-end-column="50" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#summaryCart#0;class#ShoppingCart#0" expanded="false" />
-                <element signature="method#bindShoppingCard#0;class#ShoppingCart#0" expanded="false" />
-                <element signature="method#setViewChecked#0;class#ShoppingCart#0" expanded="false" />
-                <element signature="class#productCheckListner#0;class#ShoppingCart#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fg_shoppingcart.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_shoppingcart.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="670" column="5" selection-start-line="606" selection-start-column="3" selection-end-line="670" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="method#loadData#0;class#fg_shoppingcart#0" expanded="false" />
-                <element signature="e#11799#11800#0" expanded="false" />
-                <element signature="e#11913#11914#0" expanded="false" />
-                <element signature="e#12945#12946#0" expanded="false" />
-                <element signature="e#13059#13060#0" expanded="false" />
-                <element signature="e#13614#13615#0" expanded="false" />
-                <element signature="e#13706#13707#0" expanded="false" />
-                <element signature="method#summaryCart#0;class#fg_shoppingcart#0" expanded="false" />
-                <element signature="method#bindShoppingCard#0;class#fg_shoppingcart#0" expanded="false" />
-                <element signature="method#setViewChecked#0;class#fg_shoppingcart#0" expanded="false" />
-                <element signature="method#ViewClick#0;class#fg_shoppingcart#0" expanded="false" />
-                <element signature="e#24566#24567#0" expanded="false" />
-                <element signature="e#24714#24715#0" expanded="false" />
-                <element signature="e#25393#25394#0" expanded="false" />
-                <element signature="e#25421#25422#0" expanded="false" />
-                <element signature="class#productCheckListner#0;class#fg_shoppingcart#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fragment_fg_shopping_cart.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_fg_shopping_cart.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="63" column="36" selection-start-line="63" selection-start-column="36" selection-end-line="63" selection-end-column="36" />
-              <folding>
-                <element signature="e#292#2432#0" expanded="false" />
-                <element signature="e#5179#6262#0" expanded="false" />
-                <element signature="e#6268#7046#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SMSearchResult.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SMSearchResult.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.74812967">
-              <caret line="246" column="40" selection-start-line="246" selection-start-column="40" selection-end-line="246" selection-end-column="40" />
-              <folding>
-                <element signature="method#loadMoreData#0;class#SMSearchResult#0" expanded="false" />
-                <element signature="method#loadShoppingCart#0;class#SMSearchResult#0" expanded="false" />
-                <element signature="method#bindShoppingCard#0;class#SMSearchResult#0" expanded="false" />
-                <element signature="e#12097#12098#0" expanded="true" />
-                <element signature="e#12131#12132#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShoppingCartDal.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Dals/ShoppingCartDal.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="480" column="55" selection-start-line="480" selection-start-column="55" selection-end-line="480" selection-end-column="55" />
-              <folding>
-                <element signature="method#getList#0;class#ShoppingCartDal#0" expanded="false" />
-                <element signature="method#getCartList#0;class#ShoppingCartDal#0" expanded="false" />
-                <element signature="method#updateCart#0;class#ShoppingCartDal#0" expanded="false" />
-                <element signature="method#updateCart#1;class#ShoppingCartDal#0" expanded="false" />
-                <element signature="method#syncCart#0;class#ShoppingCartDal#0" expanded="false" />
-                <element signature="method#getSCSummary#0;class#ShoppingCartDal#0" expanded="false" />
-                <element signature="method#inimOrderIDs#0;class#ShoppingCartDal#0" expanded="false" />
-                <element signature="method#verifyGoods#0;class#ShoppingCartDal#0" expanded="false" />
-                <element signature="method#commitCart#0;class#ShoppingCartDal#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SuperMarketDal.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Dals/SuperMarketDal.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="63" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="63" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_smsearch_result.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_smsearch_result.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.5094337">
-              <caret line="198" column="33" selection-start-line="198" selection-start-column="33" selection-end-line="198" selection-end-column="33" />
-              <folding>
-                <element signature="e#364#4051#0" expanded="false" />
-                <element signature="e#4057#6424#0" expanded="false" />
-                <element signature="e#6430#6973#0" expanded="false" />
-                <element signature="e#6979#7412#0" expanded="false" />
-                <element signature="e#7418#7768#0" expanded="false" />
+                <element signature="method#bindClass#0;class#SuperMarket#0" expanded="false" />
+                <element signature="method#bindSecodary#0;class#SuperMarket#0" expanded="false" />
+                <element signature="method#bindShoppingCard#0;class#SuperMarket#0" expanded="false" />
+                <element signature="method#clearCatStyle#0;class#SuperMarket#0" expanded="false" />
+                <element signature="e#15664#19198#0" expanded="true" />
+                <element signature="e#19197#19198#0" expanded="true" />
+                <element signature="e#19226#19748#0" expanded="true" />
+                <element signature="e#19747#19748#0" expanded="true" />
+                <element signature="e#20377#20378#0" expanded="true" />
+                <element signature="e#20411#20412#0" expanded="true" />
+                <element signature="class#sm_product_Adapter#0;class#SuperMarket#0" expanded="false" />
+                <element signature="e#26413#26414#0" expanded="true" />
+                <element signature="e#26459#26460#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1848,8 +1755,6 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/res/values-xxxhdpi/dimens.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_sm_goods_detail.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SM_GoodsDetail.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_super_market.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values-xxhdpi/dimens.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values-mdpi/dimens.xml" />
@@ -1866,28 +1771,31 @@
         <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/ConstomControls/SM_CartCountDown.java" />
         <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/utils/Add2cartAnimUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/utils/AppUtils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_myfront.java" />
         <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/utils/SystemUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Dals/SM_OrderPayDal.java" />
         <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/utils/NetUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/utils/ImageLoader.java" />
-        <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarketDetail.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_super_market_detail.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarket.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_sm__order_detail.xml" />
         <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Models/ShoppingCartSummary.java" />
         <option value="$PROJECT_DIR$/src/main/res/values-xhdpi/dimens.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values-hdpi/dimens.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/lo_scart_subitem.xml" />
         <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/CommitCartOrder.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/lo_scart_detialitem.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/lo_scart_item.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_shoppingcart.java" />
-        <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/ShoppingCart.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_fg_shopping_cart.xml" />
         <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Dals/ShoppingCartDal.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_smsearch_result.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_my_front.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_myfront.java" />
         <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SMSearchResult.java" />
+        <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/ShoppingCart.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_fg_shopping_cart.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/lo_scart_detialitem.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/lo_scart_subitem.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_sm_goods_detail.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarketDetail.java" />
+        <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SM_GoodsDetail.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_super_market_detail.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_shoppingcart.java" />
+        <option value="$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarket.java" />
       </list>
     </option>
   </component>
@@ -1922,7 +1830,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1940,6 +1847,38 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1991,14 +1930,37 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Dals" />
+              <option name="myItemId" value="Fgmt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ohos" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Activities" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="ProjectPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2010,10 +1972,11 @@
     <property name="ExportApk.ApkPath" value="$PROJECT_DIR$" />
     <property name="ExportApk.Flavors" value="" />
     <property name="ExportApk.BuildType" value="release" />
-    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/res/drawable" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/res/drawable-hdpi" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/res/drawable-hdpi" />
       <recent name="$PROJECT_DIR$/src/main/res/drawable" />
     </key>
   </component>
@@ -2406,7 +2369,13 @@
       <option name="project" value="LOCAL" />
       <updated>1477231113347</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="20161024">
+      <created>1477322262896</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1477322262896</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2428,7 +2397,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27655986" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27655986" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22617124" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2437,7 +2406,8 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27382874" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27382874" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.51602024" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -2449,7 +2419,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5801012" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2498,7 +2467,8 @@
     <MESSAGE value="20161019" />
     <MESSAGE value="20161020" />
     <MESSAGE value="20161023" />
-    <option name="LAST_COMMIT_MESSAGE" value="20161023" />
+    <MESSAGE value="20161024" />
+    <option name="LAST_COMMIT_MESSAGE" value="20161024" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2547,13 +2517,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarketDetail.java</url>
-          <line>344</line>
+          <line>345</line>
           <properties />
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarketDetail.java</url>
-          <line>357</line>
+          <line>358</line>
           <properties />
           <option name="timeStamp" value="17" />
         </line-breakpoint>
@@ -2635,60 +2605,30 @@
           <properties />
           <option name="timeStamp" value="196" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarket.java</url>
+          <line>165</line>
+          <properties />
+          <option name="timeStamp" value="202" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarket.java</url>
+          <line>570</line>
+          <properties />
+          <option name="timeStamp" value="204" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarket.java</url>
+          <line>225</line>
+          <properties />
+          <option name="timeStamp" value="206" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="197" />
+      <option name="time" value="207" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/splashlauncher.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_splash2.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12711865">
-          <caret line="3" column="42" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SplashActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22113022">
-          <caret line="51" column="52" selection-start-line="51" selection-start-column="45" selection-end-line="51" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5036855">
-          <caret line="361" column="13" selection-start-line="361" selection-start-column="13" selection-end-line="361" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/myBaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3243243">
-          <caret line="129" column="4" selection-start-line="129" selection-start-column="4" selection-end-line="132" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/lo_cart_count_down.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.6603775">
-          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_myorder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2766,13 +2706,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SM_GoodsDetail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6981132">
-          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Dals/ServeTraceDal.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2794,13 +2727,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_myfront.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="605" column="0" selection-start-line="605" selection-start-column="0" selection-end-line="605" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/utils/nethelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.12658228">
@@ -2819,36 +2745,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.7358491">
           <caret line="366" column="63" selection-start-line="366" selection-start-column="63" selection-end-line="366" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_super_market_detail.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.6415095">
-          <caret line="182" column="45" selection-start-line="182" selection-start-column="20" selection-end-line="182" selection-end-column="45" />
-          <folding>
-            <element signature="e#367#2114#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.264151">
-          <caret line="151" column="46" selection-start-line="150" selection-start-column="8" selection-end-line="151" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarketDetail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="197" column="0" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
-          <folding>
-            <element signature="method#bindShoppingCard#0;class#SuperMarketDetail#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2950,46 +2846,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/lo_order_cartitem.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.2830188">
-          <caret line="40" column="4" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/lo_scart_detialitem.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.981132">
-          <caret line="68" column="19" selection-start-line="68" selection-start-column="19" selection-end-line="68" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/lo_scart_subitem.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.9622642">
-          <caret line="15" column="35" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="35" />
-          <folding>
-            <element signature="e#1038#1369#0" expanded="false" />
-            <element signature="e#1375#1723#0" expanded="false" />
-            <element signature="e#1729#2067#0" expanded="false" />
-            <element signature="e#2073#2351#0" expanded="false" />
-            <element signature="e#2356#2747#0" expanded="false" />
-            <element signature="e#2752#3006#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/lo_scart_item.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -3008,79 +2864,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/CommitCartOrder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2103825">
-          <caret line="135" column="45" selection-start-line="135" selection-start-column="45" selection-end-line="135" selection-end-column="45" />
-          <folding>
-            <element signature="method#initialPage#0;class#CommitCartOrder#0" expanded="false" />
-            <element signature="method#bindData#0;class#CommitCartOrder#0" expanded="false" />
-            <element signature="method#buildDialog#0;class#CommitCartOrder#0" expanded="false" />
-            <element signature="method#buildPaypwdDialog#0;class#CommitCartOrder#0" expanded="false" />
-            <element signature="class#12784:13330" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Dals/RequstResultDal.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36885247">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_shoppingcart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="670" column="5" selection-start-line="606" selection-start-column="3" selection-end-line="670" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#loadData#0;class#fg_shoppingcart#0" expanded="false" />
-            <element signature="e#11799#11800#0" expanded="false" />
-            <element signature="e#11913#11914#0" expanded="false" />
-            <element signature="e#12945#12946#0" expanded="false" />
-            <element signature="e#13059#13060#0" expanded="false" />
-            <element signature="e#13614#13615#0" expanded="false" />
-            <element signature="e#13706#13707#0" expanded="false" />
-            <element signature="method#summaryCart#0;class#fg_shoppingcart#0" expanded="false" />
-            <element signature="method#bindShoppingCard#0;class#fg_shoppingcart#0" expanded="false" />
-            <element signature="method#setViewChecked#0;class#fg_shoppingcart#0" expanded="false" />
-            <element signature="method#ViewClick#0;class#fg_shoppingcart#0" expanded="false" />
-            <element signature="e#24566#24567#0" expanded="false" />
-            <element signature="e#24714#24715#0" expanded="false" />
-            <element signature="e#25393#25394#0" expanded="false" />
-            <element signature="e#25421#25422#0" expanded="false" />
-            <element signature="class#productCheckListner#0;class#fg_shoppingcart#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/ShoppingCart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="648" column="5" selection-start-line="648" selection-start-column="5" selection-end-line="648" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#summaryCart#0;class#ShoppingCart#0" expanded="false" />
-            <element signature="method#bindShoppingCard#0;class#ShoppingCart#0" expanded="false" />
-            <element signature="method#setViewChecked#0;class#ShoppingCart#0" expanded="false" />
-            <element signature="class#productCheckListner#0;class#ShoppingCart#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_fg_shopping_cart.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="36" selection-start-line="63" selection-start-column="36" selection-end-line="63" selection-end-column="36" />
-          <folding>
-            <element signature="e#292#2432#0" expanded="false" />
-            <element signature="e#5179#6262#0" expanded="false" />
-            <element signature="e#6268#7046#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3107,7 +2894,7 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.5094337">
+        <state vertical-scroll-proportion="0.0">
           <caret line="198" column="33" selection-start-line="198" selection-start-column="33" selection-end-line="198" selection-end-column="33" />
           <folding>
             <element signature="e#364#4051#0" expanded="false" />
@@ -3127,16 +2914,234 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_myfront.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37643677">
+          <caret line="539" column="49" selection-start-line="539" selection-start-column="49" selection-end-line="539" selection-end-column="49" />
+          <folding>
+            <element signature="method#onCreateView#0;class#fg_myfront#0" expanded="false" />
+            <element signature="method#onStart#0;class#fg_myfront#0" expanded="false" />
+            <element signature="method#onStop#0;class#fg_myfront#0" expanded="false" />
+            <element signature="method#initNetData#0;class#fg_myfront#0" expanded="false" />
+            <element signature="e#7559#7890#0" expanded="false" />
+            <element signature="e#7889#7890#0" expanded="false" />
+            <element signature="e#7980#8172#0" expanded="false" />
+            <element signature="e#8171#8172#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_my_front.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47413793">
+          <caret line="63" column="46" selection-start-line="63" selection-start-column="33" selection-end-line="63" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SMSearchResult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.74812967">
-          <caret line="246" column="40" selection-start-line="246" selection-start-column="40" selection-end-line="246" selection-end-column="40" />
+        <state vertical-scroll-proportion="33.71698">
+          <caret line="294" column="34" selection-start-line="294" selection-start-column="34" selection-end-line="294" selection-end-column="34" />
           <folding>
             <element signature="method#loadMoreData#0;class#SMSearchResult#0" expanded="false" />
             <element signature="method#loadShoppingCart#0;class#SMSearchResult#0" expanded="false" />
-            <element signature="method#bindShoppingCard#0;class#SMSearchResult#0" expanded="false" />
-            <element signature="e#12097#12098#0" expanded="true" />
-            <element signature="e#12131#12132#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_super_market.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2672414">
+          <caret line="92" column="44" selection-start-line="92" selection-start-column="44" selection-end-line="92" selection-end-column="44" />
+          <folding>
+            <element signature="e#564#3122#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_fg_shopping_cart.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2264151">
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding>
+            <element signature="e#2491#5276#0" expanded="false" />
+            <element signature="e#5282#6366#0" expanded="false" />
+            <element signature="e#6372#7150#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/lo_scart_subitem.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.6037736">
+          <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
+          <folding>
+            <element signature="e#1063#1394#0" expanded="false" />
+            <element signature="e#1400#1748#0" expanded="false" />
+            <element signature="e#2139#2417#0" expanded="false" />
+            <element signature="e#2858#3112#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/ShoppingCart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="221" column="120" selection-start-line="221" selection-start-column="104" selection-end-line="221" selection-end-column="120" />
+          <folding>
+            <element signature="method#setViewChecked#0;class#ShoppingCart#0" expanded="false" />
+            <element signature="class#productCheckListner#0;class#ShoppingCart#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/lo_order_cartitem.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.6037736">
+          <caret line="40" column="4" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/lo_scart_detialitem.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30172414">
+          <caret line="13" column="33" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SM_GoodsDetail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarketDetail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="82" column="60" selection-start-line="82" selection-start-column="32" selection-end-line="82" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_sm_goods_detail.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.8301888">
+          <caret line="50" column="36" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
+          <folding>
+            <element signature="e#257#2003#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.3333333">
+          <caret line="130" column="68" selection-start-line="130" selection-start-column="56" selection-end-line="130" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/bg_ratingbar.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.75">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_myaccount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33167082">
+          <caret line="65" column="13" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_super_market_detail.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.1509434">
+          <caret line="324" column="20" selection-start-line="324" selection-start-column="20" selection-end-line="324" selection-end-column="20" />
+          <folding>
+            <element signature="e#367#2114#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Fgmt/fg_shoppingcart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.047381546">
+          <caret line="386" column="41" selection-start-line="386" selection-start-column="41" selection-end-line="386" selection-end-column="41" />
+          <folding>
+            <element signature="method#loadData#0;class#fg_shoppingcart#0" expanded="false" />
+            <element signature="method#summaryCart#0;class#fg_shoppingcart#0" expanded="false" />
+            <element signature="method#setViewChecked#0;class#fg_shoppingcart#0" expanded="false" />
+            <element signature="method#ViewClick#0;class#fg_shoppingcart#0" expanded="false" />
+            <element signature="class#productCheckListner#0;class#fg_shoppingcart#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/CommitCartOrder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="612" column="90" selection-start-line="612" selection-start-column="71" selection-end-line="612" selection-end-column="90" />
+          <folding>
+            <element signature="method#initialPage#0;class#CommitCartOrder#0" expanded="false" />
+            <element signature="method#bindData#0;class#CommitCartOrder#0" expanded="false" />
+            <element signature="method#buildDialog#0;class#CommitCartOrder#0" expanded="false" />
+            <element signature="method#buildPaypwdDialog#0;class#CommitCartOrder#0" expanded="false" />
+            <element signature="class#12784:13330" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/zgan/ohos/Activities/SuperMarket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32668328">
+          <caret line="319" column="50" selection-start-line="319" selection-start-column="50" selection-end-line="319" selection-end-column="50" />
+          <folding>
+            <element signature="method#bindClass#0;class#SuperMarket#0" expanded="false" />
+            <element signature="method#bindSecodary#0;class#SuperMarket#0" expanded="false" />
+            <element signature="method#bindShoppingCard#0;class#SuperMarket#0" expanded="false" />
+            <element signature="method#clearCatStyle#0;class#SuperMarket#0" expanded="false" />
+            <element signature="e#15664#19198#0" expanded="true" />
+            <element signature="e#19197#19198#0" expanded="true" />
+            <element signature="e#19226#19748#0" expanded="true" />
+            <element signature="e#19747#19748#0" expanded="true" />
+            <element signature="e#20377#20378#0" expanded="true" />
+            <element signature="e#20411#20412#0" expanded="true" />
+            <element signature="class#sm_product_Adapter#0;class#SuperMarket#0" expanded="false" />
+            <element signature="e#26413#26414#0" expanded="true" />
+            <element signature="e#26459#26460#0" expanded="true" />
           </folding>
         </state>
       </provider>
