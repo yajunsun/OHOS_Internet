@@ -19,7 +19,7 @@
     <ImageView
         android:id="@+id/img_product"
         android:layout_width="100dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/rb_product"
         android:layout_centerVertical="true"
 android:scaleType="fitXY"

@@ -14,6 +14,6 @@
     <!--二级分类-->
     <integer name="margin_left">20</integer>
     <integer name="margin_top">10</integer>
-    <integer name="sd_txt_size">8</integer>
+    <integer name="sd_txt_size">6</integer>
     <integer name="sd_txt_parm">2</integer>
 </resources>

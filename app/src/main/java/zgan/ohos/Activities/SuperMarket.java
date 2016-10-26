@@ -2,7 +2,9 @@ package zgan.ohos.Activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -144,7 +146,7 @@ public class SuperMarket extends myBaseActivity {
         rloldprice = findViewById(R.id.rl_oldprice);
 
         fab = (FloatingActionButton) findViewById(R.id.img_icon);
-        catParentWidth = (AppUtils.getWindowSize(SuperMarket.this).x / 3) * 2;
+        catParentWidth = (AppUtils.getWindowSize(SuperMarket.this).x / 4) * 3;
         dal = new SuperMarketDal();
         cartDal = new ShoppingCartDal();
         density = AppUtils.getDensity(SuperMarket.this);
@@ -271,6 +273,9 @@ public class SuperMarket extends myBaseActivity {
 
     //绑定二级分类
     void bindSecodary() {
+        Paint paint ;
+        Rect rect = new Rect();
+
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         //params.setMargins(50, 30, 0, 30);
@@ -278,31 +283,36 @@ public class SuperMarket extends myBaseActivity {
         int margint=getResources().getInteger(R.integer.margin_top);
         params.setMargins(marginl, margint, 0, margint);
         int usedWidth = marginl;
-        float txtparm=Float.parseFloat(getResources().getString(R.string.sd_txt_parm));
+        //float txtparm=Float.parseFloat(getResources().getString(R.string.sd_txt_parm));
         LinearLayout parent = llcategray1;
         int txtHeight = Math.round(marginl * density);
-        float textsize=getResources().getInteger(R.integer.sd_txt_size)*density;
+        //float textsize=getResources().getInteger(R.integer.sd_txt_size)*density;
         for (SM_SecondaryM cat : secondarylst) {
             TextView txt = new TextView(SuperMarket.this);
             txt.setLayoutParams(params);
             txt.setText(cat.getname());
             txt.setPadding(5, 0, 5, 0);
-            txt.setTextSize(textsize);
+            //txt.setTextSize(textsize);
             txt.setMinHeight(txtHeight);
             txt.setGravity(Gravity.CENTER_VERTICAL);
             txt.setTag(cat.getid());
+            paint=txt.getPaint();
+            paint.getTextBounds(cat.getname(), 0, cat.getname().length(), rect);
+            float strw=paint.measureText(cat.getname());
+            Log.i("suntest",String.valueOf(strw));
             txt.setClickable(true);
             if (cat.getid().equals("-1")) {
-                if (Build.SDK_INT > 15)
+                if (android.os.Build.VERSION.SDK_INT > 15)
                     txt.setBackground(getResources().getDrawable(R.drawable.bg_primary_rectangle_border));
                 txt.setTextColor(getResources().getColor(R.color.primary));
             } else {
-                if (Build.SDK_INT > 15)
+                if (android.os.Build.VERSION.SDK_INT > 15)
                     txt.setBackground(getResources().getDrawable(R.drawable.bg_normal_rectangle_border));
                 txt.setTextColor(getResources().getColor(R.color.color_sm_normal_txt));
             }
             txt.setOnClickListener(new catOnclick(cat));
-            usedWidth += marginl + (cat.getname().length() * textsize*txtparm);
+            //usedWidth += marginl + (cat.getname().length() * textsize*txtparm);
+            usedWidth += marginl + (strw);
             if (catParentWidth - usedWidth < marginl) {
                 if (parent.getId() == llcategray2.getId())
                     break;
@@ -419,7 +429,7 @@ public class SuperMarket extends myBaseActivity {
                 View t = v.getChildAt(j);
                 if (t instanceof TextView) {
                     TextView tv = (TextView) t;
-                    if (Build.SDK_INT > 15)
+                    if (android.os.Build.VERSION.SDK_INT > 15)
                         tv.setBackground(getResources().getDrawable(R.drawable.bg_normal_rectangle_border));
                     tv.setTextColor(getResources().getColor(R.color.color_sm_normal_txt));
                 }
@@ -551,7 +561,7 @@ public class SuperMarket extends myBaseActivity {
             toShowProgress();
             clearCatStyle();
             TextView v = (TextView) view;
-            if (Build.SDK_INT > 15)
+            if (android.os.Build.VERSION.SDK_INT > 15)
                 v.setBackground(getResources().getDrawable(R.drawable.bg_primary_rectangle_border));
             ((TextView) view).setTextColor(getResources().getColor(R.color.primary));
             //请求商品数据
@@ -669,7 +679,7 @@ public class SuperMarket extends myBaseActivity {
             holder.btn_add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (Build.SDK_INT > 13) {
+                    if (android.os.Build.VERSION.SDK_INT > 13) {
                         final ImageView imageView = new ImageView(SuperMarket.this);
                         imageView.setLayoutParams(new LinearLayout.LayoutParams(30, 60));
                         imageView.setImageDrawable(holder.img_product.getDrawable());

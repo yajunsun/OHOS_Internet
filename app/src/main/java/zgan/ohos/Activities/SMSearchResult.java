@@ -452,7 +452,7 @@ public class SMSearchResult extends myBaseActivity {
             holder.btnadd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (Build.SDK_INT > 13) {
+                    if (android.os.Build.VERSION.SDK_INT > 13) {
                         final ImageView imageView = new ImageView(SMSearchResult.this);
                         imageView.setLayoutParams(new LinearLayout.LayoutParams(30, 60));
                         imageView.setImageDrawable(holder.ivproduct.getDrawable());
