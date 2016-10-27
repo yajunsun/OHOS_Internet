@@ -113,7 +113,7 @@ public class CommitOrder extends myBaseActivity implements View.OnClickListener 
     private static final int DATE_PICKER_ID = 1;// 日期静态常量
     private static final int TIME_PICKER_ID = 2;// 时间
     String scheduldate;
-    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
     int mShipping_span = 20;
 
     @Override

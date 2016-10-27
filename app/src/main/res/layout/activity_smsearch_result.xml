@@ -10,13 +10,14 @@
         android:id="@+id/toolbar"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:background="@color/solid_white"
+        android:background="@color/color_bg_toolbar"
 
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <RelativeLayout
             android:layout_width="fill_parent"
+            android:background="@color/color_bg_toolbar"
             android:layout_height="fill_parent"
             android:gravity="left">
 
@@ -33,7 +34,7 @@
                 <com.mikepenz.iconics.view.IconicsImageView
                     android:layout_width="@dimen/back_icon_size"
                     android:layout_height="@dimen/back_icon_size"
-                    app:iiv_color="@color/color_sm_normal_txt"
+                    app:iiv_color="@color/solid_white"
                     app:iiv_icon="gmd-chevron-left" />
             </LinearLayout>
 
@@ -72,7 +73,9 @@
                     android:id="@+id/txt_search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:singleLine="true"
                     style="@null"
+                    android:textColor="@color/solid_black"
                     android:layout_toLeftOf="@id/btn_clear"
                     android:layout_toRightOf="@id/iv_searchicon" />
 
@@ -88,7 +91,7 @@
                 android:clickable="true"
                 android:onClick="ViewClick"
                 android:text="搜索"
-                android:textColor="@color/color_sm_normal_txt"
+                android:textColor="@color/solid_white"
                 android:textSize="16sp" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>

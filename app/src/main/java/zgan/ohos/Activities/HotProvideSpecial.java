@@ -44,7 +44,7 @@ public class HotProvideSpecial extends myBaseActivity{
     HightQualityDal dal;
     ImageLoader imageLoader;
     FuncBase item;
-    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat=new DecimalFormat("0.00");
     @Override
     protected void initView() {
         setContentView(R.layout.activity_hight_quality_service);

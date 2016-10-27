@@ -93,7 +93,7 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
     Dialog paymentSelectDialog;
     Dialog dialog;
     Dialog paypwdInputDialog;
-    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
     int mShipping_span = 20;
     float density;
     String mTotalprice = "0";
@@ -620,7 +620,7 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
             holder.txtname.setText(goodsM.getname());
             holder.txtitemcount.setText("*"+goodsM.getcount());
             holder.txtspec.setText("规格:" + goodsM.getspecification());
-            holder.txtprice.setText("￥" + String.valueOf(goodsM.getprice()));
+            holder.txtprice.setText("￥" + decimalFormat.format(goodsM.getprice()));
             holder.lltypes.removeAllViews();
             if (goodsM.gettype_list() != null && goodsM.gettype_list().size() > 0) {
                 holder.lltypes.setVisibility(View.VISIBLE);

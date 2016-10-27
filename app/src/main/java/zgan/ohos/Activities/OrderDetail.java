@@ -92,7 +92,7 @@ public class OrderDetail extends myBaseActivity implements View.OnClickListener 
     Dialog dialog;
     Dialog paypwdInputDialog;
     double fee = 0;
-    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat=new DecimalFormat("0.00");
     String orderStatus = "配送中";
     String addTime;
 

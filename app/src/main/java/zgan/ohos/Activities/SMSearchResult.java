@@ -25,7 +25,6 @@ import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import com.tencent.mm.sdk.constants.Build;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,10 +33,8 @@ import java.io.IOException;
 import java.util.List;
 
 import zgan.ohos.Contracts.UpdateCartListner;
-import zgan.ohos.Dals.RequstResultDal;
 import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Dals.SuperMarketDal;
-import zgan.ohos.Models.RequstResultM;
 import zgan.ohos.Models.SM_GoodsM;
 import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.R;
@@ -52,7 +49,7 @@ import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.resultCodes;
 
-public class SMSearchResult extends myBaseActivity {
+public class SMSearchResult extends myBaseActivity implements View.OnClickListener {
 
     boolean isLoadingMore = false;
     //商品列表页码
@@ -133,13 +130,7 @@ public class SMSearchResult extends myBaseActivity {
             }
         });
         View btncheck = findViewById(R.id.btn_check);
-        btncheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SMSearchResult.this, ShoppingCart.class);
-                startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
-            }
-        });
+        btncheck.setOnClickListener(this);
         //TextView txtcount,txtoldtotalprice,txt_totalprice;
         //View rl_oldprice;
         txtcount = (TextView) findViewById(R.id.txt_count);
@@ -147,6 +138,7 @@ public class SMSearchResult extends myBaseActivity {
         txttotalprice = (TextView) findViewById(R.id.txt_totalprice);
         rloldprice1 = findViewById(R.id.rl_oldprice);
         fab = (FloatingActionButton) findViewById(R.id.img_icon);
+        fab.setOnClickListener(this);
         if (ShoppingCartDal.mOrderIDs == null)
             loadShoppingCart();
         else {
@@ -307,7 +299,7 @@ public class SMSearchResult extends myBaseActivity {
             int leftm=Math.round(10*density);
             RelativeLayout.LayoutParams keysPa = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, keys.size() * (keyLayoutH+10));
             LinearLayout.LayoutParams keyPa = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, keyLayoutH);
-            keyPa.setMargins(leftm,leftm,0,0);
+            keyPa.setMargins(leftm,0,0,0);
             keysPa.addRule(RelativeLayout.BELOW,R.id.toolbar);
             llkeys.setLayoutParams(keysPa);
             llkeys.setVisibility(View.VISIBLE);
@@ -320,6 +312,11 @@ public class SMSearchResult extends myBaseActivity {
                 llkeys.addView(tv);
             }
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        ViewClick(v);
     }
 
     class keyClick implements View.OnClickListener {
@@ -339,14 +336,24 @@ public class SMSearchResult extends myBaseActivity {
 
     @Override
     public void ViewClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.btn_search:
                 if (txtsearch.getText().toString().trim().equals(""))
                     return;
                 loadData();
                 break;
+            case R.id.btn_check:
+                 intent = new Intent(SMSearchResult.this, ShoppingCart.class);
+                startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
+                break;
+            case R.id.img_icon:
+                 intent = new Intent(SMSearchResult.this, ShoppingCart.class);
+                startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
+                break;
         }
     }
+
 
     Handler handler = new Handler() {
         @Override
@@ -468,7 +475,7 @@ public class SMSearchResult extends myBaseActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(SMSearchResult.this, SuperMarketDetail.class);
                     intent.putExtra("product", goodsM);
-                    startActivityWithAnim(intent);
+                    startActivityWithAnimForResult(intent,resultCodes.TOSHOPPINGCART);
                 }
             });
         }

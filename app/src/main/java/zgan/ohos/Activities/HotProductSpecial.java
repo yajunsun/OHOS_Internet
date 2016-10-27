@@ -56,7 +56,7 @@ public class HotProductSpecial extends myBaseActivity implements View.OnClickLis
     int goodscount = 0;
     //商品价格
     double goodssum = 0;
-    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat=new DecimalFormat("0.00");
     FrontItem item;
 
     @Override

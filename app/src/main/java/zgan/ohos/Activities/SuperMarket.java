@@ -1,7 +1,6 @@
 package zgan.ohos.Activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -16,16 +15,12 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
@@ -33,17 +28,15 @@ import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import com.tencent.mm.sdk.constants.Build;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import zgan.ohos.Contracts.IAddShopListener;
 import zgan.ohos.Contracts.UpdateCartListner;
 import zgan.ohos.Dals.ShoppingCartDal;
 import zgan.ohos.Dals.SuperMarketDal;
@@ -68,7 +61,7 @@ import zgan.ohos.utils.resultCodes;
  * <p/>
  * 超市购界面
  */
-public class SuperMarket extends myBaseActivity {
+public class SuperMarket extends myBaseActivity implements View.OnClickListener {
     SuperMarketDal dal;
     ShoppingCartDal cartDal;
     ListView lstclass;
@@ -79,7 +72,7 @@ public class SuperMarket extends myBaseActivity {
     SwipeRefreshLayout refreshview;
     sm_class_Adapter classAdapter;
     sm_product_Adapter productAdapter;
-    LinearLayoutManager product_layoutManager ;
+    LinearLayoutManager product_layoutManager;
     boolean isLoadingMore = false;
     List<SuperMarketM> list;
     List<SM_SecondaryM> secondarylst;
@@ -109,12 +102,13 @@ public class SuperMarket extends myBaseActivity {
     FloatingActionButton fab;
     Point MlcartIcon;
     String PageId;
+    DecimalFormat decimalFormat=new DecimalFormat("0.00");
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_super_market);
         product_layoutManager = new LinearLayoutManager(SuperMarket.this);
-        PageId=((FrontItem)getIntent().getSerializableExtra("item")).getpage_id().replace("'","");
+        PageId = ((FrontItem) getIntent().getSerializableExtra("item")).getpage_id().replace("'", "");
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,13 +125,7 @@ public class SuperMarket extends myBaseActivity {
             }
         });
         View btncheck = findViewById(R.id.btn_check);
-        btncheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SuperMarket.this, ShoppingCart.class);
-                startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
-            }
-        });
+        btncheck.setOnClickListener(this);
         //TextView txtcount,txtoldtotalprice,txt_totalprice;
         //View rl_oldprice;
         txtcount = (TextView) findViewById(R.id.txt_count);
@@ -146,6 +134,7 @@ public class SuperMarket extends myBaseActivity {
         rloldprice = findViewById(R.id.rl_oldprice);
 
         fab = (FloatingActionButton) findViewById(R.id.img_icon);
+        fab.setOnClickListener(this);
         catParentWidth = (AppUtils.getWindowSize(SuperMarket.this).x / 4) * 3;
         dal = new SuperMarketDal();
         cartDal = new ShoppingCartDal();
@@ -194,7 +183,7 @@ public class SuperMarket extends myBaseActivity {
         builder.add("account", PreferenceUtil.getUserName());
         builder.add("token", SystemUtils.getNetToken());
         final Request request = new Request.Builder()
-                .url(String.format("%s/V1_0/marketlist.aspx",SystemUtils.getAppurl())).post(builder.build())
+                .url(String.format("%s/V1_0/marketlist.aspx", SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -227,19 +216,15 @@ public class SuperMarket extends myBaseActivity {
 
             mCurrentClassId = list.get(lastClassIndex).getid();
             secondarylst = list.get(lastClassIndex).getcategory();
-        }
-        else
-        {
-            list=new ArrayList<>();
+        } else {
+            list = new ArrayList<>();
         }
         bindClass();
         if (secondarylst != null && secondarylst.size() > 0) {
 
             goodslst = secondarylst.get(0).getlist();
-        }
-        else
-        {
-            secondarylst=new ArrayList<>();
+        } else {
+            secondarylst = new ArrayList<>();
         }
         bindSecodary();
         mCurrentCatId = "-1";
@@ -249,11 +234,9 @@ public class SuperMarket extends myBaseActivity {
             mOids = new ArrayList<>();
             mOids.add(goodslst.get(0).getproduct_id());
             bindProduct();
-        }
-        else
-        {
+        } else {
 
-            goodslst=new ArrayList<>();
+            goodslst = new ArrayList<>();
             mOids = new ArrayList<>();
             bindProduct();
         }
@@ -273,14 +256,14 @@ public class SuperMarket extends myBaseActivity {
 
     //绑定二级分类
     void bindSecodary() {
-        Paint paint ;
+        Paint paint;
         Rect rect = new Rect();
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         //params.setMargins(50, 30, 0, 30);
-        int marginl=getResources().getInteger(R.integer.margin_left);
-        int margint=getResources().getInteger(R.integer.margin_top);
+        int marginl = getResources().getInteger(R.integer.margin_left);
+        int margint = getResources().getInteger(R.integer.margin_top);
         params.setMargins(marginl, margint, 0, margint);
         int usedWidth = marginl;
         //float txtparm=Float.parseFloat(getResources().getString(R.string.sd_txt_parm));
@@ -296,10 +279,10 @@ public class SuperMarket extends myBaseActivity {
             txt.setMinHeight(txtHeight);
             txt.setGravity(Gravity.CENTER_VERTICAL);
             txt.setTag(cat.getid());
-            paint=txt.getPaint();
+            paint = txt.getPaint();
             paint.getTextBounds(cat.getname(), 0, cat.getname().length(), rect);
-            float strw=paint.measureText(cat.getname());
-            Log.i("suntest",String.valueOf(strw));
+            float strw = paint.measureText(cat.getname());
+            Log.i("suntest", String.valueOf(strw));
             txt.setClickable(true);
             if (cat.getid().equals("-1")) {
                 if (android.os.Build.VERSION.SDK_INT > 15)
@@ -327,9 +310,8 @@ public class SuperMarket extends myBaseActivity {
     void bindProduct() {
 
         if (productAdapter == null) {
-            if(goodslst==null||goodslst.size()==0)
-            {
-                generalhelper.ToastShow(SuperMarket.this,"没有更多商品啦~");
+            if (goodslst == null || goodslst.size() == 0) {
+                generalhelper.ToastShow(SuperMarket.this, "没有更多商品啦~");
             }
             productAdapter = new sm_product_Adapter();
             rvproducts.setLayoutManager(product_layoutManager);
@@ -455,9 +437,8 @@ public class SuperMarket extends myBaseActivity {
                             loadShoppingCart();
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(SuperMarket.this, "服务器错误:" + errmsg);
-                            if(errmsg.contains("时间戳"))
-                            {
-                                ZganCommunityService.toGetServerData(43,PreferenceUtil.getUserName(),tokenHandler);
+                            if (errmsg.contains("时间戳")) {
+                                ZganCommunityService.toGetServerData(43, PreferenceUtil.getUserName(), tokenHandler);
                             }
                         }
                     } catch (JSONException jse) {
@@ -493,9 +474,8 @@ public class SuperMarket extends myBaseActivity {
                                     //如果本地没有已有标志,则保存次页数据已存在的标志并加载显示出来
                                     mOids.add(templst.get(0).getproduct_id());
                                 }
-                            }
-                            else {
-                                generalhelper.ToastShow(SuperMarket.this,"没有更多商品啦~");
+                            } else {
+                                generalhelper.ToastShow(SuperMarket.this, "没有更多商品啦~");
                             }
                             goodslst.addAll(templst);
                             bindProduct();
@@ -517,7 +497,7 @@ public class SuperMarket extends myBaseActivity {
         }
     };
 
-    Handler tokenHandler=new Handler(){
+    Handler tokenHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -525,13 +505,13 @@ public class SuperMarket extends myBaseActivity {
                 Frame frame = (Frame) msg.obj;
                 String result = generalhelper.getSocketeStringResult(frame.strData);
                 String[] results = result.split(",");
-               if (frame.subCmd==43&&results[0].equals("0"))
-                {
+                if (frame.subCmd == 43 && results[0].equals("0")) {
                     SystemUtils.setNetToken(results[1]);
                 }
             }
         }
     };
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -546,7 +526,15 @@ public class SuperMarket extends myBaseActivity {
 
     @Override
     public void ViewClick(View v) {
+        if (v.getId() == R.id.img_icon||v.getId()==R.id.btn_check) {
+            Intent intent = new Intent(SuperMarket.this, ShoppingCart.class);
+            startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
+        }
+    }
 
+    @Override
+    public void onClick(View v) {
+        ViewClick(v);
     }
 
     class catOnclick implements View.OnClickListener {
@@ -570,6 +558,7 @@ public class SuperMarket extends myBaseActivity {
             getCatProducts();
         }
     }
+
     //获取商品列表
     void getCatProducts() {
         FormEncodingBuilder builder = new FormEncodingBuilder();
@@ -586,7 +575,7 @@ public class SuperMarket extends myBaseActivity {
         builder.add("token", SystemUtils.getNetToken());
         builder.add("data", sb.toString());
         final Request request = new Request.Builder()
-                .url(String.format("%s/V1_0/goodslist.aspx",SystemUtils.getAppurl())).post(builder.build())
+                .url(String.format("%s/V1_0/goodslist.aspx", SystemUtils.getAppurl())).post(builder.build())
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -638,9 +627,9 @@ public class SuperMarket extends myBaseActivity {
             final SM_GoodsM goodsM = goodslst.get(position);
             ImageLoader.bindBitmap(goodsM.getpic_url(), holder.img_product);
             holder.txt_name.setText(goodsM.getname());
-            holder.txt_price.setText("￥"+String.valueOf(goodsM.getprice()));
-            holder.txt_oldprice1.setText("￥"+goodsM.getoldprice());
-            holder.txt_oldprice2.setText("￥"+goodsM.getoldprice());
+            holder.txt_price.setText("￥" + decimalFormat.format(goodsM.getprice()));
+            holder.txt_oldprice1.setText("￥" + goodsM.getoldprice());
+            holder.txt_oldprice2.setText("￥" + goodsM.getoldprice());
             holder.ll_oldprice1.setVisibility(View.GONE);
             holder.ll_oldprice2.setVisibility(View.GONE);
             if (!goodsM.getoldprice().equals("") && !goodsM.getoldprice().equals("0")) {
@@ -672,7 +661,7 @@ public class SuperMarket extends myBaseActivity {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("product", goodsM);
                     intent.putExtras(bundle);
-                    startActivityWithAnim(intent);
+                    startActivityWithAnimForResult(intent,resultCodes.TOSHOPPINGCART);
                 }
             });
             //添加到购物车
@@ -683,9 +672,9 @@ public class SuperMarket extends myBaseActivity {
                         final ImageView imageView = new ImageView(SuperMarket.this);
                         imageView.setLayoutParams(new LinearLayout.LayoutParams(30, 60));
                         imageView.setImageDrawable(holder.img_product.getDrawable());
-                        Add2cartAnimUtil mAnimUtils = new Add2cartAnimUtil(SuperMarket.this,holder.img_product.getDrawable());
+                        Add2cartAnimUtil mAnimUtils = new Add2cartAnimUtil(SuperMarket.this, holder.img_product.getDrawable());
 
-                        mAnimUtils.startAnim(holder.itemView,fab);
+                        mAnimUtils.startAnim(holder.itemView, fab);
                     }
                     cartDal.updateCart(ShoppingCartDal.ADDCART, goodsM, 1, cartChanged);
 

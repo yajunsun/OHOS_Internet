@@ -51,7 +51,7 @@ public class HightQualityService extends myBaseActivity {
     HightQualityDal dal;
     ImageLoader imageLoader;
     FuncBase item;
-    DecimalFormat decimalFormat=new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat=new DecimalFormat("0.00");
 
     @Override
     protected void initView() {

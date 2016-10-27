@@ -37,7 +37,7 @@ public class ShoppingCartDal extends ZGbaseDal {
     OkHttpClient mOkHttpClient;
     public static ArrayList<SM_GoodsM> mOrderIDs;
     public static ArrayList<ShoppingCartM> localCarts;
-    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     public List<ShoppingCartM> getList(String xmlString) {
         List<ShoppingCartM> carts = new ArrayList<>();

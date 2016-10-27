@@ -350,8 +350,8 @@ private ImageView buyImg;//播放动画的参照imageview
             public void onAnimationEnd(Animation animation) {
                 //动画播放完以后，参照对象要隐藏
                 buyImg.setVisibility(View.GONE);
-                Animation translateAnimation = new TranslateAnimation(0, 10, 0, 10);
-                translateAnimation.setInterpolator(new CycleInterpolator(5));
+                Animation translateAnimation = new TranslateAnimation(0, 5, 0, 5);
+                translateAnimation.setInterpolator(new CycleInterpolator(4));
                 translateAnimation.setDuration(200);
                 endView.startAnimation(translateAnimation);
                 //结束后访问数据

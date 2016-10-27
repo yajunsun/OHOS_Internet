@@ -64,7 +64,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     SwipeRefreshLayout refreshview;
     LinearLayoutManager cartLayoutManager;
     float density;
-    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
     //结算
     View llcheck;
     CheckBox selectall;
@@ -83,6 +83,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     //boolean isFirstload = true;
     int lbpxWidth = 0, lbpxHeight = 0;
     View llselectall;
+    View llselectall1;
     boolean ModifyChild = true;
 
     @Override
@@ -146,6 +147,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
 
         llcheck = findViewById(R.id.ll_check);
         llselectall = findViewById(R.id.llselectall);
+        llselectall1 = findViewById(R.id.llselectall1);
         selectall = (CheckBox) findViewById(R.id.selectall);
         txttotalprice = (TextView) findViewById(R.id.txt_totalprice);
         txtoldtotalprice = (TextView) findViewById(R.id.txt_oldtotalprice);
@@ -156,8 +158,15 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
         llselectall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ModifyChild=true;
+                ModifyChild = true;
                 selectall.setChecked(!selectall.isChecked());
+            }
+        });
+        llselectall1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ModifyChild = true;
+                selectall1.setChecked(!selectall1.isChecked());
             }
         });
         lloption = findViewById(R.id.ll_option);
@@ -171,12 +180,14 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
         opGoods = new ArrayList<>();
         setResult(resultCodes.TOSHOPPINGCART);
     }
+
     @Override
     public void onStart() {
         super.onStart();
         opGoods = new ArrayList<>();
         loadData();
     }
+
     void loadData() {
         toShowProgress();
         UpdateCartListner listner = new UpdateCartListner() {
@@ -231,7 +242,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                 ImageLoader.bindBitmap(goodsM.getpic_url(), imgproduct);
                 txtname.setText(goodsM.getname());
                 txtspec.setText("规格:" + goodsM.getspecification());
-                txtprice.setText("￥" + String.valueOf(goodsM.getprice()));
+                txtprice.setText("￥" + decimalFormat.format(goodsM.getprice()));
                 selectcount.setCount(goodsM.getcount());
                 lltypes.removeAllViews();
                 if (goodsM.gettype_list() != null && goodsM.gettype_list().size() > 0) {
@@ -359,9 +370,13 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             rballproduct.setChecked(checkallP);
             rvcarts.addView(cv);
         }
-        selectall.setChecked(checkallC);
+
+
         if (!isEdit) {
+            selectall.setChecked(checkallC);
             summaryCart();
+        } else {
+            selectall1.setChecked(checkallC);
         }
         refreshview.setRefreshing(false);
         toCloseProgress();
@@ -418,7 +433,11 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
             }
         }
         ModifyChild = false;
-        selectall.setChecked(allcartChecked);
+        if (!isEdit)
+            selectall.setChecked(allcartChecked);
+        else {
+            selectall1.setChecked(allcartChecked);
+        }
     }
 
     Handler handler = new Handler() {
@@ -582,6 +601,7 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
     public void onClick(View v) {
         ViewClick(v);
     }
+
     class productCheckListner implements CompoundButton.OnCheckedChangeListener {
         SM_GoodsM goodsM;
         ViewGroup parentV;
@@ -641,12 +661,16 @@ public class ShoppingCart extends myBaseActivity implements View.OnClickListener
                 }
                 ModifyChild = false;
                 pcb.setChecked(false);
-                selectall.setChecked(false);
+                if (!isEdit)
+                    selectall.setChecked(false);
+                else
+                    selectall1.setChecked(false);
 
             }
             summaryCart();//更新商品总量和价格
         }
     }
+
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         //        for (ShoppingCartM m : list) {

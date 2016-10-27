@@ -92,7 +92,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
     LayoutInflater myInflater;
     SwipeRefreshLayout refreshview;
     float density = 1;
-    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
     Dialog paymentSelectDialog;
     TextView tall, tunpay, tunget, tinprogress;
     LinearLayout llall, llunpay, llunget, llinprogress;

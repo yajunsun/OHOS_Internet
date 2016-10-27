@@ -75,7 +75,7 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
     SwipeRefreshLayout refreshview;
     LinearLayoutManager cartLayoutManager;
     float density;
-    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
     //结算
     View llcheck;
     CheckBox selectall;
@@ -94,6 +94,7 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
     //boolean isFirstload = true;
     int lbpxWidth = 0, lbpxHeight = 0;
     View llselectall;
+    View llselectall1;
     boolean ModifyChild = true;
 
     @Override
@@ -160,6 +161,7 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
 
         llcheck = v.findViewById(R.id.ll_check);
         llselectall = v.findViewById(R.id.llselectall);
+        llselectall1 = v.findViewById(R.id.llselectall1);
         selectall = (CheckBox) v.findViewById(R.id.selectall);
         txttotalprice = (TextView) v.findViewById(R.id.txt_totalprice);
         txtoldtotalprice = (TextView) v.findViewById(R.id.txt_oldtotalprice);
@@ -172,6 +174,13 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
             public void onClick(View v) {
                 ModifyChild=true;
                 selectall.setChecked(!selectall.isChecked());
+            }
+        });
+        llselectall1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ModifyChild = true;
+                selectall1.setChecked(!selectall1.isChecked());
             }
         });
         lloption = v.findViewById(R.id.ll_option);
@@ -380,9 +389,11 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
             rballproduct.setChecked(checkallP);
             rvcarts.addView(cv);
         }
-        selectall.setChecked(checkallC);
         if (!isEdit) {
+            selectall.setChecked(checkallC);
             summaryCart();
+        } else {
+            selectall1.setChecked(checkallC);
         }
         refreshview.setRefreshing(false);
         toCloseProgress();
@@ -439,7 +450,11 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
             }
         }
         ModifyChild = false;
-        selectall.setChecked(allcartChecked);
+        if (!isEdit)
+            selectall.setChecked(allcartChecked);
+        else {
+            selectall1.setChecked(allcartChecked);
+        }
     }
 
     Handler handler = new Handler() {
@@ -663,7 +678,10 @@ public class fg_shoppingcart extends myBaseFragment implements View.OnClickListe
                 }
                 ModifyChild = false;
                 pcb.setChecked(false);
-                selectall.setChecked(false);
+                if (!isEdit)
+                    selectall.setChecked(false);
+                else
+                    selectall1.setChecked(false);
 
             }
             summaryCart();//更新商品总量和价格

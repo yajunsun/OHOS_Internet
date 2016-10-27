@@ -92,7 +92,7 @@ public class SM_OrderDetail extends myBaseActivity implements View.OnClickListen
     Dialog paymentSelectDialog;
     Dialog dialog;
     Dialog paypwdInputDialog;
-    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
     int mShipping_span = 20;
     float density;
     String mTotalprice = "0";
@@ -617,7 +617,7 @@ public class SM_OrderDetail extends myBaseActivity implements View.OnClickListen
             ImageLoader.bindBitmap(goodsM.getpic_url(), holder.imgproduct);
             holder.txtname.setText(goodsM.getname());
             holder.txtspec.setText("规格:" + goodsM.getspecification());
-            holder.txtprice.setText("￥" + String.valueOf(goodsM.getprice()));
+            holder.txtprice.setText("￥" + decimalFormat.format(goodsM.getprice()));
             holder.selectcount.setCount(goodsM.getcount());
             holder.selectcount.setVisibility(View.GONE);
             holder.rbproduct.setVisibility(View.GONE);
