@@ -5,6 +5,9 @@ import android.app.FragmentTransaction;
 import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,7 +28,10 @@ import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.services.login.ZganLoginService;
 import zgan.ohos.utils.AppUtils;
+import zgan.ohos.utils.Frame;
+import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
+import zgan.ohos.utils.generalhelper;
 import zgan.ohos.utils.resultCodes;
 
 /**
@@ -104,6 +110,7 @@ public class MainActivity extends myBaseActivity {
         //极光推送的注册ID，需要注册到开发者服务器
         //String rid = JPushInterface.getRegistrationID(getApplicationContext());
         setStyleCustom();
+        ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), 1030, "@id=22", "22"), handler);
     }
 
     @Override
@@ -117,7 +124,7 @@ public class MainActivity extends myBaseActivity {
         myfront = null;
         myorder = null;
         myaccount = null;
-        mycart=null;
+        mycart = null;
     }
 
     @Override
@@ -174,12 +181,12 @@ public class MainActivity extends myBaseActivity {
         ivfront = (IconicsImageView) findViewById(R.id.iv_front);
         ivorder = (IconicsImageView) findViewById(R.id.iv_order);
         //fl_badgeCount = (FrameLayout) findViewById(R.id.badge_count);
-ivshopcart=(IconicsImageView)findViewById(R.id.iv_shopcart);
+        ivshopcart = (IconicsImageView) findViewById(R.id.iv_shopcart);
         ivaccount = (IconicsImageView) findViewById(R.id.iv_account);
         txtfront = (TextView) findViewById(R.id.txt_front);
         txtorder = (TextView) findViewById(R.id.txt_order);
         txtaccount = (TextView) findViewById(R.id.txt_account);
-        txtshopcart=(TextView)findViewById(R.id.txt_shopcart) ;
+        txtshopcart = (TextView) findViewById(R.id.txt_shopcart);
         current_option_index = 0;
         setTabSelection(CURRENT_OPTION_MAIN);
         Log.v(TAG, "main activity initialed");
@@ -350,8 +357,7 @@ ivshopcart=(IconicsImageView)findViewById(R.id.iv_shopcart);
         if (myaccount != null) {
             transaction.hide(myaccount);
         }
-        if(mycart!=null)
-        {
+        if (mycart != null) {
             transaction.hide(mycart);
         }
     }
@@ -375,5 +381,20 @@ ivshopcart=(IconicsImageView)findViewById(R.id.iv_shopcart);
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {
+                Frame frame = (Frame) msg.obj;
+                String ret = generalhelper.getSocketeStringResult(frame.strData);
+                Log.i(TAG, frame.subCmd + "  " + ret);
+                if (frame.subCmd == 40) {
+
+                }
+            }
+        }
+    };
 
 }

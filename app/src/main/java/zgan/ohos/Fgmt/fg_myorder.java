@@ -550,10 +550,7 @@ public class fg_myorder extends myBaseFragment implements View.OnClickListener {
                 params.setMargins(10, 10, 0, 10);
                 layout.setLayoutParams(params);
                 img.setLayoutParams(params);
-                img.setLayoutParams(params);
                 img.setScaleType(ImageView.ScaleType.FIT_XY);
-                img.setAdjustViewBounds(true);
-                img.setMaxWidth((int) (300 * density));
                 ImageLoader.bindBitmap(g.getpic_url(), img, 100, 100);
                 layout.addView(img);
             }
