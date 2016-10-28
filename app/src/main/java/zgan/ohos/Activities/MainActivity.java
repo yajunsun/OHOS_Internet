@@ -11,24 +11,34 @@ import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.iconics.view.IconicsImageView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import cn.jpush.android.api.BasicPushNotificationBuilder;
 import cn.jpush.android.api.CustomPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
+import zgan.ohos.Dals.FrontItemDal;
+import zgan.ohos.Dals.ZGbaseDal;
 import zgan.ohos.Fgmt.fg_myaccount;
 import zgan.ohos.Fgmt.fg_myfront;
 import zgan.ohos.Fgmt.fg_myorder;
 import zgan.ohos.Fgmt.fg_shoppingcart;
+import zgan.ohos.Models.BigAdvertise;
+import zgan.ohos.Models.FrontItem;
 import zgan.ohos.Models.MyOrder;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.services.login.ZganLoginService;
 import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
+import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
@@ -48,6 +58,8 @@ public class MainActivity extends myBaseActivity {
     final static int CURRENT_OPTION_SC = 3;
     final static int CURRENT_OPTION_MINE = 4;
     int current_option_index = 0;
+    boolean LOADADV = true;
+    BigAdvertise frontItem;
 //    static int badgeCount = 6;
 //    private BadgeStyle style = ActionItemBadge.BadgeStyles.RED.getStyle();
     /*********/
@@ -74,6 +86,15 @@ public class MainActivity extends myBaseActivity {
     fg_myaccount myaccount;
     fg_shoppingcart mycart;
     FragmentManager fgManager;
+
+    /**
+     * 广告
+     **/
+    ImageView iv_adv;
+    View fladv;
+    Timer timer;
+    int time = 0;
+    Button btnbreak;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -171,6 +192,10 @@ public class MainActivity extends myBaseActivity {
                     startActivityWithAnim(intent);
                     finish();
                 }
+                break;
+            case R.id.btn_break:
+                timer.cancel();
+                fladv.setVisibility(View.GONE);
                 break;
         }
     }
@@ -390,10 +415,50 @@ public class MainActivity extends myBaseActivity {
                 Frame frame = (Frame) msg.obj;
                 String ret = generalhelper.getSocketeStringResult(frame.strData);
                 Log.i(TAG, frame.subCmd + "  " + ret);
-                if (frame.subCmd == 40) {
+                {
+                    String[] results = frame.strData.split("\t");
+                    if (results[0].equals("0")) {
+                        String datastr = results[2];
+                        if (results[1].equals(AppUtils.P_BIGADVE)) {
+                            if (datastr.length() > 0) {
+                                frontItem = new ZGbaseDal<BigAdvertise>().GetSingleModel(datastr, new BigAdvertise());
+                                if (frontItem != null && !frontItem.getimage_url().isEmpty()) {
+                                    post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            fladv = findViewById(R.id.fladv);
+                                            iv_adv = (ImageView) findViewById(R.id.iv_adv);
+                                            btnbreak = (Button) findViewById(R.id.btn_break);
+                                            ImageLoader.bindBitmap(frontItem.getimage_url(), iv_adv);
+                                            fladv.setVisibility(View.VISIBLE);
+                                            timer = new Timer(true);
+                                            time = frontItem.gettimer() == 0 ? 3 : frontItem.gettimer();
+                                            timer.schedule(new TimerTask() {
+                                                @Override
+                                                public void run() {
+                                                    if (time == 0) {
+                                                        sendEmptyMessage(2);
+                                                    }
+                                                    time--;
+                                                }
+                                            },0, 1000);
+                                        }
+                                    });
 
+                                }
+                            }
+                        }
+                    }
                 }
+            } else if (msg.what == 2) {
+                timer.cancel();
+                fladv.setVisibility(View.GONE);
             }
+//            else if(msg.what==3)
+//            {
+//                btnbreak.setText(time+"秒 ");
+//            }
+
         }
     };
 

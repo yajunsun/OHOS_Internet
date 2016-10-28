@@ -138,4 +138,6 @@ public class AppUtils {
 
     public final static String P_FRONTITMES1 = "100103";
     public final static String P_FRONTITMES2 = "300104";//"100104";
+
+    public final static String P_BIGADVE="1030";
 }

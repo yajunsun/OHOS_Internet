@@ -131,4 +131,28 @@
         android:layout_height="fill_parent"
         android:layout_above="@id/lo_net_error" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/fladv"
+        android:elevation="5dp"
+        android:visibility="gone"
+        android:background="@color/transparent100"
+        android:layout_height="match_parent">
+        <Button
+            android:layout_width="80dp"
+            android:text="跳过广告"
+            android:onClick="ViewClick"
+            android:id="@+id/btn_break"
+            android:background="@color/transparent80"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="40dp" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/iv_adv"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
 </RelativeLayout>

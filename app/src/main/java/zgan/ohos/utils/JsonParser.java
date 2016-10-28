@@ -66,10 +66,8 @@ public class JsonParser<T extends BaseModel> {
                             Type[] types = m.getParameterTypes();
                             if (types.length > 0) {
                                 try {
-                                    String value = obj.get(mName.substring(3)).toString().trim();
+                                    String value = getNullableString(obj, mName.substring(3), ""); //obj.get(mName.substring(3)).toString().trim();
                                     m.invoke(model, value);
-                                } catch (JSONException jse) {
-                                    continue;
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                     continue;
@@ -86,5 +84,22 @@ public class JsonParser<T extends BaseModel> {
             }
         }
         return false;
+    }
+    private String getNullableString(JSONObject obj, String name, String nullValue)
+    {
+        String result=nullValue;
+        try
+        {
+            result=obj.getString(name);
+        }
+        catch (JSONException jse)
+        {
+            jse.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
