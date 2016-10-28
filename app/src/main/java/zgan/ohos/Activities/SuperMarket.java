@@ -295,7 +295,7 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
             }
             txt.setOnClickListener(new catOnclick(cat));
             //usedWidth += marginl + (cat.getname().length() * textsize*txtparm);
-            usedWidth += marginl + (strw);
+            usedWidth += marginl + strw;
             if (catParentWidth - usedWidth < marginl) {
                 if (parent.getId() == llcategray2.getId())
                     break;
