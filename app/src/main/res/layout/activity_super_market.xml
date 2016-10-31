@@ -203,8 +203,10 @@
         android:layout_width="@dimen/fab_size"
         android:layout_height="@dimen/fab_size"
         android:layout_alignParentBottom="true"
+        android:elevation="4dp"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="end|bottom"
         android:layout_marginBottom="@dimen/sm_fab_mg_btm"
-
         android:layout_marginLeft="@dimen/sm_fab_icon_mg_lft"
         android:scaleType="fitXY"
         android:src="@drawable/cartshopping" />

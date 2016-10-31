@@ -96,6 +96,10 @@ public class BindCommunity extends myBaseActivity implements View.OnClickListene
                             startActivityWithAnim(new Intent(BindCommunity.this, MainActivity.class));
                             finish();
                         }
+                        else if(results[0].equals("28"))
+                        {
+                            generalhelper.ToastShow(BindCommunity.this,"同一手机号码只能在相同小区注册!");
+                        }
                     } else if (f.subCmd == 27) {
                         if (results[0].equals("0") && results.length == 2) {
                             SID=results[1];

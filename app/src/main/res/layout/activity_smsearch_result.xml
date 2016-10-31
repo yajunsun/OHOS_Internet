@@ -74,7 +74,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:singleLine="true"
-                    style="@null"
+                    android:background="@null"
+
                     android:textColor="@color/solid_black"
                     android:layout_toLeftOf="@id/btn_clear"
                     android:layout_toRightOf="@id/iv_searchicon" />
