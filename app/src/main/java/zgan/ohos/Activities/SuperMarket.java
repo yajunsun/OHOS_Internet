@@ -51,6 +51,7 @@ import zgan.ohos.utils.Add2cartAnimUtil;
 import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
 import zgan.ohos.utils.ImageLoader;
+import zgan.ohos.utils.JsonParser;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;
 import zgan.ohos.utils.generalhelper;
@@ -102,7 +103,9 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
     FloatingActionButton fab;
     Point MlcartIcon;
     String PageId;
-    DecimalFormat decimalFormat=new DecimalFormat("0.00");
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    TextView btn_advisory;
+    String mAdvisoryPhone;
 
     @Override
     protected void initView() {
@@ -132,6 +135,8 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
         txtoldtotalprice = (TextView) findViewById(R.id.txt_oldtotalprice);
         txttotalprice = (TextView) findViewById(R.id.txt_totalprice);
         rloldprice = findViewById(R.id.rl_oldprice);
+        btn_advisory = (TextView) findViewById(R.id.btn_advisory);
+        btn_advisory.setOnClickListener(this);
 
         fab = (FloatingActionButton) findViewById(R.id.img_icon);
         fab.setOnClickListener(this);
@@ -216,6 +221,7 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
 
             mCurrentClassId = list.get(lastClassIndex).getid();
             secondarylst = list.get(lastClassIndex).getcategory();
+            mAdvisoryPhone = list.get(lastClassIndex).getphone();
         } else {
             list = new ArrayList<>();
         }
@@ -454,8 +460,10 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
                 String data = msg.obj.toString();
                 if (!data.isEmpty()) {
                     try {
-                        String result = new JSONObject(data).get("result").toString();
-                        String errmsg = new JSONObject(data).get("msg").toString();
+                        JSONObject obj = new JSONObject(data);
+                        String result = JsonParser.getNullableString(obj, "result", "1");
+                        String errmsg = JsonParser.getNullableString(obj, "msg", "");
+                        mAdvisoryPhone = JsonParser.getNullableString(obj, "phone", "");
                         //获取数据并绑定数据
                         if (result.equals("0")) {
                             if (pageIndex == 1) {
@@ -526,9 +534,14 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
 
     @Override
     public void ViewClick(View v) {
-        if (v.getId() == R.id.img_icon||v.getId()==R.id.btn_check) {
+        if (v.getId() == R.id.img_icon || v.getId() == R.id.btn_check) {
             Intent intent = new Intent(SuperMarket.this, ShoppingCart.class);
             startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
+        } else if (v.getId() == R.id.btn_advisory) {
+            if (mAdvisoryPhone!=null&&!mAdvisoryPhone.isEmpty())
+                AppUtils.PhoneCall(SuperMarket.this, mAdvisoryPhone);
+            else
+                generalhelper.ToastShow(SuperMarket.this, "当前不支持该功能~");
         }
     }
 
@@ -661,7 +674,7 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("product", goodsM);
                     intent.putExtras(bundle);
-                    startActivityWithAnimForResult(intent,resultCodes.TOSHOPPINGCART);
+                    startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
                 }
             });
             //添加到购物车

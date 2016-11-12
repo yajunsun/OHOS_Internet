@@ -77,6 +77,8 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
     View rloldprice;
     SM_CartCountDown countdown;
     String productid;
+    TextView btn_advisory;
+    String mAdvisoryPhone;
 
     @Override
     protected void initView() {
@@ -132,6 +134,8 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
 //                Intent intent=new Intent(SuperMarketDetail.this,ShoppingCart.class);
 //            }
 //        });
+        btn_advisory=(TextView)findViewById(R.id.btn_advisory);
+        btn_advisory.setOnClickListener(this);
         loadData();
         setResult(resultCodes.TOSHOPPINGCART);
     }
@@ -373,6 +377,19 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
                 intent.putExtra("detailview", model.getgoodsdetail().getdetailtype() == 1 ? model.getgoodsdetail().getdetail_url() : model.getgoodsdetail().getdetail_pic_url());
                 intent.putExtra("name",model.getname());
                 startActivityWithAnim(intent);
+                break;
+            case  R.id.rl_evalue:
+                intent = new Intent(SuperMarketDetail.this, SM_GoodsDetail.class);
+                intent.putExtra("detailtype", model.getgoodsdetail().getdetailtype());
+                intent.putExtra("detailview", model.getcomment_pic());
+                intent.putExtra("name",model.getname());
+                startActivityWithAnim(intent);
+                break;
+            case R.id.btn_advisory:
+                if (mAdvisoryPhone!=null&&!mAdvisoryPhone.isEmpty())
+                    AppUtils.PhoneCall(SuperMarketDetail.this, mAdvisoryPhone);
+                else
+                    generalhelper.ToastShow(SuperMarketDetail.this, "当前不支持该功能~");
                 break;
         }
     }

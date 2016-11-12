@@ -2,11 +2,13 @@ package zgan.ohos.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
@@ -98,6 +100,16 @@ public class AppUtils {
     public static void exits() {
         if (mainActivity != null)
             mainActivity.finish();
+    }
+    public static void PhoneCall(Context ctx,String phone)
+    {
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(String.format("tel:%s",phone)));
+        try {
+            //startActivityIfLogin(intent, resultCodes.DIRECTCALL);
+            ctx.startActivity( intent);
+        } catch (Exception e) {
+            generalhelper.ToastShow(ctx, "呼叫失败" + e.getMessage());
+        }
     }
 
     public final static String P_FRONT = "1001";//专题内容（旧）

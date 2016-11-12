@@ -85,7 +85,7 @@ public class JsonParser<T extends BaseModel> {
         }
         return false;
     }
-    private String getNullableString(JSONObject obj, String name, String nullValue)
+    public static String getNullableString(JSONObject obj, String name, String nullValue)
     {
         String result=nullValue;
         try

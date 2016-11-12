@@ -45,6 +45,17 @@
                 android:text="家政服务"
                 android:textColor="@color/color_txt_toobar"
                 android:textSize="@dimen/toolbar_title_size" />
+            <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/btn_advisory"
+                android:drawingCacheQuality="high"
+                android:layout_width="wrap_content"
+               android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/advisory11"
+                android:text="咨询"
+                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/toolbar_title_size"/>
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 

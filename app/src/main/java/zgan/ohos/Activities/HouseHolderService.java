@@ -58,6 +58,8 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
     MyOrder order;
     Dialog paymentSelectDialog;
     FuncBase item;
+    TextView btn_advisory;
+    String mAdvisoryPhone;
 
     @Override
     protected void initView() {
@@ -75,6 +77,8 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
         btn_time_select.setOnClickListener(this);
         btncheck = (Button) findViewById(R.id.btncheck);
         btncheck.setOnClickListener(this);
+        btn_advisory=(TextView)findViewById(R.id.btn_advisory);
+        btn_advisory.setOnClickListener(this);
 
         order = new MyOrder();
         View back = findViewById(R.id.back);
@@ -304,6 +308,12 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
                 break;
             case R.id.ivprebook_no:
                 paymentSelectDialog.dismiss();
+                break;
+            case R.id.btn_advisory:
+                if (mAdvisoryPhone!=null&&!mAdvisoryPhone.isEmpty())
+                    AppUtils.PhoneCall(HouseHolderService.this, mAdvisoryPhone);
+                else
+                    generalhelper.ToastShow(HouseHolderService.this, "当前不支持该功能~");
                 break;
         }
     }

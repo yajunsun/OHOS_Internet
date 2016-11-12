@@ -9,6 +9,7 @@ import java.util.List;
 
 import zgan.ohos.Models.GoodsDetailM;
 import zgan.ohos.Models.SuperMarketDetailM;
+import zgan.ohos.utils.JsonParser;
 
 /**
  * Created by yajunsun on 2016/9/28.
@@ -25,10 +26,13 @@ public class SuperMarketDetalDal {
             String price = obj.getString("price");
             int countdown = obj.getInt("countdown");
             String specification = obj.getString("specification");
+            String comment_pic= JsonParser.getNullableString(obj,"comment_pic","");
+            String phone=JsonParser.getNullableString(obj,"comment_pic","");
             JSONObject gdobj = obj.getJSONObject("goodsdetail");
             int detailtype = gdobj.getInt("detailtype");
             String detail_url = gdobj.getString("detail_url");
             String detail_pic_url = gdobj.getString("detail_pic_url");
+
             GoodsDetailM goodsdetail = new GoodsDetailM();
             goodsdetail.setdetailtype(detailtype);
             goodsdetail.setdetail_url(detail_url);
@@ -54,6 +58,8 @@ public class SuperMarketDetalDal {
             m.setspecification(specification);
             m.settype_list(type_list);
             m.setpic_urls_list(pic_urls_list);
+            m.setcomment_pic(comment_pic);
+            m.setphone(phone);
         } catch (JSONException jse) {
             jse.printStackTrace();
         } catch (Exception e) {

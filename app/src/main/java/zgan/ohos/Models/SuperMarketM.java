@@ -23,6 +23,8 @@ public class SuperMarketM extends BaseModel  implements Serializable {
     private List<SM_SecondaryM>category;
     //是否选中
     private  int isSelected= 0;
+    //联系电话
+    private String phone;
 
     public String getname() {
         return name;
@@ -61,6 +63,15 @@ public class SuperMarketM extends BaseModel  implements Serializable {
     {
         isSelected=status;
     }
+
+    public String getphone()
+    {return this.phone;}
+    public void setphone(String p)
+    {
+        if(!p.isEmpty())
+            this.phone=p;
+    }
+
     @Override
     public SuperMarketM getnewinstance() {
         return new SuperMarketM();

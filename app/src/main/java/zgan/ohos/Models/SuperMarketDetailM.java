@@ -14,6 +14,27 @@ public class SuperMarketDetailM extends SM_GoodsM implements Serializable {
     private List<String>pic_urls_list;
     //商品详情内容
     private GoodsDetailM goodsdetail;
+    //评价图片
+    private String comment_pic;
+
+    public String getcomment_pic() {
+        return comment_pic;
+    }
+
+    public void setcomment_pic(String comment_pic) {
+        this.comment_pic = comment_pic;
+    }
+
+    public String getphone() {
+        return phone;
+    }
+
+    public void setphone(String phone) {
+        this.phone = phone;
+    }
+
+    //咨询电话
+    private String phone;
 
     public int getcountdown() {
         return countdown;

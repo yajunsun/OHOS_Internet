@@ -122,6 +122,18 @@
             android:text="加入购物车"
             android:textColor="@color/solid_white"
             android:textSize="@dimen/toolbar_title_size" />
+        <TextView
+
+            android:id="@+id/btn_advisory"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/advisory_g11"
+            android:text="咨询"
+            android:layout_marginRight="20dp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_toLeftOf="@id/btn_add2cart"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/toolbar_title_size"/>
     </RelativeLayout>
 
     <ScrollView

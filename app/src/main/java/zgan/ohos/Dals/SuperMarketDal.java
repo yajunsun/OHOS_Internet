@@ -15,6 +15,7 @@ import zgan.ohos.Models.SM_GoodsM;
 import zgan.ohos.Models.SM_SecondaryM;
 import zgan.ohos.Models.SuperMarketM;
 import zgan.ohos.Models.Vegetable;
+import zgan.ohos.utils.JsonParser;
 import zgan.ohos.utils.SystemUtils;
 
 /**
@@ -34,6 +35,7 @@ public class SuperMarketDal extends ZGbaseDal<SuperMarketM> {
                     String name = obj.getString("name");
                     String id=obj.getString("id");
                     String recommend=  obj.getString("recommend");
+                    String phone= JsonParser.getNullableString(obj,"phone","");
                     JSONArray category=obj.getJSONArray("category");
                     sm.setname(name);
                     sm.setid(id);
@@ -94,6 +96,7 @@ public class SuperMarketDal extends ZGbaseDal<SuperMarketM> {
                         secondaryMs.add(sm_secondaryM);
                     }
                     sm.setcategory(secondaryMs);
+                    sm.setphone(phone);
                 } catch (JSONException jse) {
                     continue;
                 } catch (Exception e) {

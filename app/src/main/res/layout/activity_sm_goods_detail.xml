@@ -45,12 +45,17 @@
                 android:textSize="@dimen/toolbar_title_size" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/l_check"
+        android:layout_below="@id/toolbar">
     <ImageView
         android:layout_width="match_parent"
         android:layout_below="@id/toolbar"
         android:id="@+id/iv_preview"
-        android:scaleType="fitStart"
+        android:scaleType="fitXY"
         android:adjustViewBounds="true"
         android:layout_height="wrap_content" />
-
+</ScrollView>
 </RelativeLayout>
