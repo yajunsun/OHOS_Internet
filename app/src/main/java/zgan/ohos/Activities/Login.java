@@ -177,20 +177,21 @@ public class Login extends myBaseActivity {
                         SystemUtils.setIsCommunityLogin(true);
                         ZganLoginService.toGetServerData(28, 0, PhoneNum, communityHandler);
                         //获取联网令牌
-                        ZganCommunityService.toGetServerData(43,PhoneNum,communityHandler);
+                        ZganCommunityService.toGetServerData(43, PhoneNum, communityHandler);
                     } else {
-                        Intent intent = new Intent(Login.this, BindDevice.class);
-                        intent.putExtra("username", PhoneNum);
-                        intent.putExtra("pwd", et_pwd.getText().toString().trim());
-                        intent.putExtra("showcancel", true);
+//                        Intent intent = new Intent(Login.this, BindDevice.class);
+//                        intent.putExtra("username", PhoneNum);
+//                        intent.putExtra("pwd", et_pwd.getText().toString().trim());
+//                        intent.putExtra("showcancel", true);
+                        Intent intent = new Intent(Login.this, BindCommunity.class);
+                        intent.putExtra("username", et_Phone.getText().toString());
+                        intent.putExtra("pwd", et_pwd.getText().toString());
                         startActivityWithAnim(intent);
+                        //startActivityWithAnim(intent);
                     }
-                }
-                else if (frame.subCmd==43&&results[0].equals("0"))
-                {
+                } else if (frame.subCmd == 43 && results[0].equals("0")) {
                     SystemUtils.setNetToken(results[1]);
-                }
-                else if (frame.subCmd == 28 && results[0].equals("0")) {
+                } else if (frame.subCmd == 28 && results[0].equals("0")) {
                     if (results.length == 2) {
                         PreferenceUtil.setSID(results[1]);
                         logined();

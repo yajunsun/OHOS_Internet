@@ -21,4 +21,6 @@ public class HouseHolderServiceM extends BaseGoods implements Serializable{
 
     private String  details_url;
 
+
+
 }

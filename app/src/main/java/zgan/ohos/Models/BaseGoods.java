@@ -50,6 +50,16 @@ public abstract class BaseGoods extends BaseModel implements Serializable {
      */
     private int count = 0;
 
+    public String getphone() {
+        return phone;
+    }
+
+    public void setphone(String phone) {
+        this.phone = phone;
+    }
+
+    private String phone;
+
     /**
      * 支持的支付方式
      */

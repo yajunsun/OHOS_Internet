@@ -140,6 +140,7 @@ public class HouseHolderService extends myBaseActivity implements View.OnClickLi
                         try {
                             if (!isLoadingMore) {
                                 m = dal.getItem(results[2]);
+                                mAdvisoryPhone=m.getphone();
                                 if (frame.platform != 0) {
                                     addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), item.gettype_id(), String.format("@id=22,@page_id=%s", item.getpage_id()),"@22"), frame.strData);
                                 }
