@@ -10,6 +10,7 @@ import android.util.Log;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.facebook.device.yearclass.YearClass;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import zgan.ohos.services.crash.CrashHandler;
 import zgan.ohos.utils.ImageLoader;
@@ -42,6 +43,7 @@ public class MyApplication extends Application {
         PhoneYear = 2012;//YearClass.get(context);
 //        if (isOwnAPP()) {
         requestQueue = Volley.newRequestQueue(this);
+        ZXingLibrary.initDisplayOpinion(this);
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
 //        }

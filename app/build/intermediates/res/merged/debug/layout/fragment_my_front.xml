@@ -40,8 +40,9 @@
             android:layout_marginTop="20dp">
 
             <com.mikepenz.iconics.view.IconicsImageView
-                android:id="@+id/iv_location"
+                android:id="@+id/iv_code2d"
                 android:layout_width="20dp"
+                android:clickable="true"
                 android:layout_height="20dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"

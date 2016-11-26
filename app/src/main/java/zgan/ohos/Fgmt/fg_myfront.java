@@ -34,6 +34,8 @@ import android.widget.Toast;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.view.IconicsImageView;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,7 +86,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     LinearLayout pager_ind, func_ind;
     LinearLayoutManager gridItemLayoutmanger;
     static final int ADSINDEX = 0;
-    static final int TOSTMSG=10;
+    static final int TOSTMSG = 10;
     boolean isContinue = true;
     List<ImageView> imageViews = new ArrayList<>();
     List<ImageView> funcimageViews = new ArrayList<>();
@@ -111,6 +113,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     LayoutInflater mLayoutInflater;
     int mTimeOut = 5000;
     int mItemHeight = 0;
+    View code2d;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -151,7 +154,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 //        }
 
     }
-//获取页面数据
+
+    //获取页面数据
     private void initNetData() {
         new Thread(new Runnable() {
             @Override
@@ -183,10 +187,10 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                         //专题内容2
                         ZganCommunityService.toGetServerData(40, String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_FRONTITMES2, "@id=22", "22"), handler);
                     } else {
-                        Log.i(TAG,"连接网络超时，请退出后重新打开应用~");
-                        Message msg=handler.obtainMessage();
-                        msg.what=TOSTMSG;
-                        msg.obj="连接网络超时，请退出后重新打开应用~";
+                        Log.i(TAG, "连接网络超时，请退出后重新打开应用~");
+                        Message msg = handler.obtainMessage();
+                        msg.what = TOSTMSG;
+                        msg.obj = "连接网络超时，请退出后重新打开应用~";
                         msg.sendToTarget();
                     }
                 }
@@ -220,7 +224,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
     private void initView(View v) {
         p = AppUtils.getWindowSize(getActivity());
         txt_xiaoqu = (TextView) v.findViewById(R.id.txt_xiaoqu);
-        ivsearchicon=(IconicsImageView)v.findViewById(R.id.iv_searchicon);
+        ivsearchicon = (IconicsImageView) v.findViewById(R.id.iv_searchicon);
         ivsearchicon.setOnClickListener(this);
         sscontent = (ScrollViewWithCallBack) v.findViewById(R.id.ll_content);
         ll_shequhuodong = (LinearLayout) v.findViewById(R.id.ll_shequhuodong);
@@ -237,8 +241,13 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 //        iv_gridtitle = (ImageView) v.findViewById(R.id.iv_gridtitle);
 //        ll_shequgrid = (LinearLayout) v.findViewById(R.id.ll_shequgrid);
         //rv_grid = (RecyclerView) v.findViewById(R.id.rv_grid);
+
+        //二维码扫描
+        code2d = v.findViewById(R.id.iv_code2d);
+        code2d.setOnClickListener(this);
     }
-//加载功能区
+
+    //加载功能区
     private void loadFuncData() {
         List<View> views = new ArrayList<>();
         int funcCount = funcPages.size();
@@ -307,7 +316,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                      }
         );
     }
-//功能区点击处理事件
+
+    //功能区点击处理事件
     class funcClick implements View.OnClickListener {
         FrontItem func;
 
@@ -348,12 +358,12 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                         startActivityIfLogin(intent, 0);
                     else {
                         //generalhelper.ToastShow(getActivity(), "即将上线~");
-                        intent=new Intent(getActivity(), SuperMarket.class);
+                        intent = new Intent(getActivity(), SuperMarket.class);
                         startActivityWithAnim(getActivity(), intent);
                     }
                 }
             } catch (ActivityNotFoundException anfe) {
-                Intent intent=new Intent(getActivity(), SuperMarket.class);
+                Intent intent = new Intent(getActivity(), SuperMarket.class);
                 startActivityWithAnim(getActivity(), intent);
 //                generalhelper.ToastShow(getActivity(), "即将上线~");
 //                return;
@@ -362,7 +372,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             }
         }
     }
-//加载活动专区
+
+    //加载活动专区
     /*private void loadGridItems() {
         List<List<FrontItem>> set = new ArrayList<>();
         gridItemLayoutmanger = new LinearLayoutManager(getActivity());
@@ -407,7 +418,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
         ll_shequhuodong.setMinimumHeight(0);
     }
-//超市购项点击处理事件
+
+    //超市购项点击处理事件
     class goodsClick implements View.OnClickListener {
         FrontItem item;
 
@@ -431,7 +443,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 //                    startActivityWithAnim(getActivity(), intent);
                 }
             } catch (ActivityNotFoundException anfe) {
-               Intent  intent=new Intent(getActivity(), SuperMarket.class);
+                Intent intent = new Intent(getActivity(), SuperMarket.class);
                 startActivityWithAnim(getActivity(), intent);
 //                generalhelper.ToastShow(getActivity(), "即将上线~");
 //                return;
@@ -440,7 +452,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             }
         }
     }
-//加载顶部广告
+
+    //加载顶部广告
     private void loadGuanggaoData() {
         if (advertises != null) {
             List<View> advPics = new ArrayList<>();
@@ -500,7 +513,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
     }
 
-//广告点击处理事件
+    //广告点击处理事件
     class adverClick implements View.OnClickListener {
         Advertise advertise;
 
@@ -518,7 +531,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             startActivityWithAnim(getActivity(), intent);
         }
     }
-//提示对话框弹出
+
+    //提示对话框弹出
     private void communityOpt(int cmd, String data) {
         //if (SystemUtils.getSID().equals("")) {
         //if (PreferenceUtil.getSID().equals("")) {
@@ -540,6 +554,9 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         if (view.getId() == R.id.iv_searchicon) {
             Intent intent = new Intent(getActivity(), SMSearchResult.class);
             startActivity(intent);
+        } else if (view.getId() == R.id.iv_code2d) {
+            Intent intent = new Intent(getActivity(), CaptureActivity.class);
+            startActivityForResult(intent, resultCodes.CODE2DSCAN);
         }
 /*        if (!SystemUtils.getIsCommunityLogin()) {
             opendialog.show();
@@ -548,7 +565,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
     }*/
     }
-//数据处理handler
+
+    //数据处理handler
     private void iniHandler() {
         handler = new Handler() {
             @Override
@@ -600,8 +618,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         addCache("40" + String.format("%s\t%s\t%s\t%s", PreferenceUtil.getUserName(), AppUtils.P_ADVER, "@id=22", "22"), frame.strData);
                                     }
                                 }
-                            }
-                            else if (results[1].equals(AppUtils.P_USERINFO)) {
+                            } else if (results[1].equals(AppUtils.P_USERINFO)) {
                                 if (datastr.length() > 0) {
                                     try {
                                         JSONArray jsonArray = new JSONObject(datastr)
@@ -612,7 +629,7 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                                         String shop = obj.get("shop").toString();
                                         String property = obj.get("property").toString();
                                         String Fname = obj.get("Fname").toString();
-                                        String appurl=obj.get("Appurl").toString();
+                                        String appurl = obj.get("Appurl").toString();
 
                                         SystemUtils.setAddress(address);
                                         SystemUtils.setVillage(village);
@@ -642,23 +659,22 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                     }
                 } else if (msg.what == ADSINDEX) {
                     adv_pager.setCurrentItem(msg.arg1);
-                }
-                else if (msg.what==TOSTMSG)
-                {
-                    Log.i(TAG,"I received you msg:"+msg.obj.toString());
-                    Toast.makeText(getActivity(),msg.obj.toString(),Toast.LENGTH_LONG);
+                } else if (msg.what == TOSTMSG) {
+                    Log.i(TAG, "I received you msg:" + msg.obj.toString());
+                    Toast.makeText(getActivity(), msg.obj.toString(), Toast.LENGTH_LONG);
                 }
             }
 
         };
     }
-//带数据返回处理
+
+    //带数据返回处理
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Intent intent;
-        if (resultCode == resultCodes.LOGIN)
-            if (SystemUtils.getIsLogin())
+        if (resultCode == resultCodes.LOGIN) {
+            if (SystemUtils.getIsLogin()) {
                 switch (requestCode) {
                     case resultCodes.SOCIALPOST://阳光渝北
                         intent = new Intent(getActivity(), MessageActivity.class);
@@ -720,6 +736,15 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                         generalhelper.ToastShow(getActivity(), "暂未开通");
                         break;
                 }
+            }
+        } else if (requestCode == resultCodes.CODE2DSCAN) {
+
+            Bundle bundle = data.getExtras();
+            String result = bundle.getString(CodeUtils.RESULT_STRING);
+            generalhelper.ToastShow(getActivity(), result);
+
+        }
+        //generalhelper.ToastShow(getActivity(), requestCode);
     }
 
     /***
@@ -745,7 +770,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             startActivityWithAnimForResult(getActivity(), loginIntent, requstCode);
         }
     }
-//隐式Intent判断目标是否存在
+
+    //隐式Intent判断目标是否存在
     public boolean isActionInstalled(Intent intent) {
         final PackageManager packageManager = getActivity().getPackageManager();
         //final Intent intent = new Intent(action);
@@ -753,7 +779,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return list.size() > 0;
     }
-//广告循环驱动
+
+    //广告循环驱动
     private void whatOption() {
         what.incrementAndGet();
         if (what.get() > imageViews.size() - 1) {
@@ -765,7 +792,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
         }
     }
-//广告滑动监听
+
+    //广告滑动监听
     private final class GuidePageChangeListener implements ViewPager.OnPageChangeListener {
 
         @Override
@@ -794,7 +822,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
 
     }
-//功能区滑动监听
+
+    //功能区滑动监听
     private final class funcPageChangeListener implements ViewPager.OnPageChangeListener {
 
         @Override
@@ -820,7 +849,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
 
     }
-//广告适配器
+
+    //广告适配器
     private final class AdvAdapter extends PagerAdapter {
         private List<View> views = null;
 
@@ -869,7 +899,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
 
         }
     }
-//功能区适配器
+
+    //功能区适配器
     private class funcAdapter extends RecyclerView.Adapter<funcAdapter.ViewHolder> {
 
         List<FrontItem> list;
@@ -909,7 +940,8 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
         }
 
     }
-//活动专区适配器
+
+    //活动专区适配器
     private class gridItemAdapter extends RecyclerView.Adapter<gridItemAdapter.ViewHolder> {
         List<List<FrontItem>> set;
 

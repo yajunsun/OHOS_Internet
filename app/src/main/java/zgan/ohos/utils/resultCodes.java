@@ -132,4 +132,8 @@ public final class resultCodes {
      * 前往购物车
      */
     public final static int TOSHOPPINGCART=10031;
+    /**
+     * 二维码扫描
+     * **/
+    public final static int CODE2DSCAN=10032;
 }
