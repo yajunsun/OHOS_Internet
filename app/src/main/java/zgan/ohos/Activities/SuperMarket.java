@@ -106,12 +106,23 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
     DecimalFormat decimalFormat = new DecimalFormat("0.00");
     TextView btn_advisory;
     String mAdvisoryPhone;
+    
+    ScanContent scan;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_super_market);
         product_layoutManager = new LinearLayoutManager(SuperMarket.this);
-        PageId = ((FrontItem) getIntent().getSerializableExtra("item")).getpage_id().replace("'", "");
+        Intent request=getIntent();
+        if (request.hasExtras("scan")
+            {
+            scan=(ScanContent)request.getSerializableExtra("scan");
+            PageId=scan.getversion().getdetail().scan_pageID();
+        }
+            else
+            {
+        PageId = ((FrontItem) request.getSerializableExtra("item")).getpage_id().replace("'", "");
+        }
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,6 +226,18 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
         getCatProducts();
     }
 
+    void bindScan(){
+        if (list != null && list.size() > 0) {
+
+            mCurrentClassId = scan.getversion.getdetail.getcategory_id();
+            secondarylst = list.get(lastClassIndex).getcategory();
+            mAdvisoryPhone = list.get(lastClassIndex).getphone();
+        } else {
+            list = new ArrayList<>();
+        }
+        bindClass();
+            
+        }        
     //绑定数据
     void bindData() {
         if (list != null && list.size() > 0) {
@@ -439,7 +462,10 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
                         //获取数据并绑定数据
                         if (result.equals("0")) {
                             list = dal.getList(data);
+                            if(scan==null)
                             bindData();
+                               else
+                                bindScan();
                             loadShoppingCart();
                         } else if (!errmsg.isEmpty()) {
                             generalhelper.ToastShow(SuperMarket.this, "服务器错误:" + errmsg);
