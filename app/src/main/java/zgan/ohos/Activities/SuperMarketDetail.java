@@ -92,8 +92,8 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
             productid = item.getpage_id().replace("'", "");
         }
         else if (request.hasExtra("scan")){
-           ScanContent scan=(ScanContent)request.getSerializableExtr("scan")
-           productid=scan.version.title.ID;
+           ScanContent scan=(ScanContent)request.getSerializableExtra("scan");
+           productid=scan.getversion().gettitle().getID();
         }
         else {
             generalhelper.ToastShow(SuperMarketDetail.this, "敬请期待");

@@ -43,6 +43,7 @@ import zgan.ohos.Dals.SuperMarketDal;
 import zgan.ohos.Models.FrontItem;
 import zgan.ohos.Models.SM_GoodsM;
 import zgan.ohos.Models.SM_SecondaryM;
+import zgan.ohos.Models.ScanContent;
 import zgan.ohos.Models.ShoppingCartSummary;
 import zgan.ohos.Models.SuperMarketM;
 import zgan.ohos.R;
@@ -106,22 +107,19 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
     DecimalFormat decimalFormat = new DecimalFormat("0.00");
     TextView btn_advisory;
     String mAdvisoryPhone;
-    
+
     ScanContent scan;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_super_market);
         product_layoutManager = new LinearLayoutManager(SuperMarket.this);
-        Intent request=getIntent();
-        if (request.hasExtras("scan")
-            {
-            scan=(ScanContent)request.getSerializableExtra("scan");
-            PageId=scan.getversion().getdetail().scan_pageID();
-        }
-            else
-            {
-        PageId = ((FrontItem) request.getSerializableExtra("item")).getpage_id().replace("'", "");
+        Intent request = getIntent();
+        if (request.hasExtra("scan")) {
+            scan = (ScanContent) request.getSerializableExtra("scan");
+            PageId = scan.getversion().gettitle().getID();
+        } else {
+            PageId = ((FrontItem) request.getSerializableExtra("item")).getpage_id().replace("'", "");
         }
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -226,18 +224,35 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
         getCatProducts();
     }
 
-    void bindScan(){
+    void bindScan() {
         if (list != null && list.size() > 0) {
+            mCurrentClassId = scan.getversion().getdetail().getcategory_id();
+            int i=0;
+            for (SuperMarketM sm :list)
+            {
+                if (sm.getid().equals(mCurrentClassId))
+                {
+                    list.get(i).setIsSelected(1);
+                    lastClassIndex=i;
+                }
+                else
+                {
+                    list.get(i).setIsSelected(0);
+                }
+                i++;
+            }
+            mCurrentCatId=scan.getversion().getdetail().getsub_category_id();
 
-            mCurrentClassId = scan.getversion.getdetail.getcategory_id();
-            secondarylst = list.get(lastClassIndex).getcategory();
-            mAdvisoryPhone = list.get(lastClassIndex).getphone();
         } else {
             list = new ArrayList<>();
         }
+        bindData();
+        pageIndex=SystemUtils.getIntValue( scan.getversion().getdetail().getpage_id());
+        getCatProducts();;
         bindClass();
-            
-        }        
+
+    }
+
     //绑定数据
     void bindData() {
         if (list != null && list.size() > 0) {
@@ -462,9 +477,9 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
                         //获取数据并绑定数据
                         if (result.equals("0")) {
                             list = dal.getList(data);
-                            if(scan==null)
-                            bindData();
-                               else
+                            if (scan == null)
+                                bindData();
+                            else
                                 bindScan();
                             loadShoppingCart();
                         } else if (!errmsg.isEmpty()) {
@@ -564,7 +579,7 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
             Intent intent = new Intent(SuperMarket.this, ShoppingCart.class);
             startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
         } else if (v.getId() == R.id.btn_advisory) {
-            if (mAdvisoryPhone!=null&&!mAdvisoryPhone.isEmpty())
+            if (mAdvisoryPhone != null && !mAdvisoryPhone.isEmpty())
                 AppUtils.PhoneCall(SuperMarket.this, mAdvisoryPhone);
             else
                 generalhelper.ToastShow(SuperMarket.this, "当前不支持该功能~");

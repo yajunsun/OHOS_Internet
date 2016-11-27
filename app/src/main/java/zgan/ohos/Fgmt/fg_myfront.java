@@ -60,8 +60,10 @@ import zgan.ohos.ConstomControls.ScrollViewWithCallBack;
 import zgan.ohos.Contracts.IImageloader;
 import zgan.ohos.Dals.AdvertiseDal;
 import zgan.ohos.Dals.FrontItemDal;
+import zgan.ohos.Dals.ScanContentDal;
 import zgan.ohos.Models.Advertise;
 import zgan.ohos.Models.FrontItem;
+import zgan.ohos.Models.ScanContent;
 import zgan.ohos.R;
 import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.utils.AppUtils;
@@ -555,6 +557,23 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             Intent intent = new Intent(getActivity(), SMSearchResult.class);
             startActivity(intent);
         } else if (view.getId() == R.id.iv_code2d) {
+//           String jstr="{\"scan_pageID\": 3016,\"version\": [{\"version_id\": 5003,\"ID\":277}]}";//"{\"scan_pageID\": 3015,\"version\": [{\"version_id\": 5001,\"ID\": 8}, {\"version_id\": 5002,\"page_id\": 0,\"sub_category_id\": -1,\"category_id\": 180}]}";
+//            ScanContent sc=new ScanContentDal().getItem(jstr);
+//            Intent intent=new Intent();
+//            intent.setAction("Page." + sc.getscan_pageID());
+//            //FuncBase fb=new FuncBase();
+//            //fb.settype_id();
+//            //fb.setpage_id();
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable("scan", sc);
+//            intent.putExtras(bundle);
+//            if (isActionInstalled(intent))
+//                startActivityIfLogin(intent, 0);
+//            else {
+//                //generalhelper.ToastShow(getActivity(), "即将上线~");
+//                intent = new Intent(getActivity(), SuperMarket.class);
+//                startActivityWithAnim(getActivity(), intent);
+//            }
             Intent intent = new Intent(getActivity(), CaptureActivity.class);
             startActivityForResult(intent, resultCodes.CODE2DSCAN);
         }
@@ -739,26 +758,28 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             }
         } else if (requestCode == resultCodes.CODE2DSCAN) {
 
-            Bundle bundle = data.getExtras();
-            String result = bundle.getString(CodeUtils.RESULT_STRING);
-            //generalhelper.ToastShow(getActivity(), result);
-            ScanContent sc=new ScanContentDal.getItem(result);
-            Intent intent = new Intent();
-                    intent.setAction("Page." + sc.scan_pageID);
-            //FuncBase fb=new FuncBase();
-            //fb.settype_id();
-            //fb.setpage_id();
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("scan", sc);
-                    intent.putExtras(bundle);
-                    if (isActionInstalled(intent))
-                        startActivityIfLogin(intent, 0);
-                    else {
-                        //generalhelper.ToastShow(getActivity(), "即将上线~");
-                        intent = new Intent(getActivity(), SuperMarket.class);
-                        startActivityWithAnim(getActivity(), intent);
-                    }
-
+            if (data != null && data.hasExtra(CodeUtils.RESULT_STRING)) {
+                Bundle bundle = data.getExtras();
+                String result = bundle.getString(CodeUtils.RESULT_STRING);
+                Log.i(TAG, result);
+                //generalhelper.ToastShow(getActivity(), result);
+                ScanContent sc = new ScanContentDal().getItem(result);
+                intent = new Intent();
+                intent.setAction("Page." + sc.getscan_pageID());
+                //FuncBase fb=new FuncBase();
+                //fb.settype_id();
+                //fb.setpage_id();
+                bundle = new Bundle();
+                bundle.putSerializable("scan", sc);
+                intent.putExtras(bundle);
+                if (isActionInstalled(intent))
+                    startActivityIfLogin(intent, 0);
+                else {
+                    //generalhelper.ToastShow(getActivity(), "即将上线~");
+                    intent = new Intent(getActivity(), SuperMarket.class);
+                    startActivityWithAnim(getActivity(), intent);
+                }
+            }
         }
         //generalhelper.ToastShow(getActivity(), requestCode);
     }
