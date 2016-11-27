@@ -742,7 +742,20 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
             Bundle bundle = data.getExtras();
             String result = bundle.getString(CodeUtils.RESULT_STRING);
             generalhelper.ToastShow(getActivity(), result);
-
+            
+            /*Intent intent = new Intent();
+                    intent.setAction("Page." + func.gettype_id());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("item", func);
+                    intent.putExtras(bundle);
+                    if (isActionInstalled(intent))
+                        startActivityIfLogin(intent, 0);
+                    else {
+                        //generalhelper.ToastShow(getActivity(), "即将上线~");
+                        intent = new Intent(getActivity(), SuperMarket.class);
+                        startActivityWithAnim(getActivity(), intent);
+                    }
+*/
         }
         //generalhelper.ToastShow(getActivity(), requestCode);
     }
