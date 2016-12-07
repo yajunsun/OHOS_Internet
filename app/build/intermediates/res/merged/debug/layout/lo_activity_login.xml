@@ -39,21 +39,17 @@
                 android:textColor="@color/shishiwuye_big_txt_color"
                 android:textSize="@dimen/shishiwuye_big_txt_size" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/til_phone"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@id/txt1">
+
 
                 <EditText
                     android:id="@+id/et_Phone"
+                    android:layout_toRightOf="@id/txt1"
                     android:layout_width="fill_parent"
+                    android:layout_centerVertical="true"
                     android:layout_height="@dimen/edittext_height"
-                    android:gravity="top"
+                    android:layout_marginLeft="10dp"
                     />
-            </android.support.design.widget.TextInputLayout>
+
         </RelativeLayout>
 
         <LinearLayout
@@ -76,22 +72,16 @@
                 android:textColor="@color/shishiwuye_big_txt_color"
                 android:textSize="@dimen/shishiwuye_big_txt_size" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/til_pwd"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@id/txt2">
+
 
                 <EditText
                     android:id="@+id/et_pwd"
+                    android:layout_toRightOf="@id/txt2"
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/edittext_height"
-                    android:gravity="top"
-
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
                     android:inputType="textPassword" />
-            </android.support.design.widget.TextInputLayout>
         </RelativeLayout>
     </LinearLayout>
 
@@ -106,7 +96,6 @@
         android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:background="@drawable/login_done"
-        android:onClick="ViewClick"
         android:text="登陆"
         android:textColor="@color/txt_xiaoqu_color"
         android:textSize="@dimen/toolbar_title_size" />

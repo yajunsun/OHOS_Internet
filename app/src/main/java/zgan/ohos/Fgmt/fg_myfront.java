@@ -757,27 +757,32 @@ public class fg_myfront extends myBaseFragment implements View.OnClickListener {
                 }
             }
         } else if (requestCode == resultCodes.CODE2DSCAN) {
-
             if (data != null && data.hasExtra(CodeUtils.RESULT_STRING)) {
                 Bundle bundle = data.getExtras();
                 String result = bundle.getString(CodeUtils.RESULT_STRING);
                 Log.i(TAG, result);
                 //generalhelper.ToastShow(getActivity(), result);
                 ScanContent sc = new ScanContentDal().getItem(result);
-                intent = new Intent();
-                intent.setAction("Page." + sc.getscan_pageID());
-                //FuncBase fb=new FuncBase();
-                //fb.settype_id();
-                //fb.setpage_id();
-                bundle = new Bundle();
-                bundle.putSerializable("scan", sc);
-                intent.putExtras(bundle);
-                if (isActionInstalled(intent))
-                    startActivityIfLogin(intent, 0);
-                else {
-                    //generalhelper.ToastShow(getActivity(), "即将上线~");
-                    intent = new Intent(getActivity(), SuperMarket.class);
-                    startActivityWithAnim(getActivity(), intent);
+                if (sc.getscan_pageID() != null) {
+                    intent = new Intent();
+                    intent.setAction("Page." + sc.getscan_pageID());
+                    //FuncBase fb=new FuncBase();
+                    //fb.settype_id();
+                    //fb.setpage_id();
+                    bundle = new Bundle();
+                    bundle.putSerializable("scan", sc);
+                    intent.putExtras(bundle);
+                    if (isActionInstalled(intent))
+                        startActivityIfLogin(intent, 0);
+                    else {
+                        //generalhelper.ToastShow(getActivity(), "即将上线~");
+                        intent = new Intent(getActivity(), SuperMarket.class);
+                        startActivityWithAnim(getActivity(), intent);
+                    }
+                }
+                else
+                {
+                    generalhelper.ToastShow(getActivity(),"无效的二维码！");
                 }
             }
         }

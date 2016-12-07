@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import zgan.ohos.MyApplication;
@@ -29,11 +30,10 @@ import zgan.ohos.utils.resultCodes;
  */
 public class Login extends myBaseActivity {
 
-    TextInputLayout til_Phone;
-    TextInputLayout til_pwd;
     EditText et_Phone;
     EditText et_pwd;
     String PhoneNum;
+    Button btnlogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +44,15 @@ public class Login extends myBaseActivity {
 
     public void initView() {
         setContentView(R.layout.lo_activity_login);
-        til_Phone = (TextInputLayout) findViewById(R.id.til_phone);
-        til_pwd = (TextInputLayout) findViewById(R.id.til_pwd);
         et_Phone = (EditText) findViewById(R.id.et_Phone);
         et_pwd = (EditText) findViewById(R.id.et_pwd);
+        btnlogin=(Button)findViewById(R.id.btn_login);
+        btnlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewClick(v);
+            }
+        });
         //phone参数从注册验证那边传过来
         Intent requestIntent = getIntent();
         if (requestIntent.hasExtra("phone")) {
@@ -63,24 +68,24 @@ public class Login extends myBaseActivity {
                 String Phone = et_Phone.getText().toString().trim();
                 String Pwd = et_pwd.getText().toString().trim();
                 if (Phone.length() == 0) {
-                    til_Phone.setError("电话号码不能为空");
-                    til_Phone.setErrorEnabled(true);
+                   generalhelper.ToastShow(Login.this,"电话号码不能为空");
+
                 } else if (Phone.toCharArray().length != 11) {
-                    til_Phone.setError("电话号码填写错误");
-                    til_Phone.setErrorEnabled(true);
+                    generalhelper.ToastShow(Login.this,"电话号码填写错误");
+
                 } else {
                     CheckName = true;
-                    til_Phone.setErrorEnabled(false);
+
                 }
                 if (Pwd.length() == 0) {
-                    til_pwd.setError("密码不能为空");
-                    til_pwd.setErrorEnabled(true);
+                    generalhelper.ToastShow(Login.this,"密码不能为空");
+
                 } else if (Pwd.length() > 20) {
-                    til_pwd.setError("密码长度不能超过20位");
-                    til_pwd.setErrorEnabled(true);
+                    generalhelper.ToastShow(Login.this,"密码长度不能超过20位");
+
                 } else {
                     CheckPwd = true;
-                    til_pwd.setErrorEnabled(false);
+
                 }
                 try {
                     if (CheckName && CheckPwd) {
@@ -124,14 +129,13 @@ public class Login extends myBaseActivity {
                 if (frame.subCmd == 1) {
                     if (result.equals("0")) {
                         ZganLoginService.toGetServerData(3, 0, PhoneNum, handler);
-                        til_Phone.setErrorEnabled(false);
-                        til_pwd.setErrorEnabled(false);
+
                     } else if (result.equals("6") || result.equals("8")) {
-                        til_Phone.setError("不存在此用户，请先注册");
-                        til_Phone.setErrorEnabled(true);
+                        generalhelper.ToastShow(Login.this,"不存在此用户，请先注册");
+
                     } else if (result.equals("26")) {
-                        til_pwd.setError("密码错误");
-                        til_pwd.setErrorEnabled(true);
+                        generalhelper.ToastShow(Login.this,"密码错误");
+
                     }
                 } else if (frame.subCmd == 3) {
                     String communityIP = PreferenceUtil.getCommunityIP();

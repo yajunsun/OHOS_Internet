@@ -149,7 +149,7 @@
 
         <TextView
             android:id="@+id/btn_check"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:background="@color/primary"

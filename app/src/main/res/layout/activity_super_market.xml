@@ -123,7 +123,7 @@
 
         <TextView
             android:id="@+id/btn_check"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:background="@color/primary"
@@ -139,7 +139,7 @@
             android:layout_centerVertical="true"
             android:drawableLeft="@drawable/advisory_g11"
             android:text="咨询"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             android:textColor="@android:color/darker_gray"
             android:layout_toLeftOf="@id/btn_check"
             android:layout_height="wrap_content"
