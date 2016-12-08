@@ -576,7 +576,8 @@ public class SuperMarket extends myBaseActivity implements View.OnClickListener 
     @Override
     public void ViewClick(View v) {
         if (v.getId() == R.id.img_icon || v.getId() == R.id.btn_check) {
-            Intent intent = new Intent(SuperMarket.this, ShoppingCart.class);
+//            Intent intent = new Intent(SuperMarket.this, ShoppingCart.class);
+            Intent intent = new Intent(SuperMarket.this, MainShoppingCart.class);
             startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
         } else if (v.getId() == R.id.btn_advisory) {
             if (mAdvisoryPhone != null && !mAdvisoryPhone.isEmpty())

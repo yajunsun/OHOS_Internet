@@ -344,11 +344,13 @@ public class SMSearchResult extends myBaseActivity implements View.OnClickListen
                 loadData();
                 break;
             case R.id.btn_check:
-                 intent = new Intent(SMSearchResult.this, ShoppingCart.class);
+                 //intent = new Intent(SMSearchResult.this, ShoppingCart.class);
+                intent = new Intent(SMSearchResult.this, MainShoppingCart.class);
                 startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
                 break;
             case R.id.img_icon:
-                 intent = new Intent(SMSearchResult.this, ShoppingCart.class);
+                 //intent = new Intent(SMSearchResult.this, ShoppingCart.class);
+                intent = new Intent(SMSearchResult.this, MainShoppingCart.class);
                 startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
                 break;
         }

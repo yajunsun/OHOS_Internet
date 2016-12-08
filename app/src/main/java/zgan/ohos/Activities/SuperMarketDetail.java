@@ -373,7 +373,8 @@ public class SuperMarketDetail extends myBaseActivity implements View.OnClickLis
                 break;
             //case R.id.btn_buynow:
             case R.id.img_icon:
-                intent = new Intent(SuperMarketDetail.this, ShoppingCart.class);
+//                intent = new Intent(SuperMarketDetail.this, ShoppingCart.class);
+                intent = new Intent(SuperMarketDetail.this, MainShoppingCart.class);
                 startActivityWithAnimForResult(intent, resultCodes.TOSHOPPINGCART);
                 break;
             case R.id.rl_detail:
