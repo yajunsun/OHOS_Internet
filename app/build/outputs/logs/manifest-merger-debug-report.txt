@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:2:1-440:12
+ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:2:1-441:12
 	package
 		ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:3:5-24
 		INJECTED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml
@@ -112,7 +112,7 @@ ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:
 	android:name
 		ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:40:22-76
 application
-ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:42:5-438:19
+ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:42:5-439:19
 MERGED from [com.mikepenz:aboutlibraries:5.2.5] /Users/apple/Desktop/OHOS_Internet1/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/AndroidManifest.xml:11:5-13:19
 MERGED from [com.android.support:appcompat-v7:23.4.0] /Users/apple/Desktop/OHOS_Internet1/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:animated-vector-drawable:23.4.0] /Users/apple/Desktop/OHOS_Internet1/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/AndroidManifest.xml:7:5-20
@@ -781,7 +781,7 @@ ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:
 intent-filter#Page.3016+android.intent.category.DEFAULT
 ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:424:13-428:29
 action#Page.3016
-ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:425:17-59
+ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:425:17-52
 	android:name
 		ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:425:25-49
 activity#zgan.ohos.Activities.SMSearchResult
@@ -799,7 +799,7 @@ ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:
 	android:name
 		ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:434:19-61
 activity#zgan.ohos.Activities.SM_OrderDetail
-ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:435:9-72
+ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:435:9-63
 	android:name
 		ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:435:19-60
 activity#zgan.ohos.Activities.SM_GoodsDetail
@@ -807,9 +807,13 @@ ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:
 	android:name
 		ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:436:19-60
 activity#zgan.ohos.Activities.MainShoppingCart
-ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:437:9-74
+ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:437:9-65
 	android:name
 		ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:437:19-62
+activity#zgan.ohos.Activities.SecondShoppingCart
+ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:438:9-76
+	android:name
+		ADDED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml:438:19-64
 uses-sdk
 INJECTED from /Users/apple/Desktop/OHOS_Internet1/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.mikepenz:aboutlibraries:5.2.5] /Users/apple/Desktop/OHOS_Internet1/app/build/intermediates/exploded-aar/com.mikepenz/aboutlibraries/5.2.5/AndroidManifest.xml:7:5-9:41

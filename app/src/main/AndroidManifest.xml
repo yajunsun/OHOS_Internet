@@ -422,7 +422,7 @@
 
         <activity android:name=".Activities.SuperMarketDetail">
             <intent-filter>
-                <action android:name="Page.3016"></action>
+                <action android:name="Page.3016" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -432,9 +432,10 @@
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name=".Activities.ShoppingCart" />
         <activity android:name=".Activities.CommitCartOrder" />
-        <activity android:name=".Activities.SM_OrderDetail"></activity>
+        <activity android:name=".Activities.SM_OrderDetail" />
         <activity android:name=".Activities.SM_GoodsDetail" />
-        <activity android:name=".Activities.MainShoppingCart"></activity>
+        <activity android:name=".Activities.MainShoppingCart" />
+        <activity android:name=".Activities.SecondShoppingCart"></activity>
     </application>
 
 </manifest>

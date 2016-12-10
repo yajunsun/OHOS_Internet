@@ -1,21 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<LinearLayout
-    android:id="@+id/lltitile"
-    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
 
-    android:layout_height="50dp"></LinearLayout>
-    <LinearLayout
-        android:id="@+id/llcontent"
-        android:orientation="horizontal"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:id="@+id/lltitile"
         android:layout_width="match_parent"
-        android:layout_height="100dp"></LinearLayout>
+        android:layout_height="50dp"
+        android:background="@color/color_sm_class_bg">
+
+        <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:text="自营"
+            android:textColor="@color/solid_black"
+            android:textSize="18sp" />
+
+        <com.mikepenz.iconics.view.IconicsImageView
+            android:id="@+id/iv_detail"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            app:iiv_color="@color/myaccount_icon"
+            app:iiv_icon="gmd-chevron-right" />
+    </RelativeLayout>
+
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/llcontent"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:background="@color/solid_white"-->
+    <!--android:orientation="horizontal"></LinearLayout>-->
+    <!---->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvproducts"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"></android.support.v7.widget.RecyclerView>
+
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
+        android:background="@color/color_sm_class_bg"
+        android:orientation="vertical"></LinearLayout>
+
+    <RelativeLayout
         android:id="@+id/llbottom"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp"></LinearLayout>
+        android:layout_height="40dp"
+        android:background="@color/solid_white">
+
+        <TextView
+            android:id="@+id/txt_totalprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="¥9.9"
+            android:textColor="@color/solid_black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/btn_check"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/primary"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="去结算"
+            android:textColor="@color/solid_white"
+
+            android:textSize="20sp" />
+    </RelativeLayout>
 </LinearLayout>
