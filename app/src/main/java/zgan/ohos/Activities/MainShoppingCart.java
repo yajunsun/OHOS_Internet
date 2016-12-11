@@ -1,18 +1,17 @@
 package zgan.ohos.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mikepenz.iconics.view.IconicsImageView;
@@ -20,19 +19,16 @@ import com.mikepenz.iconics.view.IconicsImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import zgan.ohos.Contracts.UpdateCartListner;
 import zgan.ohos.Dals.MainShoppingCartDal;
 import zgan.ohos.Models.BussinessShoppingCartM;
 import zgan.ohos.Models.MainShoppingCartM;
-import zgan.ohos.Models.Product;
 import zgan.ohos.Models.SM_GoodsM;
-import zgan.ohos.Models.SM_Payway;
 import zgan.ohos.Models.ShoppingCartM;
 import zgan.ohos.R;
-import zgan.ohos.adapters.RectViewItemSpace;
 import zgan.ohos.services.community.ZganCommunityService;
 import zgan.ohos.utils.AppUtils;
 import zgan.ohos.utils.Frame;
@@ -51,12 +47,18 @@ public class MainShoppingCart extends myBaseActivity {
     List<BussinessShoppingCartM> list;
     myAdapter adapter;
     float density;
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    LinearLayout.MarginLayoutParams params;
+    int parentW;
 
     @Override
     protected void onStart() {
         super.onStart();
         cartDal = new MainShoppingCartDal();
         loadData();
+        parentW = AppUtils.getWindowSize(MainShoppingCart.this).x;
+        params = new LinearLayout.LayoutParams((int) (100 * density), (int) (100 * density));
+        setResult(resultCodes.TOSHOPPINGCART);
     }
 
     @Override
@@ -67,7 +69,14 @@ public class MainShoppingCart extends myBaseActivity {
         rvbussiness.setLayoutManager(layoutManager);
 
         density = AppUtils.getDensity(MainShoppingCart.this);
-        //rvbussiness.addItemDecoration(new RectViewItemSpace(0,0,0,Math.round(10 * density)));
+
+        View back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     void loadData() {
@@ -103,10 +112,6 @@ public class MainShoppingCart extends myBaseActivity {
                 } else {
                     adapter.notifyDataSetChanged();
                 }
-//            isLoadingMore = false;
-//            refreshview.setRefreshing(false);
-//            llkeys.setVisibility(View.GONE);
-
             }
         } else {
             Intent intent = new Intent(MainShoppingCart.this, ShoppingCart.class);
@@ -187,18 +192,7 @@ public class MainShoppingCart extends myBaseActivity {
         public void onBindViewHolder(ViewHolder holder, int position) {
             BussinessShoppingCartM bsc = list.get(position);
             holder.txt_name.setText(bsc.getbussinessname());
-            //buildGoodsView(bsc, holder.llcontent);
-            List<SM_GoodsM> goodsMs=new ArrayList<>();
-            for(ShoppingCartM sc: bsc.getgoodsarray())
-            {
-                for (SM_GoodsM g:sc.getproductArray())
-                {
-                    goodsMs.add(g);
-                }
-            }
-            ProductAdapter productAdapter=new ProductAdapter(goodsMs);
-            holder.rvgoods.setAdapter(productAdapter);
-            holder.rvgoods.setLayoutManager(new GridLayoutManager(MainShoppingCart.this,10000));
+            buildGoodsView(bsc, holder.llcontent, holder.txt_totalprice);
             holder.btn_check.setOnClickListener(new onClick(bsc));
             holder.iv_detail.setOnClickListener(new onClick(bsc));
         }
@@ -228,8 +222,7 @@ public class MainShoppingCart extends myBaseActivity {
         class ViewHolder extends RecyclerView.ViewHolder {
             TextView txt_name, txt_totalprice, btn_check;
             IconicsImageView iv_detail;
-            //LinearLayout llcontent;
-            RecyclerView rvgoods;
+            LinearLayout llcontent;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -237,64 +230,36 @@ public class MainShoppingCart extends myBaseActivity {
                 txt_totalprice = (TextView) itemView.findViewById(R.id.txt_totalprice);
                 btn_check = (TextView) itemView.findViewById(R.id.btn_check);
                 iv_detail = (IconicsImageView) itemView.findViewById(R.id.iv_detail);
-                //llcontent = (LinearLayout) itemView.findViewById(R.id.llcontent);
-                rvgoods=(RecyclerView)itemView.findViewById(R.id.rv_goods);
+                llcontent = (LinearLayout) itemView.findViewById(R.id.llcontent);
             }
         }
     }
 
-    void buildGoodsView(BussinessShoppingCartM bsc, LinearLayout layout) {
+    void buildGoodsView(BussinessShoppingCartM bsc, LinearLayout layout, TextView txtprice) {
+        layout.removeAllViews();
         List<ShoppingCartM> sc = bsc.getgoodsarray();
-        LinearLayout.MarginLayoutParams params = new LinearLayout.LayoutParams((int) (100 * density), (int) (100 * density));
-        //List<Product>ps=new ArrayList<>();
-        //LinearLayout layout = new LinearLayout(MainShoppingCart.this);
+
+        int newpW = 0;
+        double totalprice = 0;
         for (ShoppingCartM m : sc) {
             List<SM_GoodsM> goodsMs = m.getproductArray();
             for (SM_GoodsM g : goodsMs) {
-                ImageView img = new ImageView(MainShoppingCart.this);
-                params.setMargins(10, 10, 0, 10);
-                //layout.setLayoutParams(params);
-
-                img.setLayoutParams(params);
-                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                RelativeLayout rlayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.lo_product_item, null, false);
+                rlayout.setLayoutParams(params);
+                ImageView img = (ImageView) rlayout.findViewById(R.id.iv_preview); //new ImageView(MainShoppingCart.this);
+                if (g.getcount() > 1) {
+                    TextView txtcount = (TextView) rlayout.findViewById(R.id.txt_count);
+                    txtcount.setText(String.valueOf(g.getcount()));
+                    txtcount.setVisibility(View.VISIBLE);
+                }
                 ImageLoader.bindBitmap(g.getpic_url(), img);
-                layout.addView(img);
+                layout.addView(rlayout);
+                newpW += 10 * density;
+                totalprice += g.getprice() * g.getcount();
             }
         }
-    }
-
-    class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
-        List<SM_GoodsM> goodsMs;
-
-        public ProductAdapter(List<SM_GoodsM> sm_goodsMs) {
-            goodsMs = sm_goodsMs;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(getLayoutInflater().inflate(R.layout.lo_product_item,null,false));
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            ImageLoader.bindBitmap(goodsMs.get(position).getpic_url(), holder.iv_preview);
-            holder.txt_count.setText(String.valueOf(goodsMs.get(position).getcount()));
-        }
-
-        @Override
-        public int getItemCount() {
-            return goodsMs.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            ImageView iv_preview;
-            TextView txt_count;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                iv_preview=(ImageView)itemView.findViewById(R.id.iv_preview);
-                txt_count=(TextView)itemView.findViewById(R.id.txt_count);
-            }
-        }
+        txtprice.setText(decimalFormat.format(totalprice));
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(Math.max(newpW, parentW), Math.round(120 * density));
+        layout.setLayoutParams(layoutParams);
     }
 }

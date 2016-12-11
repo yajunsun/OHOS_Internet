@@ -13,7 +13,11 @@
 
     <TextView
         android:id="@+id/txt_count"
+        android:textColor="@color/solid_white"
+        android:background="@drawable/bg_circle_darkprimary"
         android:layout_width="20dp"
+        android:gravity="center"
+        android:visibility="gone"
         android:layout_height="20dp"
         android:layout_alignTop="@id/iv_preview"
         android:layout_marginLeft="-20dp"

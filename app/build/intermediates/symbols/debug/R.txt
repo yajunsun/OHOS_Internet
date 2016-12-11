@@ -1673,6 +1673,7 @@ int id ll_unget 0x7f0e0116
 int id ll_unpay 0x7f0e0114
 int id llabove 0x7f0e00e0
 int id llbottom 0x7f0e01c5
+int id llcontent 0x7f0e01c4
 int id llcount 0x7f0e0097
 int id llexpresstype 0x7f0e021c
 int id llinput 0x7f0e01b8
@@ -1800,7 +1801,6 @@ int id rv_products 0x7f0e013a
 int id rv_servetrace 0x7f0e012c
 int id rv_vegetable 0x7f0e00e6
 int id rvbussiness 0x7f0e0102
-int id rvproducts 0x7f0e01c4
 int id screen 0x7f0e0040
 int id scroll 0x7f0e0030
 int id scrollIndicatorDown 0x7f0e0066

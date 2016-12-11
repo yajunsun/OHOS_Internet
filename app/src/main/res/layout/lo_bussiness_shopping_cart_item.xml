@@ -36,18 +36,23 @@
     </RelativeLayout>
 
 
-    <!--<LinearLayout-->
-    <!--android:id="@+id/llcontent"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="100dp"-->
-    <!--android:background="@color/solid_white"-->
-    <!--android:orientation="horizontal"></LinearLayout>-->
-    <!---->
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvproducts"
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="120dp"></android.support.v7.widget.RecyclerView>
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:id="@+id/llcontent"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/solid_white"
+            android:orientation="horizontal"></LinearLayout>
+    </HorizontalScrollView>
+
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/rvproducts"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="120dp"></android.support.v7.widget.RecyclerView>-->
 
     <LinearLayout
         android:layout_width="match_parent"

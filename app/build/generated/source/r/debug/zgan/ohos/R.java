@@ -3761,6 +3761,7 @@ containing a value of this type.
         public static final int ll_unpay=0x7f0e0114;
         public static final int llabove=0x7f0e00e0;
         public static final int llbottom=0x7f0e01c5;
+        public static final int llcontent=0x7f0e01c4;
         public static final int llcount=0x7f0e0097;
         public static final int llexpresstype=0x7f0e021c;
         public static final int llinput=0x7f0e01b8;
@@ -3888,7 +3889,6 @@ containing a value of this type.
         public static final int rv_servetrace=0x7f0e012c;
         public static final int rv_vegetable=0x7f0e00e6;
         public static final int rvbussiness=0x7f0e0102;
-        public static final int rvproducts=0x7f0e01c4;
         public static final int screen=0x7f0e0040;
         public static final int scroll=0x7f0e0030;
         public static final int scrollIndicatorDown=0x7f0e0066;
