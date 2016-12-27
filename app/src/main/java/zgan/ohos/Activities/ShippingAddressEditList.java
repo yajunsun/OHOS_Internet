@@ -41,7 +41,7 @@ public class ShippingAddressEditList extends myBaseActivity implements View.OnCl
 
     @Override
     public void initView() {
-        setContentView(R.layout.activity_list_shipping_address);
+        setContentView(R.layout.activity_edit_list_shipping_address);
         View back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
