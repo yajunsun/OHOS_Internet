@@ -12,7 +12,7 @@
  *                                                                            *
  ******************************************************************************/
 
-package com.tutk.IOTC;
+package com.tutk.RDT;
 
 //base on struct st_SInfo of IOTCAPIs.h
 public class St_RDT_Status {

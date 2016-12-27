@@ -136,4 +136,7 @@ public final class resultCodes {
      * 二维码扫描
      * **/
     public final static int CODE2DSCAN=10032;
+    /**配送地址
+     * */
+    public final static int SHIPPINGADDRESS=10033;
 }

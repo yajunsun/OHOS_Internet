@@ -10,7 +10,7 @@
         android:name="android.test.InstrumentationTestRunner"
         android:functionalTest="false"
         android:handleProfiling="false"
-        android:label="Tests for com.tutk.IOTC.test"
+        android:label="Tests for com.tutk.RDT.test"
         android:targetPackage="com.tutk.IOTC.test" />
 
     <application>

@@ -1,4 +1,4 @@
-package com.tutk.IOTC;
+package com.tutk.RDT;
 
 import java.nio.ByteBuffer;
 import java.util.Collections;
@@ -24,7 +24,7 @@ import com.decoder.util.DecSpeex;
 import com.encoder.util.EncADPCM;
 import com.encoder.util.EncG726;
 import com.encoder.util.EncSpeex;
-import com.tutk.IOTC.AVIOCTRLDEFs.SMsgAVIoctrlAVStream;
+import com.tutk.RDT.AVIOCTRLDEFs.SMsgAVIoctrlAVStream;
 
 import net.iwebrtc.audioprocess.sdk.AudioProcess;
 

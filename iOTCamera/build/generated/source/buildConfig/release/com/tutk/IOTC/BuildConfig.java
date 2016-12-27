@@ -1,7 +1,7 @@
 /**
  * Automatically generated file. DO NOT MODIFY
  */
-package com.tutk.IOTC;
+package com.tutk.RDT;
 
 public final class BuildConfig {
   public static final boolean DEBUG = false;

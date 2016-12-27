@@ -11,7 +11,7 @@
  *                                                                            *
  ******************************************************************************/
 
-package com.tutk.IOTC;
+package com.tutk.RDT;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -33,7 +33,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
-import com.tutk.IOTC.AVIOCTRLDEFs.SMsgAVIoctrlPtzCmd;
+import com.tutk.RDT.AVIOCTRLDEFs.SMsgAVIoctrlPtzCmd;
 
 @SuppressLint("NewApi")
 public class Monitor extends SurfaceView implements SurfaceHolder.Callback, IRegisterIOTCListener, OnTouchListener, GestureDetector.OnGestureListener {

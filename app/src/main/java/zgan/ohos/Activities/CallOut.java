@@ -29,16 +29,12 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tutk.IOTC.Camera;
-import com.tutk.IOTC.HightRDTCamera;
-import com.tutk.IOTC.IRegisterIOTCListener;
-import com.tutk.IOTC.Monitor;
-import com.tutk.IOTC.NormalRDTCamera;
-import com.tutk.IOTC.RDTCamera;
-
-import java.security.Permission;
-import java.security.PermissionCollection;
-import java.security.Permissions;
+import com.tutk.RDT.Camera;
+import com.tutk.RDT.HightRDTCamera;
+import com.tutk.RDT.IRegisterIOTCListener;
+import com.tutk.RDT.Monitor;
+import com.tutk.RDT.NormalRDTCamera;
+import com.tutk.RDT.RDTCamera;
 
 import zgan.ohos.Models.FuncBase;
 import zgan.ohos.MyApplication;
@@ -141,6 +137,7 @@ public class CallOut extends myBaseActivity implements IRegisterIOTCListener, Vi
 
     private void connect() {
         RDTCamera.init();
+
         mSelectedChannel = 0;
         if (MyApplication.PhoneYear >= 2013) {
             mCamera = new HightRDTCamera("admin["

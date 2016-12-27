@@ -109,7 +109,7 @@
                     android:layout_height="200dp"
                     android:orientation="vertical">
 
-                    <com.tutk.IOTC.Monitor
+                    <com.tutk.RDT.Monitor
                         android:id="@+id/monitor"
                         android:layout_width="match_parent"
                         android:layout_height="200dp" />

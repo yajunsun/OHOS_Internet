@@ -11,7 +11,7 @@
  *                                                                            *
  ******************************************************************************/
 
-package com.tutk.IOTC;
+package com.tutk.RDT;
 
 import java.util.LinkedList;
 

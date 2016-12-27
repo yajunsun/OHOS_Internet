@@ -11,27 +11,19 @@ package com.iotc.sampleRDT;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.VideoView;
 
 import com.iotc.sampleRDT.Sample_RDTAPIs.MainHandler;
-import com.tutk.IOTC.AVFrame;
-import com.tutk.IOTC.AVFrameQueue;
-import com.tutk.IOTC.IOTCAPIs;
-import com.tutk.IOTC.RDTAPIs;
-import com.tutk.IOTC.St_RDT_Status;
-import com.tutk.IOTC.St_SInfo;
+import com.tutk.RDT.AVFrame;
+import com.tutk.RDT.AVFrameQueue;
+import com.tutk.RDT.IOTCAPIs;
+import com.tutk.RDT.RDTAPIs;
+import com.tutk.RDT.St_RDT_Status;
+import com.tutk.RDT.St_SInfo;
 
 public class CommApis {
     public static final int COMMAPIS_INVALID_PARA = -1000;

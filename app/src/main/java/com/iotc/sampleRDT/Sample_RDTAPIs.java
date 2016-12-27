@@ -24,26 +24,21 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.CharBuffer;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
-import com.tutk.IOTC.IOTCAPIs;
-import com.tutk.IOTC.RDTAPIs;
+import com.tutk.RDT.IOTCAPIs;
+import com.tutk.RDT.RDTAPIs;
 
 import android.app.Activity;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 public class Sample_RDTAPIs extends Activity {

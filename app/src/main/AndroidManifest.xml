@@ -435,7 +435,8 @@
         <activity android:name=".Activities.SM_OrderDetail" />
         <activity android:name=".Activities.SM_GoodsDetail" />
         <activity android:name=".Activities.MainShoppingCart" />
-        <activity android:name=".Activities.SecondShoppingCart"></activity>
+        <activity android:name=".Activities.SecondShoppingCart" />
+        <activity android:name=".Activities.AVITest"></activity>
     </application>
 
 </manifest>

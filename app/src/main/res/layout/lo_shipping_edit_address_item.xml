@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/solid_white"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/txt_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txt_userphone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alignParentRight="true" />
+
+    <TextView
+        android:id="@+id/txt_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:below="@id/txt_username"
+        android:marginTop="10dp" />
+
+    <LinearLayout
+        android:id="@+id/llsplit"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/solid_black"
+        android:orientation="vertical"></LinearLayout>
+
+    <CheckBox
+        android:id="@+id/cb_isuse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:below="@id/llsplit" />
+
+    <TextView
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alignParentRight="true"
+        android:alignTopOf="@id/cb_isuse"
+        android:text="É¾³ý" />
+
+    <TextView
+        android:id="@+id/btn_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alignTopOf="@id/cb_isuse"
+        android:marginRight="10dp"
+        android:text="±à¼­"
+        android:toLeftOf="@id/btn_delete" />
+</RelativeLayout>

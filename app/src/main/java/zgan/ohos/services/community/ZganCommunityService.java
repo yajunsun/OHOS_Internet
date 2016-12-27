@@ -14,13 +14,10 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.tutk.IOTC.Camera;
-import com.tutk.IOTC.RDTCamera;
+import com.tutk.RDT.RDTCamera;
 
 import zgan.ohos.MyApplication;
-import zgan.ohos.utils.DataCacheHelper;
 import zgan.ohos.utils.Frame;
-import zgan.ohos.utils.ImageLoader;
 import zgan.ohos.utils.LocationUtil;
 import zgan.ohos.utils.PreferenceUtil;
 import zgan.ohos.utils.SystemUtils;

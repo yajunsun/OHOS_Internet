@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.tutk.IOTC.test;
+package com.tutk.RDT.test;
 
 public final class R {
     public static final class attr {

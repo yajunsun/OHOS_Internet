@@ -15,7 +15,7 @@
 
  ******************************************************************************/
 
-package com.tutk.IOTC;
+package com.tutk.RDT;
 
 import android.R.integer;
 
