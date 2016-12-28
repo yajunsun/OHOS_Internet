@@ -89,6 +89,8 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
     TextView gdcount, totalpay;
     TextView btncheck;
 
+    //地址栏
+    View laddress;
     ImageLoader imageLoader;
     Dialog paymentSelectDialog;
     Dialog dialog;
@@ -99,6 +101,8 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
     String mTotalprice = "0";
     String OrderSN = "";
     int lbpxWidth = 0, lbpxHeight = 0;
+    ShippingAddressModel shippingAddress;
+    
 
     @Override
     protected void initView() {
@@ -114,7 +118,8 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
         txt_payfee = (TextView) findViewById(R.id.txt_payfee);
         rvcarts = (RecyclerView) findViewById(R.id.rv_cart);
         cartLayoutManager = new LinearLayoutManager(CommitCartOrder.this);
-
+        laddress=findViewById(R.id.laddress);
+        laddress.setOnClickListener(this);
         density = AppUtils.getDensity(CommitCartOrder.this);
         lbpxWidth = Math.round(40 * density);
         lbpxHeight = Math.round(20 * density);
@@ -545,6 +550,11 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
                 startActivityWithAnim(intent);
                 finish();
                 break;
+            case R.id.laddress:
+                intent=new Intent(CommitCartOrder.this,ShippingAddressList);
+                intent.putBooleanExtra("return",true);
+                startActivityForResult(intent,resultCodes.RETURNSHIPPINGADDRESS);
+                break;
         }
     }
 
@@ -553,7 +563,20 @@ public class CommitCartOrder extends myBaseActivity implements View.OnClickListe
         ViewClick(v);
     }
 
-
+    @verride
+    public void onActivityResult(int requestCode,int resultCode,Intent data)
+    {
+        super.onActivityResult(requestCode,resultCode,data);
+        if (resultCode==resultCodes.RETURNSHIPPINGADDRESS);
+        {
+        if (data.hasExtra("shippingAdress")
+            {
+          shippingAdress=(ShippingAddressModel)data.getSerializableExtras("shippingAdress");
+          txt_addr.setText(shippingAddress.getUserAddress());
+          txt_phone.setText(shippingAddress.getUserPhone());
+        }
+    }
+    }
     @Override
     protected void onDestroy() {
         unregisterReceiver(wxpayreceiver);
