@@ -82,6 +82,7 @@
                 android:id="@+id/laddress"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
+                android:clickable="true"
                 android:orientation="vertical"
                 android:padding="10dp">
 
